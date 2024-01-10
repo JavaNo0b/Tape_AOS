@@ -19,19 +19,10 @@ class ReplyAdapter(private val replies : List<Reply>) : RecyclerView.Adapter<Rep
         var text = view.findViewById<TextView>(R.id.reply_text_tv)
 
         init{
-            var delete = view.findViewById<ImageView>(R.id.reply_delete_btn)
             var edit = view.findViewById<ImageView>(R.id.reply_edit_btn)
 
             val pref = view.context.getSharedPreferences("reply", Context.MODE_PRIVATE)
-            //댓글 삭제
-            delete.setOnClickListener {
-                text.text = ""
 
-                Reply.removeReplyFromPreferences(pref, absoluteAdapterPosition)
-                reply.text = ""
-
-                Toast.makeText(it.context,"댓글이 삭제 되었음 ",Toast.LENGTH_SHORT).show()
-            }
 
         }
         fun bind(reply : Reply){

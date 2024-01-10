@@ -44,7 +44,7 @@ class TapeFragment : Fragment() {
             transaction.commit()
         }
 
-        binding.tapeTapelistRv.setOnClickListener{
+        binding.tapeTapeimage.setOnClickListener{
             startActivity(Intent(requireContext(), AlbumActivity::class.java))
         }
         

@@ -39,7 +39,7 @@
 
     <LinearLayout
         android:id="@+id/album_youtube_btn"
-        android:layout_width="280dp"
+        android:layout_width="249dp"
         android:layout_height="45dp"
         android:background="@drawable/btn_rounded_red"
         app:layout_constraintStart_toStartOf="@id/album_includedsongs_vp"
@@ -112,7 +112,7 @@
     
     <TextView
         android:id="@+id/album_comment_tv"
-        android:layout_width="235dp"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:text="comment\ncomment\ncomment\ncomment"
         android:background="@drawable/rounded_comment_box"

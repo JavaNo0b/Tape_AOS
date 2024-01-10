@@ -32,7 +32,7 @@ class OnboardActivity : AppCompatActivity() {
         // button과 viewpager 연결하기 : 다음 뷰페이저로 이동
         binding.onboardButtonBtn.setOnClickListener {
             if(binding.onboardViewpagerVp.currentItem==4){
-                startActivity(Intent(this, NextActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             else{

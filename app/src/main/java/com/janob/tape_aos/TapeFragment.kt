@@ -1,12 +1,12 @@
 package com.janob.tape_aos
+
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -38,12 +38,15 @@ class TapeFragment : Fragment() {
         replies = Reply.getReplyFromPreferences(pref)
 
         //일단 텍스트 클릭하면 댓글로 이동함
-        binding.clickTv.setOnClickListener{
+        binding.tapeTodaytape.setOnClickListener{
             val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.main_fm, ReplyListFragment())
             transaction.commit()
         }
-        
+
+        binding.tapeTapelistRv.setOnClickListener{
+            startActivity(Intent(requireContext(), AlbumActivity::class.java))
+        }
         
 
         //메인 tape 리사이클러뷰 데이터

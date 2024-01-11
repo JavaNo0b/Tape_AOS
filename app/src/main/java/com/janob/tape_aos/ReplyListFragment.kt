@@ -1,12 +1,10 @@
 package com.janob.tape_aos
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.janob.tape_aos.databinding.FragmentReplyListBinding
@@ -20,12 +18,12 @@ class ReplyListFragment : Fragment() {
     ): View? {
         val binding = FragmentReplyListBinding.inflate(layoutInflater)
 
-        //더미데이터 가져오기
-        val pref = (context as MainActivity).getSharedPreferences("reply", AppCompatActivity.MODE_PRIVATE)
-        val replies = Reply.getReplyFromPreferences(pref)
+        //roomDB에서 데이터 가져오기
+        var tapeReplyData = TapeDatabase.Instance(context as MainActivity).replyDao().getAll()
+
         //리사이클러뷰에 데이터 연결
         val manager = LinearLayoutManager(context)
-        val adapter = ReplyAdapter(replies)
+        val adapter = ReplyAdapter(tapeReplyData)
 
         val recyclerView = binding.replyRecyclerView
         recyclerView.setHasFixedSize(false)
@@ -36,9 +34,7 @@ class ReplyListFragment : Fragment() {
         binding.editTextEt.setOnFocusChangeListener{view , hasFocus ->
             Toast.makeText(context, "포커스 변경 $hasFocus", Toast.LENGTH_SHORT).show()
         }
-       binding.editTextBtn.setOnClickListener {
-           Reply.saveReplyFromPreferences(pref,0,"새로운 댓글을 등록하였습니다 ")
-       }
+
 
         return binding.root
     }

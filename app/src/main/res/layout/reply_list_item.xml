@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/user_profile_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:clipToOutline="true"
+        android:background="@drawable/prof2_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
@@ -24,13 +26,14 @@
         android:layout_marginStart="6dp"
         android:text="Min_SEO!"
         android:textStyle="bold"
+        android:textSize="11.5sp"
         android:textColor="@color/black"
         android:textAlignment="center"/>
     <ImageView
         android:id="@+id/mark_writer_iv"
         android:layout_width="38dp"
         android:layout_height="17dp"
-        android:src="@drawable/rectangle_34624813"
+        android:src="@drawable/border_red"
         app:layout_constraintStart_toEndOf="@id/user_profile_tv"
         app:layout_constraintTop_toTopOf="@id/user_profile_tv"
         android:layout_marginStart="4dp"/>
@@ -53,7 +56,7 @@
         android:layout_width="2dp"
         android:layout_height="12dp"
         android:scaleType="fitXY"
-        android:src="@drawable/group_390"
+        android:src="@drawable/btn_etc"
         app:layout_constraintEnd_toEndOf="@id/reply_background_iv"
         app:layout_constraintTop_toTopOf="@id/user_profile_tv"
         android:layout_marginTop="2dp"/>
@@ -63,10 +66,9 @@
 
     <ImageView
         android:id="@+id/reply_background_iv"
-        android:layout_width="328dp"
-        android:layout_height="70dp"
-        android:src="@drawable/rectangle_34624795"
-        android:scaleType="fitXY"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tape_back_rounded"
         app:layout_constraintStart_toEndOf="@id/user_profile_iv"
         app:layout_constraintTop_toBottomOf="@id/user_profile_tv"
         android:layout_marginTop="6dp"
@@ -74,15 +76,16 @@
 
     <TextView
         android:id="@+id/reply_text_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="179dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/reply_background_iv"
         app:layout_constraintTop_toTopOf="@id/reply_background_iv"
         android:layout_marginTop="2dp"
+        android:layout_marginStart="2dp"
         android:paddingTop="3dp"
         android:paddingLeft="3dp"
         android:text="겨울에 듣기 좋은 노래.."
-        android:textSize="12sp"
+        android:textSize="9.5sp"
         android:textColor="@color/black"
         />
 

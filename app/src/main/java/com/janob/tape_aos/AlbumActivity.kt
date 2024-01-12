@@ -42,6 +42,18 @@ class AlbumActivity : AppCompatActivity() {
                 page.translationX = myOffset
             }
         }
+
+        binding.albumCommentBtn.setOnClickListener{
+            var replyListFragment = ReplyListFragment()
+//            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.main_fm, ReplyListFragment())
+//            transaction.commit()
+            var bundle = Bundle() //Bundle 객체 생성 및 데이터 저장
+            replyListFragment.arguments = bundle //fragment의 arguments에 데이터를 담은 bundle을 넘겨줌
+            supportFragmentManager!!.beginTransaction()
+                .replace(R.layout.activity_album, replyListFragment)
+                .commit()
+        }
     }
 
     fun setDummyIncludedSong(){

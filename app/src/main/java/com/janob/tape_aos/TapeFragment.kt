@@ -36,13 +36,13 @@ class TapeFragment : Fragment() {
         pref = this.requireActivity().getSharedPreferences("reply", AppCompatActivity.MODE_PRIVATE)
         initDummy()
         replies = Reply.getReplyFromPreferences(pref)
-
-        //일단 텍스트 클릭하면 댓글로 이동함
-        binding.tapeTodaytape.setOnClickListener{
-            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_fm, ReplyListFragment())
-            transaction.commit()
-        }
+//
+//        //일단 텍스트 클릭하면 댓글로 이동함
+//        binding.tapeTodaytape.setOnClickListener{
+//            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.main_fm, ReplyListFragment())
+//            transaction.commit()
+//        }
 
         binding.tapeTapeimage.setOnClickListener{
             startActivity(Intent(requireContext(), AlbumActivity::class.java))

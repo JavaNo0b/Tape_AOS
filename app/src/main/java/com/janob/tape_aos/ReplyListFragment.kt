@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class ReplyListFragment : Fragment() {
        binding.editTextBtn.setOnClickListener {
            Reply.saveReplyFromPreferences(pref,0,"새로운 댓글을 등록하였습니다 ")
        }
+        binding.replyBackIv.setOnClickListener { startActivity(Intent(requireContext(), AlbumActivity::class.java)) }
 
         return binding.root
     }

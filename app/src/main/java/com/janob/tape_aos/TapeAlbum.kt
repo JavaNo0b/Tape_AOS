@@ -5,6 +5,13 @@ data class TapeAlbum(
     var singer : String = "",
     var userName : String = "",
     var albumCover : Int ?= null,
-    var userImage : Int ?= null   //유저 동그라미 화면
+    var userImage : Int ?= null,   //유저 동그라미 화면
+//    var includedSongs: ArrayList<IncludedSong>
+)
 
+data class IncludedSong(
+    val songIdx:Int,
+    val coverImg:Int,
+    val title:String,
+    val singer:String,
 )

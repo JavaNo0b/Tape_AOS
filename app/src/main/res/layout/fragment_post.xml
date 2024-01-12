@@ -4,13 +4,155 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <TextView
+        android:id="@+id/title_post_tape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="포스트"
+        android:text="Tape 등록"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="56dp"/>
+    <ImageView
+        android:id="@+id/btn_post_tape_back"
+        android:layout_width="12dp"
+        android:layout_height="21dp"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_post_tape"
+        android:layout_marginStart="16dp"/>
+    <TextView
+        android:id="@+id/head_post_tape"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="어떤 테이프를\n 만들고 싶으신가요?"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_post_tape"
+        android:layout_marginTop="56dp"/>
+    <ImageView
+        android:id="@+id/background_single_tape"
+        android:layout_width="328dp"
+        android:layout_height="116dp"
+        android:src="@drawable/btn_select_inactive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/head_post_tape"
+        android:layout_marginTop="56dp"/>
+    <TextView
+        android:id="@+id/text_single_tape"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:text="싱글"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/background_single_tape"
+        app:layout_constraintTop_toTopOf="@id/background_single_tape"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="29dp"/>
+    <TextView
+        android:id="@+id/text_desc_single_tape"
+        android:layout_width="190dp"
+        android:layout_height="16dp"
+        app:layout_constraintTop_toBottomOf="@id/text_single_tape"
+        app:layout_constraintStart_toStartOf="@id/text_single_tape"
+        android:text="1개의 음악만 담겨있는 Tape"
+        android:textSize="11.5sp"
+        android:textColor="@color/black"/>
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/eclipse_72"
+        app:layout_constraintStart_toEndOf="@id/text_desc_single_tape"
+        app:layout_constraintTop_toTopOf="@id/background_single_tape"
+        app:layout_constraintBottom_toBottomOf="@id/background_single_tape"
+        />
+    <ImageView
+        android:id="@+id/note1"
+        android:layout_width="37dp"
+        android:layout_height="45dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/note"
+        app:layout_constraintTop_toTopOf="@id/background_single_tape"
+        app:layout_constraintBottom_toBottomOf="@id/background_single_tape"
+        app:layout_constraintStart_toEndOf="@id/text_desc_single_tape"/>
+    <ImageView
+        android:layout_width="19dp"
+        android:layout_height="23dp"
+        android:src="@drawable/note2"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toEndOf="@id/note1"
+        app:layout_constraintTop_toTopOf="@id/background"/>
+
+
+
+
+
+    <ImageView
+        android:id="@+id/background_album_tape"
+        android:layout_width="328dp"
+        android:layout_height="116dp"
+        android:src="@drawable/btn_select_inactive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/background_single_tape"
+        android:layout_marginTop="26dp"/>
+    <TextView
+        android:id="@+id/text_album_tape"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:text="앨범"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/background_album_tape"
+        app:layout_constraintTop_toTopOf="@id/background_album_tape"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="29dp"/>
+    <TextView
+        android:id="@+id/text_desc_album_tape"
+        android:layout_width="190dp"
+        android:layout_height="16dp"
+        app:layout_constraintTop_toBottomOf="@id/text_album_tape"
+        app:layout_constraintStart_toStartOf="@id/text_album_tape"
+        android:text="여러개의 음악이 담겨있는 Tape"
+        android:textSize="11.5sp"
+        android:textColor="@color/black"/>
+    <ImageView
+        android:id="@+id/background2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/eclipse_72"
+        app:layout_constraintStart_toEndOf="@id/text_desc_album_tape"
+        app:layout_constraintTop_toTopOf="@id/background_album_tape"
+        app:layout_constraintBottom_toBottomOf="@id/background_album_tape"
+        />
+
+    <ImageView
+        android:layout_width="68dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="9dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_tape"
+        app:layout_constraintEnd_toEndOf="@id/background2"
+        app:layout_constraintTop_toTopOf="@id/background2" />
+
+    <ImageView
+        android:id="@+id/btn_post_continue"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/btn_continue_inactive"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ data class TapeAlbum(
     var albumCover : Int ?= null,
       //유저 동그라미 화면
     var userImage : Int ?= null,
+    var isLike: Boolean = false,
     @PrimaryKey(autoGenerate = true) var id : Long? = null,
 
 )

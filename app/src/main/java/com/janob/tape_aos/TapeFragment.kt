@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -28,20 +29,32 @@ class TapeFragment : Fragment() {
             transaction.replace(R.id.main_fm, ReplyListFragment())
             transaction.commit()
         }
-
-        binding.tapeTapeimage.setOnClickListener{
-            startActivity(Intent(requireContext(), AlbumActivity::class.java))
-        }
         
 
         //roomDB에서 데이터 가져오기
-        var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).albumDao().getAll()
+        val tapeAlbumData = TapeDatabase.Instance(context as MainActivity).albumDao().getAll()
         //리사이클러뷰 어댑터
         val tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapeAlbumData, requireContext())
         binding.tapeTapelistRv.adapter=tapeAlbumRVAdapter
         binding.tapeTapelistRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        tapeAlbumRVAdapter.setMyItemClickLitner(object: TapeAlbumRVAdapter.MyItemClickListner {
+            override fun onItemClick(album: TapeAlbum) {
+                changeAlbumFragment(album)
+            }
+        })
+
+
         return binding.root
+    }
+
+    private fun changeAlbumFragment(album: TapeAlbum){
+        val intent = Intent(activity,AlbumActivity::class.java)
+        intent.apply {
+            this.putExtra("albumId",album.id) // 데이터 넣기
+        }
+        Log.d("position", album.id.toString())
+        startActivity(intent)
     }
 
 }

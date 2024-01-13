@@ -16,4 +16,6 @@ interface AlbumDao {
     fun delete(tapeAlbum: TapeAlbum)
     @Query("SELECT * FROM album")
     fun getAll() : List<TapeAlbum>
+//    @Query("UPDATE SongTable SET isLike = :isLike WHERE id = :id")
+//    fun updateIsLikeById(isLike: Boolean,id: Int)
 }

@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities=[Reply::class, TapeAlbum::class], version = 1)
+@Database(entities=[Reply::class, TapeAlbum::class, IncludedSong::class], version = 1)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가
     abstract fun replyDao() : ReplyDao
     abstract fun albumDao() : AlbumDao
+    abstract fun songDao() : SongDao
 
     companion object{
 

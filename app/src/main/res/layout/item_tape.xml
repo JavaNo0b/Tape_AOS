@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="21dp">
+    android:layout_marginTop="21dp"
+    android:id="@+id/item_tape">
 
 
     <androidx.cardview.widget.CardView
@@ -35,9 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Broken Melodies"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:textColor="@color/black"
+        style="@style/TextRegularBold"
         android:layout_marginStart="12dp"
         app:layout_constraintStart_toEndOf="@id/item_tape_albumcover_img_cardView"
         app:layout_constraintTop_toTopOf="parent"
@@ -73,9 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="music_play"
+        style="@style/TextSmallBold"
         android:textSize="10sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:layout_marginStart="41dp"
         android:layout_marginTop="11.42dp"
         app:layout_constraintStart_toEndOf="@id/item_tape_albumcover_img_cardView"

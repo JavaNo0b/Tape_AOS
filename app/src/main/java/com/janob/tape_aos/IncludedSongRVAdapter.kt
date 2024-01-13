@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemSongcoverBinding
 
-class IncludedSongRVAdapter(private val songsList: ArrayList<IncludedSong>): RecyclerView.Adapter<IncludedSongRVAdapter.ViewHolder>() {
+class IncludedSongRVAdapter(private val songsList: List<IncludedSong>): RecyclerView.Adapter<IncludedSongRVAdapter.ViewHolder>() {
 
     interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
 //        fun onPlayClick(song: Songs)
@@ -34,7 +34,7 @@ class IncludedSongRVAdapter(private val songsList: ArrayList<IncludedSong>): Rec
         fun bind(song: IncludedSong){
             binding.itemSongcoverTitleTv.text = song.title
             binding.itemSongcoverSingerTv.text = song.singer
-            binding.itemSongcoverCoverimgIv.setImageResource(song.coverImg)
+            binding.itemSongcoverCoverimgIv.setImageResource(song.img!!)
         }
     }
 

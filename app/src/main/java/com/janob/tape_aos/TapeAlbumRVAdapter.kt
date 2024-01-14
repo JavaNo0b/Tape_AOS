@@ -1,22 +1,16 @@
 package com.janob.tape_aos
 
 import android.content.Context
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.PopupWindow
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.janob.tape_aos.databinding.CustomTapePopupMenuBinding
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
 
-
-class TapeAlbumRVAdapter(private val TapeAlbumList : ArrayList<TapeAlbum>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
+class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
 
 
 

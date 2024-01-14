@@ -34,7 +34,7 @@ class TapeFragment : Fragment() {
         }
         
 
-        //roomDB에서 데이터 가져오기
+        //db 데이터 가져오기
         var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).albumDao().getAll()
         //리사이클러뷰 어댑터
         val tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapeAlbumData, requireContext())

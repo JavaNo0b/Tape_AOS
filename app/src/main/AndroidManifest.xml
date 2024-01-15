@@ -27,6 +27,8 @@
             android:exported="true"/>
         <activity android:name=".NextActivity"
             android:exported="true"/>
+        <activity android:name=".ReplyActivity"/>
+        <activity android:name=".ReplyModifyActivity"/>
     </application>
 
 </manifest>

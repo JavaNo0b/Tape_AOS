@@ -31,7 +31,6 @@ class PostFm1Fragment : Fragment() {
     ): View? {
         var binding = FragmentPostFm1Binding.inflate(inflater,container,false)
 
-
         //버튼 활성화
         binding.btnViewContainer.setOnClickListener{
             binding.btnPostContinue.setImageResource(R.drawable.btn_continue_active)

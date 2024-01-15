@@ -1,23 +1,29 @@
 package com.janob.tape_aos
 
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ReplyAdapter(replies : List<Reply>) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
+class ReplyAdapter(val replies : List<Reply>, val activity: ReplyActivity) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
 
     private val dataList = replies
 
-    class ReplyItemViewHolder(val view : View) : RecyclerView.ViewHolder(view)
+    class ReplyItemViewHolder(val view : View, val activity: ReplyActivity) : RecyclerView.ViewHolder(view)
     {
         lateinit var reply : Reply
-        //댓글 누르면 수정/삭제 프래그먼트로 전환
         init{
 
+            //클릭한 댓글만 수정
+            view.setOnClickListener{
+                val intent = Intent(it.context,ReplyModifyActivity::class.java)
+                intent.putExtra("reply",reply)
+
+                activity.startActivity(intent)
+
+            }
         }
         fun bind(reply : Reply){
             this.reply = reply
@@ -31,7 +37,7 @@ class ReplyAdapter(replies : List<Reply>) : RecyclerView.Adapter<ReplyAdapter.Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReplyItemViewHolder {
         //item view
         val view = LayoutInflater.from(parent.context).inflate(viewType,parent,false)
-        return ReplyItemViewHolder(view)
+        return ReplyItemViewHolder(view,activity)
     }
 
     override fun getItemCount(): Int {

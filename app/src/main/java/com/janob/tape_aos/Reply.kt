@@ -1,38 +1,44 @@
 package com.janob.tape_aos
 
-import android.content.SharedPreferences
-import java.util.prefs.Preferences
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class Reply(val idx: Int, var text :String){
 
-    companion object{
-        //댓글을 저장하고 수정하는 함수
-        fun saveReplyFromPreferences(pref : SharedPreferences, idx : Int, text : String) : Reply{
-            val editor = pref.edit()
+@Entity(tableName="Reply")
+data class Reply(var idx: Int,
+                 var text: String?,
+                 @PrimaryKey(autoGenerate = true)
+                 var id:Long? = null) : Parcelable{
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readValue(Long::class.java.classLoader) as? Long
+    ) {
+    }
 
-            editor.putString("${idx}.text", text)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(idx)
+        parcel.writeString(text)
+        parcel.writeValue(id)
+    }
 
-            editor.apply()
+    override fun describeContents(): Int {
+        return 0
+    }
 
-            return Reply(idx, text)
+    companion object CREATOR : Parcelable.Creator<Reply> {
+        override fun createFromParcel(parcel: Parcel): Reply {
+            return Reply(parcel)
         }
-        //댓글 리스트를 불러오는 함수
-        fun getReplyFromPreferences(pref : SharedPreferences) : MutableList<Reply> {
-            var replies = mutableListOf<Reply>()
 
-            for (i in 0 until 10){
-                val text = pref.getString("${i}.text","")!!
-                if(text.isNotBlank()){
-                    replies.add(Reply(i,text))
-                }
-            }
-            return replies
-        }
-        //댓글 삭제하는 함수
-        fun removeReplyFromPreferences(pref : SharedPreferences, idx :Int){
-            val editor = pref.edit()
-            editor.remove("${idx}.text")
-            editor.apply()
+        override fun newArray(size: Int): Array<Reply?> {
+            return arrayOfNulls(size)
         }
     }
+
 }
+
+
+

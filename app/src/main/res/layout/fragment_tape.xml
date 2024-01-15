@@ -7,6 +7,18 @@
     tools:context=".TapeFragment"
     android:background="@color/white">
 
+    <Button
+        android:id="@+id/button"
+        android:textSize="8sp"
+        android:text="버튼"
+        android:textStyle="bold"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"/>
+
     <ImageView
         android:id="@+id/tape_title"
         android:src="@drawable/tape_title"
@@ -16,16 +28,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"/>
-
-    <ImageView
-        android:id="@+id/tape_setting"
-        android:src="@drawable/tape_alarm_bell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="44dp" />
 
     <TextView
         android:id="@+id/tape_todaytape"
@@ -56,10 +58,10 @@
         android:src="@drawable/tape_question_mark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tape_setting"
+        app:layout_constraintTop_toTopOf="@id/tape_todaytape"
+        app:layout_constraintBottom_toBottomOf="@id/tape_todaytape"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="31dp"
         />
 
 

@@ -13,6 +13,8 @@ import java.lang.Math.abs
 class AlbumFragment : Fragment() {
     lateinit var binding: FragmentAlbumBinding
     lateinit var includedSongsData: List<IncludedSong>
+    lateinit var tapeData: TapeAlbum
+    var albumId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,8 +22,14 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAlbumBinding.inflate(layoutInflater)
+        albumId = arguments?.getInt("albumId")!!
+        tapeData = TapeDatabase.Instance(requireContext()).albumDao().getAlbum(albumId)
 
-        setDummyIncludedSong()
+
+        setDummyIncludedSong(albumId)
+
+
+        binding.albumTapeTitleTv.text = tapeData.tapeTitle
 
         val includedSongRVAdapter = IncludedSongRVAdapter(includedSongsData)
         binding.albumIncludedsongsVp.adapter = includedSongRVAdapter
@@ -59,8 +67,7 @@ class AlbumFragment : Fragment() {
         return binding.root
     }
 
-    fun setDummyIncludedSong(){
-        val albumId = arguments?.getInt("albumId")
+    fun setDummyIncludedSong(albumId: Int){
         val songDB = TapeDatabase.Instance(requireContext())
         includedSongsData = songDB.songDao().getSongsInAlbum(albumId!!)
     }

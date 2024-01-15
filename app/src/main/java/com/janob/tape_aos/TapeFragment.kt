@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,6 +37,8 @@ class TapeFragment : Fragment() {
             }
         })
 
+        binding.button.setOnClickListener { buttonClick() }
+
 
         return binding.root
     }
@@ -47,6 +50,22 @@ class TapeFragment : Fragment() {
         }
         Log.d("position1", album.id.toString()) //album.id
         startActivity(intent)
+    }
+
+    private fun buttonClick(){
+        if(binding.tapeTapeLayout.visibility == View.VISIBLE){
+            binding.tapeTapeLayout.visibility = View.GONE
+            binding.tapeTapelistRv.visibility = View.GONE
+
+            binding.tapeMaketapePlusLayout.visibility = View.VISIBLE
+            binding.tapeTapelistZero.visibility = View.VISIBLE
+        }else{
+            binding.tapeTapeLayout.visibility = View.VISIBLE
+            binding.tapeTapelistRv.visibility = View.VISIBLE
+
+            binding.tapeMaketapePlusLayout.visibility = View.GONE
+            binding.tapeTapelistZero.visibility = View.GONE
+        }
     }
 
 }

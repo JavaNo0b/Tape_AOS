@@ -94,11 +94,13 @@
     <ImageView
         android:id="@+id/item_tape_tapemore_iv"
         android:src="@drawable/tape_song_more"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_tape_albumcover_img_cardView"
-        android:layout_marginStart="275dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="5dp"
+        android:elevation="5dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,7 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
             val popupView = inflater.inflate(R.layout.custom_tape_popup_menu, null)
 
             val width = 163.dpToPx(context)
-            val height = 61.dpToPx(context)
+            val height = 30.dpToPx(context)
 
             val popupWindow = PopupWindow(popupView, width, height, true)
             popupWindow.showAsDropDown(view, 0, 0)

@@ -21,14 +21,6 @@ class TapeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTapeBinding.inflate(layoutInflater)
-
-
-        //일단 텍스트 클릭하면 댓글로 이동함
-        binding.tapeTodaytape.setOnClickListener{
-            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_fm, ReplyListFragment())
-            transaction.commit()
-        }
         
 
         //roomDB에서 데이터 가져오기
@@ -40,7 +32,7 @@ class TapeFragment : Fragment() {
 
         tapeAlbumRVAdapter.setMyItemClickLitner(object: TapeAlbumRVAdapter.MyItemClickListner {
             override fun onItemClick(album: TapeAlbum) {
-                changeAlbumFragment(album)
+                changeAlbumActivity(album)
             }
         })
 
@@ -48,12 +40,12 @@ class TapeFragment : Fragment() {
         return binding.root
     }
 
-    private fun changeAlbumFragment(album: TapeAlbum){
+    private fun changeAlbumActivity(album: TapeAlbum){
         val intent = Intent(activity,AlbumActivity::class.java)
         intent.apply {
             this.putExtra("albumId",album.id) // 데이터 넣기
         }
-        Log.d("position", album.id.toString())
+        Log.d("position1", album.id.toString()) //album.id
         startActivity(intent)
     }
 

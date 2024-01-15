@@ -1,9 +1,11 @@
 package com.janob.tape_aos
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
 import java.lang.Math.abs
@@ -42,6 +44,17 @@ class AlbumFragment : Fragment() {
                 page.alpha = 0f
                 page.translationX = myOffset
             }
+        }
+
+
+        //댓글 액티비티로 이동
+        binding.albumCommentBtn.setOnClickListener {
+
+            Toast.makeText(requireContext(),"댓글 액티비티으로 이동 ",Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(activity, ReplyActivity::class.java)
+            startActivity(intent)
+
         }
         return binding.root
     }

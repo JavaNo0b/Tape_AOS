@@ -46,49 +46,49 @@ class MainActivity : AppCompatActivity() {
             TapeAlbum("Thirsty",
                 "aepsa",
                 "K_pop_lover",
-                R.drawable.albumcover_5,
+                R.drawable.album_1,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("와르르",
                 "Colde",
                 "music_play",
-                R.drawable.albumcover_5,
+                R.drawable.album_2,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("Broken Melodies",
                 "NCT DREAM",
                 "music_play",
-                R.drawable.albumcover_5,
+                R.drawable.album_3,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("Thirsty",
                 "aepsa",
                 "K_pop_lover",
-                R.drawable.albumcover_5,
+                R.drawable.album_4,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("와르르",
                 "Colde",
                 "music_play",
-                R.drawable.albumcover_5,
+                R.drawable.album_1,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("Broken Melodies",
                 "NCT DREAM",
                 "music_play",
-                R.drawable.albumcover_5,
+                R.drawable.album_2,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(
             TapeAlbum("Thirsty",
                 "aepsa",
                 "K_pop_lover",
-                R.drawable.albumcover_5,
+                R.drawable.album_3,
                 R.drawable.albumcover_5)
         )
         tapeDB.albumDao().insert(

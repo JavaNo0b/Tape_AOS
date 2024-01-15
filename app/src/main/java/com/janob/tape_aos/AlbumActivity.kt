@@ -9,19 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.janob.tape_aos.databinding.ActivityAlbumBinding
 import java.lang.Math.abs
+import kotlin.properties.Delegates
 
 class AlbumActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAlbumBinding
-
+    var albumId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAlbumBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val albumId = intent.getIntExtra("albumId", 2)
-        Log.d("position", albumId.toString())
-
+        albumId = intent.getLongExtra("albumId", 0).toInt()
+        Log.d("position2", albumId.toString()) //0
         initAlbumFragment(albumId)
 
     }

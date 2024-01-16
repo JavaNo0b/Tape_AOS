@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -81,17 +80,29 @@
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="52dp"
+        android:layout_width="102dp"
         android:layout_height="18dp"
         app:layout_constraintTop_toTopOf="@id/btn_post_continue"
         app:layout_constraintBottom_toBottomOf="@id/btn_post_continue"
         app:layout_constraintStart_toStartOf="@id/btn_post_continue"
         app:layout_constraintEnd_toEndOf="@id/btn_post_continue"
-        android:text="계속하기"
-        android:textColor="@color/white"
+        android:text="총    곡 선택이 됨 "
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="11.5sp"/>
+        android:textSize="13.5sp"/>
+
+    <TextView
+        android:id="@+id/song_count_tv"
+        android:layout_width="15dp"
+        android:layout_height="18dp"
+        app:layout_constraintStart_toStartOf="@id/text"
+        app:layout_constraintTop_toTopOf="@id/text"
+        android:layout_marginStart="16dp"
+        android:textColor="#FF5E5E"
+        android:text="0"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
 
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
     <TextView
         android:id="@+id/title_post_tape"
         android:layout_width="wrap_content"
@@ -24,65 +24,80 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/title_post_tape"
         android:layout_marginStart="16dp"/>
-    <ImageView
-        android:id="@+id/song_iv"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:src="@drawable/album_4"
-        android:background="@drawable/layout_background_shape_4"
-        android:clipToOutline="true"
+    <TextView
+        android:id="@+id/pick_tv"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_post_tape"
-        android:layout_marginTop="38dp"/>
-    <TextView
-        android:id="@+id/song_title_tv"
-        android:layout_width="171dp"
-        android:layout_height="22dp"
-        android:text="우리 서로 사랑하지는 말자"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/song_iv"
-        android:layout_marginTop="19dp"/>
-    <TextView
-        android:id="@+id/song_singer_tv"
-        android:layout_width="81dp"
-        android:layout_height="21dp"
-        android:text="기리보이"
-        android:textColor="@color/darkGray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/song_title_tv"
-        android:textAlignment="center"
-        android:layout_marginTop="3dp"/>
+        android:textSize="21sp"
+        android:text="대표 이미지를\n 선택해 주세요"
+        android:layout_marginTop="126dp"/>
     <ImageView
-        android:id="@+id/comment_background"
-        android:layout_width="328dp"
-        android:layout_height="159dp"
-        android:src="@drawable/rec_comment"
+        android:id="@+id/background_photo"
+        android:layout_width="138dp"
+        android:layout_height="138dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/song_singer_tv"
-        android:layout_marginTop="42dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="217dp"
+        android:src="@drawable/square_bg"/>
+    <ImageView
+        android:id="@+id/ic_photo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_vector6"
+        app:layout_constraintStart_toStartOf="@id/background_photo"
+        app:layout_constraintEnd_toEndOf="@id/background_photo"
+        app:layout_constraintTop_toTopOf="@id/background_photo"
+        app:layout_constraintBottom_toBottomOf="@id/background_photo"/>
+        <ImageView
+        android:id="@+id/title_tape_iv"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/background_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/rect1_bg"/>
     <EditText
-        android:id="@+id/comment_edit_text"
-        android:layout_width="320dp"
-        android:layout_height="150dp"
+        android:id="@+id/title_tape_et"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="@id/title_tape_iv"
+        app:layout_constraintTop_toTopOf="@id/title_tape_iv"
         android:background="@android:color/transparent"
-        android:hint="음악에 대한 이야기를 자유롭게 작성해 주세요! "
+        android:hint="Tape 제목을 작성해 주세요 "
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
         android:textSize="11.5sp"
-        android:textColor="@color/darkGray"
-        android:gravity="top"
-        android:paddingLeft="6dp"
-        android:paddingTop="6dp"
-        app:layout_constraintStart_toStartOf="@id/comment_background"
-        app:layout_constraintEnd_toEndOf="@id/comment_background"
-        app:layout_constraintTop_toTopOf="@id/comment_background"
-        app:layout_constraintBottom_toBottomOf="@id/comment_background"/>
+        android:textColor="@color/gray"/>
+    <ImageView
+        android:id="@+id/content_tape_iv"
+        android:layout_width="328dp"
+        android:layout_height="103dp"
+        app:layout_constraintTop_toBottomOf="@id/title_tape_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/rect2_bg"/>
+    <EditText
+        android:id="@+id/content_tape_et"
+        android:layout_width="308dp"
+        android:layout_height="103dp"
+        app:layout_constraintStart_toStartOf="@id/content_tape_iv"
+        app:layout_constraintTop_toTopOf="@id/content_tape_iv"
+        android:background="@android:color/transparent"
+        android:hint="Tape에 대한 소개글을 작성해 주세요 "
+        android:paddingStart="6dp"
+        android:paddingTop="12dp"
+        android:textSize="11.5sp"
+        android:textColor="@color/gray"
+        android:gravity="top"/>
     <ImageView
         android:id="@+id/btn_post_continue"
         android:layout_width="match_parent"
@@ -90,6 +105,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/btn_continue_inactive"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="52dp"
@@ -103,6 +119,7 @@
         android:textAlignment="center"
         android:textStyle="bold"
         android:textSize="11.5sp"/>
+
 
 
 

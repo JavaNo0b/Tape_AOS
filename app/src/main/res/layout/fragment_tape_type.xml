@@ -38,7 +38,6 @@
         android:layout_marginTop="56dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/head_post_tape"
@@ -48,7 +47,7 @@
             android:id="@+id/background_single_tape"
             android:layout_width="328dp"
             android:layout_height="116dp"
-            android:src="@drawable/btn_select_inactive"
+            android:src="@drawable/tape_type_inactive"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -110,7 +109,7 @@
             android:id="@+id/background_album_tape"
             android:layout_width="328dp"
             android:layout_height="116dp"
-            android:src="@drawable/btn_select_inactive"
+            android:src="@drawable/tape_type_inactive"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/background_single_tape"

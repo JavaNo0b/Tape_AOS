@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName="Reply")
+@Entity(tableName="ReplyTable")
 data class Reply(var idx: Int,
                  var text: String?,
                  @PrimaryKey(autoGenerate = true)

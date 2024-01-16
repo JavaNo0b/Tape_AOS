@@ -7,15 +7,15 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface SongDao {
+interface TapeDao {
     @Insert
-    fun insert(song :Song) :Long?
-    @Delete
-    fun delete(song : Song)
+    fun insert(tape: Tape) : Long
     @Update
-    fun update(song : Song)
-    @Query("SELECT * FROM SongTable")
-    fun getAll() : List<Song>
+    fun update(tape : Tape)
+    @Delete
+    fun delete(tape: Tape)
+    @Query("SELECT * FROM TapeTable")
+    fun getAll() : List<Tape>
 
 
 }

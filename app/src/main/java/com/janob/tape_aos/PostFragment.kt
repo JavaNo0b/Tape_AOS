@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import com.janob.tape_aos.databinding.FragmentPostBinding
 
 class PostFragment : Fragment(),
-    PostFm1Fragment.PostFm1Listener,
-    PostFm2Fragment.PostFm2Listener,
-    PostFm3Fragment.PostFm3Listener,
-    PostFm4Fragment.PostFm4Listener {
+    TapeTypeFragment.TapeTypeListener,
+    TapeSongFragment.TapeSongListener,
+    TapeTalkFragment.TapeTalkListener,
+    TapeHomeFragment.TapeHomeListener,
+    TapeAlbumFragment.TapeAlbumListener{
 
-    lateinit var binding: FragmentPostBinding
+    lateinit var binding : FragmentPostBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,32 +26,46 @@ class PostFragment : Fragment(),
 
         //프래그먼트 교체
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PostFm1Fragment())
+            .replace(R.id.fragment_container, TapeTypeFragment())
             .commit()
 
         return binding.root
     }
-    //콜백함수
-    override fun onPostFm1() {
+
+
+    override fun onAddTapeSong() {
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PostFm2Fragment())
+            .replace(R.id.fragment_container, TapeTalkFragment())
             .commit()
     }
 
-    override fun onPostFm2() {
+    override fun onTapeTalk() {
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PostFm3Fragment())
+            .replace(R.id.fragment_container, TapeHomeFragment())
             .commit()
     }
 
-    override fun onPostFm3() {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PostFm4Fragment())
-            .commit()
-    }
-
-    override fun onPostFm4() {
+    override fun onTapeHome() {
         var intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onTapeType(type: Int) {
+        if(type == TYPE_SINGLE){
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TapeSongFragment())
+                .commit()
+        }
+        else if(type == TYPE_ALBUM){
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TapeAlbumFragment())
+                .commit()
+        }
+    }
+
+    override fun onTapeAlbum() {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, TapeSongFragment())
+            .commit()
     }
 }

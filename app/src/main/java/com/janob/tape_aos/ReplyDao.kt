@@ -15,6 +15,6 @@ interface ReplyDao{
     fun update(reply: Reply)
     @Delete
     fun delete(reply: Reply)
-    @Query("SELECT * FROM reply")
+    @Query("SELECT * FROM ReplyTable")
     fun getAll() :List<Reply>
 }

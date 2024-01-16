@@ -30,7 +30,7 @@ class TapeFragment : Fragment() {
         
 
         //db 데이터 가져오기
-        var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).albumDao().getAll()
+        var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
         //리사이클러뷰 어댑터
         val tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapeAlbumData, requireContext())
         binding.tapeTapelistRv.adapter=tapeAlbumRVAdapter

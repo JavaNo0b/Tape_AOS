@@ -1,48 +1,67 @@
 package com.janob.tape_aos
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import org.w3c.dom.Text
+import com.janob.tape_aos.databinding.ItemSongBinding
 
-class SongAdapter(songs : List<Song>) : RecyclerView.Adapter<SongAdapter.SongItemViewHolder>(){
+class SongAdapter(data : List<Song>) : RecyclerView.Adapter<SongAdapter.SongItemViewHolder>(){
 
-    private var dataList = songs
+    interface SongAdapterListener { fun onAddSong (addOrNot :Boolean) }
+    private lateinit var listener : SongAdapterListener
+    private var songs = data
 
-    class SongItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        private lateinit var song : Song
-
-        //+ 뷰홀더에 클릭 이벤트
-        init{
-            view.setOnClickListener{
-                view.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_added_to_tape)
-            }
-        }
-        fun bind(s : Song){
-            this.song = s
-            view.findViewById<ImageView>(R.id.song_cover_img).setImageResource(song.coverImg)
-            view.findViewById<TextView>(R.id.song_title_tv).text = song.title
-            view.findViewById<TextView>(R.id.song_singer_tv).text = song.singer
-            view.findViewById<TextView>(R.id.song_album_title).text = song.album
-        }
+    fun setListener(listener : SongAdapterListener){
+        this.listener = listener
     }
 
+    class SongItemViewHolder(val binding: ItemSongBinding) : RecyclerView.ViewHolder(binding.root) {
+        private lateinit var song : Song
+        private var added : Boolean = false
+
+        fun bind(s : Song){
+            this.song = s
+            binding.songCoverImg.setImageResource(song.coverImg)
+            binding.songTitleTv.text = song.title
+            binding.songSingerTv.text = song.singer
+            binding.songAlbumTitle.text = song.album
+        }
+        private var isAdded :Boolean = false
+        fun addSong() : Boolean{
+            if(isAdded){
+                binding.btnAddToTape
+                    .setImageResource(R.drawable.btn_add_to_tape)
+            }
+            else{
+                binding.btnAddToTape
+                    .setImageResource(R.drawable.btn_added_to_tape)
+            }
+
+            isAdded = !isAdded
+            return isAdded
+        }
+
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongItemViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(viewType,parent,false)
-        return SongItemViewHolder(view)
+        val binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+
+        return SongItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return songs.size
 
     }
 
     override fun onBindViewHolder(holder: SongItemViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        holder.bind(songs[position])
+        holder.binding.btnAddToTape.setOnClickListener {
+            var addOrNot = holder.addSong()
+            listener.onAddSong(addOrNot)
+        }
+
     }
 
     override fun getItemViewType(position: Int): Int {

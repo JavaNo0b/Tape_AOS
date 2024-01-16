@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemSavedSongBinding
 
 
-class SavedSongAdapter() : RecyclerView.Adapter<SavedSongAdapter.SavedSongItemViewHolder>() {
-    private lateinit var songs : ArrayList<Song>
+class SavedSongAdapter(data : ArrayList<Song>) : RecyclerView.Adapter<SavedSongAdapter.SavedSongItemViewHolder>() {
+    private var songs : ArrayList<Song> = data
 
     interface SongItemListener {fun onSongItemRemoved() }
     lateinit var listener : SongItemListener

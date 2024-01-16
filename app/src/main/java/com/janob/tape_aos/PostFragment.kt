@@ -13,10 +13,11 @@ class PostFragment : Fragment(),
     TapeSongFragment.TapeSongListener,
     TapeTalkFragment.TapeTalkListener,
     TapeHomeFragment.TapeHomeListener,
-    TapeAlbumFragment.TapeAlbumListener{
+    TapeAlbumFragment.TapeAlbumListener,
+    TapeCheckFragment.TapeCheckListener{
 
     lateinit var binding : FragmentPostBinding
-
+    var type :Int =  TYPE_NONE
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +35,17 @@ class PostFragment : Fragment(),
 
 
     override fun onAddTapeSong() {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, TapeTalkFragment())
-            .commit()
+        if(type == TYPE_SINGLE){
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TapeTalkFragment())
+                .commit()
+        }
+        else if(type == TYPE_ALBUM){
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TapeCheckFragment())
+                .commit()
+        }
+
     }
 
     override fun onTapeTalk() {
@@ -52,11 +61,13 @@ class PostFragment : Fragment(),
 
     override fun onTapeType(type: Int) {
         if(type == TYPE_SINGLE){
+            this.type = TYPE_SINGLE
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, TapeSongFragment())
                 .commit()
         }
         else if(type == TYPE_ALBUM){
+            this.type = TYPE_ALBUM
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, TapeAlbumFragment())
                 .commit()
@@ -66,6 +77,12 @@ class PostFragment : Fragment(),
     override fun onTapeAlbum() {
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, TapeSongFragment())
+            .commit()
+    }
+
+    override fun onTapeCheck() {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, TapeHomeFragment())
             .commit()
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -30,16 +31,18 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
 
+        var followerList : ArrayList<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
+        var followingList : ArrayList<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
         userDatas.apply{
-            add(User(R.drawable.albumcover_5, "music_play", "잡다한 음악 다 좋아해요♥", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "music_song", "노래 좋아합니다", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user1", "I love music", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user2", "음악 추천 부탁해요", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user3", "I love music", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user4", "음악 추천 부탁해요", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user5", "I love music", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", R.drawable.albumcover_5))
-            add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", R.drawable.albumcover_5))
+            add(User(R.drawable.albumcover_5, "music_play", "잡다한 음악 다 좋아해요♥", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "music_song", "노래 좋아합니다", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user1", "I love music", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user2", "음악 추천 부탁해요", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user3", "I love music", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user4", "음악 추천 부탁해요", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user5", "I love music", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", followerList, followingList))
+            add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList))
         }
 
         tapeDatas.apply {
@@ -107,14 +110,16 @@ class SearchFragment : Fragment() {
         binding.searchUserRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         searchRVAapter.setMyItemClickListener(object : SearchRVAdapter.MyItemClickListener{
-            override fun onItemClick() {
-                // 데이터 전달
-                //
-                //
-
-                // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환
+            override fun onItemClick(user : User) {
+                // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환 + 데이터 전달(gson)
                 (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, OtherprofileFragment())
+                .replace(R.id.main_fm, OtherprofileFragment().apply {
+                    arguments = Bundle().apply {
+                        val gson = Gson()
+                        val userJson = gson.toJson(user)
+                        putString("user", userJson)
+                    }
+                })
                 .commitAllowingStateLoss()
 
             }

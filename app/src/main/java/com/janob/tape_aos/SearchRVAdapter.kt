@@ -8,7 +8,7 @@ import com.janob.tape_aos.databinding.ItemSearchuserBinding
 class SearchRVAdapter(private var userList : ArrayList<User>) : RecyclerView.Adapter<SearchRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
-        fun onItemClick()
+        fun onItemClick(user : User)
     }
 
     private lateinit var mItemClickListener : MyItemClickListener
@@ -25,7 +25,7 @@ class SearchRVAdapter(private var userList : ArrayList<User>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: SearchRVAdapter.ViewHolder, position: Int) {
         holder.bind(userList[position])
         holder.itemView.setOnClickListener {
-            mItemClickListener.onItemClick()
+            mItemClickListener.onItemClick(userList[position])
         }
     }
 

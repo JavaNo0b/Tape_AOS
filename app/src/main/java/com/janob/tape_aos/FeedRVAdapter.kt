@@ -34,7 +34,9 @@ class FeedRVAdapter(var userList : ArrayList<User>) : RecyclerView.Adapter<FeedR
 
     inner class ViewHolder(val binding : ItemFeedBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(user : User){
-            binding.itemFeedAlbumcoverImgIv.setImageResource(user.thumbnailImg!!)
+            // 여기 설정을 다시해야 함... -> 테이프들 array를 만들어서 -> 테이프의 썸네일 이미지를 set하게 해야 함
+            // 일단 임시로 프로필 사진 사용
+            binding.itemFeedAlbumcoverImgIv.setImageResource(user.userImg!!)
         }
     }
 

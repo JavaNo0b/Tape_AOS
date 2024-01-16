@@ -69,5 +69,4 @@ class TapeFragment : Fragment() {
             binding.tapeTapelistZero.visibility = View.GONE
         }
     }
-
 }

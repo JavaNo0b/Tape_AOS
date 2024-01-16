@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,15 @@ class ReplyActivity : AppCompatActivity()
         //리사이클러뷰에 데이터 연결
         val manager = LinearLayoutManager(this)
         val adapter = ReplyAdapter(tapeReplyData,this)
+
+        adapter.setMyItemClickLitner(object: ReplyAdapter.MyItemClickListner {
+            override fun onEditClick(reply: Reply) {
+                val intent = Intent(this@ReplyActivity,ReplyModifyActivity::class.java)
+                intent.putExtra("reply",reply)
+
+                startActivity(intent)
+            }
+        })
 
         recyclerView = binding.replyRecyclerView
         recyclerView.setHasFixedSize(false)

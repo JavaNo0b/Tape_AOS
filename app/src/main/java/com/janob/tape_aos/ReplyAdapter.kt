@@ -16,6 +16,14 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
 
     private val dataList = replies
 
+    interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
+        fun onEditClick(reply: Reply)
+    }
+
+    private lateinit var mItemClickListner: MyItemClickListner //아래 받은 것을 내부에서 사용하기 위해 선언
+    fun setMyItemClickLitner(itemClickListner: MyItemClickListner) { //외부에서의 itemClickListner를 받기 위한 함수
+        mItemClickListner = itemClickListner
+    }
     inner class ReplyItemViewHolder(val binding : ItemReplyBinding) : RecyclerView.ViewHolder(binding.root)
     {
         lateinit var reply : Reply
@@ -28,15 +36,15 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
             text.text = reply.text
 
         }
-        //replyEditBtn 클릭 시 menu
-        init {
-            binding.replyEditBtn.setOnClickListener {
-                showPopup(it)
-            }
-        }
+//        //replyEditBtn 클릭 시 menu
+//        init {
+//            binding.replyEditBtn.setOnClickListener {
+//                showPopup(it, position)
+//            }
+//        }
 
         //menu popup
-        private fun showPopup(view: View) {
+        fun showPopup(view: View, position:Int) {
             val inflater = view.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val popupView = inflater.inflate(R.layout.custom_reply_popup_menu, null)
 
@@ -45,6 +53,14 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
 
             val popupWindow = PopupWindow(popupView, width, height, true)
             popupWindow.showAsDropDown(view, 0, 0)
+
+            // 팝업 내의 특정 뷰 찾기
+            val popupItemView: View = popupView.findViewById(R.id.custom_reply_popup_menu_edit)
+
+            // 팝업 내의 특정 뷰에 클릭 이벤트 추가
+            popupItemView.setOnClickListener {
+                mItemClickListner.onEditClick(dataList[position])
+            }
 
         }
 
@@ -68,6 +84,8 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
 
     override fun onBindViewHolder(holder: ReplyItemViewHolder, position: Int) {
         holder.bind(dataList[position])
-
+        holder.binding.replyEditBtn.setOnClickListener {
+            holder.showPopup(it, position)
+        }
     }
 }

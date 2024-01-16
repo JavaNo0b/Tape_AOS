@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
 
+        val loginuserDB = TapeDatabase.Instance(this)!!
+        val users = loginuserDB.loginuserDao().getLoginUsers()
+        Log.d("check123", users.toString())
 
-        startActivity(Intent(this, TapeFragment::class.java))
     }
 
 

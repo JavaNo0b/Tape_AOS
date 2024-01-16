@@ -11,15 +11,6 @@ interface LoginUserDao {
     @Insert
     fun insert(user: LoginUser)
 
-/*    @Insert
-    fun insertNickname(user: LoginUser)
-
-    @Insert
-    fun insertProfileintro(user: LoginUser)
-
-    @Insert
-    fun insertProfileimage(user: LoginUser)*/
-
     @Query("SELECT * FROM LoginUser")
     fun getLoginUsers(): List<LoginUser>
 

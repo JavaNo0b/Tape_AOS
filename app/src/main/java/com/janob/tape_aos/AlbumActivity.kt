@@ -2,7 +2,6 @@ package com.janob.tape_aos
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
 import com.janob.tape_aos.databinding.ActivityAlbumBinding
 import java.lang.Math.abs
 

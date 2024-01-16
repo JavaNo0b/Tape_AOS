@@ -10,36 +10,46 @@
 
     <RelativeLayout
         android:id="@+id/profile3_camera_background"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="422dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="162dp"
         >
 
-
-        <ImageView
-            android:id="@+id/profile3_camera_image_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/albumcover_5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
-
         <View
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="422dp"
             android:background="@drawable/layout_background_shape_6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
 
-
-
+        <View
+            android:layout_width="241dp"
+            android:layout_height="241dp"
+            android:background="@drawable/prof2_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="87dp"
+            android:layout_marginStart="80dp"/>
 
     </RelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/profile3_button_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="완료"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_round"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 

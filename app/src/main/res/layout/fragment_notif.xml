@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="#F4F6F8">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F4F6F6">
 
     <TextView
         android:id="@+id/notif_title"
@@ -19,10 +20,12 @@
         android:layout_marginTop="43dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notif_rv"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="item_notif"
         android:layout_marginTop="70dp"
         android:layout_marginStart="16dp"/>
 

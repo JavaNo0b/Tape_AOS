@@ -67,6 +67,7 @@ class TapeFragment : Fragment() {
 
         return binding.root
     }
+
     private fun initDummy() {
 
         val initialized = pref.getBoolean("initialized",false)
@@ -87,6 +88,5 @@ class TapeFragment : Fragment() {
         val editor = pref.edit()
         editor.putBoolean("initialized",true)
         editor.apply()
-
     }
 }

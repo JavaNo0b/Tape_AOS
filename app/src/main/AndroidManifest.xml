@@ -31,8 +31,16 @@
         <activity android:name=".AlbumActivity" />
         <activity android:name=".OnboardActivity"
             android:exported="true"/>
+        <activity android:name=".Profile1Activity"
+            android:exported="true"/>
+        <activity android:name=".Profile2Activity"
+            android:exported="true"/>
+        <activity android:name=".Profile3Activity"
+            android:exported="true"/>
+
         <activity android:name=".NextActivity"
             android:exported="true"/>
+
         <activity android:name=".Splash2Activity"
             android:exported="true"
             android:theme="@style/Splash1">
@@ -42,6 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".LoginActivity"
             android:exported="true"/>
 
@@ -57,6 +66,7 @@
                     android:scheme="kakaoacf9ccdb9befb1509a4e53ad023da96b" />
             </intent-filter>
         </activity>
+
 
     </application>
 

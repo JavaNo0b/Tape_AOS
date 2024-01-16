@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,15 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
         holder.bindTapeAlbum(TapeAlbumList[position])
         holder.binding.itemTape.setOnClickListener {
             mItemClickListner.onItemClick(TapeAlbumList[position])
+        }
+        //확인한 아이템에 흐릿해짐 효과를 임의로 주기 위한 버튼
+        holder.binding.button.setOnClickListener {
+
+            if(holder.binding.itemTape.alpha == 0.5F){
+                holder.binding.itemTape.alpha = 1F
+            }else{
+                holder.binding.itemTape.alpha = 0.5F
+            }
         }
     }
 

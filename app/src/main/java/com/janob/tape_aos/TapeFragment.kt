@@ -52,6 +52,8 @@ class TapeFragment : Fragment() {
         startActivity(intent)
     }
 
+
+    //게시물이 있을 때, 없을 때를 임의로 확인하기 위한 버튼
     private fun buttonClick(){
         if(binding.tapeTapeLayout.visibility == View.VISIBLE){
             binding.tapeTapeLayout.visibility = View.GONE

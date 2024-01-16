@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
-class RealtimeRVAdapter(private val tapeList : ArrayList<TapeRealtime>) : RecyclerView.Adapter<RealtimeRVAdapter.ViewHolder>() {
+class RealtimeRVAdapter(private val tapeList : ArrayList<Tape>) : RecyclerView.Adapter<RealtimeRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onItemClick()
@@ -32,7 +32,7 @@ class RealtimeRVAdapter(private val tapeList : ArrayList<TapeRealtime>) : Recycl
     override fun getItemCount(): Int = tapeList.size
 
     inner class ViewHolder(val binding: ItemTapeBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(tape : TapeRealtime){
+        fun bind(tape : Tape){
             binding.itemTapeTapetitleTv.text = tape.title
             binding.itemTapeSingerTv.text = tape.singer
             binding.itemTapeUsernameTv.text = tape.userName

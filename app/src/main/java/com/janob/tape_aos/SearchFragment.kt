@@ -17,7 +17,7 @@ class SearchFragment : Fragment() {
 
     lateinit var binding: FragmentSearchBinding
     private var userDatas = ArrayList<User>()
-    private var tapeDatas = ArrayList<TapeRealtime>()
+    private var tapeDatas = ArrayList<Tape>()
 
     // search, realtime의 adapter 변수
     private var search_list = ArrayList<User>()
@@ -46,15 +46,15 @@ class SearchFragment : Fragment() {
         }
 
         tapeDatas.apply {
-            add(TapeRealtime("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
-            add(TapeRealtime("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
+            add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
         }
 
         // adapter 변수 선언

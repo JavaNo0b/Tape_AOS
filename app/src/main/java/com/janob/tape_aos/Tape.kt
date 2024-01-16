@@ -1,6 +1,6 @@
 package com.janob.tape_aos
 
-data class TapeRealtime(
+data class Tape(
     var title : String? = "",
     var singer : String? = "",
     var userName : String? = "",

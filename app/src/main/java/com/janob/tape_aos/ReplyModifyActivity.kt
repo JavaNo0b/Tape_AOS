@@ -26,6 +26,16 @@ class ReplyModifyActivity  : AppCompatActivity(){
         editText.text = Editable.Factory.getInstance().newEditable(reply.text)
         editText2.text = editText.text
 
+        binding.replyModifyCompleteTv.setOnClickListener {
+            intent.putExtra("reply", Reply(reply.idx, editText.text.toString()))
+            setResult(RESULT_OK, intent)
+            finish()
+        }
+        binding.replyModifyBackIv.setOnClickListener {
+            setResult(RESULT_OK)
+            finish()
+        }
+
         editText.setOnClickListener {
             editText.clearFocus() // EditText1의 포커스 해제
             editText2.requestFocus() // EditText2로 포커스 이동

@@ -1,19 +1,18 @@
 package com.janob.tape_aos
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.janob.tape_aos.databinding.FragmentFeedBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.janob.tape_aos.databinding.FragmentFollowingBinding
 
-class FeedFragment : Fragment() {
-    lateinit var binding : FragmentFeedBinding
+class FollowingFragment : Fragment() {
+
+    lateinit var binding : FragmentFollowingBinding
     private var userDatas = ArrayList<User>()
-
     private var tapeDatas = ArrayList<Tape>()
 
     override fun onCreateView(
@@ -21,7 +20,7 @@ class FeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFeedBinding.inflate(inflater, container, false)
+        binding = FragmentFollowingBinding.inflate(inflater, container, false)
 
         tapeDatas.apply {
             add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
@@ -50,44 +49,30 @@ class FeedFragment : Fragment() {
             add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
         }
 
-        // Recycler Adapter : feed_content_rv
-        var feedRVAdapter = FeedRVAdapter(userDatas)
-        binding.feedContentRv.adapter = feedRVAdapter
-        binding.feedContentRv.layoutManager = GridLayoutManager(context, 3)
+        // adapter 변수 선언
+        val searchRVAapter = SearchRVAdapter(userDatas)
 
-        // GridLayout 간격 맞추기
-        binding.feedContentRv.run {
-            adapter = FeedRVAdapter(userDatas)
-            addItemDecoration(GridSpacingItemDecoration(3, 20))
-        }
+        // ** Recycler Adapter : search_user_rv **
+        binding.followingRv.adapter = searchRVAapter
+        binding.followingRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        searchRVAapter.setMyItemClickListener(object : SearchRVAdapter.MyItemClickListener{
+            override fun onItemClick(user : User) {
+                // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환 + 데이터 전달(gson)
+                (context as MainActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_fm, OtherprofileFragment().apply {
+                        arguments = Bundle().apply {
+                            val gson = Gson()
+                            val userJson = gson.toJson(user)
+                            putString("user", userJson)
+                        }
+                    })
+                    .commitAllowingStateLoss()
+
+            }
+
+        })
 
         return binding.root
-    }
-
-    // GridLayout 간격 맞추는 class
-    internal class GridSpacingItemDecoration(private val spanCount : Int, private val spacing : Int) : RecyclerView.ItemDecoration(){
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-
-            val position : Int = parent.getChildLayoutPosition(view)
-            val column = position % spanCount + 1
-
-            if(position < spanCount){
-                outRect.top = spacing
-            }
-            if(column == spanCount){
-                outRect.right = spacing
-            }
-            outRect.left = spacing
-            outRect.right = spacing
-            outRect.top = spacing
-            outRect.bottom = spacing
-        }
     }
 }

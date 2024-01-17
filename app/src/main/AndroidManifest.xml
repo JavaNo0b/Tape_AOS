@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlbumActivity" />
+        <activity android:name=".FollowActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

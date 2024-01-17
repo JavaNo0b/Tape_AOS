@@ -10,4 +10,7 @@ data class User(
     // 팔로워, 팔로잉 목록
     var followerList : ArrayList<String>,
     var followingList : ArrayList<String>,
+
+    // 테이프 목록
+    var tapeList : ArrayList<Tape>
 )

@@ -30,21 +30,6 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
-
-        var followerList : ArrayList<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
-        var followingList : ArrayList<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
-        userDatas.apply{
-            add(User(R.drawable.albumcover_5, "music_play", "잡다한 음악 다 좋아해요♥", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "music_song", "노래 좋아합니다", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user1", "I love music", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user2", "음악 추천 부탁해요", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user3", "I love music", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user4", "음악 추천 부탁해요", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user5", "I love music", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", followerList, followingList))
-            add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList))
-        }
-
         tapeDatas.apply {
             add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
@@ -56,6 +41,23 @@ class SearchFragment : Fragment() {
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
         }
+
+        var followerList : ArrayList<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
+        var followingList : ArrayList<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
+        var tapeList = tapeDatas
+        userDatas.apply{
+            add(User(R.drawable.albumcover_5, "music_play", "잡다한 음악 다 좋아해요♥", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "music_song", "노래 좋아합니다", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user1", "I love music", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user2", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user3", "I love music", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user4", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user5", "I love music", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
+            add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
+        }
+
+
 
         // adapter 변수 선언
         val searchRVAapter = SearchRVAdapter(userDatas)

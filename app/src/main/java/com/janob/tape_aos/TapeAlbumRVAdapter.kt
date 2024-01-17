@@ -12,10 +12,10 @@ import com.janob.tape_aos.databinding.CustomReplyPopupMenuBinding
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
 
-class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
+class TapeAlbumRVAdapter(private val tapeList : List<Tape>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
 
     interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
-        fun onItemClick(album: TapeAlbum)
+        fun onItemClick(album: Tape)
     }
 
     private lateinit var mItemClickListner: MyItemClickListner //아래 받은 것을 내부에서 사용하기 위해 선언
@@ -31,9 +31,9 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
 
 
     override fun onBindViewHolder(holder: TapeAlbumRVAdapter.ViewHolder, position: Int) {
-        holder.bindTapeAlbum(TapeAlbumList[position])
+        holder.bindTapeAlbum(tapeList[position])
         holder.binding.itemTape.setOnClickListener {
-            mItemClickListner.onItemClick(TapeAlbumList[position])
+            mItemClickListner.onItemClick(tapeList[position])
         }
         //확인한 아이템에 흐릿해짐 효과를 임의로 주기 위한 버튼
         holder.binding.button.setOnClickListener {
@@ -47,7 +47,7 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
     }
 
 
-    override fun getItemCount(): Int = TapeAlbumList.size
+    override fun getItemCount(): Int = tapeList.size
 
 
     inner class ViewHolder(val binding : ItemTapeBinding) : RecyclerView.ViewHolder(binding.root){
@@ -74,7 +74,7 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
         }
 
 
-        fun bindTapeAlbum(tapealbum : TapeAlbum){
+        fun bindTapeAlbum(tapealbum : Tape){
 
             binding.itemTapeTapetitleTv.text = tapealbum.tapeTitle
             binding.itemTapeSingerTv.text = tapealbum.singer

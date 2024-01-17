@@ -36,12 +36,6 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
             text.text = reply.text
 
         }
-//        //replyEditBtn 클릭 시 menu
-//        init {
-//            binding.replyEditBtn.setOnClickListener {
-//                showPopup(it, position)
-//            }
-//        }
 
         //menu popup
         fun showPopup(view: View, position:Int) {

@@ -13,7 +13,7 @@ import java.lang.Math.abs
 class AlbumFragment : Fragment() {
     lateinit var binding: FragmentAlbumBinding
     lateinit var includedSongsData: List<IncludedSong>
-    lateinit var tapeData: TapeAlbum
+    lateinit var tapeData: Tape
     var albumId = 0
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(layoutInflater)
         albumId = arguments?.getInt("albumId")!!
-        tapeData = TapeDatabase.Instance(requireContext()).albumDao().getAlbum(albumId)
+        tapeData = TapeDatabase.Instance(requireContext()).tapeDao().getAlbum(albumId)
 
 
         setDummyIncludedSong(albumId)
@@ -69,6 +69,6 @@ class AlbumFragment : Fragment() {
 
     fun setDummyIncludedSong(albumId: Int){
         val songDB = TapeDatabase.Instance(requireContext())
-        includedSongsData = songDB.songDao().getSongsInAlbum(albumId!!)
+        includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
     }
 }

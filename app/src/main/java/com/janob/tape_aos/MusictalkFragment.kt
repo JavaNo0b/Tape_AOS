@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.janob.tape_aos.databinding.FragmentMusictalkBinding
 
-class MusictalkFragment : Fragment() {
-
-    lateinit var binding: FragmentMusictalkBinding
-
+class MusictalkFragment :Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMusictalkBinding.inflate(layoutInflater)
+        val binding = FragmentMusictalkBinding.inflate(inflater)
         return binding.root
     }
 }

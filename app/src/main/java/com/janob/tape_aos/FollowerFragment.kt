@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentFollowerBinding
 
 class FollowerFragment : Fragment() {
@@ -21,6 +20,7 @@ class FollowerFragment : Fragment() {
     ): View? {
         binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
+
         tapeDatas.apply {
             add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
@@ -32,6 +32,8 @@ class FollowerFragment : Fragment() {
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
         }
+
+
 
         var followerList : ArrayList<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
         var followingList : ArrayList<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
@@ -58,6 +60,7 @@ class FollowerFragment : Fragment() {
         searchRVAapter.setMyItemClickListener(object : SearchRVAdapter.MyItemClickListener{
             override fun onItemClick(user : User) {
                 // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환 + 데이터 전달(gson)
+                /*
                 (context as MainActivity).supportFragmentManager.beginTransaction()
                     .replace(R.id.main_fm, OtherprofileFragment().apply {
                         arguments = Bundle().apply {
@@ -67,6 +70,7 @@ class FollowerFragment : Fragment() {
                         }
                     })
                     .commitAllowingStateLoss()
+                 */
 
             }
 

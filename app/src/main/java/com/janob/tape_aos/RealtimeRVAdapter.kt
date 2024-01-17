@@ -33,7 +33,7 @@ class RealtimeRVAdapter(private val tapeList : ArrayList<Tape>) : RecyclerView.A
 
     inner class ViewHolder(val binding: ItemTapeBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(tape : Tape){
-            binding.itemTapeTapetitleTv.text = tape.title
+            binding.itemTapeTapetitleTv.text = tape.tapeTitle
             binding.itemTapeSingerTv.text = tape.singer
             binding.itemTapeUsernameTv.text = tape.userName
             binding.itemTapeAlbumcoverImgIv.setImageResource(tape.albumCover!!)

@@ -32,6 +32,8 @@
         <activity android:name=".AlbumActivity" />
         <activity android:name=".FollowActivity"
             android:exported="true"/>
+        <activity android:name=".OnboardActivity"
+            android:exported="true"/>
         <activity android:name=".Profile1Activity"
             android:exported="true"/>
         <activity android:name=".Profile2Activity"

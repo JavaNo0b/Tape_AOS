@@ -1,6 +1,5 @@
 package com.janob.tape_aos
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityMainBinding
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
 
 
-        startActivity(Intent(this, OnboardActivity::class.java))
+        //startActivity(Intent(this, OnboardActivity::class.java))
     }
 
     private fun inputDummyAlbum(){

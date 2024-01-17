@@ -7,8 +7,8 @@ import com.example.tape.OnboardVPAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.janob.tape_aos.databinding.ActivityOnboardBinding
 
-class OnboardActivity : AppCompatActivity(){
-    lateinit var binding: ActivityOnboardBinding
+class OnboardActivity : AppCompatActivity() {
+    lateinit var binding : ActivityOnboardBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,6 +8,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,7 +30,7 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".AlbumActivity" />
-        <activity android:name=".OnboardActivity"
+        <activity android:name=".FollowActivity"
             android:exported="true"/>
         <activity android:name=".Profile1Activity"
             android:exported="true"/>
@@ -37,8 +38,10 @@
             android:exported="true"/>
         <activity android:name=".Profile3Activity"
             android:exported="true"/>
-
-        <activity android:name=".NextActivity"
+        <activity android:name=".ReplyActivity"
+            android:exported="true"/>
+        <activity android:name=".ReplyModifyActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true"/>
 
         <activity android:name=".Splash2Activity"

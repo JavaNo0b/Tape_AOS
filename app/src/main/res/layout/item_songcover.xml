@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/album_cover_cd"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="249dp"
+        android:layout_height="249dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

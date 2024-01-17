@@ -28,9 +28,11 @@
             android:exported="true"/>
         <activity android:name=".NextActivity"
             android:exported="true"/>
-        <activity android:name=".ReplyActivity"/>
-        <activity android:name=".ReplyModifyActivity"/>
-
+        <activity android:name=".ReplyActivity"
+            android:exported="true"/>
+        <activity android:name=".ReplyModifyActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true"/>
     </application>
 
 </manifest>

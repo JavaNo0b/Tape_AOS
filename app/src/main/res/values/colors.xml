@@ -7,6 +7,9 @@
     <!--navi-->
     <color name="navi_selected">#FF5E5E</color>
     <color name="navi_unselected">#D9D9D9</color>
+    <!--like-->
+    <color name="like_selected">#FF5E5E</color>
+    <color name="like_unselected">#D7D7D7</color>
 
 
 </resources>

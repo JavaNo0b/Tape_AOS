@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var tapeData : List<Tape>
     lateinit var tapeReplyData : List<Reply>
     lateinit var songData : List<Song>
+    lateinit var includedSongData : List<IncludedSong>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         //더미 데이터
         inputDummyAlbum()
         inputDummyReply()
-        inputDummySong()
+        inputDummySong()//양희연
+        inputDummySongs()//박성현
 
         initBottomNavigation()
 
@@ -29,6 +32,78 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, OnboardActivity::class.java))
     }
 
+    private fun inputDummyAlbum(){
+        val tapeDB = TapeDatabase.Instance(this)
+        tapeData = tapeDB.tapeDao().getAll()
+
+        if(tapeData.isNotEmpty()) return
+
+        tapeDB.tapeDao().insert(
+            Tape("Broken Melodies",
+                "NCT DREAM",
+                "music_play",
+                R.drawable.albumcover_5,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("Thirsty",
+                "aepsa",
+                "K_pop_lover",
+                R.drawable.album_1,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("와르르",
+                "Colde",
+                "music_play",
+                R.drawable.album_2,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("Broken Melodies",
+                "NCT DREAM",
+                "music_play",
+                R.drawable.album_3,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("Thirsty",
+                "aepsa",
+                "K_pop_lover",
+                R.drawable.album_4,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("와르르",
+                "Colde",
+                "music_play",
+                R.drawable.album_1,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("Broken Melodies",
+                "NCT DREAM",
+                "music_play",
+                R.drawable.album_2,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("Thirsty",
+                "aepsa",
+                "K_pop_lover",
+                R.drawable.album_3,
+                R.drawable.albumcover_5)
+        )
+        tapeDB.tapeDao().insert(
+            Tape("와르르",
+                "Colde",
+                "music_play",
+                R.drawable.albumcover_5,
+                R.drawable.albumcover_5)
+        )
+    }
+
+    //양희연
     private fun inputDummySong(){
         val tapeDB = TapeDatabase.Instance(this)
         songData = tapeDB.songDao().getAll()
@@ -108,74 +183,90 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
-    private fun inputDummyAlbum(){
-        val tapeDB = TapeDatabase.Instance(this)
-        tapeData = tapeDB.tapeDao().getAll()
 
-        if(tapeData.isNotEmpty()) return
-
-        tapeDB.tapeDao().insert(
-            Tape("Broken Melodies",
+    //박성현
+    private fun inputDummySongs(){
+        val songDB = TapeDatabase.Instance(this)
+        includedSongData = songDB.songDaos().getSongs()
+        if(includedSongData.isNotEmpty())
+            return
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
                 "NCT DREAM",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
+                R.drawable.album_1,
+                1)
         )
-        tapeDB.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        tapeDB.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        tapeDB.tapeDao().insert(
-            Tape("Broken Melodies",
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
                 "NCT DREAM",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
+                R.drawable.album_1,
+                2)
         )
-        tapeDB.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        tapeDB.tapeDao().insert(
-            Tape("와르르",
+        songDB.songDaos().insert(
+            IncludedSong("와르르",
                 "Colde",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
+                R.drawable.album_2,
+                2)
         )
-        tapeDB.tapeDao().insert(
-            Tape("Broken Melodies",
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                3)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("와르르",
+                "Colde",
+                R.drawable.album_2,
+                3)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
                 "NCT DREAM",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
+                R.drawable.album_1,
+                3)
         )
-        tapeDB.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        tapeDB.tapeDao().insert(
-            Tape("와르르",
+        songDB.songDaos().insert(
+            IncludedSong("와르르",
                 "Colde",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
+                R.drawable.album_2,
+                4)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
+                "NCT DREAM",
+                R.drawable.album_1,
+                4)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
+                "NCT DREAM",
+                R.drawable.album_1,
+                5)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
+                "NCT DREAM",
+                R.drawable.album_1,
+                6)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
+                "NCT DREAM",
+                R.drawable.album_1,
+                7)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Broken Melodies",
+                "NCT DREAM",
+                R.drawable.album_1,
+                8)
         )
 
     }
@@ -187,35 +278,35 @@ class MainActivity : AppCompatActivity() {
             return
 
         tapeDB.replyDao().insert(
-            Reply(0,
+            Reply(1,
                 "너무 좋아요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ가사 너무 아련...")
         )
         tapeDB.replyDao().insert(
-            Reply(1,
+            Reply(2,
                 "노래 너무 좋아요❤️")
         )
         tapeDB.replyDao().insert(
-            Reply(2,
+            Reply(3,
                 "이 조합 미쳤다,,완벽한 겨울노래")
         )
         tapeDB.replyDao().insert(
-            Reply(3,
+            Reply(4,
                 "목소리 너무 신비스럽게 이쁘네")
         )
         tapeDB.replyDao().insert(
-            Reply(4,
+            Reply(5,
                 "들을 때마다 더 좋아지냐 마음이 따뜻해지네")
         )
         tapeDB.replyDao().insert(
-            Reply(5,
+            Reply(6,
                 "안볼수가 없는 조합")
         )
         tapeDB.replyDao().insert(
-            Reply(6,
+            Reply(7,
                 "우와... 겨울 분위기 대박 노래 너무 좋아요ㅠ")
         )
         tapeDB.replyDao().insert(
-            Reply(7,
+            Reply(8,
                 "두 분의 목소리 진짜 악기같다... 넘 좋아요❤")
         )
 

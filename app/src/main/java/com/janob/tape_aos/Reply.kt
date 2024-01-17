@@ -39,6 +39,3 @@ data class Reply(var idx: Int,
     }
 
 }
-
-
-

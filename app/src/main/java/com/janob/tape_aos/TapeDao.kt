@@ -16,6 +16,10 @@ interface TapeDao {
     fun delete(tape: Tape)
     @Query("SELECT * FROM TapeTable")
     fun getAll() : List<Tape>
+    @Query("SELECT * FROM TapeTable WHERE id = :id")
+    fun getAlbum(id: Int): Tape
+//    @Query("UPDATE SongTable SET isLike = :isLike WHERE id = :id")
+//    fun updateIsLikeById(isLike: Boolean,id: Int)
 
 
 }

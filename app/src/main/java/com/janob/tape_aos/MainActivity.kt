@@ -193,35 +193,35 @@ class MainActivity : AppCompatActivity() {
             return
 
         tapeDB.replyDao().insert(
-            Reply(0,
+            Reply(1,
                 "너무 좋아요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ가사 너무 아련...")
         )
         tapeDB.replyDao().insert(
-            Reply(1,
+            Reply(2,
                 "노래 너무 좋아요❤️")
         )
         tapeDB.replyDao().insert(
-            Reply(2,
+            Reply(3,
                 "이 조합 미쳤다,,완벽한 겨울노래")
         )
         tapeDB.replyDao().insert(
-            Reply(3,
+            Reply(4,
                 "목소리 너무 신비스럽게 이쁘네")
         )
         tapeDB.replyDao().insert(
-            Reply(4,
+            Reply(5,
                 "들을 때마다 더 좋아지냐 마음이 따뜻해지네")
         )
         tapeDB.replyDao().insert(
-            Reply(5,
+            Reply(6,
                 "안볼수가 없는 조합")
         )
         tapeDB.replyDao().insert(
-            Reply(6,
+            Reply(7,
                 "우와... 겨울 분위기 대박 노래 너무 좋아요ㅠ")
         )
         tapeDB.replyDao().insert(
-            Reply(7,
+            Reply(8,
                 "두 분의 목소리 진짜 악기같다... 넘 좋아요❤")
         )
 

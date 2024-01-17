@@ -36,6 +36,17 @@
         app:layout_constraintStart_toStartOf="@id/album_tape_tv"
         app:layout_constraintEnd_toEndOf="@id/album_tape_tv"
         android:layout_marginTop="55dp"/>
+    <ImageView
+        android:id="@+id/album_tape_more_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/group_390"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/album_back_btn"
+        app:layout_constraintBottom_toBottomOf="@id/album_back_btn"
+        android:layout_marginEnd="6dp"
+        app:tint="@color/black" />
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/album_includedsongs_vp"

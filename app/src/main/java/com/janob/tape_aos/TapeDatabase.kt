@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 
 
 @Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, User::class], version = 1)
-@TypeConverters(UserListConverters::class, TapeListConverters::class)
+@TypeConverters(StringListConverters::class, TapeListConverters::class)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가

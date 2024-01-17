@@ -1,11 +1,13 @@
 package com.janob.tape_aos
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +24,7 @@ class TapeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTapeBinding.inflate(layoutInflater)
-        
+
 
         //db 데이터 가져오기
         var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()

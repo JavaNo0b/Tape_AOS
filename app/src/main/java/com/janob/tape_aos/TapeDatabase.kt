@@ -1,12 +1,14 @@
 package com.janob.tape_aos
 
+
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class], version = 1)
+@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class], version = 1)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가
@@ -14,6 +16,8 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun tapeDao() : TapeDao
     abstract fun songDao() : SongDao
     abstract fun songDaos() : SongDaos
+    abstract fun loginuserDao() : LoginUserDao
+
     companion object{
 
         var instance : TapeDatabase? = null

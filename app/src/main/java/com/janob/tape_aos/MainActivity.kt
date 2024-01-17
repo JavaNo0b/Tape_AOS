@@ -1,8 +1,14 @@
 package com.janob.tape_aos
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityMainBinding
+import java.security.MessageDigest
+import com.kakao.sdk.common.util.Utility
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +22,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        /*해쉬키 값 추출
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("Hash", keyHash)*/
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -28,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
 
 
-        //startActivity(Intent(this, OnboardActivity::class.java))
+
     }
 
     private fun inputDummyAlbum(){
@@ -324,9 +335,9 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.musictalk_nav -> {
+                R.id.notif_nav -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, MusictalkFragment())
+                        .replace(R.id.main_fm, NotifFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

@@ -10,10 +10,10 @@
         android:enabled="true"
         android:icon="@drawable/btn_tape_selector" />
     <item
-        android:id="@+id/musictalk_nav"
+        android:id="@+id/notif_nav"
         app:showAsAction="always"
-        android:title="뮤직톡"
-        android:icon="@drawable/btn_musictalk_selector"/>
+        android:title="알림"
+        android:icon="@drawable/main_nav_notif"/>
     <item
         android:id="@+id/post_nav"
         app:showAsAction="always"

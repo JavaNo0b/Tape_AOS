@@ -22,20 +22,15 @@ class TapeFragment : Fragment() {
         binding = FragmentTapeBinding.inflate(layoutInflater)
 
 
-        //일단 텍스트 클릭하면 댓글로 이동함
-        binding.tapeTodaytape.setOnClickListener{
-            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_fm, ReplyListFragment())
-            transaction.commit()
-        }
+
 
         binding.tapeTapeimage.setOnClickListener{
-            startActivity(Intent(requireContext(), AlbumActivity::class.java))
+            startActivity(Intent(it.context, AlbumActivity::class.java))
         }
         
 
-        //roomDB에서 데이터 가져오기
-        var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).albumDao().getAll()
+        //db 데이터 가져오기
+        var tapeAlbumData = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
         //리사이클러뷰 어댑터
         val tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapeAlbumData, requireContext())
         binding.tapeTapelistRv.adapter=tapeAlbumRVAdapter

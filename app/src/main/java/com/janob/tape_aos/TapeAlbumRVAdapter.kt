@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
 
-class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
+class TapeAlbumRVAdapter(private val tapeList : List<Tape>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
 
 
 
@@ -22,12 +22,12 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
 
 
     override fun onBindViewHolder(holder: TapeAlbumRVAdapter.ViewHolder, position: Int) {
-        holder.bindTapeAlbum(TapeAlbumList[position])
+        holder.bindTapeAlbum(tapeList[position])
 
     }
 
 
-    override fun getItemCount(): Int = TapeAlbumList.size
+    override fun getItemCount(): Int = tapeList.size
 
 
     inner class ViewHolder(val binding : ItemTapeBinding) : RecyclerView.ViewHolder(binding.root){
@@ -54,7 +54,7 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : List<TapeAlbum>, private va
         }
 
 
-        fun bindTapeAlbum(tapealbum : TapeAlbum){
+        fun bindTapeAlbum(tapealbum : Tape){
 
             binding.itemTapeTapetitleTv.text = tapealbum.tapeTitle
             binding.itemTapeSingerTv.text = tapealbum.singer

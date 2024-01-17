@@ -6,15 +6,16 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
-
 @Dao
-interface ReplyDao{
+interface TapeDao {
     @Insert
-    fun insert(reply: Reply) : Long
+    fun insert(tape: Tape) : Long
     @Update
-    fun update(reply: Reply)
+    fun update(tape : Tape)
     @Delete
-    fun delete(reply: Reply)
-    @Query("SELECT * FROM ReplyTable")
-    fun getAll() :List<Reply>
+    fun delete(tape: Tape)
+    @Query("SELECT * FROM TapeTable")
+    fun getAll() : List<Tape>
+
+
 }

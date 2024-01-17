@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/reply_back_iv"
         android:layout_width="wrap_content"
@@ -12,7 +14,7 @@
         android:src="@drawable/ic_left_arrow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="56dp"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="18dp"/>
     <TextView
@@ -89,12 +91,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reply_recycler_view"
         android:layout_width="368dp"
-        android:layout_height="333dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tape_background_iv"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_background_iv"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="26dp"
         android:paddingLeft="9dp"
         android:paddingTop="9dp"
         android:paddingRight="9dp"
@@ -125,7 +128,7 @@
         android:hint="댓글을 입력하세용"/>
 
     <ImageView
-        android:id="@+id/edit_text_btn"
+        android:id="@+id/btn_add_reply"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/btn_reply_upload"
@@ -133,7 +136,4 @@
         app:layout_constraintBottom_toBottomOf="@id/edit_text_et"
         app:layout_constraintEnd_toEndOf="@id/edit_text_background_iv"
         android:layout_marginRight="12dp"/>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

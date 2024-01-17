@@ -1,32 +1,34 @@
 package com.janob.tape_aos
 
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ReplyAdapter(private val replies : List<Reply>) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
+class ReplyAdapter(val replies : List<Reply>, val activity: ReplyActivity) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
 
     private val dataList = replies
 
-    class ReplyItemViewHolder(val view : View) : RecyclerView.ViewHolder(view)
+    class ReplyItemViewHolder(val view : View, val activity: ReplyActivity) : RecyclerView.ViewHolder(view)
     {
         lateinit var reply : Reply
-        var text = view.findViewById<TextView>(R.id.reply_text_tv)
-
         init{
-            var edit = view.findViewById<ImageView>(R.id.reply_edit_btn)
 
-            val pref = view.context.getSharedPreferences("reply", Context.MODE_PRIVATE)
+            //클릭한 댓글만 수정
+            view.setOnClickListener{
+                val intent = Intent(it.context,ReplyModifyActivity::class.java)
+                intent.putExtra("reply",reply)
 
+                activity.startActivity(intent)
 
+            }
         }
         fun bind(reply : Reply){
             this.reply = reply
 
+            var text = view.findViewById<TextView>(R.id.reply_text_tv)
             text.text = reply.text
 
         }
@@ -35,7 +37,7 @@ class ReplyAdapter(private val replies : List<Reply>) : RecyclerView.Adapter<Rep
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReplyItemViewHolder {
         //item view
         val view = LayoutInflater.from(parent.context).inflate(viewType,parent,false)
-        return ReplyItemViewHolder(view)
+        return ReplyItemViewHolder(view,activity)
     }
 
     override fun getItemCount(): Int {
@@ -47,6 +49,6 @@ class ReplyAdapter(private val replies : List<Reply>) : RecyclerView.Adapter<Rep
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.reply_list_item
+        return R.layout.item_reply
     }
 }

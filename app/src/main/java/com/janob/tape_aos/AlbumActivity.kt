@@ -1,6 +1,8 @@
 package com.janob.tape_aos
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.janob.tape_aos.databinding.ActivityAlbumBinding
@@ -19,8 +21,18 @@ class AlbumActivity : AppCompatActivity() {
         includedSongs = ArrayList()
         setDummyIncludedSong()
 
+        //댓글 액티비티로 이동
+        binding.albumCommentBtn.setOnClickListener {
+
+            Toast.makeText(this,"댓글 액티비티으로 이동 ",Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(this , ReplyActivity::class.java)
+            startActivity(intent)
+
+        }
 
         val includedSongRVAdapter = IncludedSongRVAdapter(includedSongs)
+
         binding.albumIncludedsongsVp.adapter = includedSongRVAdapter
 //        binding.albumIncludedsongsVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         // 관리하는 페이지 수. default = 1

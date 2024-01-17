@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tapeReplyData : List<Reply>
     lateinit var songData : List<Song>
     lateinit var includedSongData : List<IncludedSong>
+    lateinit var userData : List<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         inputDummyReply()
         inputDummySong()//양희연
         inputDummySongs()//박성현
+        inputDummyUser()
 
         initBottomNavigation()
 
@@ -309,6 +311,88 @@ class MainActivity : AppCompatActivity() {
                 "두 분의 목소리 진짜 악기같다... 넘 좋아요❤")
         )
 
+    }
+    private fun inputDummyUser(){
+        val tapeDB = TapeDatabase.Instance(this)
+        userData = tapeDB.userDao().getAll()
+
+        if(userData.isNotEmpty())
+            return
+
+        var followerList : List<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
+        var followingList : List<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "music_play",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "k_pop_lover",
+                "케이팝 좋아해요",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user1",
+                "노래 좋아요",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user2",
+                "작사, 작곡 공부 중",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user3",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user4",
+                "케이팝 좋아해요",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user5",
+                "노래 좋아요",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user6",
+                "작사, 작곡 공부 중",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user7",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData)
+        )
     }
     private fun initBottomNavigation() {
 

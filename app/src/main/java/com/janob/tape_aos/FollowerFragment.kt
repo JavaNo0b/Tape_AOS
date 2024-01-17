@@ -10,8 +10,8 @@ import com.janob.tape_aos.databinding.FragmentFollowerBinding
 
 class FollowerFragment : Fragment() {
     lateinit var binding : FragmentFollowerBinding
-    private var userDatas = ArrayList<User>()
-    private var tapeDatas = ArrayList<Tape>()
+    lateinit var userDatas : List<User>
+    lateinit var tapeDatas : List<Tape>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +21,7 @@ class FollowerFragment : Fragment() {
         binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
 
+        /*
         tapeDatas.apply {
             add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
@@ -49,6 +50,9 @@ class FollowerFragment : Fragment() {
             add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
             add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
         }
+        */
+        tapeDatas = TapeDatabase.Instance(context as FollowActivity).tapeDao().getAll()
+        userDatas = TapeDatabase.Instance(context as FollowActivity).userDao().getAll()
 
         // adapter 변수 선언
         val searchRVAapter = SearchRVAdapter(userDatas)

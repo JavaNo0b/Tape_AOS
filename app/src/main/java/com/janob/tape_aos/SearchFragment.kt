@@ -16,8 +16,8 @@ import com.janob.tape_aos.databinding.FragmentSearchBinding
 class SearchFragment : Fragment() {
 
     lateinit var binding: FragmentSearchBinding
-    private var userDatas = ArrayList<User>()
-    private var tapeDatas = ArrayList<Tape>()
+    lateinit var userDatas : List<User>
+    lateinit var tapeDatas : List<Tape>
 
     // search, realtime의 adapter 변수
     private var search_list = ArrayList<User>()
@@ -30,6 +30,7 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
+        /*
         tapeDatas.apply {
             add(Tape("Broken Melodies", "NCT DREAM", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
@@ -41,7 +42,10 @@ class SearchFragment : Fragment() {
             add(Tape("Thirsty", "aepsa", "K_pop_lover", R.drawable.albumcover_5, R.drawable.albumcover_5))
             add(Tape("와르르", "Colde", "music_play", R.drawable.albumcover_5, R.drawable.albumcover_5))
         }
+        */
+        tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
 
+        /*
         var followerList : ArrayList<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
         var followingList : ArrayList<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
         var tapeList = tapeDatas
@@ -56,6 +60,8 @@ class SearchFragment : Fragment() {
             add(User(R.drawable.albumcover_5, "user6", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
             add(User(R.drawable.albumcover_5, "user7", "음악 추천 부탁해요", followerList, followingList, tapeDatas))
         }
+        */
+        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
 
 
 
@@ -64,7 +70,7 @@ class SearchFragment : Fragment() {
         val realtimeRVAdapter = RealtimeRVAdapter(tapeDatas)
 
         // ** search **
-        original_list = userDatas
+        original_list = ArrayList(userDatas)
 
         // editText 리스너 작성
         val editText = binding.searchEdittextEt

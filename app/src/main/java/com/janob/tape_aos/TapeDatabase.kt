@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 
-@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class], version = 1)
+@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, User::class], version = 1)
+@TypeConverters(UserListConverters::class, TapeListConverters::class)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가
@@ -14,6 +16,7 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun tapeDao() : TapeDao
     abstract fun songDao() : SongDao
     abstract fun songDaos() : SongDaos
+    abstract fun userDao() : UserDao
     companion object{
 
         var instance : TapeDatabase? = null

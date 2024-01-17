@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var token: String
     private val loginUserViewModel : LoginUserViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -87,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d("Login", "token{$token}")
         val Equal : Boolean = token.equals(user.toString())
+
 
 
         loginUserViewModel.Modeltoken = token

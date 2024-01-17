@@ -22,6 +22,7 @@ class Profile2Activity : AppCompatActivity() {
     lateinit var imageByte : ByteArray
     private val loginUserViewModel : LoginUserViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +48,7 @@ class Profile2Activity : AppCompatActivity() {
                 loginUserViewModel.ModelprofileImg = imageByte
                 startActivity(Intent(this, Profile3Activity::class.java))
                 finish()
+
             }
         }
 

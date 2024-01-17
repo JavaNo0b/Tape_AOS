@@ -32,6 +32,7 @@ class Profile1Activity : AppCompatActivity() {
                 startActivity(Intent(this, Profile2Activity::class.java))
                 finish()
 
+
             }
         }
     }

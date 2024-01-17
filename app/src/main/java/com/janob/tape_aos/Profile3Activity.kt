@@ -31,6 +31,7 @@ class Profile3Activity : AppCompatActivity() {
             Log.d("profile3", "{$token, $nickname, $profileImg, $intro}")
             val loginuserDB = TapeDatabase.Instance(this)!!
             val user = LoginUser(token, nickname, profileImg, intro)
+
             loginuserDB.loginuserDao().insert(user)
             startActivity(Intent(this, MainActivity::class.java))
 

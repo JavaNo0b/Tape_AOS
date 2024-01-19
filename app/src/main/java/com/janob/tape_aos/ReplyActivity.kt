@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -15,20 +16,19 @@ class ReplyActivity : AppCompatActivity()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     lateinit var recyclerView : RecyclerView
     lateinit var binding: ActivityReplyBinding
-    lateinit var tapeReplyData: List<Reply>
+    lateinit var tapeReplyData: MutableList<Reply>
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-//
-//        //댓글 수정
-//        var reply = intent.getParcelableExtra("reply", Reply::class.java)
-//        if(reply != null){
-//            recyclerView.adapter?.notifyItemChanged(reply.idx)
-//        }
 
         binding = ActivityReplyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         //roomDB에서 데이터 가져오기
         tapeReplyData = TapeDatabase.Instance(this).replyDao().getAll()
 
@@ -38,9 +38,21 @@ class ReplyActivity : AppCompatActivity()
 
         adapter.setMyItemClickLitner(object: ReplyAdapter.MyItemClickListner {
             override fun onEditClick(reply: Reply) {
+                Log.d("click","editClick2")
                 val intent = Intent(this@ReplyActivity,ReplyModifyActivity::class.java)
                 intent.putExtra("reply",reply)
                 resultLauncher.launch(intent)
+            }
+
+            override fun onDeleteClick(reply: Reply) {
+                //roomDB 업데이트
+                TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
+                //recyclerView 업데이트
+                tapeReplyData.remove(reply)
+                val adapter = ReplyAdapter(tapeReplyData,this@ReplyActivity)
+                recyclerView.adapter = adapter
+                //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드
+                recyclerView.adapter?.notifyDataSetChanged()
             }
         })
 
@@ -51,9 +63,29 @@ class ReplyActivity : AppCompatActivity()
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
 
-        setContentView(binding.root)
-
+        binding.replyBtnAddReply.setOnClickListener{
+            addReply()
+        }
     }
+
+    fun addReply() {
+        val reply: String? = binding.replyEditTextEt.text.toString()
+        val lastItem = tapeReplyData.last()
+        TapeDatabase.Instance(this).replyDao().insert(Reply(lastItem.idx+1, reply,
+            lastItem.id?.plus(1)
+        ))
+        binding.replyEditTextEt.text = null
+        tapeReplyData.add(Reply(lastItem.idx+1, reply,
+            lastItem.id?.plus(1)
+        ))
+
+        val adapter = ReplyAdapter(tapeReplyData,this)
+        recyclerView.adapter = adapter
+
+        //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
     private fun setResultNext(){
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){ result ->
@@ -77,5 +109,4 @@ class ReplyActivity : AppCompatActivity()
             }
         }
     }
-
 }

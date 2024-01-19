@@ -1,7 +1,9 @@
 package com.janob.tape_aos
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ class AlbumFragment : Fragment() {
     lateinit var binding: FragmentAlbumBinding
     lateinit var includedSongsData: List<IncludedSong>
     lateinit var tapeData: Tape
+    lateinit var songDB: TapeDatabase
     var albumId = 0
 
     override fun onCreateView(
@@ -31,11 +34,11 @@ class AlbumFragment : Fragment() {
 
         binding.albumTapeTitleTv.text = tapeData.tapeTitle
 
-        val includedSongRVAdapter = IncludedSongRVAdapter(includedSongsData)
+        val includedSongRVAdapter = IncludedSongRVAdapter(includedSongsData, requireContext())
         binding.albumIncludedsongsVp.adapter = includedSongRVAdapter
 //        binding.albumIncludedsongsVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         // 관리하는 페이지 수. default = 1
-        binding.albumIncludedsongsVp.offscreenPageLimit = 4
+        binding.albumIncludedsongsVp.offscreenPageLimit = 10
         // item_view 간의 양 옆 여백을 상쇄할 값
         val offsetBetweenPages = resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
         binding.albumIncludedsongsVp.setPageTransformer { page, position ->
@@ -68,7 +71,8 @@ class AlbumFragment : Fragment() {
     }
 
     fun setDummyIncludedSong(albumId: Int){
-        val songDB = TapeDatabase.Instance(requireContext())
+        songDB = TapeDatabase.Instance(requireContext())
         includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
     }
+
 }

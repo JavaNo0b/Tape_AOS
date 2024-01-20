@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentFollowerBinding
 
 class FollowerFragment : Fragment() {
@@ -21,8 +22,8 @@ class FollowerFragment : Fragment() {
         binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
         // RoomDB 데이터 받기
-        tapeDatas = TapeDatabase.Instance(context as FollowActivity).tapeDao().getAll()
-        userDatas = TapeDatabase.Instance(context as FollowActivity).userDao().getAll()
+        tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
+        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
 
         // adapter 변수 선언
         val searchRVAapter = SearchRVAdapter(userDatas)
@@ -34,7 +35,6 @@ class FollowerFragment : Fragment() {
         searchRVAapter.setMyItemClickListener(object : SearchRVAdapter.MyItemClickListener{
             override fun onItemClick(user : User) {
                 // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환 + 데이터 전달(gson)
-                /*
                 (context as MainActivity).supportFragmentManager.beginTransaction()
                     .replace(R.id.main_fm, OtherprofileFragment().apply {
                         arguments = Bundle().apply {
@@ -44,7 +44,6 @@ class FollowerFragment : Fragment() {
                         }
                     })
                     .commitAllowingStateLoss()
-                 */
 
             }
 

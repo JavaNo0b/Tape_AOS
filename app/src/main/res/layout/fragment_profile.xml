@@ -250,6 +250,8 @@
         app:layout_constraintTop_toTopOf="@id/otherprofile_follow_btn"
         app:layout_constraintBottom_toBottomOf="@id/otherprofile_follow_btn"/>
 
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/otherprofile_content_tb"
         android:layout_width="match_parent"

@@ -393,6 +393,22 @@ class MainActivity : AppCompatActivity() {
                 followingList,
                 tapeData)
         )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user",
+                "user comment",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(R.drawable.albumcover_5,
+                "user123",
+                "user123 comment",
+                followerList,
+                followingList,
+                tapeData)
+        )
     }
     private fun initBottomNavigation() {
 

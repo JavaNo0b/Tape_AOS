@@ -1,6 +1,5 @@
 package com.janob.tape_aos
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,15 +40,40 @@ class OtherprofileFragment : Fragment() {
         // 팔로워, 팔로잉 클릭했을 때 Activity로 전환
         binding.otherprofileFollowerLl.setOnClickListener {
             val status : String = "follower"
+            // activity ver
+            /*
             val intent = Intent(activity, FollowActivity::class.java)
             intent.putExtra("status", status)
             startActivity(intent)
+            */
+
+            // fragment var
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, FollowFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("status", status)
+                    }
+                })
+                .commitAllowingStateLoss()
+
         }
         binding.otherprofileFollowingLl.setOnClickListener {
             val status : String = "following"
+            // activity ver
+            /*
             val intent = Intent(activity, FollowActivity::class.java)
             intent.putExtra("status", status)
             startActivity(intent)
+            */
+
+            // fragment var
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, FollowFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("status", status)
+                    }
+                })
+                .commitAllowingStateLoss()
         }
 
         // toggleButton 설정

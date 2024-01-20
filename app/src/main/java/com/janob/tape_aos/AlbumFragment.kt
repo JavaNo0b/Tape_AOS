@@ -72,12 +72,20 @@ class AlbumFragment : Fragment() {
             startActivity(intent)
 
         }
+
+        binding.albumTapeMoreBtn.setOnClickListener { showBottomDialog() }
+
         return binding.root
     }
 
     fun setDummyIncludedSong(albumId: Int){
         songDB = TapeDatabase.Instance(requireContext())
         includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
+    }
+
+    private fun showBottomDialog() {
+        val bottomsheet = AlbumBottomSheet()
+        bottomsheet.show(requireActivity().supportFragmentManager, "AlbumBottomSheet")
     }
 
 }

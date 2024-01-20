@@ -18,4 +18,8 @@ interface UserDao {
     fun getAll() : List<User>
     @Query("SELECT * FROM UserTable WHERE id = :id")
     fun getUser(id: Int) : User
+
+    // 이름으로 특정User 찾기
+    @Query("SELECT * FROM UserTable WHERE name LIKE :name")
+    fun searchUser(name : String) : User
 }

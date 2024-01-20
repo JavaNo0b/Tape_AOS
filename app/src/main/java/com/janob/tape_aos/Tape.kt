@@ -14,5 +14,4 @@ data class Tape(
     var userImage : Int ?= null,
     var isLike: Boolean = false,
     @PrimaryKey(autoGenerate = true) var id : Long? = null,
-
 )

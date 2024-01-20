@@ -12,7 +12,7 @@ import android.widget.PopupWindow
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemReplyBinding
 
-class ReplyAdapter(private val replies : List<Reply>, private val context: Context) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
+class ReplyAdapter(private val replies : List<Reply>, private val context: Context, private val itemClickListener: MyItemClickListner) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
 
     private val dataList = replies
 
@@ -55,11 +55,11 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
 
             // 팝업 내의 특정 뷰에 클릭 이벤트 추가
             popupEdit.setOnClickListener {
-                Log.d("click","editClick1")
-                mItemClickListner.onEditClick(dataList[position])
+                Log.d("click", "editClick1")
+                itemClickListener.onEditClick(dataList[position])
             }
             popupDelete.setOnClickListener {
-                mItemClickListner.onDeleteClick(dataList[position])
+                itemClickListener.onDeleteClick(dataList[position])
             }
 
         }

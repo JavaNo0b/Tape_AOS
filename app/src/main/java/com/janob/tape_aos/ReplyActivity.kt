@@ -34,13 +34,12 @@ class ReplyActivity : AppCompatActivity()
 
         //리사이클러뷰에 데이터 연결
         val manager = LinearLayoutManager(this)
-        val adapter = ReplyAdapter(tapeReplyData,this)
 
-        adapter.setMyItemClickLitner(object: ReplyAdapter.MyItemClickListner {
+        val adapter = ReplyAdapter(tapeReplyData, this, object : ReplyAdapter.MyItemClickListner {
             override fun onEditClick(reply: Reply) {
-                Log.d("click","editClick2")
-                val intent = Intent(this@ReplyActivity,ReplyModifyActivity::class.java)
-                intent.putExtra("reply",reply)
+                Log.d("click", "editClick2")
+                val intent = Intent(this@ReplyActivity, ReplyModifyActivity::class.java)
+                intent.putExtra("reply", reply)
                 resultLauncher.launch(intent)
             }
 
@@ -49,12 +48,30 @@ class ReplyActivity : AppCompatActivity()
                 TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
                 //recyclerView 업데이트
                 tapeReplyData.remove(reply)
-                val adapter = ReplyAdapter(tapeReplyData,this@ReplyActivity)
-                recyclerView.adapter = adapter
-                //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드
                 recyclerView.adapter?.notifyDataSetChanged()
             }
         })
+//        val adapter = ReplyAdapter(tapeReplyData,this)
+//
+//        adapter.setMyItemClickLitner(object: ReplyAdapter.MyItemClickListner {
+//            override fun onEditClick(reply: Reply) {
+//                Log.d("click","editClick2")
+//                val intent = Intent(this@ReplyActivity,ReplyModifyActivity::class.java)
+//                intent.putExtra("reply",reply)
+//                resultLauncher.launch(intent)
+//            }
+//
+//            override fun onDeleteClick(reply: Reply) {
+//                //roomDB 업데이트
+//                TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
+//                //recyclerView 업데이트
+//                tapeReplyData.remove(reply)
+//                val adapter = ReplyAdapter(tapeReplyData,this@ReplyActivity)
+//                recyclerView.adapter = adapter
+//                //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드
+//                recyclerView.adapter?.notifyDataSetChanged()
+//            }
+//        })
 
         setResultNext()
 
@@ -79,7 +96,22 @@ class ReplyActivity : AppCompatActivity()
             lastItem.id?.plus(1)
         ))
 
-        val adapter = ReplyAdapter(tapeReplyData,this)
+        val adapter = ReplyAdapter(tapeReplyData, this, object : ReplyAdapter.MyItemClickListner {
+            override fun onEditClick(reply: Reply) {
+                Log.d("click", "editClick2")
+                val intent = Intent(this@ReplyActivity, ReplyModifyActivity::class.java)
+                intent.putExtra("reply", reply)
+                resultLauncher.launch(intent)
+            }
+
+            override fun onDeleteClick(reply: Reply) {
+                //roomDB 업데이트
+                TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
+                //recyclerView 업데이트
+                tapeReplyData.remove(reply)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+        })
         recyclerView.adapter = adapter
 
         //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드

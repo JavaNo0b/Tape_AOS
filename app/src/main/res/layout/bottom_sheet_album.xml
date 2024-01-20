@@ -9,7 +9,9 @@
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp">
 
         <TextView
             android:id="@+id/bottomSheet_delete_tv"
@@ -19,9 +21,7 @@
             style="@style/TextRegularBold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginBottom="25dp"/>
+            android:layout_marginStart="27dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

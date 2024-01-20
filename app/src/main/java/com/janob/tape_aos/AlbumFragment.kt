@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
@@ -83,9 +84,13 @@ class AlbumFragment : Fragment() {
         includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
     }
 
+
+    //AlbumFragment의 BottomSheet 띄우기
     private fun showBottomDialog() {
         val bottomsheet = AlbumBottomSheet()
+        bottomsheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         bottomsheet.show(requireActivity().supportFragmentManager, "AlbumBottomSheet")
+
     }
 
 }

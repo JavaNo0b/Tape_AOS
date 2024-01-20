@@ -91,4 +91,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.1")
     kapt ("androidx.room:room-compiler:2.4.1")
 
+    // Indicator
+    implementation ("com.tbuonomo:dotsindicator:5.0")
+
 }

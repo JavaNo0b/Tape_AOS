@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.lang.Math.abs
 
 class AlbumFragment : Fragment() {
@@ -34,6 +35,9 @@ class AlbumFragment : Fragment() {
 
         binding.albumTapeTitleTv.text = tapeData.tapeTitle
 
+        //indicator
+        val dotsIndicator: DotsIndicator = binding.dotsIndicator
+
         val includedSongRVAdapter = IncludedSongRVAdapter(includedSongsData, requireContext())
         binding.albumIncludedsongsVp.adapter = includedSongRVAdapter
 //        binding.albumIncludedsongsVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -56,6 +60,7 @@ class AlbumFragment : Fragment() {
                 page.translationX = myOffset
             }
         }
+        dotsIndicator.attachTo(binding.albumIncludedsongsVp)
 
 
         //댓글 액티비티로 이동

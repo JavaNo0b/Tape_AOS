@@ -8,7 +8,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class], version = 1)
+@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class], version = 4)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가

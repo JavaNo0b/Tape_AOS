@@ -19,7 +19,6 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     lateinit var token: String
-    private val loginUserViewModel : LoginUserViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginSignIn.setOnClickListener{
             onClick(binding.loginSignIn)
             Log.d("test", "확인")
+            Log.d("Login1111", "확인1")
         }
 
     }
@@ -46,7 +46,8 @@ class LoginActivity : AppCompatActivity() {
             view.id -> {
                 if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                     UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                        Log.d("test", "확인1")
+                        Log.d("Login1111", "확인2")
+                        Log.d("test", "확인3")
                         if (error != null) {
                             Log.d("login failure(onClick)", "카카오톡으로 로그인 실패 $error")
                             if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("login failure(mCallback)", "카카오 계정으로 로그인 실패 $error")
         } else if (token != null) {
             Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
+            Log.d("Login1111", "확인4")
             firstlogincheck(token)
         }
     }
@@ -79,20 +81,24 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firstlogincheck(Token : OAuthToken){
 
-
+        Log.d("Login1111", "확인5")
         token = Token.toString()  //사용자 token String으로 변환해서 저장
+/*
 
         //이미 있는 계정인지 비교하기 위해 DB에서 정보 가져오기
         val TapeDB = TapeDatabase.Instance(this)!!
         val user = TapeDB.loginuserDao().getLoginUser(token)
+         val Equal : Boolean = token.equals(user.toString())
+*/
 
-        Log.d("Login", "token{$token}")
-        val Equal : Boolean = token.equals(user.toString())
+        Log.d("Login1111", "1token{$token}")
 
 
 
-        loginUserViewModel.Modeltoken = token
-        startActivity(Intent(this, OnboardActivity::class.java))
+        val intent = Intent(this, OnboardActivity::class.java)
+        intent.putExtra("Token", token)
+        Log.d("Login", "2token{$token}")
+        startActivity(intent)
         finish()
 
 

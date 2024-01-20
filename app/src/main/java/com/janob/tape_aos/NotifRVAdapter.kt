@@ -1,8 +1,10 @@
 package com.janob.tape_aos
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.ItemNotifBinding
 
 class NotifRVAdapter : RecyclerView.Adapter<NotifRVAdapter.ViewHolder>() {

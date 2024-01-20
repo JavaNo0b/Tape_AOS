@@ -4,24 +4,26 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.media.session.MediaSession.Token
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile2Binding
 
 import java.io.ByteArrayOutputStream
+import java.util.Collections.min
+import kotlin.math.min
 
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
     lateinit var imageByte : ByteArray
-    private val loginUserViewModel : LoginUserViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +46,16 @@ class Profile2Activity : AppCompatActivity() {
         binding.profile2ButtonBtn.setOnClickListener {
             if (checkProfile()) {
                 Log.d("profile2", "image{$imageByte}")
-                loginUserViewModel.Modelintro = binding.profile2IntroEt.text.toString()
-                loginUserViewModel.ModelprofileImg = imageByte
-                startActivity(Intent(this, Profile3Activity::class.java))
+                Log.d("profile2", "확인1")
+                val Intent = intent
+                val Intro = binding.profile2IntroEt.text.toString()
+                val Token = Intent.getStringExtra("Token")
+                val Nickname = Intent.getStringExtra("Nickname")
+                val loginuserData = LoginUser(Token, Nickname, imageByte, Intro)
+
+                val intent = Intent(this, Profile3Activity::class.java)
+                intent.putExtra("loginuserData", loginuserData)
+                startActivity(intent)
                 finish()
 
             }
@@ -57,6 +66,7 @@ class Profile2Activity : AppCompatActivity() {
 
 
     private fun openGallery() {
+        Log.d("profile2", "확인1")
         val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickImage.launch(gallery)
     }
@@ -116,25 +126,25 @@ class Profile2Activity : AppCompatActivity() {
 }
 
 
-    /*
-        private fun OpenGallery(){
-            launcher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                    if (result.resultCode == RESULT_OK) {
-                        val intent = checkNotNull(result.data)
-                        val imageUri = intent.data
+/*
+    private fun OpenGallery(){
+        launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val intent = checkNotNull(result.data)
+                    val imageUri = intent.data
 
-                        Glide.with(requireContext())
-                            .load(imageUri)
-                            .into(binding.profile2PicIv)
+                    Glide.with(requireContext())
+                        .load(imageUri)
+                        .into(binding.profile2PicIv)
 
-                        //갤러리에서 이미지 가져와 ByteArray 변환
-                        imageByte = imageUri?.let { uriToByteArray(it) }!!
+                    //갤러리에서 이미지 가져와 ByteArray 변환
+                    imageByte = imageUri?.let { uriToByteArray(it) }!!
 
 
-                        checkOpenGallery()
-                        // Room 데이터베이스에 저장
-                        *//*if (imageByte != null) {  //갤러리에서 사진 선택했을 때
+                    checkOpenGallery()
+                    // Room 데이터베이스에 저장
+                    *//*if (imageByte != null) {  //갤러리에서 사진 선택했을 때
                         //profile2DB.loginuserDao().insertProfileimage(imageByte)
                         checkOpenGallery(imageByte, false)
                     } else {

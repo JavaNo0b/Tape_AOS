@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FF5E5E"
+    tools:context=".Splash2Activity">
+
+    <ImageView
+        android:id="@+id/splash_2_tape"
+        android:src="@drawable/splash_image2"
+        android:layout_width="177.04dp"
+        android:layout_height="67.27dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="295.26dp"
+        android:layout_marginLeft="91.48dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

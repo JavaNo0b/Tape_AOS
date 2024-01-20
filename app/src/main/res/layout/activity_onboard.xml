@@ -38,6 +38,7 @@
         app:tabPaddingEnd="6dp"
         app:tabPaddingStart="6dp"/>
 
+
     <Button
         android:id="@+id/onboard_button_btn"
         android:layout_width="match_parent"

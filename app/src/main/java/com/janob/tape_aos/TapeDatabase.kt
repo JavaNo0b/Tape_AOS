@@ -1,5 +1,7 @@
 package com.janob.tape_aos
 
+
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -7,7 +9,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, User::class], version = 1)
+@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class, User::class], version = 1)
 @TypeConverters(StringListConverters::class, TapeListConverters::class)
 abstract class TapeDatabase : RoomDatabase(){
 
@@ -16,6 +18,8 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun tapeDao() : TapeDao
     abstract fun songDao() : SongDao
     abstract fun songDaos() : SongDaos
+    abstract fun loginuserDao() : LoginUserDao
+
     abstract fun userDao() : UserDao
     companion object{
 

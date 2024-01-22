@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.lang.Math.abs
@@ -36,11 +37,12 @@ class AlbumFragment : Fragment() {
 
         binding.albumTapeTitleTv.text = tapeData.tapeTitle
 
-        //indicator
-        val dotsIndicator: DotsIndicator = binding.dotsIndicator
 
         val includedSongRVAdapter = IncludedSongRVAdapter(includedSongsData, requireContext())
         binding.albumIncludedsongsVp.adapter = includedSongRVAdapter
+
+
+
 //        binding.albumIncludedsongsVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         // 관리하는 페이지 수. default = 1
         binding.albumIncludedsongsVp.offscreenPageLimit = 10
@@ -61,7 +63,9 @@ class AlbumFragment : Fragment() {
                 page.translationX = myOffset
             }
         }
-        dotsIndicator.attachTo(binding.albumIncludedsongsVp)
+
+        //indicator
+        TabLayoutMediator(binding.albumTapeTab, binding.albumIncludedsongsVp) { _, _ -> }.attach()
 
 
         //댓글 액티비티로 이동
@@ -84,13 +88,17 @@ class AlbumFragment : Fragment() {
         includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
     }
 
+    //싱글테이프일 경우 indicator 가리기
+    private fun indicatorSingle(){
+
+    }
+
 
     //AlbumFragment의 BottomSheet 띄우기
     private fun showBottomDialog() {
         val bottomsheet = AlbumBottomSheet()
         bottomsheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         bottomsheet.show(requireActivity().supportFragmentManager, "AlbumBottomSheet")
-
     }
 
 }

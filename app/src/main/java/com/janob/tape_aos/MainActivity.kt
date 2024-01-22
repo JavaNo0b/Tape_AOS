@@ -253,6 +253,55 @@ class MainActivity : AppCompatActivity() {
                 false)
         )
         songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,

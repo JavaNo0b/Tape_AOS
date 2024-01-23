@@ -12,12 +12,13 @@ import android.widget.PopupWindow
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemReplyBinding
 
-class ReplyAdapter(private val replies : List<Reply>, private val context: Context) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
+class ReplyAdapter(private val replies : List<Reply>, private val context: Context, private val itemClickListener: MyItemClickListner) : RecyclerView.Adapter<ReplyAdapter.ReplyItemViewHolder>() {
 
     private val dataList = replies
 
     interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
         fun onEditClick(reply: Reply)
+        fun onDeleteClick(reply: Reply)
     }
 
     private lateinit var mItemClickListner: MyItemClickListner //아래 받은 것을 내부에서 사용하기 위해 선언
@@ -49,11 +50,16 @@ class ReplyAdapter(private val replies : List<Reply>, private val context: Conte
             popupWindow.showAsDropDown(view, 0, 0)
 
             // 팝업 내의 특정 뷰 찾기
-            val popupItemView: View = popupView.findViewById(R.id.custom_reply_popup_menu_edit)
+            val popupEdit: View = popupView.findViewById(R.id.custom_reply_popup_menu_edit)
+            val popupDelete: View = popupView.findViewById(R.id.custom_reply_popup_menu_delete)
 
             // 팝업 내의 특정 뷰에 클릭 이벤트 추가
-            popupItemView.setOnClickListener {
-                mItemClickListner.onEditClick(dataList[position])
+            popupEdit.setOnClickListener {
+                Log.d("click", "editClick1")
+                itemClickListener.onEditClick(dataList[position])
+            }
+            popupDelete.setOnClickListener {
+                itemClickListener.onDeleteClick(dataList[position])
             }
 
         }

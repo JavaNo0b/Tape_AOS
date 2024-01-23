@@ -202,79 +202,141 @@ class MainActivity : AppCompatActivity() {
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                1)
+                1,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                2)
+                2,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
-                2)
+                2,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Thirsty",
                 "aepsa",
                 R.drawable.album_3,
-                3)
+                3,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
-                3)
+                3,
+                true)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                3)
+                3,
+                true)
         )
         songDB.songDaos().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
-                4)
+                4,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                4)
+                4,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Thirsty",
                 "aepsa",
                 R.drawable.album_3,
-                4)
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
+        )
+        songDB.songDaos().insert(
+            IncludedSong("Thirsty",
+                "aepsa",
+                R.drawable.album_3,
+                4,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                5)
+                5,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                6)
+                6,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                7)
+                7,
+                false)
         )
         songDB.songDaos().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                8)
+                8,
+                false)
         )
 
     }

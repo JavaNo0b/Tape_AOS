@@ -22,6 +22,10 @@ interface SongDaos {
 
     @Query("SELECT * FROM IncludedSongTable WHERE id = :id")
     fun getSong(id: Int): IncludedSong
+    @Query("UPDATE IncludedSongTable SET isLiked = :isLiked WHERE id = :id")
+    fun updateIsLikeById(isLiked: Boolean,id: Int)
+    @Query("SELECT * FROM IncludedSongTable WHERE isLiked = :isLiked")
+    fun getLikedSongs(isLiked: Boolean): List<IncludedSong>
 
     @Query("SELECT * FROM IncludedSongTable WHERE albumIdx = :albumIdx") //해당 앨범의 수록곡의 리스트
     fun getSongsInAlbum(albumIdx: Int): List<IncludedSong>

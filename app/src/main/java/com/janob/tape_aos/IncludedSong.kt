@@ -9,6 +9,7 @@ data class IncludedSong(
     var singer  : String = "",
     var img: Int? = 0,
     var albumIdx: Int? = 0,
+    var isLiked: Boolean = false
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 }

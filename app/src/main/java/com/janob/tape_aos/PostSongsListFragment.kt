@@ -114,13 +114,13 @@ class PostSongsListFragment : Fragment() {
     inner class SongItemViewHolder(view : View) : ViewHolder(view){
 
         private lateinit var song : Song
-        private val add  = view.findViewById<ImageView>(R.id.btn_add_to_tape)
+        private lateinit var includedSong : IncludedSong
+
+        private var added = false
         private val songTitle = view.findViewById<TextView>(R.id.song_title_tv)
         private val songSinger = view.findViewById<TextView>(R.id.song_singer_tv)
         private val songCover = view.findViewById<ImageView>(R.id.song_cover_img)
         private val songAlbumName = view.findViewById<TextView>(R.id.song_album_title)
-
-        var added =false
         fun bind(song : Song){
             this.song = song
             songTitle.text = song.title
@@ -128,29 +128,33 @@ class PostSongsListFragment : Fragment() {
             songCover.setImageResource(song.coverImg)
             songAlbumName.text = song.album
 
-            add.setOnClickListener {
+            itemView.setOnClickListener {
 
+                if(!added){
+                    added = true
+                    //클릭 이벤트
+                    includedSong = IncludedSong(song.album, song.title, song.singer, song.coverImg, 10)
+                    includedSongListViewModel
+                        .includedSongRepository
+                        .add(includedSong)
+                    Log.d("post song","${song.title} ${song.singer} ${song.coverImg}")
 
-                //클릭 이벤트
-                includedSongListViewModel
-                    .includedSongRepository
-                    .add(IncludedSong(song.album, song.title, song.singer, song.coverImg, 10))
-                Log.d("post song","${song.title} ${song.singer} ${song.coverImg}")
+                    itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_added_to_tape)
+                }
+                else{
+                    added = false
+                    includedSongListViewModel
+                        .includedSongRepository
+                        .delete(includedSong)
+                    Log.d("remove song","${song.title} ${song.singer} ${song.coverImg}")
 
-                //토글
+                    itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_add_to_tape)
+                }
+
 
 
             }
-//            add.setOnClickListener {
-//                if(added){
-//                    added= false
-//                    add.setImageResource(R.drawable.btn_add_to_tape)
-//                }
-//                else{
-//                    added = true
-//                    add.setImageResource(R.drawable.btn_added_to_tape)
-//                }
-//            }
+
 
         }
     }

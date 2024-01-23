@@ -26,8 +26,11 @@ class IncludedSongRepository private constructor(context : Context) {
             includedSongDao.delete(song)
         }
     }
-    //테이프 모든 곡 받아오기
-    fun getAllInAlbum(albumId : Int) : LiveData<List<IncludedSong>> = includedSongDao.getSongsInAlbumLiveData(albumId)
+    //임시코드
+    fun getInAlbum() :LiveData<List<IncludedSong>>{
+        return includedSongDao.getSongsInAlbumLiveData(10)
+    }
+
 
     companion object{
         private var instance : IncludedSongRepository? = null

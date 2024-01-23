@@ -17,6 +17,8 @@ interface IncludedSongDao {
 
     @Delete
     fun delete(song: IncludedSong)
+    @Query("DELETE FROM IncludedSongTable WHERE id=:id")
+    fun deleteThis(id:Int)
 
     @Query("DELETE FROM IncludedSongTable")
     fun deleteAll()

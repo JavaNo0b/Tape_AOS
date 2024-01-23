@@ -18,6 +18,9 @@ class Onboard1Fragment : Fragment() {
     ): View? {
         binding = FragmentOnboard1Binding.inflate(inflater, container, false)
 
+
+
+
         return binding.root
     }
 }

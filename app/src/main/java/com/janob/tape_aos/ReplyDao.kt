@@ -19,4 +19,5 @@ interface ReplyDao{
     fun getAll() :MutableList<Reply>
     @Query("UPDATE ReplyTable SET text = :text WHERE id = :id")
     fun updateReply(text: String?, id: Long?)
+
 }

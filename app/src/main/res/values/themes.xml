@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <!-- Status bar color. -->
+        <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -20,6 +21,11 @@
 
     <style name="RoundCornerModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/white_round_top_border_15</item>
+    </style>
+
+    <style name="Splash1" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground"> @drawable/splash_1 </item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
 </resources>

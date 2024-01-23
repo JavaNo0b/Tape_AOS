@@ -76,7 +76,7 @@ class PostIncludedSongsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //todo introduction 연동
-        includedSongListViewModel.includedSongsLiveData.observe(
+        includedSongListViewModel.includedSongLiveData.observe(
             viewLifecycleOwner,
             Observer{
                 songs ->
@@ -89,7 +89,7 @@ class PostIncludedSongsFragment : Fragment() {
         )
     }
 
-    fun updateUI(includedSongs: List<IncludedSong>){
+    private fun updateUI(includedSongs: List<IncludedSong>){
         adapter = IncludedSongAdapter(includedSongs)
         recyclerView.adapter = adapter
     }
@@ -124,7 +124,7 @@ class PostIncludedSongsFragment : Fragment() {
             songSinger.text = song.singer
             songAlbumTitle.text = song.albumTitle
 
-            itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setOnClickListener {
+            itemView.setOnClickListener {
                 includedSongListViewModel.includedSongRepository.delete(song)
 
             }

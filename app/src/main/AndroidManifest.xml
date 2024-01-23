@@ -71,6 +71,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ProfileEditActivity"
+            android:exported="true"/>
+
 
     </application>
 

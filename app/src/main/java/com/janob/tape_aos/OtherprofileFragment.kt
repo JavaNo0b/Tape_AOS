@@ -118,5 +118,7 @@ class OtherprofileFragment : Fragment() {
         binding.otherprofileTapeNumTv.text = user.tapeList.size.toString()
         binding.otherprofileFollowerNumTv.text = user.followerList.size.toString()
         binding.otherprofileFollowingNumTv.text = user.followingList.size.toString()
+
+        // 테이프 게시글 Feed 설정 구현 이어서 진행
     }
 }

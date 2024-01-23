@@ -22,4 +22,8 @@ interface UserDao {
     // 이름으로 특정User 찾기
     @Query("SELECT * FROM UserTable WHERE name LIKE :name")
     fun searchUser(name : String) : User
+
+    //
+    @Query("SELECT * FROM UserTable WHERE userKey = :userKey")
+    fun getMyUser(userKey: Int) : User
 }

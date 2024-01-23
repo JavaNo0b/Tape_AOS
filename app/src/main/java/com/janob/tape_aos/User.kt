@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "UserTable")
 data class User(
+    // userKey=1 -> 사용자, userKey=0 -> 타유저
+    var userKey : Int? = null,
     var userImg : Int? = null,
     var name : String = "",
     var comment : String = "",

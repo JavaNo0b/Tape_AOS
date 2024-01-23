@@ -30,4 +30,5 @@ class NotifFragment : Fragment() {
 
         return binding.root
     }
+
 }

@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,7 +13,6 @@ import com.janob.tape_aos.databinding.ActivityProfile1Binding
 class Profile1Activity : AppCompatActivity() {
 
     lateinit var binding : ActivityProfile1Binding
-    private val loginUserViewModel : LoginUserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +27,11 @@ class Profile1Activity : AppCompatActivity() {
 
         binding.profile1ButtonBtn.setOnClickListener{
             if(checkProfile()){
-                //viewModel로 데이터 전달
-                loginUserViewModel.Modelnickname = binding.profile1NicknameEt.text.toString()
-                startActivity(Intent(this, Profile2Activity::class.java))
+
+                val Nickname = binding.profile1NicknameEt.text.toString()
+                val intent = Intent(this, Profile2Activity::class.java)
+                intent.putExtra("Nickname", Nickname)
+                startActivity(intent)
                 finish()
 
 
@@ -56,12 +58,12 @@ class Profile1Activity : AppCompatActivity() {
             Log.d("Profile1", "두번째 오류")
             return false
 
-        } else if(!CheckExistNickname(binding.profile1NicknameEt.text.toString())) {//다른 아이디와 같을때
-            binding.profile1NicknameError1Tv.visibility = View.GONE
-            binding.profile1NicknameError2Tv.visibility = View.GONE
-            binding.profile1NicknameError3Tv.visibility = View.VISIBLE
-            Log.d("Profile1", "세번째 오류")
-            return false
+//        else if(!CheckExistNickname(binding.profile1NicknameEt.text.toString())) {//다른 아이디와 같을때
+//            binding.profile1NicknameError1Tv.visibility = View.GONE
+//            binding.profile1NicknameError2Tv.visibility = View.GONE
+//            binding.profile1NicknameError3Tv.visibility = View.VISIBLE
+//            Log.d("Profile1", "세번째 오류")
+//            return false
         }
         Log.d("Profile1", "성공")
         return true

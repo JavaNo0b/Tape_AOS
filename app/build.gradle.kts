@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.janob.tape_aos"
-        minSdk = 33
+        minSdk = 30
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,7 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
 }
 
 dependencies {

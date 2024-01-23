@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)*/
 
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -126,7 +127,23 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
+                "NO PAIN",
+                "실리카겔",
+                "기리보이 EP [영화같게]",
+                0,0
+            )
+        )
+        tapeDB.songDao().insert(
+            Song(R.drawable.albumcover_5,
+                "Winter Blossom (feat. SAAY)",
+                "펀치넬로",
+                "기리보이 EP [영화같게]",
+                0,0
+            )
+        )
+        tapeDB.songDao().insert(
+            Song(R.drawable.albumcover_5,
+                "사랑이었나봐",
                 "기리보이",
                 "기리보이 EP [영화같게]",
                 0,0
@@ -134,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
+                "빈집",
                 "기리보이",
                 "기리보이 EP [영화같게]",
                 0,0
@@ -142,48 +159,32 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
+                "Love Lee",
+                "AKMU",
                 "기리보이 EP [영화같게]",
                 0,0
             )
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
+                "후라이의 꿈",
+                "AKMU",
                 "기리보이 EP [영화같게]",
                 0,0
             )
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
+                "후라이의 꿈",
+                "악동뮤지션",
                 "기리보이 EP [영화같게]",
                 0,0
             )
         )
         tapeDB.songDao().insert(
             Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
-                "기리보이 EP [영화같게]",
-                0,0
-            )
-        )
-        tapeDB.songDao().insert(
-            Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
-                "기리보이 EP [영화같게]",
-                0,0
-            )
-        )
-        tapeDB.songDao().insert(
-            Song(R.drawable.albumcover_5,
-                "우리 서로 사랑하지는 말자",
-                "기리보이",
+                "밤편지",
+                "아이유",
                 "기리보이 EP [영화같게]",
                 0,0
             )
@@ -327,7 +328,17 @@ class MainActivity : AppCompatActivity() {
         var followerList : List<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
         var followingList : List<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(1,
+                R.drawable.user_profile_img,
+                "Min_SEO",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                R.drawable.albumcover_5,
                 "music_play",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -335,7 +346,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "k_pop_lover",
                 "케이팝 좋아해요",
                 followerList,
@@ -343,7 +355,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user1",
                 "노래 좋아요",
                 followerList,
@@ -351,7 +364,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user2",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -359,7 +373,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user3",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -367,7 +382,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user4",
                 "케이팝 좋아해요",
                 followerList,
@@ -375,7 +391,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user5",
                 "노래 좋아요",
                 followerList,
@@ -383,7 +400,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user6",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -391,7 +409,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user7",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -399,7 +418,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user",
                 "user comment",
                 followerList,
@@ -407,7 +427,8 @@ class MainActivity : AppCompatActivity() {
                 tapeData)
         )
         tapeDB.userDao().insert(
-            User(R.drawable.albumcover_5,
+            User(0,
+                R.drawable.albumcover_5,
                 "user123",
                 "user123 comment",
                 followerList,

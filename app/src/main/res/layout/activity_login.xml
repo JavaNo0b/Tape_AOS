@@ -31,9 +31,9 @@
         android:src="@drawable/login_star_3"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="274dp"
+        android:layout_marginEnd="54dp"
         android:layout_marginTop="172dp" />
 
     <ImageView
@@ -41,9 +41,9 @@
         android:src="@drawable/login_star_4"
         android:layout_width="60.65dp"
         android:layout_height="46dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="261dp"
+        android:layout_marginEnd="38.35dp"
         android:layout_marginTop="373dp" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_height="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="86dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="263dp"/>
 
     <ImageView
@@ -65,7 +65,7 @@
         android:layout_height="61.65dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="99dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="295dp" />
 
     <View
@@ -95,7 +95,7 @@
         android:layout_height="19dp"
         android:text="카카오로 빠르게 회원가입"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/login_black_background_1"
         app:layout_constraintTop_toTopOf="@+id/login_black_background_1"
         android:layout_marginStart="40dp"
@@ -148,7 +148,7 @@
             android:layout_height="20dp"
             android:text="카카오로 로그인 / 회원가입하기"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/login_sign_in_image_iv"
             app:layout_constraintTop_toTopOf="parent"

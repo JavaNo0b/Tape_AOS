@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.lang.Math.abs
 
 class AlbumFragment : Fragment() {
@@ -29,7 +28,7 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(layoutInflater)
         albumId = arguments?.getInt("albumId")!!
-        tapeData = TapeDatabase.Instance(requireContext()).tapeDao().getAlbum(albumId)
+        tapeData = TapeDatabase.Instance(requireContext()).tapeDao().getTape(albumId)
 
 
         setDummyIncludedSong(albumId)
@@ -85,7 +84,7 @@ class AlbumFragment : Fragment() {
 
     fun setDummyIncludedSong(albumId: Int){
         songDB = TapeDatabase.Instance(requireContext())
-        includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
+        includedSongsData = songDB.IncludedSongDao().getSongsInAlbum(albumId!!)
     }
 
     //싱글테이프일 경우 indicator 가리기

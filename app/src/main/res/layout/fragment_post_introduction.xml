@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tape 등록"
-        android:textSize="16sp"
+        android:textSize="19sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,8 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="21sp"
-        android:text="대표 이미지를\n 선택해 주세요"
+        android:text="대표 이미지를\n선택해주세요!"
+        android:lineSpacingMultiplier="0.85"
         android:layout_marginTop="126dp"/>
     <ImageView
         android:id="@+id/background_photo"
@@ -66,10 +67,12 @@
         android:src="@drawable/rect1_bg"/>
     <EditText
         android:id="@+id/title_tape_et"
-        android:layout_width="328dp"
+        android:layout_width="308dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="@id/title_tape_iv"
+        app:layout_constraintEnd_toEndOf="@id/title_tape_iv"
         app:layout_constraintTop_toTopOf="@id/title_tape_iv"
+        app:layout_constraintBottom_toBottomOf="@id/title_tape_iv"
         android:background="@android:color/transparent"
         android:hint="Tape 제목을 작성해 주세요 "
         android:paddingStart="6dp"
@@ -90,7 +93,9 @@
         android:layout_width="308dp"
         android:layout_height="103dp"
         app:layout_constraintStart_toStartOf="@id/content_tape_iv"
+        app:layout_constraintEnd_toEndOf="@+id/content_tape_iv"
         app:layout_constraintTop_toTopOf="@id/content_tape_iv"
+        app:layout_constraintBottom_toBottomOf="@id/content_tape_iv"
         android:background="@android:color/transparent"
         android:hint="Tape에 대한 소개글을 작성해 주세요 "
         android:paddingStart="6dp"
@@ -98,6 +103,17 @@
         android:textSize="11.5sp"
         android:textColor="@color/gray"
         android:gravity="top"/>
+    <TextView
+        android:id="@+id/alert_tv"
+        android:layout_width="175dp"
+        android:layout_height="31dp"
+        app:layout_constraintStart_toStartOf="@id/content_tape_iv"
+        app:layout_constraintTop_toBottomOf="@id/content_tape_iv"
+        android:layout_marginTop="3dp"
+        android:text="제목 글자수는 1자 이상 60자 이내,\n소개글은 280자 이내로 작성가능합니다."
+        android:textColor="#FF5E5E"
+        android:textSize="9.5sp"
+        android:lineSpacingMultiplier="1"/>
     <ImageView
         android:id="@+id/btn_post_continue"
         android:layout_width="match_parent"
@@ -107,7 +123,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/included_song_count_tv"
         android:layout_width="52dp"
         android:layout_height="18dp"
         app:layout_constraintTop_toTopOf="@id/btn_post_continue"

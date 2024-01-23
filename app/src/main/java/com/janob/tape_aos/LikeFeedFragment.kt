@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.janob.tape_aos.databinding.FragmentLikeFeedBinding
 
@@ -37,8 +38,8 @@ class LikeFeedFragment : Fragment() {
         binding = FragmentLikeFeedBinding.inflate(inflater, container, false)
 
         // RoomDB 데이터 받기
-        songDatas = TapeDatabase.Instance(context as MainActivity).songDao().getAll()
-        like_song_list = ArrayList(TapeDatabase.Instance(context as MainActivity).songDao().getAll())
+        songDatas = TapeDatabase.Instance(context as MainActivity).songDao().getAllList()
+        like_song_list = ArrayList(TapeDatabase.Instance(context as MainActivity).songDao().getAllList())
 
         // adapter 변수 선언
         val likefeedRVAapter = LikeFeedRVAdapter(songDatas, false, false)

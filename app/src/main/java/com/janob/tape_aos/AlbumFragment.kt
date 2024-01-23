@@ -23,7 +23,7 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(layoutInflater)
         albumId = arguments?.getInt("albumId")!!
-        tapeData = TapeDatabase.Instance(requireContext()).tapeDao().getAlbum(albumId)
+        tapeData = TapeDatabase.Instance(requireContext()).tapeDao().getTape(albumId)
 
 
         setDummyIncludedSong(albumId)
@@ -69,6 +69,6 @@ class AlbumFragment : Fragment() {
 
     fun setDummyIncludedSong(albumId: Int){
         val songDB = TapeDatabase.Instance(requireContext())
-        includedSongsData = songDB.songDaos().getSongsInAlbum(albumId!!)
+        includedSongsData = songDB.IncludedSongDao().getSongsInAlbum(albumId!!).value!!
     }
 }

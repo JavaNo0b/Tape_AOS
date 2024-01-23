@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -14,10 +15,12 @@ interface TapeDao {
     fun update(tape : Tape)
     @Delete
     fun delete(tape: Tape)
+    @Query("DELETE FROM TapeTable")
+    fun deleteAll()
     @Query("SELECT * FROM TapeTable")
-    fun getAll() : List<Tape>
+    fun getAll() : LiveData<List<Tape>>
     @Query("SELECT * FROM TapeTable WHERE id = :id")
-    fun getAlbum(id: Int): Tape
+    fun getTape(id: Int): Tape
 //    @Query("UPDATE SongTable SET isLike = :isLike WHERE id = :id")
 //    fun updateIsLikeById(isLike: Boolean,id: Int)
 

@@ -28,6 +28,11 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".AlbumActivity" />
         <activity android:name=".FollowActivity"
@@ -49,11 +54,7 @@
         <activity android:name=".Splash2Activity"
             android:exported="true"
             android:theme="@style/Splash1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".LoginActivity"

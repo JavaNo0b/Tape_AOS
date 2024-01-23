@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.janob.tape_aos.databinding.FragmentTapeHomeBinding
+import com.janob.tape_aos.databinding.FragmentPostBackHomeBinding
 
-class TapeHomeFragment : Fragment() {
+class PostBackHomeFragment : Fragment() {
 
-    interface TapeHomeListener { fun onTapeHome() }
-    lateinit var listener : TapeHomeListener
+    interface PostBackToHomeListener { fun onPostAllCompleted() }
+    lateinit var listener : PostBackToHomeListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if(parentFragment is TapeHomeListener){
-            listener = parentFragment as TapeHomeListener
+        if(parentFragment is PostBackToHomeListener){
+            listener = parentFragment as PostBackToHomeListener
         }else{
             throw Exception("인터페이스 미구현 ")
         }
@@ -28,10 +28,10 @@ class TapeHomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var binding = FragmentTapeHomeBinding.inflate(inflater,container,false)
+        var binding = FragmentPostBackHomeBinding.inflate(inflater,container,false)
 
         binding.btnToHome.setOnClickListener {
-            listener.onTapeHome()
+            listener.onPostAllCompleted()
         }
         return binding.root
     }

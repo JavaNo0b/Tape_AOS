@@ -1,31 +1,23 @@
 package com.janob.tape_aos
 
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import com.janob.tape_aos.databinding.ActivityMainBinding
-import java.security.MessageDigest
 import com.kakao.sdk.common.util.Utility
 
+private const val TAG1 = "MAIN_ACTIVITY"
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-
-    lateinit var tapeData : List<Tape>
-    lateinit var tapeReplyData : List<Reply>
-    lateinit var songData : List<Song>
-    lateinit var includedSongData : List<IncludedSong>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*해쉬키 값 추출
+        //해쉬키 값 추출
         val keyHash = Utility.getKeyHash(this)
-        Log.d("Hash", keyHash)*/
+        Log.d("Hash", keyHash)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,73 +30,74 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
 
-
+        SongRepository.initialize(this)
+        IncludedSongRepository.initialize(this)
+        TapeRepository.initialize(this)
 
     }
 
     private fun inputDummyAlbum(){
-        val tapeDB = TapeDatabase.Instance(this)
-        tapeData = tapeDB.tapeDao().getAll()
+        val database = TapeDatabase.Instance(this)
+        val tapeDao = database.tapeDao()
+        tapeDao.deleteAll()
 
-        if(tapeData.isNotEmpty()) return
-
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Broken Melodies",
                 "NCT DREAM",
                 "music_play",
                 R.drawable.albumcover_5,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Thirsty",
                 "aepsa",
                 "K_pop_lover",
                 R.drawable.album_1,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("와르르",
                 "Colde",
                 "music_play",
                 R.drawable.album_2,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Broken Melodies",
                 "NCT DREAM",
                 "music_play",
                 R.drawable.album_3,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Thirsty",
                 "aepsa",
                 "K_pop_lover",
                 R.drawable.album_4,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("와르르",
                 "Colde",
                 "music_play",
                 R.drawable.album_1,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Broken Melodies",
                 "NCT DREAM",
                 "music_play",
                 R.drawable.album_2,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("Thirsty",
                 "aepsa",
                 "K_pop_lover",
                 R.drawable.album_3,
                 R.drawable.albumcover_5)
         )
-        tapeDB.tapeDao().insert(
+        database.tapeDao().insert(
             Tape("와르르",
                 "Colde",
                 "music_play",
@@ -115,12 +108,12 @@ class MainActivity : AppCompatActivity() {
 
     //양희연
     private fun inputDummySong(){
-        val tapeDB = TapeDatabase.Instance(this)
-        songData = tapeDB.songDao().getAll()
+        val database = TapeDatabase.Instance(this)
+        val songDao = database.songDao()
 
-        if(songData.isNotEmpty()) return
+        songDao.deleteAll()
 
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -128,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -136,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -144,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -152,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -160,7 +153,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -168,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -176,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -184,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 0,0
             )
         )
-        tapeDB.songDao().insert(
+        songDao.insert(
             Song(R.drawable.albumcover_5,
                 "우리 서로 사랑하지는 말자",
                 "기리보이",
@@ -197,82 +190,89 @@ class MainActivity : AppCompatActivity() {
     //박성현
     private fun inputDummySongs(){
         val songDB = TapeDatabase.Instance(this)
-        includedSongData = songDB.songDaos().getSongs()
-        if(includedSongData.isNotEmpty())
-            return
-        songDB.songDaos().insert(
+        val includedSongDao = songDB.IncludedSongDao()
+
+        includedSongDao.deleteAll()
+
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 1)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
-                2)
+                1)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
                 2)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
+            IncludedSong("와르르",
+                "Colde",
+                R.drawable.album_2,
+                2)
+        )
+        songDB.IncludedSongDao().insert(
             IncludedSong("Thirsty",
                 "aepsa",
                 R.drawable.album_3,
                 3)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
                 3)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 3)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("와르르",
                 "Colde",
                 R.drawable.album_2,
                 4)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 4)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Thirsty",
                 "aepsa",
                 R.drawable.album_3,
                 4)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 5)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 6)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
                 7)
         )
-        songDB.songDaos().insert(
+        songDB.IncludedSongDao().insert(
             IncludedSong("Broken Melodies",
                 "NCT DREAM",
                 R.drawable.album_1,
@@ -281,41 +281,40 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun inputDummyReply(){
-        val tapeDB = TapeDatabase.Instance(this)
-        tapeReplyData = tapeDB.replyDao().getAll()
+        val database = TapeDatabase.Instance(this)
+        val replyDao = database.replyDao()
 
-        if(tapeReplyData.isNotEmpty())
-            return
+        replyDao.deleteAll()
 
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(1,
                 "너무 좋아요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ가사 너무 아련...")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(2,
                 "노래 너무 좋아요❤️")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(3,
                 "이 조합 미쳤다,,완벽한 겨울노래")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(4,
                 "목소리 너무 신비스럽게 이쁘네")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(5,
                 "들을 때마다 더 좋아지냐 마음이 따뜻해지네")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(6,
                 "안볼수가 없는 조합")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(7,
                 "우와... 겨울 분위기 대박 노래 너무 좋아요ㅠ")
         )
-        tapeDB.replyDao().insert(
+        replyDao.insert(
             Reply(8,
                 "두 분의 목소리 진짜 악기같다... 넘 좋아요❤")
         )

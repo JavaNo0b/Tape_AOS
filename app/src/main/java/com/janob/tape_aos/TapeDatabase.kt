@@ -15,12 +15,12 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun replyDao() : ReplyDao
     abstract fun tapeDao() : TapeDao
     abstract fun songDao() : SongDao
-    abstract fun songDaos() : SongDaos
+    abstract fun IncludedSongDao() : IncludedSongDao
     abstract fun loginuserDao() : LoginUserDao
 
     companion object{
 
-        var instance : TapeDatabase? = null
+        private var instance : TapeDatabase? = null
 
 
         fun Instance(context : Context) : TapeDatabase {

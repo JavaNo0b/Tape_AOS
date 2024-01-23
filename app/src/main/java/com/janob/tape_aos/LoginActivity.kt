@@ -26,12 +26,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
-        Log.d("test", "확인확인확인")
 
         var keyHash = Utility.getKeyHash(this)
 
 
-        Log.d("test", "확인확인")
         setContentView(binding.root)
 
         binding.loginSignIn.setOnClickListener{

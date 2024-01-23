@@ -4,43 +4,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
-        android:id="@+id/head1_tv"
+        android:id="@+id/introduction_title"
         android:layout_width="280dp"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="147dp"
         android:text="테이프가 완성 되었어요!"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="21sp"
         android:textAlignment="center"
         android:textStyle="bold"/>
+
     <TextView
-        android:id="@+id/head2_tv"
+        android:id="@+id/introduction_desc"
         android:layout_width="171dp"
         android:layout_height="22dp"
-        android:text="내 테이프를 확인해보세요"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/head1_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="7dp"
-        android:textAlignment="center"/>
-    
+        android:text="내 테이프를 확인해보세요"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/introduction_title" />
+
     <ImageView
         android:id="@+id/main_iv"
         android:layout_width="284dp"
         android:layout_height="215dp"
         android:src="@drawable/union"
-        app:layout_constraintTop_toBottomOf="@id/head2_tv"
+        app:layout_constraintTop_toBottomOf="@id/introduction_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="46dp"/>
     <ImageView
-        android:id="@+id/note1_iv"
+        android:id="@+id/single_tape_type_iv1"
         android:layout_width="77dp"
         android:layout_height="92dp"
         android:src="@drawable/note"
@@ -50,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="@id/main_iv"
         android:layout_marginRight="42dp"/>
     <ImageView
-        android:id="@+id/note2_iv"
+        android:id="@+id/single_tape_type_iv2"
         android:layout_width="43dp"
         android:layout_height="51dp"
         android:src="@drawable/note2"
@@ -60,6 +61,17 @@
         app:layout_constraintBottom_toBottomOf="@id/main_iv"
         android:layout_marginLeft="82dp"
         android:layout_marginBottom="76dp"/>
+    <ImageView
+        android:id="@+id/album_tape_type__iv"
+        android:layout_width="175dp"
+        android:layout_height="115dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_tape"
+        app:layout_constraintStart_toStartOf="@id/main_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_iv"
+        app:layout_constraintTop_toTopOf="@id/main_iv"
+        app:layout_constraintBottom_toBottomOf="@id/main_iv"/>
+
     <ImageView
         android:id="@+id/btn_to_home"
         android:layout_width="328dp"

@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,7 @@ import java.io.ByteArrayOutputStream
 
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
-    lateinit var imageByte : ByteArray
+    private lateinit var imageByte : ByteArray
     private val loginUserViewModel : LoginUserViewModel by viewModels()
 
 
@@ -76,17 +77,17 @@ class Profile2Activity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val selectedImageUri = result.data?.data
                 selectedImageUri?.let {
-                    try {
-                        val bitmap =
-                            MediaStore.Images.Media.getBitmap(this.contentResolver, it)
-                        binding.profile2PicIv.setImageBitmap(bitmap)
-                        imageByte = uriToByteArray(selectedImageUri)!!
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+//
+//                        val bitmap =
+//                            MediaStore.Images.Media.getBitmap(this.contentResolver, it)
+//                        binding.profile2PicIv.setImageBitmap(bitmap)
+//                        imageByte = uriToByteArray(selectedImageUri)
+
                 }
             }
         }
+
+
 
 
     private fun uriToByteArray(uri: Uri): ByteArray {

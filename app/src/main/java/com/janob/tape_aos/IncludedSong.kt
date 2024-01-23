@@ -8,7 +8,7 @@ data class IncludedSong(
     var title : String = "",
     var singer  : String = "",
     var img: Int? = 0,
-    var albumIdx: Int? = 0,
+    var tapeIdx: Int? = 0,
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 }

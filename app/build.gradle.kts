@@ -17,6 +17,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -40,7 +42,10 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
 }
+
+
 
 dependencies {
 
@@ -93,4 +98,11 @@ dependencies {
     //ViewModel
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
 
+
+    //이미지 zoomin
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
+
 }
+
+

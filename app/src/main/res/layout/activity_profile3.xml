@@ -17,22 +17,34 @@
         android:layout_marginTop="162dp"
         >
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="422dp"
             android:background="@drawable/layout_background_shape_6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            
             />
 
-        <View
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/profile3_image_iv"
+            android:layout_width="match_parent"
+            android:layout_height="422dp"
+            android:src="@drawable/albumcover_5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+<!--        <View
             android:layout_width="241dp"
             android:layout_height="241dp"
             android:background="@drawable/prof2_circle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="87dp"
-            android:layout_marginStart="80dp"/>
+            android:layout_marginStart="80dp"/>-->
 
     </RelativeLayout>
 

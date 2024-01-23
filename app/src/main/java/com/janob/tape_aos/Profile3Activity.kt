@@ -1,9 +1,9 @@
 package com.janob.tape_aos
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile3Binding
 
@@ -20,24 +20,28 @@ class Profile3Activity : AppCompatActivity() {
 
         binding.profile3ButtonBtn.setOnClickListener{
 
+            /*val Intent = intent
+            //val image = Intent.getB("imageBitmap")
 
-            //roomdb에 데이터저장
-            val loginuserData = intent.getParcelableExtra<LoginUser>("loginuserData")
-            Log.d("profile3", loginuserData.toString())
+            Log.d("Login1111", image.toString())
 
-            val loginuserDB = TapeDatabase.Instance(this)!!
-
-            if (loginuserData != null) {
-                loginuserDB.loginuserDao().insert(loginuserData)
+            image?.let {
+                binding.profile3ImageIv.setImageBitmap(image)
             }
-            startActivity(Intent(this, MainActivity::class.java))
 
-            val users = loginuserDB.loginuserDao().getLoginUsers() //정보가 잘들어갔나 log로 확인
-            Log.d("profile3", users.toString())
-
+*/
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
+
         }
 
     }
 
+    private fun byteArrayToBitmap(byteArray: ByteArray?): Bitmap? {
+        return byteArray?.let { BitmapFactory.decodeByteArray(it,0, it.size) }
+    }
+
 }
+
+

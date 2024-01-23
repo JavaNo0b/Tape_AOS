@@ -77,7 +77,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
-
+    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
+    implementation("com.google.code.gson:gson:2.8.0")
     // okHttp
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
@@ -102,6 +103,9 @@ dependencies {
 
     //ViewModel
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
+    //retrofit
 
 
     //이미지 zoomin

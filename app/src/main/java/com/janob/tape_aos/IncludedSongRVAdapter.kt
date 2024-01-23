@@ -55,13 +55,13 @@ class IncludedSongRVAdapter(private val songsList: List<IncludedSong>,private va
             if(song.isLiked){
                 Log.d("click","likeClick")
                 binding.itemSongcoverLikeBtn.setImageResource(R.drawable.btn_unlike)
-                songDB.songDaos().updateIsLikeById(isLiked = false, id = song.id)
+                songDB.IncludedSongDao().updateIsLikeById(isLiked = false, id = song.id)
                 song.isLiked = !song.isLiked
                 Toast.makeText(context,"좋아요를 취소하였습니다.${song.isLiked}", Toast.LENGTH_SHORT).show()
             }else{
                 Log.d("click","unlikeClick")
                 binding.itemSongcoverLikeBtn.setImageResource(R.drawable.btn_like)
-                songDB.songDaos().updateIsLikeById(isLiked = true, id = song.id)
+                songDB.IncludedSongDao().updateIsLikeById(isLiked = true, id = song.id)
                 song.isLiked = !song.isLiked
                 Toast.makeText(context,"좋아요 한 곡이 담겼습니다.${song.isLiked}, ${song.id}", Toast.LENGTH_SHORT).show()
             }

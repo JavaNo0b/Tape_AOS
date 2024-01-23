@@ -9,7 +9,6 @@
 
     <application
         android:enableOnBackInvokedCallback="true"
-        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -71,6 +70,9 @@
                     android:scheme="kakaoacf9ccdb9befb1509a4e53ad023da96b" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ProfileEditActivity"
+            android:exported="true"/>
 
 
     </application>

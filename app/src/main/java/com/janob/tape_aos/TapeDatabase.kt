@@ -8,14 +8,16 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+
+
+@Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class, User::class], version = 4)
+@TypeConverters(StringListConverters::class, TapeListConverters::class)
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import java.text.Collator.PRIMARY
 
 
-@Database(
-    entities = [Reply::class, Tape::class, Song::class, IncludedSong::class,LoginUser::class], version = 5
-)
 abstract class TapeDatabase : RoomDatabase(){
 
     //필요한 Dao 추가
@@ -25,7 +27,10 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun songDaos() : SongDaos
     abstract fun loginuserDao() : LoginUserDao
 
-    companion object {
+
+    abstract fun userDao() : UserDao
+    companion object{
+
 
         var instance: TapeDatabase? = null
 

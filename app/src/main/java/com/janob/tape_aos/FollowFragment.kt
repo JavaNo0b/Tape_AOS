@@ -3,46 +3,50 @@ package com.janob.tape_aos
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
-import com.janob.tape_aos.databinding.ActivityFollowBinding
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
+import com.janob.tape_aos.databinding.FragmentFollowBinding
 
-class FollowActivity : AppCompatActivity() {
+class FollowFragment : Fragment() {
 
-    lateinit var binding : ActivityFollowBinding
+    lateinit var binding : FragmentFollowBinding
     private val information = arrayListOf("팔로워", "팔로잉")
 
     lateinit var userDatas : List<User>
 
     private var search_list = ArrayList<User>()
     private var original_list = ArrayList<User>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityFollowBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentFollowBinding.inflate(inflater, container, false)
 
         // RoomDB 데이터 받기
-        userDatas = TapeDatabase.Instance(this).userDao().getAll()
+        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
 
         // tabLayout과 viewPager2 연결
-        // activity ver
-        /*
         val followAdpater = FollowVPAdapter(this)
-        binding.followerContentVp.adapter = followAdpater
-        TabLayoutMediator(binding.followerContentTb, binding.followerContentVp){
+        binding.followContentVp.adapter = followAdpater
+        TabLayoutMediator(binding.followContentTb, binding.followContentVp){
                 tab, position -> tab.text = information[position]
         }.attach()
-        */
 
-        // tabLayout 초기 포커스 설정
-        val status = intent.getStringExtra("status")
+        // tabLayout 초기 포커스 설정 : OtherprofileFragment에서 팔로워, 팔로우 status 데이터 받아오기
+        val status = arguments?.getString("status")
+        Log.d("mystatus", status!!)
         if(status == "following"){
-            binding.followerContentTb.selectTab(binding.followerContentTb.getTabAt(1))
+            binding.followContentTb.selectTab(binding.followContentTb.getTabAt(1))
         }
 
         // 뒤로가기
-        binding.followerBackIv.setOnClickListener {
-            finish()
+        binding.followBackIv.setOnClickListener {
+            // 나중에 구현
         }
 
         //
@@ -56,7 +60,7 @@ class FollowActivity : AppCompatActivity() {
         original_list = ArrayList(userDatas)
 
         // editText 리스너 작성
-        val editText = binding.followerEdittextEt
+        val editText = binding.followEdittextEt
 
         //
         editText.addTextChangedListener(object : TextWatcher {
@@ -86,5 +90,7 @@ class FollowActivity : AppCompatActivity() {
             }
 
         })
+
+        return binding.root
     }
 }

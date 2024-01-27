@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tape.OnboardVPAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,6 +16,8 @@ class OnboardActivity : AppCompatActivity() {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val Intent = intent
+        val userid = Intent.getLongExtra("userid", 0)
 
         // tab layout와 viewpager 연결
         TabLayoutMediator(binding.onboardTabTb, binding.onboardViewpagerVp) { tab, position
@@ -32,9 +35,15 @@ class OnboardActivity : AppCompatActivity() {
             if(binding.onboardViewpagerVp.currentItem == 0){
                 binding.onboardViewpagerVp.currentItem = binding.onboardViewpagerVp.currentItem + 1
             }else{
-                startActivity(Intent(this, Profile1Activity::class.java))
+
+                val intent = Intent(this, Profile1Activity::class.java)
+                intent.putExtra("userid", userid)
+                Log.d("Login1111", userid.toString())
+                startActivity(intent)
                 finish()
             }
         }
     }
 }
+
+

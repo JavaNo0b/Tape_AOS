@@ -33,7 +33,7 @@
         />
 
     <TextView
-        android:id="@+id/custom_reply_popup_menu_block_user_name2"
+        android:id="@+id/custom_reply_popup_menu_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="삭제하기"

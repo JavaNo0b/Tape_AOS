@@ -102,6 +102,11 @@ dependencies {
     //이미지 zoomin
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
 
+    //스플래쉬 이미지 gif
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
+
+    //기본 안드로이드 화면 삭제
+    implementation ("androidx.core:core-splashscreen:1.0.0-beta01")
 
 }
 

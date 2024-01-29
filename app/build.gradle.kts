@@ -105,9 +105,8 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
-    //retrofit
-
-
+    //searchView
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     //이미지 zoomin
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
 

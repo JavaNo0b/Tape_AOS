@@ -20,10 +20,16 @@ interface UserDao {
     fun getUser(id: Int) : User
 
     // 이름으로 특정User 찾기
-    @Query("SELECT * FROM UserTable WHERE name LIKE :name")
-    fun searchUser(name : String) : User
+    @Query("SELECT * FROM UserTable WHERE name = :name")
+    fun getUserByName(name : String) : User
 
-    //
+    // userKey로 특정User 찾기(1=myUser, 0=otherUser)
     @Query("SELECT * FROM UserTable WHERE userKey = :userKey")
     fun getMyUser(userKey: Int) : User
+
+    // 팔로워, 팔로잉 리스트 업데이트(수정)
+    @Query("UPDATE UserTable SET followerList =:followerList WHERE name =:name")
+    fun updateUserFollowerList(followerList: List<String>?, name: String?)
+    @Query("UPDATE UserTable SET followingList =:followingList WHERE name =:name")
+    fun updateUserFollowingList(followingList: List<String>?, name: String?)
 }

@@ -427,8 +427,8 @@ class MainActivity : AppCompatActivity() {
         if(userData.isNotEmpty())
             return
 
-        var followerList : List<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
-        var followingList : List<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
+        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
+        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
         tapeDB.userDao().insert(
             User(1,
                 R.drawable.user_profile_img,

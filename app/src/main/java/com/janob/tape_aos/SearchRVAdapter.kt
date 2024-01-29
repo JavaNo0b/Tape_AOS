@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemSearchuserBinding
 
-class SearchRVAdapter(private var userList : ArrayList<User>) : RecyclerView.Adapter<SearchRVAdapter.ViewHolder>() {
+class SearchRVAdapter(private var userList : List<User>) : RecyclerView.Adapter<SearchRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onItemClick(user : User)

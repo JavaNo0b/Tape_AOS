@@ -2,8 +2,10 @@ package com.janob.tape_aos
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 
 @Entity(tableName = "TapeTable")
+
 data class Tape(
 
     var tapeTitle: String = "",   // 테이프 이름
@@ -14,5 +16,4 @@ data class Tape(
     var userImage : Int ?= null,
     var isLike: Boolean = false,
     @PrimaryKey(autoGenerate = true) var id : Long? = null,
-
 )

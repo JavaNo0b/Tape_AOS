@@ -32,7 +32,6 @@ class ReplyModifyActivity  : AppCompatActivity(){
             finish()
         }
         binding.replyModifyBackIv.setOnClickListener {
-            setResult(RESULT_OK)
             finish()
         }
 

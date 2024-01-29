@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,7 +16,12 @@ interface SongDao {
     @Update
     fun update(song : Song)
     @Query("SELECT * FROM SongTable")
-    fun getAll() : List<Song>
+    fun getAll() : LiveData<List<Song>>
+    @Query("SELECT * FROM SongTable")
+    fun getAllList():List<Song>
+    @Query("DELETE FROM SongTable")
+    fun deleteAll()
+
 
 
 }

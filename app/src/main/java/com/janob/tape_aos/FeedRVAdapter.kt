@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemFeedBinding
 
-class FeedRVAdapter(var userList : ArrayList<User>) : RecyclerView.Adapter<FeedRVAdapter.ViewHolder>() {
+class FeedRVAdapter(var userList : List<User>) : RecyclerView.Adapter<FeedRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onItemClick()

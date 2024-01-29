@@ -9,7 +9,6 @@
 
     <application
         android:enableOnBackInvokedCallback="true"
-        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -28,6 +27,10 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".AlbumActivity" />
         <activity android:name=".FollowActivity"
@@ -49,11 +52,7 @@
         <activity android:name=".Splash2Activity"
             android:exported="true"
             android:theme="@style/Splash1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".LoginActivity"
@@ -71,6 +70,9 @@
                     android:scheme="kakaoacf9ccdb9befb1509a4e53ad023da96b" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ProfileEditActivity"
+            android:exported="true"/>
 
 
     </application>

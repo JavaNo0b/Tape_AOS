@@ -555,6 +555,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_fm, TapeFragment())
                 .commitAllowingStateLoss()
 
+            setNavigationColorNone()
             setNavigationColor(binding.mainBottomTapeIb, binding.mainBottomTapeTv)
         }
         binding.mainBottomNotifLayout.setOnClickListener{
@@ -562,6 +563,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_fm, NotifFragment())
                 .commitAllowingStateLoss()
 
+            setNavigationColorNone()
             setNavigationColor(binding.mainBottomNotifIb, binding.mainBottomNotifTv)
         }
         binding.mainBottomPostLayout.setOnClickListener{
@@ -569,13 +571,23 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_fm, PostFragment())
                 .commitAllowingStateLoss()
 
-            setNavigationColor(binding.mainBottomPostIb, binding.mainBottomPostTv)
+            setNavigationColorNone()
+            binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
+//            if (binding.mainBottomPostLayout.tag == null){
+//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
+//                binding.mainBottomPostLayout.tag = 0
+//            }
+//            else{
+//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
+//                binding.mainBottomPostLayout.tag = null
+//            }
         }
         binding.mainBottomSearchLayout.setOnClickListener{
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, SearchFragment())
                 .commitAllowingStateLoss()
 
+            setNavigationColorNone()
             setNavigationColor(binding.mainBottomSearchIb, binding.mainBottomSearchTv)
         }
         binding.mainBottomProfileLayout.setOnClickListener{
@@ -583,23 +595,15 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_fm, ProfileFragment())
                 .commitAllowingStateLoss()
 
-            //모든 item 모두 선택해제 색상 적용
-
-            binding.mainBottomTapeIb.setColorFilter(unSelectedColor)
-            binding.mainBottomTapeTv.setTextColor(unSelectedColor)
-
-            binding.mainBottomNotifIb.setColorFilter(unSelectedColor)
-            binding.mainBottomNotifTv.setTextColor(unSelectedColor)
-
-            binding.mainBottomPostIb.setColorFilter(unSelectedColor)
-            binding.mainBottomPostTv.setTextColor(unSelectedColor)
-
-            binding.mainBottomSearchIb.setColorFilter(unSelectedColor)
-            binding.mainBottomSearchTv.setTextColor(unSelectedColor)
+            setNavigationColorNone()
         }
     }
     private fun setNavigationColor(icon: ImageView, text: TextView){
         val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
+        icon.setColorFilter(selectedColor)
+        text.setTextColor(selectedColor)
+    }
+    private fun setNavigationColorNone(){
         val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
 
         binding.mainBottomTapeIb.setColorFilter(unSelectedColor)
@@ -608,13 +612,9 @@ class MainActivity : AppCompatActivity() {
         binding.mainBottomNotifIb.setColorFilter(unSelectedColor)
         binding.mainBottomNotifTv.setTextColor(unSelectedColor)
 
-        binding.mainBottomPostIb.setColorFilter(unSelectedColor)
-        binding.mainBottomPostTv.setTextColor(unSelectedColor)
+        binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
 
         binding.mainBottomSearchIb.setColorFilter(unSelectedColor)
         binding.mainBottomSearchTv.setTextColor(unSelectedColor)
-
-        icon.setColorFilter(selectedColor)
-        text.setTextColor(selectedColor)
     }
 }

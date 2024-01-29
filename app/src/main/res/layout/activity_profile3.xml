@@ -18,14 +18,14 @@
         >
 
 
-        <View
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="422dp"
             android:background="@drawable/layout_background_shape_6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             
-            />
+            />-->
 
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/profile3_image_iv"

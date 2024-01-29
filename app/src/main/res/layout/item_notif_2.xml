@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="51dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_marginTop="11dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    android:background="@drawable/layout_background_shape_3"
     >
 
 

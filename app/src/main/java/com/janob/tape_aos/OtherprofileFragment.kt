@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,9 @@ class OtherprofileFragment : Fragment() {
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
+
+    //
+    private val followFragment = FollowFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +53,15 @@ class OtherprofileFragment : Fragment() {
 
             // fragment var
             (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, FollowFragment().apply {
+                .replace(R.id.main_fm, followFragment.apply {
                     arguments = Bundle().apply {
                         putString("status", status)
+
+                        val gson = Gson()
+                        val userJson = gson.toJson(user)
+                        putString("other_user", userJson)
+
+                        Log.d("eunseo", "OtherprofileFragment - 팔로워 클릭")
                     }
                 })
                 .commitAllowingStateLoss()
@@ -68,7 +78,7 @@ class OtherprofileFragment : Fragment() {
 
             // fragment var
             (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, FollowFragment().apply {
+                .replace(R.id.main_fm, followFragment.apply {
                     arguments = Bundle().apply {
                         putString("status", status)
                     }
@@ -79,29 +89,68 @@ class OtherprofileFragment : Fragment() {
         // toggleButton 설정
         binding.otherprofileFollowToggleBtn.setOnCheckedChangeListener{ CompoundButton, b->
             if(b){
-                // 팔로우 신청!
+                // ** 팔로우 신청! **
                 binding.otherprofileFollowToggleBtn.setBackgroundResource(R.drawable.follow_clicked_btn)
                 binding.otherprofileFollowToggleBtn.text = "팔로잉"
                 binding.otherprofileFollowToggleBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_grey))
 
-                // 팔로워+1
-                binding.otherprofileFollowerNumTv.text = (user.followerList.size + 1).toString()
+                // ** 레이아웃 팔로워 텍스트 변경 **
+                binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
 
-                // 팔로워 ArrayList에 사용자 추가
+
+                // ** 팔로워+1 **
+                val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1) // 내 user 받기
+                // 타인 프로필 : 팔로워++
+                val change_follower_list = ArrayList(user.followerList) // 타인 user 팔로워 리스트를 -> ArrayList로 변경
+                change_follower_list.add(my_user.name) // 내 user 이름을 follower 리스트에 추가
+                user.followerList = change_follower_list.toList() // ArrayList를 -> List로 변경
+                // 내 프로필 : 팔로잉++
+                val change_my_following_list = ArrayList(my_user.followingList) // 내 user의 팔로잉 리스트를 -> ArrayList로 변경
+                change_my_following_list.add(user.name) // 타인 user 이름을 following 리스트에 추가
+
+
+                // ** 팔로워 리사이클러뷰에 추가 : -> FollowFragment로 status 전달 **
+                followFragment.setMyUserItemStatus("add_item")
+
+                // ** 팔로워 ArrayList에 사용자 추가 **
                 //
                 //
+
+                // ** db 유저의 팔로워리스트 재설정 **
+                TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowerList(user.followerList, user.name) // 타인 프로필 팔로워 업데이트
+                TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowingList(change_my_following_list, my_user.name) // 내 프로필 팔로잉 업데이트
             } else{
-                // 팔로우 취소ㅠㅠ
+                // ** 팔로우 취소ㅠㅠ **
                 binding.otherprofileFollowToggleBtn.setBackgroundResource(R.drawable.follow_unclicked_btn)
                 binding.otherprofileFollowToggleBtn.text = "팔로우"
                 binding.otherprofileFollowToggleBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
-                // 팔로워 다시 돌아옴
+                // ** 레이아웃 팔로워 텍스트 변경 **
                 binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
 
-                // 팔로워 ArrayList에 사용자 삭제
+                // ** 팔로워-1 **
+                val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1) // 내 user 받기
+                // 타인 프로필 : 팔로워--
+                val change_follower_list = ArrayList(user.followerList) // 타인 user 팔로워 리스트를 -> ArrayList로 변경
+                change_follower_list.remove(my_user.name) // 내 user 이름을 follower 리스트에서 삭제
+                user.followerList = change_follower_list.toList() // ArrayList를 -> List로 변경
+                // 내 프로필 : 팔로잉--
+                val change_my_following_list = ArrayList(my_user.followingList) // 내 user의 팔로잉 리스트를 -> ArrayList로 변경
+                change_my_following_list.remove(user.name) // 타인 user 이름을 following 리스트에서 삭제
+
+
+
+
+                // ** 팔로워 리사이클러뷰에서 삭제 : -> FollowFragment로 status 전달 **
+                followFragment.setMyUserItemStatus("delete_item")
+
+                // ** 팔로워 ArrayList에 사용자 삭제 **
                 //
                 //
+
+                // ** db 유저의 팔로워리스트 재설정 **
+                TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowerList(user.followerList, user.name) // 타인 프로필 팔로워 업데이트
+                TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowingList(my_user.followingList, my_user.name) // 내 프로필 팔로잉 업데이트
             }
 
         }

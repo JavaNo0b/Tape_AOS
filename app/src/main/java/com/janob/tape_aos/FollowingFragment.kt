@@ -15,6 +15,12 @@ class FollowingFragment : Fragment() {
     lateinit var userDatas : List<User>
     lateinit var tapeDatas : List<Tape>
 
+    lateinit var followRVAdapter : FollowRVAdapter
+
+    // 팔로잉 리스트 대로 userDatas 재설정 변수
+    private var following_list_status : String = ""
+    private var following_list = ArrayList<String>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,14 +32,24 @@ class FollowingFragment : Fragment() {
         tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
         userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
 
+        // 팔로잉 리스트 대로 userDatas 재설정
+        if(following_list_status != null && following_list_status == "set_following_list"){
+            var change_userDatas = ArrayList<User>()
+            for(i in 0..following_list.size - 1){
+                var user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(following_list[i])
+                change_userDatas.add(user)
+            }
+            userDatas = change_userDatas
+        }
+
         // adapter 변수 선언
-        val searchRVAapter = SearchRVAdapter(userDatas)
+        followRVAdapter = FollowRVAdapter(userDatas)
 
         // ** Recycler Adapter : search_user_rv **
-        binding.followingRv.adapter = searchRVAapter
+        binding.followingRv.adapter = followRVAdapter
         binding.followingRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        searchRVAapter.setMyItemClickListener(object : SearchRVAdapter.MyItemClickListener{
+        followRVAdapter.setMyItemClickListener(object : FollowRVAdapter.MyItemClickListener{
             override fun onItemClick(user : User) {
                 // 클릭시 타인 개인 프로필 페이지 프래그먼트로 전환 + 데이터 전달(gson)
                 (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -51,5 +67,11 @@ class FollowingFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    // 팔로잉 리스트 대로 userDatas 재설정 함수
+    fun setFollowingListStatus(s : String, list: ArrayList<String>){
+        following_list_status = s
+        this.following_list = list
     }
 }

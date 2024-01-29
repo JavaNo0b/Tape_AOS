@@ -1,8 +1,14 @@
 package com.janob.tape_aos
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.janob.tape_aos.databinding.ActivityMainBinding
 import com.kakao.sdk.common.util.Utility
@@ -23,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //해쉬키 값 추출
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("Hash", keyHash)
+//        val keyHash = Utility.getKeyHash(this)
+//        Log.d("Hash", keyHash)
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -421,8 +427,8 @@ class MainActivity : AppCompatActivity() {
         if(userData.isNotEmpty())
             return
 
-        var followerList : List<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
-        var followingList : List<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
+        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
+        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
         tapeDB.userDao().insert(
             User(1,
                 R.drawable.user_profile_img,
@@ -533,48 +539,82 @@ class MainActivity : AppCompatActivity() {
         )
     }
     private fun initBottomNavigation() {
+        val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
+        val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fm, TapeFragment())
             .commitAllowingStateLoss()
-        binding.mainBottomNav.setOnItemSelectedListener { item ->
-            when(item.itemId){
-                R.id.tape_nav -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, TapeFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
 
-                R.id.notif_nav -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, NotifFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
+        binding.mainBottomTapeIb.setColorFilter(selectedColor)
+        binding.mainBottomTapeTv.setTextColor(selectedColor)
 
-                R.id.post_nav -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, PostFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
+        binding.mainBottomTapeLayout.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, TapeFragment())
+                .commitAllowingStateLoss()
 
-                R.id.search_nav -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, SearchFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.profile_nav -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fm, ProfileFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
+            setNavigationColorNone()
+            setNavigationColor(binding.mainBottomTapeIb, binding.mainBottomTapeTv)
         }
+        binding.mainBottomNotifLayout.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, NotifFragment())
+                .commitAllowingStateLoss()
+
+            setNavigationColorNone()
+            setNavigationColor(binding.mainBottomNotifIb, binding.mainBottomNotifTv)
+        }
+        binding.mainBottomPostLayout.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, PostFragment())
+                .commitAllowingStateLoss()
+
+            setNavigationColorNone()
+            binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
+//            if (binding.mainBottomPostLayout.tag == null){
+//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
+//                binding.mainBottomPostLayout.tag = 0
+//            }
+//            else{
+//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
+//                binding.mainBottomPostLayout.tag = null
+//            }
+        }
+        binding.mainBottomSearchLayout.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, SearchFragment())
+                .commitAllowingStateLoss()
+
+            setNavigationColorNone()
+            setNavigationColor(binding.mainBottomSearchIb, binding.mainBottomSearchTv)
+        }
+        binding.mainBottomProfileLayout.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, ProfileFragment())
+                .commitAllowingStateLoss()
+
+            setNavigationColorNone()
+        }
+    }
+    private fun setNavigationColor(icon: ImageView, text: TextView){
+        val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
+        icon.setColorFilter(selectedColor)
+        text.setTextColor(selectedColor)
+    }
+    private fun setNavigationColorNone(){
+        val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
+
+        binding.mainBottomTapeIb.setColorFilter(unSelectedColor)
+        binding.mainBottomTapeTv.setTextColor(unSelectedColor)
+
+        binding.mainBottomNotifIb.setColorFilter(unSelectedColor)
+        binding.mainBottomNotifTv.setTextColor(unSelectedColor)
+
+        binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
+
+        binding.mainBottomSearchIb.setColorFilter(unSelectedColor)
+        binding.mainBottomSearchTv.setTextColor(unSelectedColor)
     }
 }

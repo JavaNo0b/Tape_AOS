@@ -16,7 +16,8 @@ class ProfileFragment : Fragment() {
 
     private val info = arrayListOf("게시글", "좋아요 한 곡")
 
-    lateinit var userDatas : List<User>
+    //lateinit var userDatas : List<User>
+    lateinit var my_user : User
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
@@ -30,7 +31,9 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         // RoomDB 데이터 받기
-        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
+        //userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
+        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+        setInit(my_user)
 
 
         // tabLayout과 viewPager2 연결
@@ -48,6 +51,13 @@ class ProfileFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+        setInit(my_user)
     }
 
     // 처음 회원가입/로그인하고 내 프로필 정보 설정

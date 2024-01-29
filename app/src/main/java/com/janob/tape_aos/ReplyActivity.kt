@@ -1,10 +1,12 @@
 package com.janob.tape_aos
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ class ReplyActivity : AppCompatActivity()
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onStart() {
         super.onStart()
         //roomDB에서 데이터 가져오기
@@ -118,6 +121,7 @@ class ReplyActivity : AppCompatActivity()
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setResultNext(){
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){ result ->

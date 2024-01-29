@@ -1,11 +1,10 @@
 package com.janob.tape_aos
 
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.WindowManager
-import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityReplyModifyBinding
 
@@ -14,6 +13,7 @@ class ReplyModifyActivity  : AppCompatActivity(){
     lateinit var binding: ActivityReplyModifyBinding
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReplyModifyBinding.inflate(layoutInflater)

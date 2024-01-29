@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.janob.tape_aos"
-        minSdk = 30
+        minSdk = 33
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -58,6 +58,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 //    implementation("com.android.identity:identity-credential-android:20231002")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -107,6 +108,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     //이미지 zoomin
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
+    //스플래쉬 이미지 gif
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
+
+    //기본 안드로이드 화면 삭제
+    implementation ("androidx.core:core-splashscreen:1.0.0-beta01")
 
 
 }

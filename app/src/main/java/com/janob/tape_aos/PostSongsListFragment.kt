@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +32,7 @@ class PostSongsListFragment : Fragment() {
     lateinit var manager :LinearLayoutManager
     lateinit var adapter : SongAdapter
     lateinit var recyclerView : RecyclerView
+    lateinit var searchView : SearchView
     interface SongsListListener { fun onSongsListCompleted() }
     lateinit var listener: SongsListListener
     lateinit var binding : FragmentPostSongsListBinding
@@ -62,7 +64,24 @@ class PostSongsListFragment : Fragment() {
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
 
+    //searchView
+        searchView = binding.searchView
+        searchView.apply{
+            setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+                //글자 제출할 때마다
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    Log.d("PostSongsListFragment","query text submit $query")
+                    apiResponseViewModel.fetchSearchTerm(query!!)
+                    return true
+                }
+                //글자 바뀔 때마다
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    Log.d("PostSongsListFragment","query text change $newText")
+                    return false
+                }
 
+            })
+        }
         return binding.root
     }
 
@@ -73,9 +92,10 @@ class PostSongsListFragment : Fragment() {
 //        apiResponseViewModel.responseLiveData.observe(
 //            viewLifecycleOwner,
 //            Observer {
-//                response->Log.d(TAG,"got response $response")
+//               melonResponse ->Log.d(TAG,"got response $melonResponse")
 //                //리사이클러뷰 adapter 갱신
-//            }
+//                recyclerView.adapter = SongAdapter(melonResponse)
+//           }
 //        )
         songListViewModel.songListLiveData.observe(
             viewLifecycleOwner,

@@ -15,12 +15,12 @@ class OtherprofileFragment : Fragment() {
     lateinit var binding : FragmentOtherprofileBinding
     private val info = arrayListOf("테이프")
 
+    private val followFragment = FollowFragment()
+
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
     lateinit var user : User // 타유저
     lateinit var my_user : User // 내유저
-
-    private val followFragment = FollowFragment()
 
     private var follow_btn_status : Boolean = true
 
@@ -162,7 +162,7 @@ class OtherprofileFragment : Fragment() {
 
                         val gson = Gson()
                         val userJson = gson.toJson(user)
-                        putString("other_user", userJson)
+                        putString("pass_user", userJson)
                     }
                 })
                 .commitAllowingStateLoss()
@@ -174,6 +174,10 @@ class OtherprofileFragment : Fragment() {
                 .replace(R.id.main_fm, followFragment.apply {
                     arguments = Bundle().apply {
                         putString("status", status)
+
+                        val gson = Gson()
+                        val userJson = gson.toJson(user)
+                        putString("pass_user", userJson)
                     }
                 })
                 .commitAllowingStateLoss()

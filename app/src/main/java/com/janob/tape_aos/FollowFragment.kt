@@ -40,8 +40,8 @@ class FollowFragment() : Fragment() {
 
         // ** RoomDB 데이터 받기 **
         userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
-        // ** OtherprofileFragment 에서 받아옴 **
-        val userJson = arguments?.getString("other_user")
+        // ** OtherprofileFragment, ProfileFragment 에서 받아옴 **
+        val userJson = arguments?.getString("pass_user")
         val user = gson.fromJson(userJson, User::class.java)
         // ** 팔로워, 팔로잉 리스트 초기화 **
         follower_list = ArrayList(user.followerList)
@@ -54,6 +54,20 @@ class FollowFragment() : Fragment() {
         TabLayoutMediator(binding.followContentTb, binding.followContentVp){
                 tab, position -> tab.text = information[position]
         }.attach()
+
+        // ** 팔로워, 팔로잉 리스트 대로 userDatas 재설정 : -> FollowerVPAdapter로 follower_list, following_list 전달 **
+        followAdapter.setFollowerList(follower_list)
+        followAdapter.setFollowingList(following_list)
+
+        // ** tabLayout 초기 포커스 설정 **
+        // OtherprofileFragment에서 팔로워, 팔로우 status 데이터 받아오기
+        val status = arguments?.getString("status")
+        if(status == "follower"){
+            binding.followContentTb.selectTab(binding.followContentTb.getTabAt(0))
+        }
+        else if(status == "following"){
+            binding.followContentTb.selectTab(binding.followContentTb.getTabAt(1))
+        }
 
         // ** 뒤로가기 **
         binding.followBackIv.setOnClickListener {
@@ -103,23 +117,5 @@ class FollowFragment() : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        // ** tabLayout 초기 포커스 설정 **
-        // OtherprofileFragment에서 팔로워, 팔로우 status 데이터 받아오기
-        val status = arguments?.getString("status")
-        if(status == "follower"){
-            // 팔로워 리스트 대로 userDatas 재설정 : -> FollowerVPAdapter로 follower_list 전달
-            followAdapter.setFollowerList(follower_list)
-        }
-        else if(status == "following"){
-            // 팔로잉 리스트 대로 userDatas 재설정 : -> FollowerVPAdapter로 following_list 전달
-            followAdapter.setFollowingList(following_list)
-
-            binding.followContentTb.selectTab(binding.followContentTb.getTabAt(1))
-        }
     }
 }

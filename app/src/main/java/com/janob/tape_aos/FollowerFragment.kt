@@ -1,7 +1,6 @@
 package com.janob.tape_aos
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,10 @@ import com.janob.tape_aos.databinding.FragmentFollowerBinding
 class FollowerFragment() : Fragment() {
     lateinit var binding : FragmentFollowerBinding
     lateinit var userDatas : List<User>
-    lateinit var tapeDatas : List<Tape>
 
     lateinit var followRVAdapter : FollowRVAdapter
 
-    private var my_status : String = ""
-
     // 팔로워 리스트 대로 userDatas 재설정 변수
-    private var follower_list_status : String = ""
     private var follower_list = ArrayList<String>()
 
     override fun onCreateView(
@@ -30,56 +25,18 @@ class FollowerFragment() : Fragment() {
     ): View? {
         binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
-        // 1. RoomDB 데이터 받기
-        tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
-        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
-
-        // 2. 팔로워 리스트 대로 userDatas 재설정
-        /*
-        if(follower_list_status != null && follower_list_status == "set_follower_list"){
-            var change_userDatas = ArrayList<User>()
-            for(i in 0..follower_list.size - 1){
-                var user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(follower_list[i])
-                change_userDatas.add(user)
-            }
-            userDatas = change_userDatas
+        // ** userDatas 초기화 **
+        var change_follower_list = ArrayList<User>()
+        for(i in 0 until follower_list.size){
+            var change_user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(follower_list[i])
+            change_follower_list.add(change_user)
         }
-        */
+        userDatas = change_follower_list.toList()
 
-        // 3. adapter 변수 선언
-        Log.d("eunseo", "FollowerFragment - onCreateView - userDatas 전 확인!!")
+        // ** adapter 변수 선언 **
         followRVAdapter = FollowRVAdapter(userDatas)
-        Log.d("eunseo", "FollowerFragment - onCreateView - userDats 후 확인!!")
 
-        // 4. 팔로워 리사이클러뷰에 추가 : -> SearchRVAdapter로 status 전달
-        if(my_status != null && my_status == "add_item") {
-            val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-            followRVAdapter.setAddItemByUser(my_user)
-
-            // for 정보 유지
-            /*
-            val temp_userDatas = ArrayList(userDatas)
-            temp_userDatas.add(my_user)
-            userDatas = temp_userDatas.toList()
-            */
-
-            my_status = ""
-        }
-        else if(my_status != null && my_status == "delete_item") {
-            val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-            followRVAdapter.setRemoveItemByUser(my_user)
-
-            // for 정보 유지
-            /*
-            val temp_userDatas = ArrayList(userDatas)
-            temp_userDatas.remove(my_user)
-            userDatas = temp_userDatas.toList()
-            */
-
-            my_status = ""
-        }
-
-        // ** 5. Recycler Adapter : search_user_rv **
+        // ** Recycler Adapter : search_user_rv **
         binding.followerRv.adapter = followRVAdapter
         binding.followerRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -103,25 +60,9 @@ class FollowerFragment() : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        // 팔로워 리스트 대로 userDatas 재설정
-        var change_userDatas = ArrayList<User>()
-        for(i in 0..follower_list.size - 1){
-            var user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(follower_list[i])
-            change_userDatas.add(user)
-        }
-        userDatas = change_userDatas
-    }
-
-    fun setMyUserItemStatus(my_status : String){
-        this.my_status = my_status
-    }
 
     // 팔로워 리스트 대로 userDatas 재설정 함수
-    fun setFollowerListStatus(s : String, follower_list: ArrayList<String>){
-        follower_list_status = s
+    fun setFollowerListStatus(follower_list: ArrayList<String>){
         this.follower_list = follower_list
     }
 }

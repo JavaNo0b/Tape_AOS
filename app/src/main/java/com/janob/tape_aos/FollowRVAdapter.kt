@@ -44,19 +44,4 @@ class FollowRVAdapter(private var userList : List<User>) : RecyclerView.Adapter<
         userList = list
         notifyDataSetChanged()
     }
-
-    // ** 유저 추가, 삭제 **
-    // 팔로워 리사이클러뷰에 추가, 삭제
-    fun setAddItemByUser(user : User){
-        var change_list = ArrayList(userList)
-        change_list.add(user)
-        userList = change_list.toList()
-        notifyDataSetChanged()
-    }
-    fun setRemoveItemByUser(user : User){
-        var change_list = ArrayList(userList)
-        change_list.remove(user)
-        userList = change_list.toList()
-        notifyDataSetChanged()
-    }
 }

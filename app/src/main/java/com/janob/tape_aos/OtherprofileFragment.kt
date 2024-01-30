@@ -18,9 +18,13 @@ class OtherprofileFragment : Fragment() {
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
+    lateinit var user : User
 
     //
     private val followFragment = FollowFragment()
+
+    //
+    private var follow_btn_status : Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +35,9 @@ class OtherprofileFragment : Fragment() {
 
         // 검색 recyclerView -> 데이터 받기
         val userJson = arguments?.getString("user")
-        val user = gson.fromJson(userJson, User::class.java)
+        user = gson.fromJson(userJson, User::class.java)
         setInit(user)
+        Log.d("eunseo1", "OtherprofileFragment - onCreateView - user = " + user)
 
         // tabLayout과 viewPager2 연결
         val otherprofileAdapter = OtherprofileVPAdapter(this)
@@ -61,7 +66,7 @@ class OtherprofileFragment : Fragment() {
                         val userJson = gson.toJson(user)
                         putString("other_user", userJson)
 
-                        Log.d("eunseo", "OtherprofileFragment - 팔로워 클릭")
+                        Log.d("eunseo1", "OtherprofileFragment - 팔로워 숫자 텍스트 클릭 - user = " + user)
                     }
                 })
                 .commitAllowingStateLoss()
@@ -86,16 +91,16 @@ class OtherprofileFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
+
+
+        /*
         // toggleButton 설정
-        binding.otherprofileFollowToggleBtn.setOnCheckedChangeListener{ CompoundButton, b->
-            if(b){
+        binding.otherprofileFollowToggleBtn.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
                 // ** 팔로우 신청! **
                 binding.otherprofileFollowToggleBtn.setBackgroundResource(R.drawable.follow_clicked_btn)
                 binding.otherprofileFollowToggleBtn.text = "팔로잉"
                 binding.otherprofileFollowToggleBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_grey))
-
-                // ** 레이아웃 팔로워 텍스트 변경 **
-                binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
 
 
                 // ** 팔로워+1 **
@@ -116,6 +121,9 @@ class OtherprofileFragment : Fragment() {
                 //
                 //
 
+                // ** 레이아웃 팔로워 텍스트 변경 **
+                binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
+
                 // ** db 유저의 팔로워리스트 재설정 **
                 TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowerList(user.followerList, user.name) // 타인 프로필 팔로워 업데이트
                 TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowingList(change_my_following_list, my_user.name) // 내 프로필 팔로잉 업데이트
@@ -124,9 +132,6 @@ class OtherprofileFragment : Fragment() {
                 binding.otherprofileFollowToggleBtn.setBackgroundResource(R.drawable.follow_unclicked_btn)
                 binding.otherprofileFollowToggleBtn.text = "팔로우"
                 binding.otherprofileFollowToggleBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-
-                // ** 레이아웃 팔로워 텍스트 변경 **
-                binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
 
                 // ** 팔로워-1 **
                 val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1) // 내 user 받기
@@ -148,14 +153,59 @@ class OtherprofileFragment : Fragment() {
                 //
                 //
 
+                // ** 레이아웃 팔로워 텍스트 변경 **
+                binding.otherprofileFollowerNumTv.text = (user.followerList.size).toString()
+
                 // ** db 유저의 팔로워리스트 재설정 **
                 TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowerList(user.followerList, user.name) // 타인 프로필 팔로워 업데이트
                 TapeDatabase.Instance(context as MainActivity).userDao().updateUserFollowingList(my_user.followingList, my_user.name) // 내 프로필 팔로잉 업데이트
             }
-
         }
+        */
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.d("eunseo1", "OtherprofileFragment - onStart 확인")
+        setInit(user)
+
+        Log.d("eunseo1", "OtherprofileFragment - onStart - user = " + user)
+
+
+
+
+
+        // ** 팔로우 이미 됐는지 아닌지 상태 검사 **
+        var user_follower_list = user.followerList
+
+        follow_btn_status = false
+        for(i in 0 until user.followerList.size){
+            if(user_follower_list[i] == user.name){
+                follow_btn_status = true
+                break
+            }
+        }
+
+        // ** 버튼 디자인 세팅 **
+        if(follow_btn_status){ // 팔로우 이미 됐음
+            binding.otherprofileFollowBtn.setBackgroundResource(R.drawable.follow_clicked_btn)
+            binding.otherprofileFollowBtn.text = "팔로잉"
+            binding.otherprofileFollowBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_grey))
+        }
+        else{ // not 팔로우
+            binding.otherprofileFollowBtn.setBackgroundResource(R.drawable.follow_unclicked_btn)
+            binding.otherprofileFollowBtn.text = "팔로우"
+            binding.otherprofileFollowBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        }
+
+        // ** 팔로잉 버튼 클릭 리스너 **
+        binding.otherprofileFollowBtn.setOnClickListener {
+
+
+        }
     }
 
     private fun setInit(user : User){
@@ -164,6 +214,7 @@ class OtherprofileFragment : Fragment() {
         binding.otherprofileNameTv.text = user.name
         binding.otherprofileCommentTv.text = user.comment
 
+        Log.d("eunseo1", "OtherprofileFragment - setInit - user = " + user)
         binding.otherprofileTapeNumTv.text = user.tapeList.size.toString()
         binding.otherprofileFollowerNumTv.text = user.followerList.size.toString()
         binding.otherprofileFollowingNumTv.text = user.followingList.size.toString()

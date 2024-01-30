@@ -30,11 +30,12 @@ class FollowerFragment() : Fragment() {
     ): View? {
         binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
-        // RoomDB 데이터 받기
+        // 1. RoomDB 데이터 받기
         tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
         userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
 
-        // 팔로워 리스트 대로 userDatas 재설정
+        // 2. 팔로워 리스트 대로 userDatas 재설정
+        /*
         if(follower_list_status != null && follower_list_status == "set_follower_list"){
             var change_userDatas = ArrayList<User>()
             for(i in 0..follower_list.size - 1){
@@ -43,13 +44,14 @@ class FollowerFragment() : Fragment() {
             }
             userDatas = change_userDatas
         }
+        */
 
-        // adapter 변수 선언
+        // 3. adapter 변수 선언
         Log.d("eunseo", "FollowerFragment - onCreateView - userDatas 전 확인!!")
         followRVAdapter = FollowRVAdapter(userDatas)
         Log.d("eunseo", "FollowerFragment - onCreateView - userDats 후 확인!!")
 
-        // 팔로워 리사이클러뷰에 추가 : -> SearchRVAdapter로 status 전달
+        // 4. 팔로워 리사이클러뷰에 추가 : -> SearchRVAdapter로 status 전달
         if(my_status != null && my_status == "add_item") {
             val my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
             followRVAdapter.setAddItemByUser(my_user)
@@ -77,7 +79,7 @@ class FollowerFragment() : Fragment() {
             my_status = ""
         }
 
-        // ** Recycler Adapter : search_user_rv **
+        // ** 5. Recycler Adapter : search_user_rv **
         binding.followerRv.adapter = followRVAdapter
         binding.followerRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -99,6 +101,18 @@ class FollowerFragment() : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // 팔로워 리스트 대로 userDatas 재설정
+        var change_userDatas = ArrayList<User>()
+        for(i in 0..follower_list.size - 1){
+            var user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(follower_list[i])
+            change_userDatas.add(user)
+        }
+        userDatas = change_userDatas
     }
 
     fun setMyUserItemStatus(my_status : String){

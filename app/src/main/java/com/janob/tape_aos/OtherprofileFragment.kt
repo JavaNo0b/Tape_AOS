@@ -18,7 +18,7 @@ class OtherprofileFragment : Fragment() {
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
     lateinit var user : User // 타유저
-    lateinit var my_user : User
+    lateinit var my_user : User // 내유저
 
     private val followFragment = FollowFragment()
 

@@ -415,6 +415,7 @@ class MainActivity : AppCompatActivity() {
     private fun inputDummyUser(){
         val tapeDB = TapeDatabase.Instance(this)
         userData = tapeDB.userDao().getAll()
+        tapeData = tapeDB.tapeDao().getAll()
 
 
         if(userData.isNotEmpty())

@@ -16,11 +16,13 @@ class OtherprofileFragment : Fragment() {
     private val info = arrayListOf("테이프")
 
     private val followFragment = FollowFragment()
+    lateinit var otherprofileVPAdapter : OtherprofileVPAdapter
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
     lateinit var user : User // 타유저
     lateinit var my_user : User // 내유저
+    lateinit var my_tape_list : ArrayList<Tape>
 
     private var follow_btn_status : Boolean = true
 
@@ -35,16 +37,20 @@ class OtherprofileFragment : Fragment() {
         val userJson = arguments?.getString("user")
         user = gson.fromJson(userJson, User::class.java)
         setInit(user)
+        my_tape_list = ArrayList(user.tapeList)
 
         my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
 
 
         // ** tabLayout과 viewPager2 연결 **
-        val otherprofileAdapter = OtherprofileVPAdapter(this)
-        binding.otherprofileContentVp.adapter = otherprofileAdapter
+        otherprofileVPAdapter = OtherprofileVPAdapter(this)
+        binding.otherprofileContentVp.adapter = otherprofileVPAdapter
         TabLayoutMediator(binding.otherprofileContentTb, binding.otherprofileContentVp){
             tab, position -> tab.text = info[position]
         }.attach()
+
+        // ** 테이프 세팅 **
+        otherprofileVPAdapter.setTapeList(my_tape_list)
 
         // ** 팔로잉 버튼 클릭 리스너 **
         followBtnClick()

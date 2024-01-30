@@ -16,9 +16,11 @@ class ProfileFragment : Fragment() {
     private val info = arrayListOf("게시글", "좋아요 한 곡")
 
     private val followFragment = FollowFragment()
+    lateinit var profileVPAdapter : ProfileVPAdapter
 
     //lateinit var userDatas : List<User>
     lateinit var my_user : User
+    lateinit var my_tape_list : ArrayList<Tape>
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
@@ -31,21 +33,25 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        // RoomDB 데이터 받기
+        // ** RoomDB 데이터 받기 **
         my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
         setInit(my_user)
+        my_tape_list = ArrayList(my_user.tapeList)
 
-        // tabLayout과 viewPager2 연결
-        val profileAdapter = ProfileVPAdapter(this)
-        binding.profileContentVp.adapter = profileAdapter
+        // ** tabLayout과 viewPager2 연결 **
+        profileVPAdapter = ProfileVPAdapter(this)
+        binding.profileContentVp.adapter = profileVPAdapter
         TabLayoutMediator(binding.profileContentTb, binding.profileContentVp){
                 tab, position -> tab.text = info[position]
         }.attach()
 
+        // ** 테이프 세팅 **
+        profileVPAdapter.setTapeList(my_tape_list)
+
         // ** 팔로워, 팔로잉 text 클릭 리스너 **
         followTextClick()
 
-        // 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환
+        // ** 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환 **
         binding.profileProfileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)
             startActivity(intent)

@@ -11,12 +11,14 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +26,48 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginSignIn.setOnClickListener{
-
-            onClick(binding.loginSignIn)
+            Log.d("Login1111", "카카오회원가입")
+            signup()
         }
 
     }
 
+
+    private fun signup(){
+        Log.d("Login1111", "카카오회원가입")
+        val LoginService = getRetrofit().create(LoginRetrofitInterface::class.java)
+        LoginService.getKakao().enqueue(object : Callback<LoginResponse>{
+
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                Log.d("Login1111", "카카오회원가입 성공")
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Log.d("Login1111", "카카오회원가입 실패")
+            }
+
+        })
+        Log.d("Login1111", "카카오회원가입")
+    }
+
+   /* private fun kakaocallback(){
+
+        val LoginService = getRetrofit().create(LoginRetrofitInterface::class.java)
+        LoginService.getKakaoCallback().enqueue(object : Callback<LoginResponse>{
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+
+            }
+
+        })
+
+    }*/
+
+
+/*
     protected fun onClick(view : View){
         when (view?.id) {
             view.id -> {
@@ -63,8 +101,10 @@ class LoginActivity : AppCompatActivity() {
         } else if (token != null) {
             Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
             Log.d("Login1111", "확인4")
+
             firstlogincheck()
         }
+
     }
 
 
@@ -110,5 +150,5 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-    }
+    }*/
 }

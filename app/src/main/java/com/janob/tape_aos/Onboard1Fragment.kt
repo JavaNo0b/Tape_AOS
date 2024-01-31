@@ -1,13 +1,15 @@
 package com.example.tape
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.janob.tape_aos.Profile1Activity
 import com.janob.tape_aos.databinding.FragmentOnboard1Binding
 
-class Onboard1Fragment : Fragment() {
+class Onboard1Fragment() : Fragment() {
 
     lateinit var binding : FragmentOnboard1Binding
 
@@ -17,8 +19,6 @@ class Onboard1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOnboard1Binding.inflate(inflater, container, false)
-
-
 
 
         return binding.root

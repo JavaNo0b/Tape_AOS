@@ -11,6 +11,9 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile2Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 import java.io.ByteArrayOutputStream
 import java.util.Collections.min
@@ -44,7 +47,7 @@ class Profile2Activity : AppCompatActivity() {
 
                 val Intro : String = binding.profile2IntroEt.text.toString()
 
-                val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
+                /*val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
 
@@ -58,14 +61,20 @@ class Profile2Activity : AppCompatActivity() {
                 }
 
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
+*/
 
-                val intent = Intent(this, Profile3Activity::class.java)
-                intent.putExtra("userid", Userid)
-                intent.putExtra("imageUri", imageUri.toString())
-                Log.d("Login1111", imageUri.toString())
-                startActivity(intent)
-                finish()
-
+                if(imageUri ==null){
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }else{
+                    val intent = Intent(this, Profile3Activity::class.java)
+                    //intent.putExtra("userid", Userid)
+                    intent.putExtra("imageUri", imageUri.toString())
+                    Log.d("Login1111", imageUri.toString())
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
 
@@ -153,6 +162,7 @@ class Profile2Activity : AppCompatActivity() {
         val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
         return Uri.parse(path)
     }
+
 
     //이것도 보류
     /*fun addProfile() : ByteArray {

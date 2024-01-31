@@ -6,10 +6,15 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile1Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 class Profile1Activity : AppCompatActivity() {
 
     lateinit var binding : ActivityProfile1Binding
+    val profile1Service = getRetrofit().create(Profile1RetrofitInterface::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +30,10 @@ class Profile1Activity : AppCompatActivity() {
 
 
         binding.profile1ButtonBtn.setOnClickListener{
+
             if(checkProfile()){
 
-                val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
+                /*val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Nickname = binding.profile1NicknameEt.text.toString()
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
@@ -47,8 +53,10 @@ class Profile1Activity : AppCompatActivity() {
                 val intent = Intent(this, Profile2Activity::class.java)
                 intent.putExtra("userid", Userid)
                 startActivity(intent)
-                finish()
+                finish()*/
 
+
+                getNickname()
 
             }
         }
@@ -81,6 +89,8 @@ class Profile1Activity : AppCompatActivity() {
             return false
         }
         Log.d("Profile1", "성공")
+
+
         return true
     }
 
@@ -100,5 +110,52 @@ class Profile1Activity : AppCompatActivity() {
         val existNickname : Boolean = string.equals(Nickname?.nickname)
         return existNickname
     }
+
+
+
+    private fun getNickname(){
+        //닉네임 get
+        profile1Service.getNickname().enqueue(object : Callback<Profile1Response>{
+            override fun onResponse(call: Call<Profile1Response>, response: Response<Profile1Response>) {
+                Log.d("Login1111", "닉네임 get 성공")
+                val profile1Response: Profile1Response = response.body()!!
+
+                if(!profile1Response.success){
+                    binding.profile1NicknameError1Tv.text = profile1Response.message
+                    //binding.profile1NicknameEt.text = nicknameET
+                }else{
+                    postNickname()
+                }
+            }
+            override fun onFailure(call: Call<Profile1Response>, t: Throwable) {
+                Log.d("Login1111", "닉네임 get 실패")
+
+            }
+        })
+    }
+
+    private fun postNickname(){
+
+        val profile1Service = getRetrofit().create(Profile1RetrofitInterface::class.java)
+        //닉네임 post
+        profile1Service.postNickname(ReturnNickname()).enqueue(object :Callback<Profile1Response>{
+            override fun onResponse(call: Call<Profile1Response>, response: Response<Profile1Response>) {
+                Log.d("Login1111", "닉네임 post 성공")
+                startActivity(Intent(this@Profile1Activity,Profile1Activity::class.java))
+            }
+
+            override fun onFailure(call: Call<Profile1Response>, t: Throwable) {
+                //Log.d("Login1111", t.message.toString())
+                Log.d("Login1111", "닉네임 post 실패 ")
+
+            }
+
+        })
+    }
+
+    private fun ReturnNickname() : Profile1{
+        return Profile1(binding.profile1NicknameEt.text.toString())
+    }
+
 
 }

@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
         IncludedSongRepository.initialize(this)
         TapeRepository.initialize(this)
 
+        //임시코드
+
+
     }
 
     private fun inputDummyAlbum(){

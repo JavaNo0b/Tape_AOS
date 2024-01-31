@@ -5,5 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class TapeListViewModel :ViewModel() {
     val tapeRepository = TapeRepository.get()
-   // val tapeListLiveData : LiveData<List<Tape>> = tapeRepository.getAll()
+    fun addTape(tape:Tape):Long?{
+        return tapeRepository.addTape(tape)
+    }
 }

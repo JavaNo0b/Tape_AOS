@@ -1,12 +1,17 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import java.util.concurrent.Executors
 
 class TapeRepository private constructor(context:Context){
     val database = TapeDatabase.Instance(context)
-    val tapeDao = database.tapeDao()
+    private val tapeDao = database.tapeDao()
+    private val executor = Executors.newSingleThreadExecutor()
+    fun addTape(tape : Tape):Long?{
+        return tapeDao.insert(tape)
+    }
+    fun getTapeById(id:Int) = tapeDao.getTape(id)
 
-    fun getTape(id:Int) = tapeDao.getTape(id)
     fun getAll() = tapeDao.getAll()
 
     companion object{

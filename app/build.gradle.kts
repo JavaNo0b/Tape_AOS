@@ -115,5 +115,8 @@ dependencies {
     //기본 안드로이드 화면 삭제
     implementation ("androidx.core:core-splashscreen:1.0.0-beta01")
 
+    //
+    implementation ("androidx.compose.material:material:1.7.0-alpha01")
+
 
 }

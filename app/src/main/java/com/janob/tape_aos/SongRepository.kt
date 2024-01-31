@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import java.lang.IllegalStateException
 
-private const val DATABASE_NAME = "song-database"
 class SongRepository private constructor(val context: Context){
 
     //객체 참조

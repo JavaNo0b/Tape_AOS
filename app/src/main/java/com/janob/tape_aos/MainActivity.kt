@@ -28,17 +28,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //해쉬키 값 추출
-//        val keyHash = Utility.getKeyHash(this)
-//        Log.d("Hash", keyHash)
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        //더미 데이터
-        inputDummyAlbum()
+        //api 연동시 삭제
+        //inputDummyAlbum()
         inputDummyReply()
         inputDummySong()//양희연
         inputDummySongs()//박성현
@@ -48,84 +43,13 @@ class MainActivity : AppCompatActivity() {
 
         SongRepository.initialize(this)
         IncludedSongRepository.initialize(this)
-        TapeRepository.initialize(this)
+        //TapeRepository.initialize(this)
 
-        //임시코드
 
 
     }
 
-    private fun inputDummyAlbum(){
 
-        val database = TapeDatabase.Instance(this)
-        tapeData = database.tapeDao().getAll()
-
-
-        if(tapeData.isNotEmpty()) return
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_1,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.album_2,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.album_3,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_4,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.album_1,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.album_2,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_3,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-    }
 
     //양희연
     private fun inputDummySong(){

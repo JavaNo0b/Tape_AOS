@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 class IncludedSongListViewModel : ViewModel() {
 
      val includedSongRepository = IncludedSongRepository.get()
-     val includedSongLiveData : LiveData<List<IncludedSong>> = includedSongRepository.getInAlbum()
+     val includedSongLiveData  = includedSongRepository.getInAlbum()
+
 
 }

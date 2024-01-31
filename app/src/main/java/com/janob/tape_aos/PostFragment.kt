@@ -3,6 +3,7 @@ package com.janob.tape_aos
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,11 @@ class PostFragment : Fragment(),
     PostSongsListFragment.SongsListListener,
     PostIncludedSongsFragment.IncludedSongsListener,
     PostBackHomeFragment.PostBackToHomeListener{
+
+    private  var imageUri:Uri? = null
+    private  var title:String? = null
+    private  var content:String? = null
+
 
     lateinit var binding : FragmentPostBinding
     private var type :Int =  TYPE_NONE
@@ -53,11 +59,14 @@ class PostFragment : Fragment(),
                 .commit()
         }
     }
-    private lateinit var imageUri:Uri
-    private lateinit var title:String
-    private lateinit var content:String
-    override fun onPostIntroductionCompleted() {
 
+    override fun onPostIntroductionCompleted(uri: Uri, title: String, content: String) {
+
+        this.imageUri = uri
+        this.title = title
+        this.content = content
+
+        Log.d("PostFragment","imageUri($imageUri) title($title) content($content)")
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, PostSongsListFragment())
             .addToBackStack(null)
@@ -66,21 +75,10 @@ class PostFragment : Fragment(),
 
     override fun onSongsListCompleted() {
 
-        if(type == TYPE_ALBUM){
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PostIncludedSongsFragment())
-                    //.instance(this.imageUri, this.title, this.content))
-                .addToBackStack(null)
-                .commit()
-        }
-        else{
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PostIncludedSongsFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, PostIncludedSongsFragment())
+            .addToBackStack(null)
+            .commit()
 
     }
 
@@ -96,5 +94,7 @@ class PostFragment : Fragment(),
         var intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
     }
+
+
 
 }

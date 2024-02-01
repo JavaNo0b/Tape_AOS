@@ -34,6 +34,8 @@
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">14.5sp</item>
     </style>
+    
+    <style name="Theme.MaterialExam" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
 
 
 

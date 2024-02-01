@@ -67,7 +67,7 @@ class PostSongsListFragment : Fragment() {
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
 
-    //searchView
+        //searchView
         searchView = binding.searchView
         searchView.apply{
             setOnQueryTextListener(object:SearchView.OnQueryTextListener{

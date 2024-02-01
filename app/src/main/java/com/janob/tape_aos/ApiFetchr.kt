@@ -57,8 +57,8 @@ class ApiFetchr {
         })
         return responseLiveData
     }
-    fun fetchTodayTapes() :LiveData<List<Tape>>{
-        val call = tapeApi.fetchTodayTapes()
+    fun fetchTodayTapes(userId:Int) :LiveData<List<Tape>>{
+        val call = tapeApi.fetchTodayTapes(userId)
         return fetchMetaData(call)
     }
     fun fetchTapeReply():LiveData<List<Reply>>{

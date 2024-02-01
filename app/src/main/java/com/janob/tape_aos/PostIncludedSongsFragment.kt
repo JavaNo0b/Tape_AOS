@@ -40,7 +40,6 @@ class PostIncludedSongsFragment : Fragment() {
     private val includedSongListViewModel : IncludedSongListViewModel by lazy{
         ViewModelProvider(this).get(IncludedSongListViewModel::class.java)
     }
-
     interface IncludedSongsListener { fun onIncludedSongsCompleted() }
 
     lateinit var binding : FragmentPostIncludedSongsBinding

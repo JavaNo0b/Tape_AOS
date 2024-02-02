@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "17238420347",
+    "project_id": "tapeaos",
+    "storage_bucket": "tapeaos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17238420347:android:044b7a9ef494cf672eebde",
+        "android_client_info": {
+          "package_name": "com.janob.tape_aos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgqTiv7vBXkMebF2DjwWerlbYlgn5gWNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

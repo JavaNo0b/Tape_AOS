@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -81,6 +82,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
     implementation("com.google.code.gson:gson:2.8.0")
+
+
     // okHttp
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
@@ -114,6 +117,13 @@ dependencies {
 
     //기본 안드로이드 화면 삭제
     implementation ("androidx.core:core-splashscreen:1.0.0-beta01")
+
+    //coroutine
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+
+    //알림 firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    implementation("com.google.firebase:firebase-analytics")
 
 
 }

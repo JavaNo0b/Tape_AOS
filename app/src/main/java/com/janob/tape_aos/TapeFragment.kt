@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagram.getRetrofit
 import com.janob.tape_aos.databinding.FragmentTapeBinding
 import retrofit2.Call
 import retrofit2.Callback

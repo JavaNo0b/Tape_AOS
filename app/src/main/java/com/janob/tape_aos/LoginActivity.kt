@@ -16,6 +16,8 @@ import com.kakao.sdk.user.UserApiClient
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
+    lateinit var userToken: String
+    lateinit var userEmail: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +65,9 @@ class LoginActivity : AppCompatActivity() {
         } else if (token != null) {
             Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
             Log.d("Login1111", "확인4")
+
+            //사용자 액세스 토큰 추출
+            userToken = token.accessToken
             firstlogincheck()
         }
     }
@@ -82,6 +87,8 @@ class LoginActivity : AppCompatActivity() {
                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 
+                //사용자 이메일 추출
+                userEmail = user.kakaoAccount?.email.toString()
                  NextActivity(user.id)
             }
         }

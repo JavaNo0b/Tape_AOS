@@ -11,14 +11,17 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
-    lateinit var userToken: String
-    lateinit var userEmail: String
-
+    var userToken: String = ""
+    var userEmail: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +29,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginSignIn.setOnClickListener{
-
+            Log.d("Login1111", "카카오회원가입")
             onClick(binding.loginSignIn)
         }
-
-        Log.i("Login1111", "사용자 정보 요청 성공" +
-                "\n사용자 액세스 토큰: ${userToken}" +
-                "\n사용자 이메일: ${userToken}")
     }
+
 
     protected fun onClick(view : View){
         when (view?.id) {
@@ -76,6 +76,7 @@ class LoginActivity : AppCompatActivity() {
             userToken = token.accessToken
             firstlogincheck()
         }
+
     }
 
 
@@ -94,9 +95,14 @@ class LoginActivity : AppCompatActivity() {
                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 
                 //사용자 이메일 추출
-                userEmail = user.kakaoAccount?.email.toString()
-                 NextActivity(user.id)
+                userEmail = user.kakaoAccount?.email!!
+                NextActivity(user.id)
             }
+
+
+            Log.i("Login1111", "사용자 정보 요청 성공" +
+                    "\n사용자 액세스 토큰: ${userToken}" +
+                    "\n사용자 이메일: ${userEmail}")
         }
     }
 
@@ -124,4 +130,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
 }

@@ -15,7 +15,7 @@ class MelonApiFetchr {
     private lateinit var melonApi :MelonApi
     init{
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://www./")
+            .baseUrl("http://3.34.42.155:3000/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
         melonApi = retrofit.create(MelonApi::class.java)

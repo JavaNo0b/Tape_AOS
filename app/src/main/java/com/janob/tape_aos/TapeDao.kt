@@ -10,16 +10,16 @@ import androidx.room.Update
 @Dao
 interface TapeDao {
     @Insert
-    fun insert(tape: Tape) : Long
+    fun insert(tape: Tape) : Long?
     @Update
     fun update(tape : Tape)
     @Delete
     fun delete(tape: Tape)
-    @Query("DELETE FROM TapeTable")
+    @Query("DELETE FROM Tape")
     fun deleteAll()
-    @Query("SELECT * FROM TapeTable")
+    @Query("SELECT * FROM Tape")
     fun getAll() : List<Tape>
-    @Query("SELECT * FROM TapeTable WHERE id = :id")
+    @Query("SELECT * FROM Tape WHERE id = :id")
     fun getTape(id: Int): Tape
 //    @Query("UPDATE SongTable SET isLike = :isLike WHERE id = :id")
 //    fun updateIsLikeById(isLike: Boolean,id: Int)

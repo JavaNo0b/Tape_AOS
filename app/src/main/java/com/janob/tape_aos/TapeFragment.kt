@@ -1,10 +1,7 @@
 package com.janob.tape_aos
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,14 +18,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-
 class TapeFragment : Fragment() {
 
     lateinit var tapeAlbumRVAdapter:TapeAlbumRVAdapter
     lateinit var tapeAlbumRV :RecyclerView
-//    private val tapeListViewModel :TapeListViewModel by lazy{
-//        ViewModelProvider(this).get(TapeListViewModel::class.java)
-//    }
+    //오늘의 테이프 api 연동
+    private val todayTapeListViewModel :TodayTapeListViewModel by lazy {
+        ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
+    }
     lateinit var binding: FragmentTapeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +35,8 @@ class TapeFragment : Fragment() {
         binding = FragmentTapeBinding.inflate(layoutInflater)
         tapeAlbumRV = binding.tapeTapelistRv
 
-        //db 데이터 가져오기
-        var tapeAlbumData = TapeDatabase.Instance(requireContext()).tapeDao().getAll()
         //리사이클러뷰 어댑터
-        tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapeAlbumData, requireContext())
+        tapeAlbumRVAdapter = TapeAlbumRVAdapter(emptyList(), requireContext())
         tapeAlbumRV.adapter=tapeAlbumRVAdapter
         tapeAlbumRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -58,12 +53,20 @@ class TapeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //테스트용
+        var userId = 1
+        todayTapeListViewModel.fetchUserId(userId)
 
+        todayTapeListViewModel.todayTapeListLiveData.observe(
+            viewLifecycleOwner,
+            Observer{
+                todayTapes -> Log.d("tape fragment" ,"now today tapes $todayTapes")
+                tapeAlbumRV.adapter = TapeAlbumRVAdapter(todayTapes,requireContext())
+
+            }
+        )
     }
-    private fun updateUI(tapes :List<Tape>){
-        tapeAlbumRVAdapter = TapeAlbumRVAdapter(tapes,requireContext())
-        tapeAlbumRV.adapter = tapeAlbumRVAdapter
-    }
+
 
     private fun changeAlbumActivity(album: Tape){
         val intent = Intent(activity,AlbumActivity::class.java)

@@ -30,6 +30,9 @@ class LoginActivity : AppCompatActivity() {
             onClick(binding.loginSignIn)
         }
 
+        Log.i("Login1111", "사용자 정보 요청 성공" +
+                "\n사용자 액세스 토큰: ${userToken}" +
+                "\n사용자 이메일: ${userToken}")
     }
 
     protected fun onClick(view : View){
@@ -49,6 +52,9 @@ class LoginActivity : AppCompatActivity() {
                         } else if (token != null) {
                             Log.d("login success(onClick)", "카카오톡으로 로그인 성공 ${token.accessToken}")
                             Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+
+                            //사용자 액세스 토큰 추출
+                            userToken = token.accessToken
                             firstlogincheck()
                         }
                     }

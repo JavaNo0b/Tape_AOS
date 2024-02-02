@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +18,7 @@ private const val TAG1 = "MAIN_ACTIVITY"
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-
+    private var isFabOpen = false
 
     lateinit var tapeData : List<Tape>
     lateinit var tapeReplyData : List<Reply>
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         //해쉬키 값 추출
 //        val keyHash = Utility.getKeyHash(this)
 //        Log.d("Hash", keyHash)
@@ -37,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //더미 데이터
-        inputDummyAlbum()
+        //api 연동시 삭제
+        //inputDummyAlbum()
         inputDummyReply()
         inputDummySong()//양희연
         inputDummySongs()//박성현
@@ -48,81 +50,14 @@ class MainActivity : AppCompatActivity() {
 
         SongRepository.initialize(this)
         IncludedSongRepository.initialize(this)
-        TapeRepository.initialize(this)
+        //TapeRepository.initialize(this)
+
+        //임시코드
+
 
     }
 
-    private fun inputDummyAlbum(){
 
-        val database = TapeDatabase.Instance(this)
-        tapeData = database.tapeDao().getAll()
-
-
-        if(tapeData.isNotEmpty()) return
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_1,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.album_2,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.album_3,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_4,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.album_1,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Broken Melodies",
-                "NCT DREAM",
-                "music_play",
-                R.drawable.album_2,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("Thirsty",
-                "aepsa",
-                "K_pop_lover",
-                R.drawable.album_3,
-                R.drawable.albumcover_5)
-        )
-        database.tapeDao().insert(
-            Tape("와르르",
-                "Colde",
-                "music_play",
-                R.drawable.albumcover_5,
-                R.drawable.albumcover_5)
-        )
-    }
 
     //양희연
     private fun inputDummySong(){
@@ -567,20 +502,7 @@ class MainActivity : AppCompatActivity() {
             setNavigationColor(binding.mainBottomNotifIb, binding.mainBottomNotifTv)
         }
         binding.mainBottomPostLayout.setOnClickListener{
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, PostFragment())
-                .commitAllowingStateLoss()
-
-            setNavigationColorNone()
-            binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
-//            if (binding.mainBottomPostLayout.tag == null){
-//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector_selected)
-//                binding.mainBottomPostLayout.tag = 0
-//            }
-//            else{
-//                binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
-//                binding.mainBottomPostLayout.tag = null
-//            }
+            toggleFab()
         }
         binding.mainBottomSearchLayout.setOnClickListener{
             supportFragmentManager.beginTransaction()
@@ -612,9 +534,24 @@ class MainActivity : AppCompatActivity() {
         binding.mainBottomNotifIb.setColorFilter(unSelectedColor)
         binding.mainBottomNotifTv.setTextColor(unSelectedColor)
 
-        binding.mainBottomPostIb.setImageResource(R.drawable.btm_post_selector)
-
         binding.mainBottomSearchIb.setColorFilter(unSelectedColor)
         binding.mainBottomSearchTv.setTextColor(unSelectedColor)
+    }
+
+    private fun toggleFab() {
+        // 플로팅 액션 버튼 닫기 - 열려있는 플로팅 버튼 집어넣는 애니메이션
+        if (isFabOpen) {
+            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", 0f).apply { start() }
+            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", 0f).apply { start() }
+            ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 45f, 0f).apply { start() }
+        } else { // 플로팅 액션 버튼 열기 - 닫혀있는 플로팅 버튼 꺼내는 애니메이션
+
+            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", -360f).apply { start() }
+            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", -180f).apply { start() }
+            ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 0f, 45f).apply { start() }
+        }
+
+        isFabOpen = !isFabOpen
+
     }
 }

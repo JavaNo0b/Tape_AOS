@@ -1,0 +1,248 @@
+[33mcommit e41211f7085cb8a5d07fe56820befa41b5815646[m[33m ([m[1;36mHEAD -> [m[1;32m46-maintapeapi[m[33m, [m[1;31morigin/develop[m[33m, [m[1;31morigin/46-maintapeapi[m[33m)[m
+Merge: cea47a6 3f2253f
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:59:45 2024 +0900
+
+    Merge pull request #45 from JavaNo0b/42-bottomnavianimation
+    
+    42 bottomnavianimation
+
+[33mcommit 3f2253f0cec76f93ca336dccddf8b49de72104d3[m[33m ([m[1;31morigin/42-bottomnavianimation[m[33m, [m[1;32m42-bottomnavianimation[m[33m)[m
+Merge: aa41f6b cea47a6
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:57:07 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 42-bottomnavianimation
+
+[33mcommit aa41f6bbe16288d53e38c813e6a19b92c06b1e67[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:56:29 2024 +0900
+
+    바텀네비게이션 플로팅메뉴(POST)
+
+[33mcommit cea47a6b1b1c322838b1aea9b8736a8f932438e7[m
+Merge: 0409fb0 653954e
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 31 14:33:12 2024 +0900
+
+    Merge pull request #43 from JavaNo0b/41-release0129
+    
+    41 release0129
+
+[33mcommit 653954e4079cca386b097ba55ced5e5b03156065[m[33m ([m[1;31morigin/41-release0129[m[33m)[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 31 14:32:16 2024 +0900
+
+    tape 게시물 올리기 자잘한 버그 수정
+
+[33mcommit 5bc4bc9dd9d437d09498b7a5453bff427e6943a8[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 23:23:58 2024 +0900
+
+    api 연동
+
+[33mcommit 0409fb05627e22056fb357da1d2f94b2db7ba37f[m[33m ([m[1;32m41-release0129[m[33m)[m
+Merge: 790f3f5 6d553cd
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 16:13:09 2024 +0900
+
+    Merge pull request #40 from JavaNo0b/sumin
+    
+    1/29 -수정-2 profile3 동그라미
+
+[33mcommit 6d553cda21723e1b1cfd60502bd85523f4bbf1aa[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 16:11:54 2024 +0900
+
+    1/29 -수정
+
+[33mcommit 790f3f5ec5321d8ae08037bed3613285583e9c32[m
+Merge: 1638af9 c7a9e2d
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 16:02:27 2024 +0900
+
+    Merge pull request #39 from JavaNo0b/sumin
+    
+    1/29 -수정
+
+[33mcommit c7a9e2dddbec6bc9abb30f82a1630d8ef684943b[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 16:01:05 2024 +0900
+
+    1/29 -수정
+
+[33mcommit 1638af9de687259b45cac667f08d8c4d004d3da0[m
+Merge: 6f320b6 2433f49
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 15:47:16 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 6f320b68e8d54ffde0ac2eb8f8270597e1a05a18[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 15:47:06 2024 +0900
+
+    api 연동
+
+[33mcommit 2433f498cba48c417af8fc05bdfdaef556a7266b[m
+Merge: b2ee476 f4c93f4
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 15:42:21 2024 +0900
+
+    Merge pull request #38 from JavaNo0b/sumin
+    
+    Sumin
+
+[33mcommit f4c93f41d3d7483deeeb98a22bb08d12f900d25c[m
+Merge: c4ba3f1 941db10
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 15:39:37 2024 +0900
+
+    1/29
+
+[33mcommit b2ee476b699ad270ed7409519dfb5648180253dc[m
+Merge: c246020 b50fc63
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:36:22 2024 +0900
+
+    Merge pull request #37 from JavaNo0b/33-custombottomnavi
+    
+    33 custombottomnavi
+
+[33mcommit b50fc63f1b4c8c43abef2df4acf23c114c8ef4f9[m[33m ([m[1;31morigin/33-custombottomnavi[m[33m, [m[1;32m33-custombottomnavi[m[33m)[m
+Merge: 5839511 c246020
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:33:43 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 33-custombottomnavi
+    
+    # Conflicts:
+    #       app/src/main/java/com/janob/tape_aos/MainActivity.kt
+
+[33mcommit c246020033552bb33194f42b5732523e9097eb88[m
+Merge: 941db10 5d19121
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Mon Jan 29 15:23:04 2024 +0900
+
+    Merge pull request #36 from JavaNo0b/profile_search
+    
+    Profile search
+
+[33mcommit 5d1912166548d2c79ac6902b6190f8c9d3d2223f[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 15:21:41 2024 +0900
+
+    240129 develop pull -> push
+
+[33mcommit b702d19786f54f9b7de6f8fcd3241463d21ee7fb[m
+Merge: 5d7f9a0 941db10
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 15:18:01 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into profile_search
+
+[33mcommit 5839511874b79581293bb08cdbb928f178ef1eef[m
+Merge: 8cab372 941db10
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:08:00 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 33-custombottomnavi
+
+[33mcommit 8cab3729e3ce9a09ba2e1ed8cea577b3f9e2404d[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:07:12 2024 +0900
+
+    바텀네비게이션 구현
+
+[33mcommit 5d7f9a01352e2af0c49e6f0639eda8d09b4b7148[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 14:39:42 2024 +0900
+
+    240129 팔로잉 클릭 정보 업데이트
+
+[33mcommit 941db104c1862900a581f8a048efc56e73134d32[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 14:37:21 2024 +0900
+
+    api 연동
+
+[33mcommit c4ba3f14f8f79efaa804acc1a9fbc5323433e22c[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 07:27:11 2024 +0900
+
+    .
+
+[33mcommit f551af4607c653bccf3e1dbea77c9a81c4e790c0[m
+Merge: 30baccd 101c8af
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 27 15:41:46 2024 +0900
+
+    240127 develop pull -> push
+
+[33mcommit 30baccd4a4ba0bcfffc60ed0f80bf64de03e2d06[m
+Merge: f12701a 2378689
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 27 15:03:32 2024 +0900
+
+    240127
+
+[33mcommit c49be6270d29fad6579beecc4f5764613b3585d2[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Fri Jan 26 13:32:43 2024 +0900
+
+    bottomNavigation 구현 완료(post 버튼 수정해야함)
+
+[33mcommit 101c8af42a93d87c23be7cacc048ccd1af94ecf8[m[33m ([m[1;32m14-tapesetting[m[33m)[m
+Merge: 6367ad1 4929248
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 24 04:03:06 2024 +0900
+
+    Merge pull request #32 from JavaNo0b/30-api
+    
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit 49292482b16044644b6fa971523f084878be1cbf[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 24 04:02:38 2024 +0900
+
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit 6367ad17cf929e45faf413983480b2d33b0afde0[m
+Merge: c5a3db8 83c71a9
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 24 02:46:46 2024 +0900
+
+    Merge pull request #31 from JavaNo0b/30-api
+    
+    #2-4 기능 구현 + api 연동 기초 틀
+
+[33mcommit 83c71a993d07f8129a58d71358ced5583f744d0e[m
+Merge: c5a3db8 5e2442c
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 24 02:45:27 2024 +0900
+
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit c5a3db8f3ef72d4ff84ede5284bb2da7fc6f6b03[m[33m ([m[1;31morigin/30-api[m[33m)[m
+Merge: c749af4 2ddde73
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 23 21:31:54 2024 +0900
+
+    Merge pull request #28 from JavaNo0b/14-tapesetting
+    
+    14 tapesetting
+
+[33mcommit 2ddde73bac5632f7448d14383ce681d5af750673[m[33m ([m[1;31morigin/14-tapesetting[m[33m)[m
+Merge: 7cca6a0 c749af4
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 23 21:30:49 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 14-tapesetting
+    
+    # Conflicts:
+    #       app/build.gradle.kts
+    #       app/src/main/res/values/themes.xml
+
+[33mcommit c749af4847f2ebb5a709b23062b0e6199f415903[m
+Merge: 2378689 dc25472
+Author

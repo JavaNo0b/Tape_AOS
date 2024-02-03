@@ -2,10 +2,13 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.BoringLayout
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.janob.tape_aos.databinding.ActivityLoginBinding
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -19,7 +22,27 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+    //외부에서 LoginActivity를 사용하기 위함
+    init {
+        instance = this
+    }
+
+    companion object {
+        private var instance: LoginActivity? = null
+
+        fun getInstance(): LoginActivity? 		{
+            return instance
+        }
+    }
+
     lateinit var binding: ActivityLoginBinding
+    var userToken: String = ""
+    var userEmail: String = ""
+
+    //카카오 로그인 정보 api 연동
+    private val kakaoLoginViewModel :KakaoLoginViewModel by lazy {
+        ViewModelProvider(this).get(KakaoLoginViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
             Log.d("Login1111", "카카오회원가입")
             onClick(binding.loginSignIn)
         }
-
     }
 
 
@@ -51,6 +73,9 @@ class LoginActivity : AppCompatActivity() {
                         } else if (token != null) {
                             Log.d("login success(onClick)", "카카오톡으로 로그인 성공 ${token.accessToken}")
                             Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+
+                            //사용자 액세스 토큰 추출
+                            userToken = token.accessToken
                             firstlogincheck()
                         }
                     }
@@ -68,6 +93,8 @@ class LoginActivity : AppCompatActivity() {
             Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
             Log.d("Login1111", "확인4")
 
+            //사용자 액세스 토큰 추출
+            userToken = token.accessToken
             firstlogincheck()
         }
 
@@ -88,147 +115,31 @@ class LoginActivity : AppCompatActivity() {
                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 
-                NextActivity(user.id)
+                //사용자 이메일 추출
+                userEmail = user.kakaoAccount?.email!!
             }
+
+
+            Log.i("Login1111", "사용자 정보 요청 성공" +
+                    "\n사용자 액세스 토큰: ${userToken}" +
+                    "\n사용자 이메일: ${userToken}")
+
+            kakaoLoginViewModel.fetchUserInfo(userToken, userToken)
         }
     }
 
-    fun NextActivity(userid: Long?){
+    fun NextActivity(isSignIn: Boolean){
 
-        val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
-        val existUser : LoginUser? = loginuserDB.getLoginUser(userid)
-
-        if(existUser != null){  //이미 계정이 존재함
-            Log.d("Login1111", loginuserDB.getLoginUsers().toString())
+        if(isSignIn){
+            //가입한 적이 있는 유저이면 메인액티비티로 이동
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("userid", userid)
             startActivity(intent)
             finish()
-        }
-        else{
-            val basic = LoginUser(userid, null, null, null)
-            loginuserDB.insert(basic)
-            Log.d("Login1111", "user{$userid}")
-            Log.d("Login1111", loginuserDB.getLoginUsers().toString())
-
+        }else{
+            //가입한 적이 없는 유저이면 회원가입을 위해 온보딩액티비티로 이동
             val intent = Intent(this, OnboardActivity::class.java)
-            intent.putExtra("userid", userid)
             startActivity(intent)
             finish()
         }
     }
-
-
 }
-
-
-/*    private fun signup(){
-        Log.d("Login1111", "카카오회원가입")
-        val LoginService = getRetrofit().create(LoginRetrofitInterface::class.java)
-
-        LoginService.getKakao().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                Log.d("Login1111", "카카오회원가입 성공")
-                if(response.isSuccessful){
-                    try{
-                        val kakaologin = response.body()!!.string()
-                        Log.d("Login1111", "카카오로딩 성공")
-
-                    }catch (e:Exception){
-                        Log.d("Login1111", "카카오로딩 실패")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.d("Login1111", "카카오회원가입 실패")
-            }
-        })
-        Log.d("Login1111", "카카오회원가입")
-    }*/
-
-
-/*
-    protected fun onClick(view : View){
-        when (view?.id) {
-            view.id -> {
-                if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                    UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                        Log.d("Login1111", "확인2")
-                        Log.d("test", "확인3")
-                        if (error != null) {
-                            Log.d("login failure(onClick)", "카카오톡으로 로그인 실패 $error")
-                            if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                                return@loginWithKakaoTalk
-                            } else {
-                                UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
-                            }
-                        } else if (token != null) {
-                            Log.d("login success(onClick)", "카카오톡으로 로그인 성공 ${token.accessToken}")
-                            Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                            firstlogincheck()
-                        }
-                    }
-                } else {
-                    UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
-                }
-            }
-        }
-    }
-
-    private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error != null) {
-            Log.d("login failure(mCallback)", "카카오 계정으로 로그인 실패 $error")
-        } else if (token != null) {
-            Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
-            Log.d("Login1111", "확인4")
-
-            firstlogincheck()
-        }
-
-    }
-
-
-    private fun firstlogincheck(){
-
-        Log.d("Login1111", "확인5")
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e("Login1111", "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-                Log.i("Login1111", "사용자 정보 요청 성공" +
-                        "\n회원번호: ${user.id}" +
-                        "\n이메일: ${user.kakaoAccount?.email}" +
-                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
-
-                 NextActivity(user.id)
-            }
-        }
-    }
-
-    fun NextActivity(userid: Long?){
-
-        val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
-        val existUser : LoginUser? = loginuserDB.getLoginUser(userid)
-
-        if(existUser != null){  //이미 계정이 존재함
-            Log.d("Login1111", loginuserDB.getLoginUsers().toString())
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("userid", userid)
-            startActivity(intent)
-            finish()
-        }
-        else{
-            val basic = LoginUser(userid, null, null, null)
-            loginuserDB.insert(basic)
-            Log.d("Login1111", "user{$userid}")
-            Log.d("Login1111", loginuserDB.getLoginUsers().toString())
-
-            val intent = Intent(this, OnboardActivity::class.java)
-            intent.putExtra("userid", userid)
-            startActivity(intent)
-            finish()
-        }
-    }*/

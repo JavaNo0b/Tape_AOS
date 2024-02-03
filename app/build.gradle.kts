@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.janob.tape_aos"
-        minSdk = 33
+        minSdk = 32
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -71,7 +71,7 @@ dependencies {
     implementation("me.relex:circleindicator:2.1.6")
 
     // GSON
-    implementation ("com.google.code.gson:gson:2.8.5")
+    implementation ("com.google.code.gson:gson:2.9.0")
 
     // viewpager2
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
@@ -80,8 +80,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
-    implementation("com.google.code.gson:gson:2.8.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.google.code.gson:gson:2.9.0")
 
 
     // okHttp

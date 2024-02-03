@@ -14,3 +14,27 @@ data class SignupResponse(
     val success: Boolean,
     val message: String
 )
+
+data class NicknameResponse(
+    val success: Boolean,
+    val message: String,
+    val data: NicknameData
+)
+data class NicknameData(
+    val nickname: String,
+)
+
+
+data class IntroduceResponse(
+    val success: Boolean,
+    val message: String,
+    val data: IntroduceData
+)
+data class IntroduceData(
+    val introduce: String,
+)
+data class SignUp(
+    var email: String = "",
+    var nickname: String = "",
+    var introduce: String = "",
+)

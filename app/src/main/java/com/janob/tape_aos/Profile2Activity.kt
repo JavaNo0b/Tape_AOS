@@ -34,19 +34,25 @@ class Profile2Activity : AppCompatActivity() {
         //todo : 빈공간 누르면 키보드 hide
         binding.profile2IntroEt.setOnFocusChangeListener { view, hasFocus -> }
 
-        binding.profile2PicIv.setOnClickListener {
-
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            requestGalleryLauncher.launch(intent)
-
-        }
+//        binding.profile2PicIv.setOnClickListener {
+//
+//            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//            intent.type = "image/*"
+//            requestGalleryLauncher.launch(intent)
+//
+//        }
 
         binding.profile2ButtonBtn.setOnClickListener {
             if (checkProfile()) {
 
                 val Intro : String = binding.profile2IntroEt.text.toString()
+                var nickname = intent.getStringExtra("nickname")
+                var userEmail = intent.getStringExtra("userEmail")
 
+                Log.d("profile2 email", userEmail.toString())
+                Log.d("profile2 nickname", nickname.toString())
+
+                postIntroduce(SignUp(userEmail!!, nickname!!, Intro))
                 /*val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
@@ -63,24 +69,24 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
 */
 
-                if(imageUri ==null){
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }else{
-                    val intent = Intent(this, Profile3Activity::class.java)
-                    //intent.putExtra("userid", Userid)
-                    intent.putExtra("imageUri", imageUri.toString())
-                    Log.d("Login1111", imageUri.toString())
-                    startActivity(intent)
-                    finish()
-                }
+//                if(imageUri ==null){
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }else{
+//                    val intent = Intent(this, Profile3Activity::class.java)
+//                    //intent.putExtra("userid", Userid)
+//                    intent.putExtra("imageUri", imageUri.toString())
+//                    Log.d("Login1111", imageUri.toString())
+//                    startActivity(intent)
+//                    finish()
+//                }
             }
         }
 
 
     }
-
+/*
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult())
@@ -143,7 +149,7 @@ class Profile2Activity : AppCompatActivity() {
         return inSampleSize
     }
 
-
+*/
     fun checkProfile(): Boolean {
         Log.d("profile2", "확인8")
         if (binding.profile2IntroEt.text.toString().length > 150) {
@@ -154,7 +160,7 @@ class Profile2Activity : AppCompatActivity() {
         return true
     }
 
-
+/*
     private fun bitmapToUri(bitmap: Bitmap): Uri {
         val context = applicationContext
         val bytes = ByteArrayOutputStream()
@@ -175,6 +181,26 @@ class Profile2Activity : AppCompatActivity() {
         }
         return imageByte
     }*/
+*/
+    private fun postIntroduce(signUp: SignUp){
+        val service = getRetrofit().create(RetrofitInterface::class.java)
+        service.signupProfile(signUp).enqueue(object: Callback<IntroduceResponse>{
+            override fun onResponse(call: Call<IntroduceResponse>, response: Response<IntroduceResponse>) {
+                val resp = response.body()!!
+                Log.d("postIntroduce_resp", resp?.success.toString())
+                if(resp.success) {
+                    Log.d("postIntroduce_resp", resp?.success.toString())
+                    startActivity(Intent(this@Profile2Activity,Profile3Activity::class.java))
+                }else {
+                }
+            }
+
+            override fun onFailure(call: Call<IntroduceResponse>, t: Throwable) {
+                Log.d("postIntroduce: onFailure", t.message.toString())
+            }
+
+        })
+    }
 
 }
 

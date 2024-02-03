@@ -22,27 +22,45 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    //외부에서 LoginActivity를 사용하기 위함
-    init {
-        instance = this
-    }
+    inner class NextActivityHandler {
+        fun launchMainActivity() {
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-    companion object {
-        private var instance: LoginActivity? = null
-
-        fun getInstance(): LoginActivity? 		{
-            return instance
+        fun launchOnboardActivity(userEmail: String) {
+            val intent = Intent(this@LoginActivity, OnboardActivity::class.java)
+            Log.d("Login->prof1 userEmail",userEmail)
+            intent.putExtra("userEmail",userEmail)
+            startActivity(intent)
+            finish()
         }
     }
+
+    private val nextActivityHandler = NextActivityHandler()
+
+    //외부에서 LoginActivity를 사용하기 위함
+//    init {
+//        instance = this
+//    }
+//
+//    companion object {
+//        private var instance: LoginActivity? = null
+//
+//        fun getInstance(): LoginActivity? 		{
+//            return instance
+//        }
+//    }
 
     lateinit var binding: ActivityLoginBinding
     var userToken: String = ""
     var userEmail: String = ""
 
     //카카오 로그인 정보 api 연동
-    private val kakaoLoginViewModel :KakaoLoginViewModel by lazy {
-        ViewModelProvider(this).get(KakaoLoginViewModel::class.java)
-    }
+//    private val kakaoLoginViewModel :KakaoLoginViewModel by lazy {
+//        ViewModelProvider(this).get(KakaoLoginViewModel::class.java)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,24 +140,40 @@ class LoginActivity : AppCompatActivity() {
 
             Log.i("Login1111", "사용자 정보 요청 성공" +
                     "\n사용자 액세스 토큰: ${userToken}" +
-                    "\n사용자 이메일: ${userToken}")
+                    "\n사용자 이메일: ${userEmail}")
 
-            kakaoLoginViewModel.fetchUserInfo(userToken, userToken)
+//            kakaoLoginViewModel.fetchUserInfo(userToken, userToken)
+            getUserInfo(userEmail)
+
         }
     }
 
-    fun NextActivity(isSignIn: Boolean){
+    private fun getUserInfo(userEmail:String){
+        val service = getRetrofit().create(RetrofitInterface::class.java)
+        service.searchKakaoInfo(userToken, userEmail).enqueue(object: Callback<KakaoResponse>{
+            override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
+                val resp = response.body()!!
+                Log.d("searchKakaoInfo_resp", resp?.success.toString())
+                if(resp.success) {
+//                    Log.d("searchKakaoInfo[SUCCESS]", resp.message)
+                    NextActivity(resp.data.isSignin, userEmail)
+                }else {
+//                    Log.d("searchKakaoInfo[Failure]", resp.message)
+                }
+            }
 
-        if(isSignIn){
-            //가입한 적이 있는 유저이면 메인액티비티로 이동
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }else{
-            //가입한 적이 없는 유저이면 회원가입을 위해 온보딩액티비티로 이동
-            val intent = Intent(this, OnboardActivity::class.java)
-            startActivity(intent)
-            finish()
+            override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
+                Log.d("searchKakaoInfo: onFailure", t.message.toString())
+            }
+
+        })
+    }
+
+    fun NextActivity(isSignIn: Boolean, userEmail: String) {
+        if (isSignIn) {
+            nextActivityHandler.launchMainActivity()
+        } else {
+            nextActivityHandler.launchOnboardActivity(userEmail)
         }
     }
 }

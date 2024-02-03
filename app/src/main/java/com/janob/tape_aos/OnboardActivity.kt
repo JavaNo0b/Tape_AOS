@@ -16,8 +16,8 @@ class OnboardActivity : AppCompatActivity() {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val Intent = intent
-        val userid = Intent.getLongExtra("userid", 0)
+//        val Intent = intent
+//        val userid = Intent.getLongExtra("userid", 0)
 
         // tab layout와 viewpager 연결
         TabLayoutMediator(binding.onboardTabTb, binding.onboardViewpagerVp) { tab, position
@@ -32,9 +32,10 @@ class OnboardActivity : AppCompatActivity() {
 
         //건너뛰기 누르면 바로 profile1으로 넘어가기
         binding.onboardSkipTv.setOnClickListener {
+            val userEmail = intent.getStringExtra("userEmail")
             val intent = Intent(this, Profile1Activity::class.java)
-            intent.putExtra("userid", userid)
-            Log.d("Login1111", userid.toString())
+            intent.putExtra("userEmail", userEmail)
+//            Log.d("Login1111", userid.toString())
             startActivity(intent)
             finish()
         }
@@ -44,10 +45,11 @@ class OnboardActivity : AppCompatActivity() {
             if(binding.onboardViewpagerVp.currentItem == 0){
                 binding.onboardViewpagerVp.currentItem = binding.onboardViewpagerVp.currentItem + 1
             }else{
-
+                val userEmail = intent.getStringExtra("userEmail")
                 val intent = Intent(this, Profile1Activity::class.java)
-                intent.putExtra("userid", userid)
-                Log.d("Login1111", userid.toString())
+                intent.putExtra("userEmail", userEmail)
+//                intent.putExtra("userid", userid)
+//                Log.d("Login1111", userid.toString())
                 startActivity(intent)
                 finish()
             }

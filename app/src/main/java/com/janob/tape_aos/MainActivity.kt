@@ -416,6 +416,7 @@ class MainActivity : AppCompatActivity() {
         val tapeDB = TapeDatabase.Instance(this)
         userData = tapeDB.userDao().getAll()
         tapeData = tapeDB.tapeDao().getAll()
+        val my_user_tapeList = ArrayList<Tape>()
 
         //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
         //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
@@ -434,7 +435,7 @@ class MainActivity : AppCompatActivity() {
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                my_user_tapeList.toList())
         )
         tapeDB.userDao().insert(
             User(0,

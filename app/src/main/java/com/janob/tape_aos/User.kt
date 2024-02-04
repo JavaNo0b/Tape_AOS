@@ -15,6 +15,7 @@ data class User(
     var followerList : List<String>,
     var followingList : List<String>,
         // 테이프 목록
+    //@SerializedName("tapeList")
     var tapeList : List <Tape>,
     @PrimaryKey(autoGenerate = true) var id : Long? = null
 )

@@ -58,6 +58,13 @@ class ProfileFragment : Fragment() {
         }
 
 
+        // 임시
+        binding.profilePostTv.setOnClickListener {
+            val intent = Intent(activity, ProfilePostActivity::class.java)
+            startActivity(intent)
+        }
+
+
         return binding.root
     }
 
@@ -66,6 +73,8 @@ class ProfileFragment : Fragment() {
 
         my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
         setInit(my_user)
+
+        profileVPAdapter.setTapeList(my_tape_list)
     }
 
     // 처음 회원가입/로그인하고 내 프로필 정보 설정
@@ -79,7 +88,6 @@ class ProfileFragment : Fragment() {
         binding.profileFollowerNumTv.text = user.followerList.size.toString()
         binding.profileFollowingNumTv.text = user.followingList.size.toString()
 
-        // 테이프 게시글 Feed 설정 구현 이어서 진행
         // 좋아요 노래도 설정 구현 이어서 진행
     }
 

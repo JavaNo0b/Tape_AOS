@@ -40,4 +40,7 @@ interface UserDao {
     fun updateUserCommentByUserKey(comment : String?, userKey : Int?)
     @Query("UPDATE UserTable SET userImg =:userImg WHERE userKey =:userKey")
     fun updateUserImgByUserKey(userImg : Int?, userKey : Int?)
+
+    @Query("UPDATE UserTable SET tapeList =:tapeList WHERE userKey =:userKey")
+    fun updateTapeListByUserKey(tapeList : List<Tape>?, userKey : Int?)
 }

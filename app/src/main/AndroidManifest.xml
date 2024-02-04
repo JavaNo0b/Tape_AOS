@@ -73,6 +73,8 @@
 
         <activity android:name=".ProfileEditActivity"
             android:exported="true"/>
+        <activity android:name=".ProfilePostActivity"
+            android:exported="true"/>
 
 
     </application>

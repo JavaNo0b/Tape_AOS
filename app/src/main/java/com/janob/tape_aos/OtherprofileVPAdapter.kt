@@ -13,6 +13,7 @@ class OtherprofileVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment
     override fun createFragment(position: Int): Fragment {
         feedFragment = FeedFragment()
 
+        // ** 테이프 세팅 **
         feedFragment.setTapeList(tape_list)
 
         return when(position){

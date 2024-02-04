@@ -417,6 +417,10 @@ class MainActivity : AppCompatActivity() {
         userData = tapeDB.userDao().getAll()
         tapeData = tapeDB.tapeDao().getAll()
 
+        //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
+        //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
+        val userImg = R.drawable.albumcover_5
+
 
         if(userData.isNotEmpty())
             return
@@ -425,7 +429,7 @@ class MainActivity : AppCompatActivity() {
         var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
         tapeDB.userDao().insert(
             User(1,
-                R.drawable.user_profile_img,
+                userImg,
                 "Min_SEO",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -434,7 +438,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "music_play",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -443,7 +447,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "k_pop_lover",
                 "케이팝 좋아해요",
                 followerList,
@@ -452,7 +456,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user1",
                 "노래 좋아요",
                 followerList,
@@ -461,7 +465,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user2",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -470,7 +474,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user3",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -479,7 +483,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user4",
                 "케이팝 좋아해요",
                 followerList,
@@ -488,7 +492,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user5",
                 "노래 좋아요",
                 followerList,
@@ -497,7 +501,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user6",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -506,7 +510,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user7",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -515,7 +519,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user",
                 "user comment",
                 followerList,
@@ -524,7 +528,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user123",
                 "user123 comment",
                 followerList,

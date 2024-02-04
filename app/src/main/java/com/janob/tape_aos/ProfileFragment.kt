@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
 
     // 처음 회원가입/로그인하고 내 프로필 정보 설정
     private fun setInit(user : User){
+        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
         binding.profileProfileIv.setImageResource(user.userImg!!)
         binding.profileNameTv.text = user.name
         binding.profileCommentTv.text = user.comment

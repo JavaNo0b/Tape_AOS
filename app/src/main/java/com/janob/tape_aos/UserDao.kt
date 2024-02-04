@@ -32,4 +32,12 @@ interface UserDao {
     fun updateUserFollowerList(followerList: List<String>?, name: String?)
     @Query("UPDATE UserTable SET followingList =:followingList WHERE name =:name")
     fun updateUserFollowingList(followingList: List<String>?, name: String?)
+
+    // 이름, 코멘트, 이미지 업데이트(수정)
+    @Query("UPDATE UserTable SET name =:name WHERE userKey =:userKey")
+    fun updateUserNameByUserKey(name : String?, userKey : Int?)
+    @Query("UPDATE UserTable SET comment =:comment WHERE userKey =:userKey")
+    fun updateUserCommentByUserKey(comment : String?, userKey : Int?)
+    @Query("UPDATE UserTable SET userImg =:userImg WHERE userKey =:userKey")
+    fun updateUserImgByUserKey(userImg : Int?, userKey : Int?)
 }

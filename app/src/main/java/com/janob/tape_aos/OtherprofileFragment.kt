@@ -82,6 +82,7 @@ class OtherprofileFragment : Fragment() {
 
     private fun setInit(user : User){
         // search에서 넘어온 데이터 재설정
+        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
         binding.otherprofileProfileIv.setImageResource(user.userImg!!)
         binding.otherprofileNameTv.text = user.name
         binding.otherprofileCommentTv.text = user.comment

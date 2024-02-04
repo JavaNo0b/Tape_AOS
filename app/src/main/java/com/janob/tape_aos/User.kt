@@ -8,6 +8,7 @@ data class User(
     // userKey=1 -> 사용자, userKey=0 -> 타유저
     var userKey : Int? = null,
     var userImg : Int? = null,
+    //var userImg : String? = null,
     var name : String = "",
     var comment : String = "",
         // 팔로워, 팔로잉 목록

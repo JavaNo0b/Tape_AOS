@@ -15,8 +15,8 @@ class ApiFetchr {
 
     //필요한 api 추가
     private lateinit var api :Api
-    private lateinit var tapeApi:TapeApi
-    private lateinit var replyApi:ReplyApi
+//    private lateinit var tapeApi:TapeApi
+//    private lateinit var replyApi:ReplyApi
 
     init{
         val retrofit: Retrofit = Retrofit.Builder()
@@ -25,8 +25,8 @@ class ApiFetchr {
             .build()
         //생성
         api = retrofit.create(Api::class.java)
-        tapeApi = retrofit.create(TapeApi::class.java)
-        replyApi = retrofit.create(ReplyApi::class.java)
+//        tapeApi = retrofit.create(TapeApi::class.java)
+//        replyApi = retrofit.create(ReplyApi::class.java)
 
     }
 
@@ -57,14 +57,19 @@ class ApiFetchr {
         })
         return responseLiveData
     }
-    fun fetchTodayTapes(userId:Int) :LiveData<List<Tape>>{
-        val call = tapeApi.fetchTodayTapes(userId)
-        return fetchMetaData(call)
-    }
-    fun fetchTapeReply():LiveData<List<Reply>>{
-        val call = replyApi.fetchContents()
-        return fetchMetaData(call)
-    }
+//    fun fetchTodayTapesFriends(userId:Int) :LiveData<List<Tape>>{
+//        val call = tapeApi.fetchTodayTapesFriends(userId)
+//        return fetchMetaData(call)
+//    }
+//
+//    fun fetchTodayTapes(userId:Int) :LiveData<List<Tape>>{
+//        val call = tapeApi.fetchTodayTapes(userId)
+//        return fetchMetaData(call)
+//    }
+//    fun fetchTapeReply():LiveData<List<Reply>>{
+//        val call = replyApi.fetchContents()
+//        return fetchMetaData(call)
+//    }
 
 
 

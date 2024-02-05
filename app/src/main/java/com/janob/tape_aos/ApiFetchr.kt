@@ -14,9 +14,9 @@ class ApiFetchr {
 
 
     //필요한 api 추가
-    private lateinit var api :Api
-//    private lateinit var tapeApi:TapeApi
-//    private lateinit var replyApi:ReplyApi
+    private  var api :Api
+    private  var tapeApi:TapeApi
+    private  var replyApi:ReplyApi
 
     init{
         val retrofit: Retrofit = Retrofit.Builder()
@@ -25,17 +25,17 @@ class ApiFetchr {
             .build()
         //생성
         api = retrofit.create(Api::class.java)
-//        tapeApi = retrofit.create(TapeApi::class.java)
-//        replyApi = retrofit.create(ReplyApi::class.java)
+        tapeApi = retrofit.create(TapeApi::class.java)
+        replyApi = retrofit.create(ReplyApi::class.java)
 
     }
 
-    fun fetchContents() : LiveData<List<ApiSong>> {
-        val call: Call<List<ApiSong>> = api.fetchContents()
+    fun fetchContents() : LiveData<List<SongDTO>> {
+        val call: Call<List<SongDTO>> = api.fetchContents()
         return fetchMetaData(call)
     }
-    fun searchContents(query:String) : LiveData<List<ApiSong>>{
-        val call:Call<List<ApiSong>> = api.searchContents(query)
+    fun searchContents(query:String) : LiveData<List<SongDTO>>{
+        val call:Call<List<SongDTO>> = api.searchContents(query)
         return fetchMetaData(call)
     }
     fun <T> fetchMetaData(call :Call<List<T>>):LiveData<List<T>>{
@@ -61,15 +61,15 @@ class ApiFetchr {
 //        val call = tapeApi.fetchTodayTapesFriends(userId)
 //        return fetchMetaData(call)
 //    }
-//
-//    fun fetchTodayTapes(userId:Int) :LiveData<List<Tape>>{
-//        val call = tapeApi.fetchTodayTapes(userId)
-//        return fetchMetaData(call)
-//    }
-//    fun fetchTapeReply():LiveData<List<Reply>>{
-//        val call = replyApi.fetchContents()
-//        return fetchMetaData(call)
-//    }
+
+    fun fetchTodayTapes(userId:Int) :LiveData<List<Tape>>{
+        val call = tapeApi.fetchTodayTapes(userId)
+        return fetchMetaData(call)
+    }
+    fun fetchTapeReply():LiveData<List<Reply>>{
+        val call = replyApi.fetchContents()
+        return fetchMetaData(call)
+    }
 
 
 

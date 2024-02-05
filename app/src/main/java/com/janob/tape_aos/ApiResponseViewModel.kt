@@ -7,7 +7,7 @@ import androidx.lifecycle.switchMap
 
 class ApiResponseViewModel :ViewModel() {
 
-    var responseLiveData : LiveData<List<ApiSong>> = MutableLiveData()
+    var responseLiveData : LiveData<List<SongDTO>> = MutableLiveData()
 
     private val apiFetchr = ApiFetchr()
     private val mutalbeSearchTerm = MutableLiveData<String>()

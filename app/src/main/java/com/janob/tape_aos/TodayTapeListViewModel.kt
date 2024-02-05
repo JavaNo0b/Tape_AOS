@@ -9,8 +9,10 @@ class TodayTapeListViewModel :ViewModel() {
 
     private val apiFetchr = ApiFetchr()
     var todayTapeListLiveData : LiveData<List<Tape>> = MutableLiveData()
+
     private val mutableUserId = MutableLiveData<Int>()
     init{
+        //유저 아이디 바뀌면, 오늘의 테이프 갱신
         mutableUserId.value = 0
         todayTapeListLiveData = mutableUserId.switchMap { mutableUserId -> apiFetchr.fetchTodayTapes(mutableUserId) }
 

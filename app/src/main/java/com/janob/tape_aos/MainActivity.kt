@@ -417,6 +417,7 @@ class MainActivity : AppCompatActivity() {
         userData = tapeDB.userDao().getAll()
         tapeData = tapeDB.tapeDao().getAll()
         val my_user_tapeList = ArrayList<Tape>()
+        songData = tapeDB.songDao().getAllList()
 
         //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
         //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
@@ -435,7 +436,8 @@ class MainActivity : AppCompatActivity() {
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                my_user_tapeList.toList())
+                my_user_tapeList.toList(),
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -444,7 +446,8 @@ class MainActivity : AppCompatActivity() {
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -453,7 +456,8 @@ class MainActivity : AppCompatActivity() {
                 "케이팝 좋아해요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -462,7 +466,8 @@ class MainActivity : AppCompatActivity() {
                 "노래 좋아요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -471,7 +476,8 @@ class MainActivity : AppCompatActivity() {
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -480,7 +486,8 @@ class MainActivity : AppCompatActivity() {
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -489,7 +496,8 @@ class MainActivity : AppCompatActivity() {
                 "케이팝 좋아해요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -498,7 +506,8 @@ class MainActivity : AppCompatActivity() {
                 "노래 좋아요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -507,7 +516,8 @@ class MainActivity : AppCompatActivity() {
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -516,7 +526,8 @@ class MainActivity : AppCompatActivity() {
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -525,7 +536,8 @@ class MainActivity : AppCompatActivity() {
                 "user comment",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
@@ -534,7 +546,8 @@ class MainActivity : AppCompatActivity() {
                 "user123 comment",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
     }
     private fun initBottomNavigation() {

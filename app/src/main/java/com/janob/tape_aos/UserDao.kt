@@ -43,4 +43,6 @@ interface UserDao {
 
     @Query("UPDATE UserTable SET tapeList =:tapeList WHERE userKey =:userKey")
     fun updateTapeListByUserKey(tapeList : List<Tape>?, userKey : Int?)
+    @Query("UPDATE UserTable SET likeList =:likeList WHERE userKey =:userKey")
+    fun updateLikeListByUserKey(likeList : List<Song>?, userKey : Int?)
 }

@@ -17,5 +17,6 @@ data class User(
         // 테이프 목록
     //@SerializedName("tapeList")
     var tapeList : List <Tape>,
+    var likeList : List<Song>,
     @PrimaryKey(autoGenerate = true) var id : Long? = null
 )

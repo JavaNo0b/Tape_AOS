@@ -1,6 +1,5 @@
 package com.janob.tape_aos
 
-
 import com.google.gson.annotations.SerializedName
 
 data class SongDTO(
@@ -167,3 +166,7 @@ data class HiddenDTO(
     @SerializedName("tapeId") var tapeId:Int,
     @SerializedName("userId") var userId: Int
 )
+
+
+
+

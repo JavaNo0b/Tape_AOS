@@ -15,6 +15,7 @@ class ProfileFragment : Fragment() {
     lateinit var binding : FragmentProfileBinding
     private val info = arrayListOf("게시글", "좋아요 한 곡")
 
+    private val settingFragment = SettingFragment()
     private val followFragment = FollowFragment()
     lateinit var profileVPAdapter : ProfileVPAdapter
 
@@ -55,6 +56,13 @@ class ProfileFragment : Fragment() {
         binding.profileProfileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)
             startActivity(intent)
+        }
+
+        // 메뉴
+        binding.profileMenuBtnIv.setOnClickListener {
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, settingFragment)
+                .commitAllowingStateLoss()
         }
 
 

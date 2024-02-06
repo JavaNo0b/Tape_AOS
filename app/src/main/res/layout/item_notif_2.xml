@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="51dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_marginTop="11dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    android:background="@drawable/layout_background_shape_3"
     >
 
 
@@ -41,8 +41,10 @@
                 android:textSize="9sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="19dp"
-                android:layout_marginStart="45dp"/>
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="14dp"/>
 
 
             <ImageView
@@ -54,6 +56,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="10dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

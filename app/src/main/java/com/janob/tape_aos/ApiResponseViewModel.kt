@@ -18,9 +18,6 @@ class ApiResponseViewModel :ViewModel() {
 
         responseLiveData = mutalbeSearchTerm.switchMap { mutalbeSearchTerm -> apiFetchr.searchContents(mutalbeSearchTerm) }
 
-
-
-
     }
 
     fun fetchSearchTerm(query:String){

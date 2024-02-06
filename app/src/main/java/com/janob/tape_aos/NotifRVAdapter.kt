@@ -1,25 +1,33 @@
 package com.janob.tape_aos
 
 
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.janob.tape_aos.databinding.ItemNotif1Binding
 import com.janob.tape_aos.databinding.ItemNotif2Binding
 import com.janob.tape_aos.databinding.ItemNotif3Binding
+import com.janob.tape_aos.databinding.ItemNotif4Binding
 
 
-class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NotifRVAdapter : ListAdapter<NotifData, RecyclerView.ViewHolder>(DiffCallback()) {
 
-    private var Notiflist = list.size
+
+    companion object{
+        const val notif_4 = 0
+        const val notif_2 = 1
+        const val  notif_3 = 2
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view : View?
+        //val view : View?
         return when(viewType){
-            Alarm.notif_1 -> {
-                ViewHolder1(ItemNotif1Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
+            notif_4 -> {
+                ViewHolder4(ItemNotif4Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
             }
-            Alarm.notif_2 -> {
+            notif_2 -> {
                 ViewHolder2(ItemNotif2Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
             }
             else -> {
@@ -30,38 +38,62 @@ class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val position = list[position]
-        when (position.id) {
-            Alarm.notif_1 -> {
+        val data = getItem(position)
+        when (holder) {
+            is ViewHolder4 -> {
+                holder.bind(data)
             }
-            Alarm.notif_2 -> {
-                (holder as ViewHolder2).title = position.reciver_id
+            is ViewHolder2 -> {
+                holder.bind(data)
             }
-            Alarm.notif_3 -> {
-                (holder as ViewHolder3).user = position.reciver_id
-                (holder as ViewHolder3).title = position.alarm_id
+            is ViewHolder3 -> {
+                holder.bind(data)
             }
         }
     }
 
-    override fun getItemCount() : Int = Notiflist
+    //override fun getItemCount() : Int = NotifData.size  자동구현
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].id
+        //return notiflist[position].alarmId!!
+        val alarmType = getItem(position).alarmType
+        return when (alarmType){
+            "좋아요" -> notif_4
+            "팔로우" -> notif_2
+            "댓글" -> notif_3
+            else -> throw IllegalArgumentException("Invalid alarm id")
+        }
     }
 
-    inner class ViewHolder1(view : ItemNotif1Binding) : RecyclerView.ViewHolder(view.root){
-
-    }
-    inner class ViewHolder2(view : ItemNotif2Binding) : RecyclerView.ViewHolder(view.root){
-        var title = view.itemNotif2TextTv.text
-    }
-    inner class ViewHolder3(view : ItemNotif3Binding) : RecyclerView.ViewHolder(view.root){
-        var user = view.itemNotif3TextTv1.text
-        var title = view.itemNotif3TextTv2.text
+    //좋아요
+    inner class ViewHolder4(private val binding: ItemNotif4Binding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item : NotifData){
+            binding.itemNotif4TextTv.text = item.alarmContent
+        }
     }
 
+    //팔로우
+    inner class ViewHolder2(private val binding: ItemNotif2Binding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item : NotifData){
+            binding.itemNotif2TextTv.text = item.alarmContent
+        }
+    }
 
+    //댓글
+    inner class ViewHolder3(private val binding: ItemNotif3Binding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item : NotifData){
+            binding.itemNotif3TextTv.text = item.alarmContent
+        }
+    }
 
+    //새로운 데이터와 이전 데이터 차이 계산
+    private class DiffCallback : DiffUtil.ItemCallback<NotifData>() {
+        override fun areItemsTheSame(oldItem: NotifData, newItem: NotifData): Boolean {
+            return oldItem.alarmId == newItem.alarmId
+        }
 
+        override fun areContentsTheSame(oldItem: NotifData, newItem: NotifData): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

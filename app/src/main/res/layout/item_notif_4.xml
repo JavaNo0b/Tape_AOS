@@ -11,14 +11,14 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/item_notif_3"
+        android:id="@+id/item_notif_4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="11dp"
         app:cardElevation="0dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/item_notif_3_image_iv"
+            android:id="@+id/item_notif_4_image_iv"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:src="@drawable/albumcover_5"
@@ -33,10 +33,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/item_notif_3_text_tv"
+                android:id="@+id/item_notif_4_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="music_play 님이 회원님의 테이프에 댓글을 작성했습니다."
+                android:text="K_pop_lover 님이 회원님의 Tape를 좋아합니다."
                 android:textColor="@color/black"
                 android:textSize="9sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
 
 
             <ImageView
-                android:id="@+id/item_notif_3_dot_iv"
+                android:id="@+id/item_notif_4_dot_iv"
                 android:src="@drawable/item_notif_dot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

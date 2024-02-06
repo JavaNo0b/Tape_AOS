@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import com.janob.tape_aos.databinding.ActivityMainBinding
 import com.kakao.sdk.common.util.Utility
 
@@ -24,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var songData : List<Song>
     lateinit var includedSongData : List<IncludedSong>
     lateinit var userData : List<User>
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

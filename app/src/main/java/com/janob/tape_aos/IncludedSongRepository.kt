@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import java.util.concurrent.Executors
 
@@ -16,14 +17,20 @@ class IncludedSongRepository private constructor(context : Context) {
             includedSongDao.update(song)
         }
     }
-    fun add(song:IncludedSong){
-        executor.execute{
-            includedSongDao.insert(song)
-        }
+    fun add(song:IncludedSong) :Long?{
+
+        return includedSongDao.insert(song)
+
     }
     fun delete(song:IncludedSong){
         executor.execute {
             includedSongDao.delete(song)
+        }
+
+    }
+    fun deleteById(id:Long?){
+        executor.execute {
+            includedSongDao.deleteById(id)
         }
     }
     //임시코드

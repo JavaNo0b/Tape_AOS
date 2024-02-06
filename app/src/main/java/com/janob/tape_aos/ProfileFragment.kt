@@ -33,8 +33,8 @@ class ProfileFragment : Fragment() {
 
         // RoomDB 데이터 받기
         //userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
-        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-        setInit(my_user)
+//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+//        setInit(my_user)
 
 
         // tabLayout과 viewPager2 연결
@@ -58,8 +58,8 @@ class ProfileFragment : Fragment() {
         super.onStart()
 
         Log.d("eunseo", "ProfileFragment - onStart 확인")
-        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-        setInit(my_user)
+//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+//        setInit(my_user)
     }
 
     // 처음 회원가입/로그인하고 내 프로필 정보 설정

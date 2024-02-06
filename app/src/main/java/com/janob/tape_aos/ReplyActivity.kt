@@ -8,6 +8,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ActivityReplyBinding
@@ -19,6 +23,11 @@ class ReplyActivity : AppCompatActivity()
     lateinit var recyclerView : RecyclerView
     lateinit var binding: ActivityReplyBinding
     lateinit var tapeReplyData: MutableList<Reply>
+
+    //뷰모델
+    private val replyListViewModel:ReplyListViewModel by lazy{
+        ViewModelProvider(this).get(ReplyListViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -32,20 +41,38 @@ class ReplyActivity : AppCompatActivity()
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onStart() {
         super.onStart()
-        //roomDB에서 데이터 가져오기
-        tapeReplyData = TapeDatabase.Instance(this).replyDao().getAll()
 
+        //댓글 @GET
+        replyListViewModel.replyListLiveData.observe(
+            this,
+            Observer{
+                response -> Log.d("reply activity","now reply $response")
+                recyclerView.adapter = ReplyAdapter(response,this, object : ReplyAdapter.MyItemClickListner {
+                    override fun onEditClick(reply: Reply) {
+                        Log.d("click", "editClick2")
+                        val intent = Intent(this@ReplyActivity, ReplyModifyActivity::class.java)
+                        intent.putExtra("reply", reply)
+                        resultLauncher.launch(intent)
+                    }
+                    override fun onDeleteClick(reply: Reply) {
+                        //roomDB 업데이트
+                        TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
+                        //recyclerView 업데이트
+                        tapeReplyData.remove(reply)
+                        recyclerView.adapter?.notifyDataSetChanged()
+                    }
+                })
+            }
+        )
         //리사이클러뷰에 데이터 연결
         val manager = LinearLayoutManager(this)
-
-        val adapter = ReplyAdapter(tapeReplyData, this, object : ReplyAdapter.MyItemClickListner {
+        val adapter = ReplyAdapter(emptyList(), this, object : ReplyAdapter.MyItemClickListner {
             override fun onEditClick(reply: Reply) {
                 Log.d("click", "editClick2")
                 val intent = Intent(this@ReplyActivity, ReplyModifyActivity::class.java)
                 intent.putExtra("reply", reply)
                 resultLauncher.launch(intent)
             }
-
             override fun onDeleteClick(reply: Reply) {
                 //roomDB 업데이트
                 TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
@@ -54,27 +81,6 @@ class ReplyActivity : AppCompatActivity()
                 recyclerView.adapter?.notifyDataSetChanged()
             }
         })
-//        val adapter = ReplyAdapter(tapeReplyData,this)
-//
-//        adapter.setMyItemClickLitner(object: ReplyAdapter.MyItemClickListner {
-//            override fun onEditClick(reply: Reply) {
-//                Log.d("click","editClick2")
-//                val intent = Intent(this@ReplyActivity,ReplyModifyActivity::class.java)
-//                intent.putExtra("reply",reply)
-//                resultLauncher.launch(intent)
-//            }
-//
-//            override fun onDeleteClick(reply: Reply) {
-//                //roomDB 업데이트
-//                TapeDatabase.Instance(this@ReplyActivity).replyDao().delete(reply)
-//                //recyclerView 업데이트
-//                tapeReplyData.remove(reply)
-//                val adapter = ReplyAdapter(tapeReplyData,this@ReplyActivity)
-//                recyclerView.adapter = adapter
-//                //아이템이 추가되고 UI가 바뀐걸 업데이트해주는코드
-//                recyclerView.adapter?.notifyDataSetChanged()
-//            }
-//        })
 
         setResultNext()
 

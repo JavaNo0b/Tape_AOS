@@ -17,8 +17,9 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.janob.tape_aos.databinding.FragmentPostIntroductionBinding
-import org.w3c.dom.Text
+
 
 class PostIntroductionFragment : Fragment() {
     private lateinit var imageUri : Uri
@@ -29,7 +30,8 @@ class PostIntroductionFragment : Fragment() {
     private lateinit var alertTv : TextView
     private lateinit var btnContinue : ImageView
 
-    interface PostIntroductionListener { fun onPostIntroductionCompleted()}
+
+    interface PostIntroductionListener { fun onPostIntroductionCompleted( uri:Uri,title:String,content:String)}
     lateinit var listener : PostIntroductionListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,6 +49,8 @@ class PostIntroductionFragment : Fragment() {
             intent?.data?.let{
                 imageUri = it
                 imageView.setImageURI(imageUri)
+                //뷰모델에 저장
+                imageUri = imageUri
                 imageIcView.visibility = View.INVISIBLE
 
             }
@@ -80,6 +84,7 @@ class PostIntroductionFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+                //초기화
                 btnContinue.setOnClickListener{
                     //empty
                 }
@@ -102,13 +107,28 @@ class PostIntroductionFragment : Fragment() {
                     alertTv.visibility = View.INVISIBLE
 
                     btnContinue.setOnClickListener{
-                        listener.onPostIntroductionCompleted()
+                        listener.onPostIntroductionCompleted(imageUri,"title","content")
                     }
                 }
 
             }
 
             override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        contentTv.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
             }
 
         })

@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 
-@Entity(tableName = "TapeTable")
 
+@Entity(tableName = "TapeTable")
 data class Tape(
 
     var tapeTitle: String = "",   // 테이프 이름

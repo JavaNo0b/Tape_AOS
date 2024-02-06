@@ -7,16 +7,16 @@ import androidx.lifecycle.switchMap
 
 class ApiResponseViewModel :ViewModel() {
 
-    var responseLiveData : LiveData<List<MelonSong>> = MutableLiveData()
+    var responseLiveData : LiveData<List<SongDTO>> = MutableLiveData()
 
-    private val melonApiFetchr = MelonApiFetchr()
+    private val apiFetchr = ApiFetchr()
     private val mutalbeSearchTerm = MutableLiveData<String>()
 
     init{
-        responseLiveData = melonApiFetchr.fetchContents()
+        responseLiveData = apiFetchr.fetchContents()
         mutalbeSearchTerm.value = ""
 
-        responseLiveData = mutalbeSearchTerm.switchMap { mutalbeSearchTerm -> melonApiFetchr.searchContents(mutalbeSearchTerm) }
+        responseLiveData = mutalbeSearchTerm.switchMap { mutalbeSearchTerm -> apiFetchr.searchContents(mutalbeSearchTerm) }
 
 
 

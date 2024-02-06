@@ -110,6 +110,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             */
 
+            // 뒤로가기x
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, followFragment.apply {
                     arguments = Bundle().apply {

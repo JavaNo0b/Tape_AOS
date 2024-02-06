@@ -2,66 +2,94 @@ package com.janob.tape_aos
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemNotif1Binding
-import com.janob.tape_aos.databinding.ItemNotif2Binding
-import com.janob.tape_aos.databinding.ItemNotif3Binding
 
 
-class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NotifRVAdapter : RecyclerView.Adapter<NotifRVAdapter.ViewHolder>() {
 
-    private var Notiflist = list.size
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view : View?
-        return when(viewType){
-            Alarm.notif_1 -> {
-                ViewHolder1(ItemNotif1Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
-            }
-            Alarm.notif_2 -> {
-                ViewHolder2(ItemNotif2Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
-            }
-            else -> {
-                ViewHolder3(ItemNotif3Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
-            }
-        }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NotifRVAdapter.ViewHolder {
+        val binding: ItemNotif1Binding = ItemNotif1Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        val position = list[position]
-        when (position.id) {
-            Alarm.notif_1 -> {
-            }
-            Alarm.notif_2 -> {
-                (holder as ViewHolder2).title = position.reciver_id
-            }
-            Alarm.notif_3 -> {
-                (holder as ViewHolder3).user = position.reciver_id
-                (holder as ViewHolder3).title = position.alarm_id
-            }
-        }
-    }
-
-    override fun getItemCount() : Int = Notiflist
-
-    override fun getItemViewType(position: Int): Int {
-        return list[position].id
-    }
-
-    inner class ViewHolder1(view : ItemNotif1Binding) : RecyclerView.ViewHolder(view.root){
+    override fun onBindViewHolder(holder: NotifRVAdapter.ViewHolder, position: Int) {
 
     }
-    inner class ViewHolder2(view : ItemNotif2Binding) : RecyclerView.ViewHolder(view.root){
-        var title = view.itemNotif2TextTv.text
+
+    override fun getItemCount() : Int =4
+
+    inner class ViewHolder(val binding : ItemNotif1Binding) : RecyclerView.ViewHolder(binding.root){
+
     }
-    inner class ViewHolder3(view : ItemNotif3Binding) : RecyclerView.ViewHolder(view.root){
-        var user = view.itemNotif3TextTv1.text
-        var title = view.itemNotif3TextTv2.text
-    }
-
-
-
 
 }
+/*
+class NotifRVAdapter(private val context: Context) : RecyclerView.Adapter<NotifRVAdapter.ViewHolder>() {
+
+    var datas = mutableListOf<Notif_Multi>()
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NotifRVAdapter.ViewHolder {
+        val view : View?
+        return when(viewType) {
+            multi_type1 -> {
+                view = LayoutInflater.from(viewGroup.context).inflate(
+                    R.layout.item_notif_3,
+                    viewGroup,
+                    false
+                )
+                ViewHolder1(view)
+            }
+            multi_type2 -> {
+                view = LayoutInflater.from(viewGroup.context).inflate(
+                    R.layout.item_notif_2,
+                    viewGroup,
+                    false
+                )
+                ViewHolder2(view)
+            }
+            else -> {
+                view = LayoutInflater.from(viewGroup.context).inflate(
+                    R.layout.item_notif_1,
+                    viewGroup,
+                    false
+                )
+                ViewHolder3(view)
+            }
+        }
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return datas[position].type
+    }
+
+    override fun getItemCount(): Int = datas.size
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(datas[position].type) {
+            multi_type1 -> {
+                (holder as ViewHolder1).bind(datas[position])
+                holder.setIsRecyclable(false)
+            }
+            multi_type2 -> {
+                (holder as ViewHolder2).bind(datas[position])
+                holder.setIsRecyclable(false)
+            }
+            else -> {
+                (holder as ViewHolder3).bind(datas[position])
+                holder.setIsRecyclable(false)
+            }
+        }
+    }
+
+
+    inner class ViewHolder1(val binding : ItemNotif1Binding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: Notif_Multi) {
+
+
+        }
+    }
+
+}*/

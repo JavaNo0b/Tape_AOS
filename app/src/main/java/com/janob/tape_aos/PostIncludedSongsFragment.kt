@@ -12,10 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.janob.tape_aos.databinding.FragmentPostIncludedSongsBinding
@@ -23,8 +21,6 @@ import kotlin.properties.Delegates
 
 class PostIncludedSongsFragment : Fragment() {
 
-    //테이프 완성본 저장
-    lateinit var myTape : Tape
     private var imageUri: Uri = Uri.EMPTY
     private var title:String =""
     private var content:String=""
@@ -40,9 +36,6 @@ class PostIncludedSongsFragment : Fragment() {
     private val includedSongListViewModel : IncludedSongListViewModel by lazy{
         ViewModelProvider(this).get(IncludedSongListViewModel::class.java)
     }
-    private val tapeListViewModel : TapeListViewModel by lazy{
-        ViewModelProvider(this).get(TapeListViewModel::class.java)
-    }
     interface IncludedSongsListener { fun onIncludedSongsCompleted() }
 
     lateinit var binding : FragmentPostIncludedSongsBinding
@@ -50,7 +43,7 @@ class PostIncludedSongsFragment : Fragment() {
     lateinit var adapter:IncludedSongAdapter
     lateinit var manager:LinearLayoutManager
     lateinit var recyclerView:RecyclerView
-    lateinit var continueBtn : ImageView
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(parentFragment is IncludedSongsListener)
@@ -76,8 +69,6 @@ class PostIncludedSongsFragment : Fragment() {
             listener.onIncludedSongsCompleted()
         }
 
-        continueBtn = binding.btnPostContinue
-
         return binding.root
     }
 
@@ -91,37 +82,23 @@ class PostIncludedSongsFragment : Fragment() {
                 songs ->
                 Log.d("POST_INCLUDED_SONGS_FRAGMENT","now included songs ${songs.size}")
                 updateUI(songs)
-                if(songs.isNotEmpty()){
-                    continueBtn.setImageResource(R.drawable.btn_continue_active)
-                    continueBtn.setOnClickListener {
-                        listener.onIncludedSongsCompleted()
-                    }
-                }
-                else{
-                    continueBtn.setImageResource(R.drawable.btn_continue_inactive)
-                    continueBtn.setOnClickListener {
-                        //
-                    }
-                }
-
 
             }
 
 
         )
-        includedSongListViewModel.includedSongLiveData
     }
 
     private fun updateUI(includedSongs: List<IncludedSong>){
-        val adapter = IncludedSongAdapter(includedSongs)
+        adapter = IncludedSongAdapter(includedSongs)
         recyclerView.adapter = adapter
     }
-    inner class IncludedSongAdapter(var includedSongs: List<IncludedSong>) : ListAdapter<IncludedSong,IncludedSongItemViewHolder>(IncludedSongItemCallback()) {
+    inner class IncludedSongAdapter(var includedSongs: List<IncludedSong>) : RecyclerView.Adapter<IncludedSongItemViewHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
         ): IncludedSongItemViewHolder {
-            val view = layoutInflater.inflate(R.layout.item_included_song,parent,false)
+            val view = layoutInflater.inflate(R.layout.item_song,parent,false)
             return IncludedSongItemViewHolder(view)
         }
 
@@ -154,14 +131,6 @@ class PostIncludedSongsFragment : Fragment() {
 
 
         }
-
-    }
-    override fun onStop(){
-        super.onStop()
-//
-//        //테이프를 db에 저장
-//        myTape.tapeId = 10
-//        tapeListViewModel.addTape(myTape)
 
     }
 }

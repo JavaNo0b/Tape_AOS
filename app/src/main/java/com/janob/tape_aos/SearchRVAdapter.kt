@@ -33,6 +33,7 @@ class SearchRVAdapter(private var userList : List<User>) : RecyclerView.Adapter<
 
     inner class ViewHolder(val binding : ItemSearchuserBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(user : User){
+            //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
             binding.itemSearchuserUserimgIv.setImageResource(user.userImg!!)
             binding.itemSearchuserNameTv.text = user.name
             binding.itemSearchuserCommentTv.text = user.comment

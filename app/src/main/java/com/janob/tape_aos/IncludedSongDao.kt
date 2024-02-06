@@ -10,15 +10,16 @@ import androidx.room.Update
 @Dao
 interface IncludedSongDao {
     @Insert
-    fun insert(song: IncludedSong) :Long?
+    fun insert(song: IncludedSong)
 
     @Update
     fun update(song: IncludedSong)
 
     @Delete
     fun delete(song: IncludedSong)
-    @Query("DELETE FROM IncludedSongTable WHERE id =:id")
-    fun deleteById(id:Long?)
+    @Query("DELETE FROM IncludedSongTable WHERE id=:id")
+    fun deleteThis(id:Int)
+
     @Query("DELETE FROM IncludedSongTable")
     fun deleteAll()
     @Query("SELECT * FROM IncludedSongTable")

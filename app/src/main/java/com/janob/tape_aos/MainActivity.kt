@@ -1,16 +1,8 @@
 package com.janob.tape_aos
 
-import android.animation.ObjectAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import com.janob.tape_aos.databinding.ActivityMainBinding
 import com.kakao.sdk.common.util.Utility
 
@@ -18,7 +10,7 @@ private const val TAG1 = "MAIN_ACTIVITY"
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private var isFabOpen = false
+
 
     lateinit var tapeData : List<Tape>
     lateinit var tapeReplyData : List<Reply>
@@ -29,10 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         //해쉬키 값 추출
-//        val keyHash = Utility.getKeyHash(this)
-//        Log.d("Hash", keyHash)
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("Hash", keyHash)
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -51,9 +42,6 @@ class MainActivity : AppCompatActivity() {
         SongRepository.initialize(this)
         IncludedSongRepository.initialize(this)
         TapeRepository.initialize(this)
-
-        //임시코드
-
 
     }
 
@@ -427,6 +415,13 @@ class MainActivity : AppCompatActivity() {
     private fun inputDummyUser(){
         val tapeDB = TapeDatabase.Instance(this)
         userData = tapeDB.userDao().getAll()
+        tapeData = tapeDB.tapeDao().getAll()
+        val my_user_tapeList = ArrayList<Tape>()
+        songData = tapeDB.songDao().getAllList()
+
+        //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
+        //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
+        val userImg = R.drawable.albumcover_5
 
 
         if(userData.isNotEmpty())
@@ -436,192 +431,168 @@ class MainActivity : AppCompatActivity() {
         var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
         tapeDB.userDao().insert(
             User(1,
-                R.drawable.user_profile_img,
+                userImg,
                 "Min_SEO",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                my_user_tapeList.toList(),
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "music_play",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "k_pop_lover",
                 "케이팝 좋아해요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user1",
                 "노래 좋아요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user2",
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user3",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user4",
                 "케이팝 좋아해요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user5",
                 "노래 좋아요",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user6",
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user7",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user",
                 "user comment",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                R.drawable.albumcover_5,
+                userImg,
                 "user123",
                 "user123 comment",
                 followerList,
                 followingList,
-                tapeData)
+                tapeData,
+                songData)
         )
     }
     private fun initBottomNavigation() {
-        val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
-        val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
-
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fm, TapeFragment())
             .commitAllowingStateLoss()
+        binding.mainBottomNav.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.tape_nav -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_fm, TapeFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
 
-        binding.mainBottomTapeIb.setColorFilter(selectedColor)
-        binding.mainBottomTapeTv.setTextColor(selectedColor)
+                R.id.notif_nav -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_fm, NotifFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
 
-        binding.mainBottomTapeLayout.setOnClickListener{
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, TapeFragment())
-                .commitAllowingStateLoss()
+                R.id.post_nav -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_fm, PostFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
 
-            setNavigationColorNone()
-            setNavigationColor(binding.mainBottomTapeIb, binding.mainBottomTapeTv)
+                R.id.search_nav -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_fm, SearchFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.profile_nav -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_fm, ProfileFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
         }
-        binding.mainBottomNotifLayout.setOnClickListener{
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, NotifFragment())
-                .commitAllowingStateLoss()
-
-            setNavigationColorNone()
-            setNavigationColor(binding.mainBottomNotifIb, binding.mainBottomNotifTv)
-        }
-        binding.mainBottomPostLayout.setOnClickListener{
-            toggleFab()
-        }
-        binding.mainBottomSearchLayout.setOnClickListener{
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, SearchFragment())
-                .commitAllowingStateLoss()
-
-            setNavigationColorNone()
-            setNavigationColor(binding.mainBottomSearchIb, binding.mainBottomSearchTv)
-        }
-        binding.mainBottomProfileLayout.setOnClickListener{
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, ProfileFragment())
-                .commitAllowingStateLoss()
-
-            setNavigationColorNone()
-        }
-    }
-    private fun setNavigationColor(icon: ImageView, text: TextView){
-        val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
-        icon.setColorFilter(selectedColor)
-        text.setTextColor(selectedColor)
-    }
-    private fun setNavigationColorNone(){
-        val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
-
-        binding.mainBottomTapeIb.setColorFilter(unSelectedColor)
-        binding.mainBottomTapeTv.setTextColor(unSelectedColor)
-
-        binding.mainBottomNotifIb.setColorFilter(unSelectedColor)
-        binding.mainBottomNotifTv.setTextColor(unSelectedColor)
-
-        binding.mainBottomSearchIb.setColorFilter(unSelectedColor)
-        binding.mainBottomSearchTv.setTextColor(unSelectedColor)
-    }
-
-    private fun toggleFab() {
-        // 플로팅 액션 버튼 닫기 - 열려있는 플로팅 버튼 집어넣는 애니메이션
-        if (isFabOpen) {
-            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", 0f).apply { start() }
-            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", 0f).apply { start() }
-            ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 45f, 0f).apply { start() }
-        } else { // 플로팅 액션 버튼 열기 - 닫혀있는 플로팅 버튼 꺼내는 애니메이션
-
-            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", -360f).apply { start() }
-            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", -180f).apply { start() }
-            ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 0f, 45f).apply { start() }
-        }
-
-        isFabOpen = !isFabOpen
-
     }
 }

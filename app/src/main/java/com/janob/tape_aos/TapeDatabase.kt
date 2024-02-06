@@ -2,9 +2,7 @@ package com.janob.tape_aos
 
 
 
-import android.annotation.SuppressLint
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -12,7 +10,7 @@ import androidx.room.TypeConverters
 
 
 @Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class, User::class], version = 1)
-@TypeConverters(StringListConverters::class, TapeListConverters::class)
+@TypeConverters(StringListConverters::class, TapeListConverters::class, SongListConverters::class)
 
 
 abstract class TapeDatabase : RoomDatabase(){

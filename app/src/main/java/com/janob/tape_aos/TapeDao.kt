@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface TapeDao {
     @Insert
-    fun insert(tape: Tape) : Long?
+    fun insert(tape: Tape) : Long
     @Update
     fun update(tape : Tape)
     @Delete

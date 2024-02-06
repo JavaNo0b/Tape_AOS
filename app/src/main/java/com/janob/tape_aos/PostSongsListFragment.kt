@@ -13,13 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.janob.tape_aos.databinding.FragmentPostSongsListBinding
 
 class PostSongsListFragment : Fragment() {
-
 
     //뷰 모델
     private val apiResponseViewModel : ApiResponseViewModel by lazy{
@@ -38,8 +36,7 @@ class PostSongsListFragment : Fragment() {
     interface SongsListListener { fun onSongsListCompleted() }
     lateinit var listener: SongsListListener
     lateinit var binding : FragmentPostSongsListBinding
-    lateinit var songCount :TextView
-    lateinit var continueBtn : ImageView
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -85,17 +82,12 @@ class PostSongsListFragment : Fragment() {
 
             })
         }
-
-        //song count
-        songCount = binding.includedSongCountTv
-        continueBtn = binding.btnPostContinue
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //api 연동
 //        apiResponseViewModel.responseLiveData.observe(
 //            viewLifecycleOwner,
@@ -112,34 +104,10 @@ class PostSongsListFragment : Fragment() {
                 updateUI(songs)
             }
         )
-
-        songListViewModel.songsCount.observe(
-            viewLifecycleOwner,
-            Observer{
-                songsCount->Log.d(TAG,"now songs count $songsCount")
-                songCount.text = "$songsCount 곡을 선택하셨습니다"
-                //다음 버튼
-                if(songsCount > 0){
-                    continueBtn.setImageResource(R.drawable.btn_continue_active)
-                    continueBtn.setOnClickListener{
-                        listener.onSongsListCompleted()
-                    }
-                }
-                else{
-                    continueBtn.setImageResource(R.drawable.btn_continue_inactive)
-                    continueBtn.setOnClickListener {
-                        //
-                    }
-                }
-
-
-
-
-            }
-        )
-
+        binding.btnPostContinue.setOnClickListener {
+            listener.onSongsListCompleted()
+        }
     }
-
     fun updateUI(songs : List<Song>){
         //통째로 리스트 교체
         adapter = SongAdapter(songs)
@@ -147,7 +115,7 @@ class PostSongsListFragment : Fragment() {
     }
 
 
-    inner class SongAdapter(var songs :List<Song>) : ListAdapter<Song, SongItemViewHolder>(SongItemCallback()){
+    inner class SongAdapter(var songs :List<Song>) : RecyclerView.Adapter<SongItemViewHolder>(){
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongItemViewHolder {
             val view = layoutInflater.inflate(R.layout.item_song,parent,false)
             return SongItemViewHolder(view)
@@ -166,7 +134,6 @@ class PostSongsListFragment : Fragment() {
     inner class SongItemViewHolder(view : View) : ViewHolder(view){
 
         private lateinit var song : Song
-        private var songId :Long? = null
         private lateinit var includedSong : IncludedSong
 
         private var added = false
@@ -181,26 +148,27 @@ class PostSongsListFragment : Fragment() {
             songCover.setImageResource(song.coverImg)
             songAlbumName.text = song.album
 
-            includedSong = IncludedSong(song.album, song.title, song.singer, song.coverImg, 10)
-
             itemView.setOnClickListener {
 
                 if(!added){
                     added = true
                     //클릭 이벤트
-                    songId = includedSongListViewModel.includedSongRepository.add(includedSong)
-                    Log.d("post song list fragment","now add song $songId")
-                    songListViewModel.plusSong()
+                    includedSong = IncludedSong(song.album, song.title, song.singer, song.coverImg, 10)
+                    includedSongListViewModel
+                        .includedSongRepository
+                        .add(includedSong)
+                    Log.d("post song","${song.title} ${song.singer} ${song.coverImg}")
+
                     itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_added_to_tape)
-                    itemView.findViewById<ImageView>(R.id.btn_already_checked).visibility = View.VISIBLE
                 }
                 else{
                     added = false
-                    includedSongListViewModel.includedSongRepository.deleteById(songId)
-                    Log.d("post song list fragment","now delete song $songId")
-                    songListViewModel.minusSong()
+                    includedSongListViewModel
+                        .includedSongRepository
+                        .delete(includedSong)
+                    Log.d("remove song","${song.title} ${song.singer} ${song.coverImg}")
+
                     itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_add_to_tape)
-                    itemView.findViewById<ImageView>(R.id.btn_already_checked).visibility = View.INVISIBLE
                 }
 
 

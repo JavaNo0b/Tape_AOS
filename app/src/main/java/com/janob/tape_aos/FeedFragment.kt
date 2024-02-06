@@ -12,8 +12,8 @@ import com.janob.tape_aos.databinding.FragmentFeedBinding
 
 class FeedFragment : Fragment() {
     lateinit var binding : FragmentFeedBinding
-    lateinit var userDatas : List<User>
-    lateinit var tapeDatas : List<Tape>
+
+    private var tape_list = ArrayList<Tape>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,18 +22,14 @@ class FeedFragment : Fragment() {
     ): View? {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
 
-        // RoomDB 데이터 받기
-        tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
-        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
-
         // Recycler Adapter : feed_content_rv
-        var feedRVAdapter = FeedRVAdapter(userDatas)
+        var feedRVAdapter = FeedRVAdapter(tape_list.toList())
         binding.feedContentRv.adapter = feedRVAdapter
         binding.feedContentRv.layoutManager = GridLayoutManager(context, 3)
 
         // GridLayout 간격 맞추기
         binding.feedContentRv.run {
-            adapter = FeedRVAdapter(userDatas)
+            adapter = FeedRVAdapter(tape_list.toList())
             addItemDecoration(GridSpacingItemDecoration(3, 20))
         }
 
@@ -65,5 +61,10 @@ class FeedFragment : Fragment() {
             outRect.top = spacing
             outRect.bottom = spacing
         }
+    }
+
+    // ** 테이프 세팅 **
+    fun setTapeList(list : ArrayList<Tape>){
+        this.tape_list = list
     }
 }

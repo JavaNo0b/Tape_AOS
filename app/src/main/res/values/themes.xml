@@ -10,8 +10,6 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
         <item name="android:enforceStatusBarContrast" tools:targetApi="q">false</item>
-        <!-- bottomNavigation 클릭이벤트 -->
-        <item name="android:selectableItemBackgroundBorderless">@drawable/ripple_selected</item>
     </style>
 
     <style name="Theme.Tape_AOS" parent="Base.Theme.Tape_AOS" />
@@ -25,18 +23,13 @@
         <item name="android:background">@drawable/white_round_top_border_15</item>
     </style>
 
-    <style name="Splash1" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:editTextBackground">@color/navi_selected</item>
-        <item name="android:windowIsTranslucent">true</item>
+    <style name="Splash1" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground"> @drawable/splash_1 </item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
-
-
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">14.5sp</item>
     </style>
-    
-    <style name="Theme.MaterialExam" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
-
 
 
 </resources>

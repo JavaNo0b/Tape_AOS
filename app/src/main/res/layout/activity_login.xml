@@ -77,29 +77,36 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="596dp"/>
-    
-    <ImageView
-        android:id="@+id/login_black_image_iv"
-        android:src="@drawable/login_lightning"
+
+    <LinearLayout
+        android:id="@+id/login_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/login_black_background_1"
-        app:layout_constraintTop_toTopOf="@+id/login_black_background_1"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="@id/login_black_background_1"
+        app:layout_constraintEnd_toEndOf="@id/login_black_background_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="605dp"
+        tools:ignore="Orientation">
 
-    
-    <TextView
-        android:id="@+id/login_black_text_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:text="카카오로 빠르게 회원가입"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/login_black_background_1"
-        app:layout_constraintTop_toTopOf="@+id/login_black_background_1"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="7dp"/>
+        <ImageView
+            android:id="@+id/login_black_image_iv"
+            android:src="@drawable/login_lightning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/login_black_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:text="카카오로 빠르게 회원가입"
+            android:layout_marginStart="7dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/login_black_background_2"
@@ -117,9 +124,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_black_background_1"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp">
+        android:layout_marginTop="20dp">
 
         <View
             android:id="@+id/login_sign_in_background"
@@ -131,29 +138,33 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
 
-        <ImageView
-            android:id="@+id/login_sign_in_image_iv"
-            android:src="@drawable/login_kakaotalk"
+        <LinearLayout
+            android:id="@+id/login_sign_in_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            tools:ignore="MissingConstraints"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/login_sign_in_image_iv"
+                android:src="@drawable/login_kakaotalk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/login_sign_in_text_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="카카오로 로그인 / 회원가입하기"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/login_sign_in_image_iv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="29.8dp"
-            android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/login_sign_in_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="카카오로 로그인 / 회원가입하기"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"/>
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -161,5 +172,5 @@
 
 
 
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

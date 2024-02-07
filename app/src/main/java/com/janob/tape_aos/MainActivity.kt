@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         SongRepository.initialize(this)
         IncludedSongRepository.initialize(this)
-        TapeRepository.initialize(this)
+
 
         //임시코드
 

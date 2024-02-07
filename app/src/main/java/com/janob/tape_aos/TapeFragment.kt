@@ -36,7 +36,7 @@ class TapeFragment : Fragment() {
         tapeAlbumRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         tapeAlbumRVAdapter.setMyItemClickLitner(object: TapeAlbumRVAdapter.MyItemClickListner {
-            override fun onItemClick(album: Tape) {
+            override fun onItemClick(album: TapeInnerDTO) {
                 changeAlbumActivity(album)
             }
         })
@@ -49,27 +49,24 @@ class TapeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //테스트용
-        var userId = 1
-        todayTapeListViewModel.fetchUserId(userId)
 
         todayTapeListViewModel.todayTapeListLiveData.observe(
             viewLifecycleOwner,
             Observer{
-                todayTapes -> Log.d("tape fragment" ,"now today tapes $todayTapes")
-                tapeAlbumRV.adapter = TapeAlbumRVAdapter(todayTapes,requireContext())
+                response -> Log.d("tape fragment" ,"now today tapes $response")
+                tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())
 
             }
         )
     }
 
 
-    private fun changeAlbumActivity(album: Tape){
+    private fun changeAlbumActivity(album: TapeInnerDTO){
         val intent = Intent(activity,AlbumActivity::class.java)
         intent.apply {
-            this.putExtra("albumId",album.id) // 데이터 넣기
+            this.putExtra("albumId",album.tapeId) // 데이터 넣기
         }
-        Log.d("position1", album.id.toString()) //album.id
+        Log.d("position1", album.tapeId.toString()) //album.id
         startActivity(intent)
     }
 

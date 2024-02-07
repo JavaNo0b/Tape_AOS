@@ -5,21 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 
-class TodayTapeListViewModel :ViewModel() {
-
+class TodayTapeListViewModel:ViewModel() {
     private val apiFetchr = ApiFetchr()
-    var todayTapeListLiveData : LiveData<List<Tape>> = MutableLiveData()
+    var todayTapeListLiveData : MutableLiveData<List<TapeInnerDTO>> = MutableLiveData()
 
-    private val mutableUserId = MutableLiveData<Int>()
     init{
-        //유저 아이디 바뀌면, 오늘의 테이프 갱신
-        mutableUserId.value = 0
-        todayTapeListLiveData = mutableUserId.switchMap { mutableUserId -> apiFetchr.fetchTodayTapes(mutableUserId) }
+        //모든 테이프 가져오기
+        //todayTapeListLiveData.value = apiFetchr.fetchAllTape().value?.data
 
-    }
 
-    fun fetchUserId(userId:Int){
-        mutableUserId.value = userId
     }
 
 }

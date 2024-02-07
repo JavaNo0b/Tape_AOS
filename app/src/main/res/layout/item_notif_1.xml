@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="2024년 1월 30일 버전업 서비스 업데이트 예정으로 일시적으로 중단될 예정입니다. 서비스 중단 시간 안내 14:00 ~ 16:00 예정 많은 양해 부탁드립니다."
                 android:textColor="#B0B0B0"
-                android:textSize="10sp"
+                android:textSize="9sp"
                 android:maxLines="2"
                 android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@id/item_notif_1_title_text_tv"

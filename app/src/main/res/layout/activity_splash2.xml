@@ -7,15 +7,14 @@
     android:background="#FF5E5E"
     tools:context=".Splash2Activity">
 
-    <ImageView
-        android:id="@+id/splash_2_tape"
-        android:src="@drawable/splash_image2"
-        android:layout_width="177.04dp"
-        android:layout_height="67.27dp"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/splash_2_tape_iv"
+        android:src="@drawable/splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="295.26dp"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

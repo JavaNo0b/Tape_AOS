@@ -30,6 +30,13 @@ class OnboardActivity : AppCompatActivity() {
         // viewpager와 custom pager adapter 연결
         binding.onboardViewpagerVp.adapter = OnboardVPAdapter(this)
 
+        //건너뛰기 누르면 바로 profile1으로 넘어가기
+        binding.onboardSkipTv.setOnClickListener {
+            val intent = Intent(this, Profile1Activity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         // button과 viewpager 연결하기 : 다음 뷰페이저로 이동
         binding.onboardButtonBtn.setOnClickListener {
             if(binding.onboardViewpagerVp.currentItem == 0){

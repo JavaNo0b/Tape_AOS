@@ -24,6 +24,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+        android:id="@+id/onboard_skip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="건너뛰기"
+        android:textSize="13sp"
+        android:textColor="#C4C4C4"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/onboard_tab_tb"
         android:layout_width="wrap_content"

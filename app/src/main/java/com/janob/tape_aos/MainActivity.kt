@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //해쉬키 값 추출
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("Hash", keyHash)
+//        //해쉬키 값 추출
+//        val keyHash = Utility.getKeyHash(this)
+//        Log.d("Hash", keyHash)
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)

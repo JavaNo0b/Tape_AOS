@@ -1,3 +1,4 @@
+
 package com.janob.tape_aos
 
 import android.content.Intent
@@ -19,8 +20,7 @@ import kotlin.math.min
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
     lateinit var imageBitmap : Bitmap
-    //lateinit var imageString : String
-    //private lateinit var ViewModel : LoginUserViewModel
+    private lateinit var imageUri: Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +53,7 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("Login1111", Userid.toString())
                 val User : LoginUser? = loginuserDB.getLoginUser(Userid)
                 User?.let {
-                    //User.profileimg = imageBitmap
                     User.profileintro = Intro
-                    //Log.d("Login1111", User.profileimg.toString())
                     Log.d("Login1111", User.profileintro.toString())
                     loginuserDB.updateUser(User)
                 }
@@ -64,7 +62,8 @@ class Profile2Activity : AppCompatActivity() {
 
                 val intent = Intent(this, Profile3Activity::class.java)
                 intent.putExtra("userid", Userid)
-                //intent.putExtra("imageBitmap", imageBitmap)
+                intent.putExtra("imageUri", imageUri.toString())
+                Log.d("Login1111", imageUri.toString())
                 startActivity(intent)
                 finish()
 
@@ -94,7 +93,8 @@ class Profile2Activity : AppCompatActivity() {
 
             bitmap?.let {
                 binding.profile2PicIv.setImageBitmap(bitmap)
-                imageBitmap = bitmap
+                imageUri = bitmapToUri(bitmap)
+                Log.d("Login1111", imageUri.toString())
             } ?: let{
                 Log.d("kkang", "bitmap null")
             }
@@ -147,12 +147,13 @@ class Profile2Activity : AppCompatActivity() {
     }
 
 
-    private fun bitmapToByteArray(bitmap: Bitmap) : ByteArray{
-        var byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        return byteArrayOutputStream.toByteArray()
+    private fun bitmapToUri(bitmap: Bitmap): Uri {
+        val context = applicationContext
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path)
     }
-
 
     //이것도 보류
     /*fun addProfile() : ByteArray {
@@ -167,4 +168,3 @@ class Profile2Activity : AppCompatActivity() {
     }*/
 
 }
-

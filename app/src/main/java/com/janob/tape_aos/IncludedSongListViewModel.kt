@@ -1,12 +1,23 @@
 package com.janob.tape_aos
 
-import androidx.lifecycle.LiveData
+
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class IncludedSongListViewModel : ViewModel() {
+class IncludedSongViewModel: ViewModel() {
+    private val apiFetchr = ApiFetchr()
 
-     val includedSongRepository = IncludedSongRepository.get()
-     val includedSongLiveData  = includedSongRepository.getInAlbum()
+    var songList = mutableListOf<SongDTO>()
+    var includedSongDTOLiveData = MutableLiveData<List<SongDTO>>()
+    init{
+        includedSongDTOLiveData.value = songList
+    }
 
 
+    fun add(song:SongDTO){
+        songList.add(song)
+    }
+    fun remove(song:SongDTO){
+        songList.remove(song)
+    }
 }

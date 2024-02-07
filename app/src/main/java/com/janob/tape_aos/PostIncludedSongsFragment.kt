@@ -23,31 +23,24 @@ import kotlin.properties.Delegates
 
 class PostIncludedSongsFragment : Fragment() {
 
-    //테이프 완성본 저장
-    lateinit var myTape : Tape
-    private var imageUri: Uri = Uri.EMPTY
-    private var title:String =""
-    private var content:String=""
-    fun instance(uri: Uri, title:String, content:String) : PostIncludedSongsFragment{
-        //정보 넘겨 받음
-        this.imageUri = uri
-        this.title = title
-        this.content = content
+    //뷰 모델
+    private val includedSongViewModel : IncludedSongViewModel by lazy{
+        ViewModelProvider(this).get(IncludedSongViewModel::class.java)
+    }
 
+    fun newInstance(songDTOList: MutableList<SongDTO>) : PostIncludedSongsFragment{
+        //정보 넘겨 받음
+        includedSongViewModel.songList = songDTOList
         return PostIncludedSongsFragment()
     }
-    //뷰 모델
-    private val includedSongListViewModel : IncludedSongListViewModel by lazy{
-        ViewModelProvider(this).get(IncludedSongListViewModel::class.java)
-    }
-    interface IncludedSongsListener { fun onIncludedSongsCompleted() }
 
-    lateinit var binding : FragmentPostIncludedSongsBinding
+    interface IncludedSongsListener { fun onIncludedSongsCompleted(songDTOList: MutableList<SongDTO>) }
     lateinit var listener: IncludedSongsListener
-    lateinit var adapter:IncludedSongAdapter
-    lateinit var manager:LinearLayoutManager
-    lateinit var recyclerView:RecyclerView
+    lateinit var binding : FragmentPostIncludedSongsBinding
     lateinit var continueBtn : ImageView
+
+
+    lateinit var recyclerView:RecyclerView
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(parentFragment is IncludedSongsListener)
@@ -62,18 +55,19 @@ class PostIncludedSongsFragment : Fragment() {
     ): View? {
 
         binding = FragmentPostIncludedSongsBinding.inflate(inflater)
+        continueBtn = binding.btnPostContinue
         recyclerView = binding.songsRecyclerView
-        adapter = IncludedSongAdapter(emptyList())
-        manager = LinearLayoutManager(requireContext())
+
+        val adapter = IncludedSongAdapter(emptyList())
+        val manager = LinearLayoutManager(requireContext())
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = manager
 
         binding.btnPostContinue.setOnClickListener {
-            listener.onIncludedSongsCompleted()
+            listener.onIncludedSongsCompleted(includedSongViewModel.songList)
         }
 
-        continueBtn = binding.btnPostContinue
 
         return binding.root
     }
@@ -81,8 +75,8 @@ class PostIncludedSongsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //todo introduction 연동
-        includedSongListViewModel.includedSongLiveData.observe(
+
+        includedSongViewModel.includedSongDTOLiveData.observe(
             viewLifecycleOwner,
             Observer{
                 songs ->
@@ -91,7 +85,7 @@ class PostIncludedSongsFragment : Fragment() {
                 if(songs.isNotEmpty()){
                     continueBtn.setImageResource(R.drawable.btn_continue_active)
                     continueBtn.setOnClickListener {
-                        listener.onIncludedSongsCompleted()
+                        listener.onIncludedSongsCompleted(includedSongViewModel.songList)
                     }
                 }
                 else{
@@ -101,19 +95,18 @@ class PostIncludedSongsFragment : Fragment() {
                     }
                 }
 
-
             }
 
 
         )
-        includedSongListViewModel.includedSongLiveData
+
     }
 
-    private fun updateUI(includedSongs: List<IncludedSong>){
-        val adapter = IncludedSongAdapter(includedSongs)
+    private fun updateUI(songDTOList: List<SongDTO>){
+        val adapter = IncludedSongAdapter(songDTOList)
         recyclerView.adapter = adapter
     }
-    inner class IncludedSongAdapter(var includedSongs: List<IncludedSong>) : ListAdapter<IncludedSong,IncludedSongItemViewHolder>(IncludedSongItemCallback()) {
+    inner class IncludedSongAdapter(var includedSongs: List<SongDTO>) : RecyclerView.Adapter<IncludedSongItemViewHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -131,21 +124,21 @@ class PostIncludedSongsFragment : Fragment() {
 
     }
     inner class IncludedSongItemViewHolder(view:View) : ViewHolder(view) {
-        lateinit var song : IncludedSong
+        lateinit var song : SongDTO
         val coverImg = view.findViewById<ImageView>(R.id.song_cover_img)
         val songTitle = view.findViewById<TextView>(R.id.song_title_tv)
         val songSinger = view.findViewById<TextView>(R.id.song_singer_tv)
         val songAlbumTitle = view.findViewById<TextView>(R.id.song_album_title)
-        fun bind(song:IncludedSong){
+        fun bind(song:SongDTO){
 
             this.song = song
-            coverImg.setImageResource(song.img!!)
+            coverImg.setImageResource(R.drawable.albumcover_5)
             songTitle.text = song.title
             songSinger.text = song.singer
-            songAlbumTitle.text = song.albumTitle
+            songAlbumTitle.text = song.album
 
             itemView.setOnClickListener {
-                includedSongListViewModel.includedSongRepository.delete(song)
+                includedSongViewModel.remove(song)
 
             }
 
@@ -153,12 +146,5 @@ class PostIncludedSongsFragment : Fragment() {
         }
 
     }
-    override fun onStop(){
-        super.onStop()
-//
-//        //테이프를 db에 저장
-//        myTape.tapeId = 10
-//        tapeListViewModel.addTape(myTape)
 
-    }
 }

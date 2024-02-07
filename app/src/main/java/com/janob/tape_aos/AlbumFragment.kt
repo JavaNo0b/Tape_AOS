@@ -1,9 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +70,7 @@ class AlbumFragment : Fragment() {
 
             Toast.makeText(requireContext(),"댓글 액티비티으로 이동 ",Toast.LENGTH_SHORT).show()
 
-            var intent = Intent(activity, ReplyActivity::class.java)
+            var intent = Intent(activity, CommentActivity::class.java)
             startActivity(intent)
 
         }

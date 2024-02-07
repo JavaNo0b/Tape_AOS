@@ -47,11 +47,11 @@
             android:exported="true"/>
         <activity android:name=".Profile3Activity"
             android:exported="true"/>
-        <activity android:name=".ReplyActivity"
+        <activity android:name=".CommentActivity"
             android:exported="true"/>
-        <activity android:name=".ReplyModifyActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true"/>
+<!--        <activity android:name=".ReplyModifyActivity"-->
+<!--            android:windowSoftInputMode="adjustResize"-->
+<!--            android:exported="true"/>-->
 
         <activity android:name=".Splash2Activity"
             android:exported="true"

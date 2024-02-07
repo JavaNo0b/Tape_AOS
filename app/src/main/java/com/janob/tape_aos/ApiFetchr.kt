@@ -42,6 +42,10 @@ class ApiFetchr {
     //테이프 게시글 등록
     //게시물 삭제
     //테이프 게시물 불러오기
+    fun fetchAllTape():LiveData<TapeResultDTO>{
+        val call:Call<TapeResultDTO> = apiInterface.fetchAllTape()
+        return fetchMetaDTO(call)
+    }
     //좋아요한 곡 불러오기
     //검색페이지
     //좋아요순 테이프 불러오기

@@ -1,14 +1,9 @@
 package com.janob.tape_aos
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityAlbumBinding
-import java.lang.Math.abs
-import kotlin.properties.Delegates
 
 class AlbumActivity : AppCompatActivity() {
 

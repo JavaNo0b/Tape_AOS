@@ -7,4 +7,8 @@
     <!--  각 페이지의 양 옆 margin  -->
     <dimen name="pageMargin">50dp</dimen>
 
+    //프로필 갤러리
+    <dimen name="imgSize">150dp</dimen>
+
+
 </resources>

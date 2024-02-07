@@ -1,24 +1,28 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.PopupWindow
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.janob.tape_aos.databinding.CustomTapePopupMenuBinding
+import com.janob.tape_aos.databinding.CustomReplyPopupMenuBinding
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
 
+class TapeAlbumRVAdapter(private val tapeList : List<TapeInnerDTO>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
 
-class TapeAlbumRVAdapter(private val TapeAlbumList : ArrayList<TapeAlbum>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
+    interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
+        fun onItemClick(album: TapeInnerDTO)
+    }
 
-
+    private lateinit var mItemClickListner: MyItemClickListner //아래 받은 것을 내부에서 사용하기 위해 선언
+    fun setMyItemClickLitner(itemClickListner: MyItemClickListner) { //외부에서의 itemClickListner를 받기 위한 함수
+        mItemClickListner = itemClickListner
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): TapeAlbumRVAdapter.ViewHolder {
         val binding : ItemTapeBinding = ItemTapeBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -28,12 +32,23 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : ArrayList<TapeAlbum>, priva
 
 
     override fun onBindViewHolder(holder: TapeAlbumRVAdapter.ViewHolder, position: Int) {
-        holder.bindTapeAlbum(TapeAlbumList[position])
+        holder.bindTapeAlbum(tapeList[position])
+        holder.binding.itemTape.setOnClickListener {
+            mItemClickListner.onItemClick(tapeList[position])
+        }
+        //확인한 아이템에 흐릿해짐 효과를 임의로 주기 위한 버튼
+        holder.binding.button.setOnClickListener {
 
+            if(holder.binding.itemTape.alpha == 0.5F){
+                holder.binding.itemTape.alpha = 1F
+            }else{
+                holder.binding.itemTape.alpha = 0.5F
+            }
+        }
     }
 
 
-    override fun getItemCount(): Int = TapeAlbumList.size
+    override fun getItemCount(): Int = tapeList.size
 
 
     inner class ViewHolder(val binding : ItemTapeBinding) : RecyclerView.ViewHolder(binding.root){
@@ -52,7 +67,7 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : ArrayList<TapeAlbum>, priva
             val popupView = inflater.inflate(R.layout.custom_tape_popup_menu, null)
 
             val width = 163.dpToPx(context)
-            val height = 61.dpToPx(context)
+            val height = 30.dpToPx(context)
 
             val popupWindow = PopupWindow(popupView, width, height, true)
             popupWindow.showAsDropDown(view, 0, 0)
@@ -60,13 +75,14 @@ class TapeAlbumRVAdapter(private val TapeAlbumList : ArrayList<TapeAlbum>, priva
         }
 
 
-        fun bindTapeAlbum(tapealbum : TapeAlbum){
+        fun bindTapeAlbum(tapealbum : TapeInnerDTO){
 
-            binding.itemTapeTapetitleTv.text = tapealbum.tapeTitle
-            binding.itemTapeSingerTv.text = tapealbum.singer
-            binding.itemTapeUsernameTv.text = tapealbum.userName
-            binding.itemTapeAlbumcoverImgIv.setImageResource(tapealbum.albumCover!!)
-            binding.itemTapeUserimageIv.setImageResource(tapealbum.userImage!!)
+//            binding.itemTapeTapetitleTv.text = tapealbum.tapeTitle
+//            binding.itemTapeSingerTv.text = tapealbum.singer
+//            binding.itemTapeUsernameTv.text = tapealbum.userName
+//            binding.itemTapeAlbumcoverImgIv.setImageResource(tapealbum.albumCover!!)
+//            binding.itemTapeUserimageIv.setImageResource(tapealbum.userImage!!)
+            Log.d("tape Album RVAdapter"," ${tapealbum.tapeId}/${tapealbum.tapeImage}")
         }
 
 

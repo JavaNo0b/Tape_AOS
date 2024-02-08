@@ -546,7 +546,23 @@ class MainActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 0f, 45f).apply { start() }
         }
 
+        fabOnClick()
         isFabOpen = !isFabOpen
 
+    }
+
+    private fun fabOnClick(){
+        //테이프 등록 페이지로 이동
+        binding.mainBottomPostTapeBtn.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, PostFragment())
+                .commitAllowingStateLoss()
+        }
+        binding.mainBottomPostPostBtn.setOnClickListener {
+            //게시물 등록 페이지로 이동
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, PostFragment())
+                .commitAllowingStateLoss()
+        }
     }
 }

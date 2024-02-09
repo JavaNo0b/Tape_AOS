@@ -97,6 +97,7 @@ data class AlarmInnerDTO(
     @SerializedName("alarmContent") var alarmContent:String,
     @SerializedName("alarmTime") var alarmTime:String
 )
+
 data class TodayTapeDTO(
     @SerializedName("tapeImg") var tapeImg:String,
     @SerializedName("tapeTitle") var tapeTitle:String,

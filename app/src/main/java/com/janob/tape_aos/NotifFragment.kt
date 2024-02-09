@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.janob.tape_aos.databinding.FragmentNotifBinding
@@ -36,6 +37,7 @@ class NotifFragment : Fragment(){
         binding = FragmentNotifBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(NotifViewModel::class.java)
 
+        Log.d("message", "hi")
         /*val Notiflist = mutableListOf<Alarm>().apply{
             add(Alarm(Alarm.notif_1, "", "", false,true))
             add(Alarm(Alarm.notif_3, "music_play", "님이 회원님의 테이프에 댓글을 작성했습니다.", false, false))
@@ -53,10 +55,18 @@ class NotifFragment : Fragment(){
         binding.notifRv.adapter=notifAdapter
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        viewModel.notifData.observe(viewLifecycleOwner){ notifData ->
-            notif(notifData)
-            notifAdapter.submitList(notifData)
-        }
+        viewModel.fetchAlarmAll().observe(viewLifecycleOwner, Observer{ AlarmResultDTO ->
+
+            Log.d("message", "hi")
+            Log.d("message", AlarmResultDTO.toString())
+            AlarmResultDTO.data?.let { alarmInnerDTO ->
+                notif(alarmInnerDTO)
+                notifAdapter.submitList(alarmInnerDTO)
+                Log.d("message", "hi")
+                Log.d("message", alarmInnerDTO.toString())
+            }
+            Log.d("message", AlarmResultDTO.toString())
+        })
 
         return binding.root
     }
@@ -77,15 +87,16 @@ class NotifFragment : Fragment(){
 
 */
 
-    fun notif(notifData: List<NotifData>?){  //알림표시
+    fun notif(notifData: List<AlarmInnerDTO>?){  //알림표시
         notifData?.let { data ->
             data.forEach { item ->
                 createnotif(item.alarmId, item.alarmContent)
+                Log.d("message", "hi")
             }
         }
     }
 
-    private fun createnotif(alarmid: Int?, alarmcontent : String?){
+    private fun createnotif(alarmid: Int, alarmcontent : String){
         val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val builder: NotificationCompat.Builder
 
@@ -123,10 +134,10 @@ class NotifFragment : Fragment(){
             builder = NotificationCompat.Builder(requireContext())
         }
 
-        val intent = Intent(context, NotifFragment::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val intent = Intent(requireContext(), NotifFragment::class.java)
+        val pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-        Log.d("message", alarmcontent.toString())
+        Log.d("message", alarmcontent)
 
         builder.run {
             setSmallIcon(R.drawable.btn_rounded_red)
@@ -136,7 +147,7 @@ class NotifFragment : Fragment(){
             setContentIntent(pendingIntent)
         }
 
-        notificationManager.notify(alarmid!!, builder.build())
+        notificationManager.notify(alarmid, builder.build())
     }
 
 

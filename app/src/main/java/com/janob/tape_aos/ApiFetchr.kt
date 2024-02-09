@@ -49,7 +49,13 @@ class ApiFetchr {
     //좋아요한 곡 불러오기
     //검색페이지
     //좋아요순 테이프 불러오기
+
     //알림정보 불러오기
+    fun fetchAlarmAll():LiveData<AlarmResultDTO>{
+        val call:Call<AlarmResultDTO> = apiInterface.fetchAlarmAll()
+        return fetchMetaDTO(call)
+    }
+
     //오늘의 테이프 등록
     fun postTodayTape(todayTapeDTO: TodayTapeDTO) : LiveData<ResultDTO>{
         val call:Call<ResultDTO> = apiInterface.postTodayTape(todayTapeDTO)

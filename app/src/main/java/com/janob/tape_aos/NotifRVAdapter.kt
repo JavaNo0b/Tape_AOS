@@ -12,7 +12,7 @@ import com.janob.tape_aos.databinding.ItemNotif3Binding
 import com.janob.tape_aos.databinding.ItemNotif4Binding
 
 
-class NotifRVAdapter : ListAdapter<NotifData, RecyclerView.ViewHolder>(DiffCallback()) {
+class NotifRVAdapter : ListAdapter<AlarmInnerDTO, RecyclerView.ViewHolder>(DiffCallback()) {
 
 
     companion object{
@@ -61,38 +61,39 @@ class NotifRVAdapter : ListAdapter<NotifData, RecyclerView.ViewHolder>(DiffCallb
             "좋아요" -> notif_4
             "팔로우" -> notif_2
             "댓글" -> notif_3
-            else -> throw IllegalArgumentException("Invalid alarm id")
+            else -> throw IllegalArgumentException("없는 alarm id")
         }
     }
 
     //좋아요
     inner class ViewHolder4(private val binding: ItemNotif4Binding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : NotifData){
+        fun bind(item : AlarmInnerDTO){
             binding.itemNotif4TextTv.text = item.alarmContent
         }
     }
 
     //팔로우
     inner class ViewHolder2(private val binding: ItemNotif2Binding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : NotifData){
+        fun bind(item : AlarmInnerDTO){
+
             binding.itemNotif2TextTv.text = item.alarmContent
         }
     }
 
     //댓글
     inner class ViewHolder3(private val binding: ItemNotif3Binding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : NotifData){
+        fun bind(item : AlarmInnerDTO){
             binding.itemNotif3TextTv.text = item.alarmContent
         }
     }
 
     //새로운 데이터와 이전 데이터 차이 계산
-    private class DiffCallback : DiffUtil.ItemCallback<NotifData>() {
-        override fun areItemsTheSame(oldItem: NotifData, newItem: NotifData): Boolean {
+    private class DiffCallback : DiffUtil.ItemCallback<AlarmInnerDTO>() {
+        override fun areItemsTheSame(oldItem: AlarmInnerDTO, newItem: AlarmInnerDTO): Boolean {
             return oldItem.alarmId == newItem.alarmId
         }
 
-        override fun areContentsTheSame(oldItem: NotifData, newItem: NotifData): Boolean {
+        override fun areContentsTheSame(oldItem: AlarmInnerDTO, newItem: AlarmInnerDTO): Boolean {
             return oldItem == newItem
         }
     }

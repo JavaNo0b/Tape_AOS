@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentProfileBinding
@@ -22,9 +25,26 @@ class ProfileFragment : Fragment() {
     //lateinit var userDatas : List<User>
     lateinit var my_user : User
     lateinit var my_tape_list : ArrayList<Tape>
+    //lateinit var my_tape_list : ArrayList<TapeInnerDTO>
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
+
+    // api
+    private val model : ProfileViewModel by viewModels()
+    private fun apiLoad(){
+        model.loadUserProfile()
+        model.getAll().observe(viewLifecycleOwner, Observer { my_user ->
+            binding.profileNameTv.text = my_user.data.userName
+            binding.profileCommentTv.text = my_user.data.introduce
+            Glide.with(this).load(my_user.data.userImage).into(binding.profileProfileIv)
+
+            binding.profileFollowerNumTv.text = my_user.data.followers.toString()
+            binding.profileFollowingNumTv.text = my_user.data.followings.toString()
+
+            //my_tape_list = ArrayList(my_user.data.tapeData)
+        })
+    }
 
 
     override fun onCreateView(
@@ -34,25 +54,26 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        // ** RoomDB 데이터 받기 **
-        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-        setInit(my_user)
+        // init
+//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+//        setInit(my_user)
         my_tape_list = ArrayList(my_user.tapeList)
+        apiLoad()
 
-        // ** tabLayout과 viewPager2 연결 **
+        // tabLayout과 viewPager2 연결
         profileVPAdapter = ProfileVPAdapter(this)
         binding.profileContentVp.adapter = profileVPAdapter
         TabLayoutMediator(binding.profileContentTb, binding.profileContentVp){
                 tab, position -> tab.text = info[position]
         }.attach()
 
-        // ** 테이프 세팅 **
+        // 테이프 세팅
         profileVPAdapter.setTapeList(my_tape_list)
 
-        // ** 팔로워, 팔로잉 text 클릭 리스너 **
+        // 팔로워, 팔로잉 text 클릭 리스너
         followTextClick()
 
-        // ** 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환 **
+        // 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환
         binding.profileProfileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)
             startActivity(intent)
@@ -64,7 +85,6 @@ class ProfileFragment : Fragment() {
                 .replace(R.id.main_fm, settingFragment)
                 .commitAllowingStateLoss()
         }
-
 
         // 임시
         binding.profilePostTv.setOnClickListener {

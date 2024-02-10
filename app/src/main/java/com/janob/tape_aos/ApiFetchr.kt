@@ -37,6 +37,14 @@ class ApiFetchr {
     //todo
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
+    fun getUserProfileDTO() : LiveData<UserProResultDTO> {
+        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
+        return fetchMetaDTO(call)
+    }
+    fun getLoadUserProfileDTO() {
+        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
+        fetchMetaDTO(call)
+    }
     //프로필 수정
     //프로필 공유
     //테이프 게시글 등록

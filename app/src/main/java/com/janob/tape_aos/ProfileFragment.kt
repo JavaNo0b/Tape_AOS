@@ -55,10 +55,9 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         // init
-//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-//        setInit(my_user)
+        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+        setInit(my_user)
         my_tape_list = ArrayList(my_user.tapeList)
-        apiLoad()
 
         // tabLayout과 viewPager2 연결
         profileVPAdapter = ProfileVPAdapter(this)

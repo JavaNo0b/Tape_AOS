@@ -8,10 +8,25 @@ import androidx.lifecycle.ViewModel
 
 class NotifViewModel : ViewModel() {
 
-    private val apiFetchr = ApiFetchr()
+   /* private val apiFetchr = ApiFetchr()
 
     fun fetchAlarmAll(): LiveData<AlarmResultDTO> {
         return apiFetchr.fetchAlarmAll()
+    }*/
+
+    private val apiFetchr = ApiFetchr()
+
+    var NotifLiveData : MutableLiveData<AlarmResultDTO> = MutableLiveData()
+
+/*
+    init{
+        NotifLiveData.value = apiFetchr.fetchAlarmAll().value
+    }
+*/
+
+    fun fetchAlarmAll() {
+        val liveData = apiFetchr.fetchAlarmAll()
+        NotifLiveData.postValue(liveData.value)
     }
 
 }

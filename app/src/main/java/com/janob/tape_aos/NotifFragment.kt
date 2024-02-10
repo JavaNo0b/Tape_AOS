@@ -14,9 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.FragmentNotifBinding
 
 const val CHANNEL_ID = "Channel Tape"
@@ -27,7 +29,11 @@ private const val CHANNEL_DESCRIPTION = "Tape의 Push Notification"
 class NotifFragment : Fragment(){
 
     lateinit var binding: FragmentNotifBinding
-    private lateinit var viewModel: NotifViewModel
+    //private lateinit var viewModel: NotifViewModel
+    private lateinit var notifAdapter: NotifRVAdapter
+
+    //뷰모델
+    private val viewModel: NotifViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +41,6 @@ class NotifFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNotifBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(NotifViewModel::class.java)
 
         Log.d("message", "hi")
         /*val Notiflist = mutableListOf<Alarm>().apply{
@@ -51,11 +56,12 @@ class NotifFragment : Fragment(){
             notif()
         }*/
 
-        val notifAdapter = NotifRVAdapter()
+
+        notifAdapter = NotifRVAdapter()
         binding.notifRv.adapter=notifAdapter
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        viewModel.fetchAlarmAll().observe(viewLifecycleOwner, Observer{ AlarmResultDTO ->
+        /*viewModel.fetchAlarmAll().observe(viewLifecycleOwner, Observer{ AlarmResultDTO ->
 
             Log.d("message", "hi")
             Log.d("message", AlarmResultDTO.toString())
@@ -66,9 +72,24 @@ class NotifFragment : Fragment(){
                 Log.d("message", alarmInnerDTO.toString())
             }
             Log.d("message", AlarmResultDTO.toString())
-        })
+        })*/
 
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.fetchAlarmAll()
+        viewModel.NotifLiveData.observe(viewLifecycleOwner, Observer {
+            alarmResultDTO ->
+            Log.d("message", alarmResultDTO.data.toString())
+            notif(alarmResultDTO.data)
+            notifAdapter.submitList(alarmResultDTO.data)
+
+        })
+
     }
 
     /*

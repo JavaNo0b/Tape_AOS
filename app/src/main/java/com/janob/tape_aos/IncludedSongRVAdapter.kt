@@ -9,7 +9,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.ItemSongcoverBinding
 
-class IncludedSongRVAdapter(private val songsList: List<IncludedSong>,private val context: Context): RecyclerView.Adapter<IncludedSongRVAdapter.ViewHolder>() {
+class IncludedSongRVAdapter(private val songsList: List<MusicInnerDTO>,private val context: Context): RecyclerView.Adapter<IncludedSongRVAdapter.ViewHolder>() {
     var songDB = TapeDatabase.Instance(context)
     interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
 //        fun onLikeClick(song: IncludedSong)
@@ -39,7 +39,7 @@ class IncludedSongRVAdapter(private val songsList: List<IncludedSong>,private va
 
     inner class ViewHolder(val binding: ItemSongcoverBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(song: IncludedSong){
+        fun bind(song: MusicInnerDTO){
             binding.itemSongcoverTitleTv.text = song.title
             binding.itemSongcoverSingerTv.text = song.singer
             binding.itemSongcoverCoverimgIv.setImageResource(song.img!!)
@@ -50,7 +50,7 @@ class IncludedSongRVAdapter(private val songsList: List<IncludedSong>,private va
             }
 
         }
-        fun setLike(song: IncludedSong){
+        fun setLike(song: MusicInnerDTO){
             Log.d("click","Click")
             if(song.isLiked){
                 Log.d("click","likeClick")

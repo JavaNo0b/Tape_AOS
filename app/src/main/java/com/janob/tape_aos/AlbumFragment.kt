@@ -2,12 +2,16 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
 import java.lang.Math.abs
@@ -18,6 +22,11 @@ class AlbumFragment : Fragment() {
     lateinit var tapeData: Tape
     lateinit var songDB: TapeDatabase
     var albumId = 0
+
+    //뷰모델
+    private val tapeDetailListViewModel: TapeDetailListViewModel by lazy {
+        ViewModelProvider(this).get(TapeDetailListViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,6 +87,17 @@ class AlbumFragment : Fragment() {
         binding.albumTapeMoreBtn.setOnClickListener { showBottomDialog() }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tapeDetailListViewModel.tapeDetailMusicListLiveData.observe(
+            viewLifecycleOwner,
+            Observer { musicDTOList ->
+                Log.d("reply list fragment", "now comment list $musicDTOList")
+                binding.albumIncludedsongsVp.adapter = IncludedSongRVAdapter(musicDTOList, requireContext())
+            }
+        )
     }
 
     fun setDummyIncludedSong(albumId: Int){

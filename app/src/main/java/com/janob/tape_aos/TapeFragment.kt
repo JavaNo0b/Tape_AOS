@@ -1,4 +1,5 @@
 package com.janob.tape_aos
+
 import androidx.fragment.app.Fragment
 
 import android.content.Intent
@@ -17,16 +18,19 @@ class TapeFragment : Fragment() {
 
     lateinit var tapeAlbumRVAdapter:TapeAlbumRVAdapter
     lateinit var tapeAlbumRV :RecyclerView
+
     //오늘의 테이프 api 연동
-    private val todayTapeListViewModel :TodayTapeListViewModel by lazy {
+    private val todayTapeListViewModel : TodayTapeListViewModel by lazy {
         ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
     }
+
     lateinit var binding: FragmentTapeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentTapeBinding.inflate(layoutInflater)
         tapeAlbumRV = binding.tapeTapelistRv
 
@@ -35,8 +39,21 @@ class TapeFragment : Fragment() {
         tapeAlbumRV.adapter=tapeAlbumRVAdapter
         tapeAlbumRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        tapeAlbumRV.apply {
+            addOnScrollListener(object:RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    var lastVisiblePosition = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    var adapterItemSize = recyclerView.adapter!!.itemCount
+                    //마지막 아이템이 보일때
+                    if(lastVisiblePosition >= adapterItemSize-1){
+                        todayTapeListViewModel.nextPage()
+                    }
+                }
+            })
+        }
         tapeAlbumRVAdapter.setMyItemClickLitner(object: TapeAlbumRVAdapter.MyItemClickListner {
-            override fun onItemClick(album: TapeInnerDTO) {
+            override fun onItemClick(album: TodayTapeDataDTO) {
                 changeAlbumActivity(album)
             }
         })
@@ -45,6 +62,7 @@ class TapeFragment : Fragment() {
 
 
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +79,7 @@ class TapeFragment : Fragment() {
     }
 
 
-    private fun changeAlbumActivity(album: TapeInnerDTO){
+    private fun changeAlbumActivity(album: TodayTapeDataDTO){
         val intent = Intent(activity,AlbumActivity::class.java)
         intent.apply {
             this.putExtra("albumId",album.tapeId) // 데이터 넣기

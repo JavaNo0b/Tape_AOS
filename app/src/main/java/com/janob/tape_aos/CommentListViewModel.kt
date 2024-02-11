@@ -1,9 +1,7 @@
 package com.janob.tape_aos
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
 
 class CommentListViewModel: ViewModel() {
 
@@ -18,6 +16,6 @@ class CommentListViewModel: ViewModel() {
     }
     init{
         tapeIdLiveData.value = tapeId
-        commentListLiveData.value = apiFetchr.fetchTapeDetailDTO(tapeId).value!!.tapeData.comment
+        commentListLiveData.value = apiFetchr.fetchAlbumDTO(tapeId).value!!.albumData.comment
     }
 }

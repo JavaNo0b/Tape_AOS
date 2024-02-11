@@ -8,23 +8,20 @@ import androidx.lifecycle.switchMap
 class SongListViewModel : ViewModel() {
 
 
-    //    val songRepository : SongRepository = SongRepository.get()
-//    val songListLiveData = songRepository.getAll()
-    //은닉
+
     var songsCount : MutableLiveData<Int> = MutableLiveData()
     private val apiFetchr  = ApiFetchr()
 
-    //외부 접근 허용
-    var songDTOListLiveData: LiveData<List<SongDTO>> = MutableLiveData()
+    var songListLiveData: LiveData<SongDetailResultDTO> = MutableLiveData()
 
     var includedSongList =  mutableListOf<SongDTO>()
     private var queryTerm : MutableLiveData<String> = MutableLiveData()
     init
     {
         //
-        songDTOListLiveData = apiFetchr.getSongDTO()
+        songListLiveData = apiFetchr.fetchSongListDTO()
         //쿼리 변경
-        songDTOListLiveData = queryTerm.switchMap{ queryTerm  -> apiFetchr.searchSongDTO(queryTerm)  }
+        songListLiveData = queryTerm.switchMap{ queryTerm  -> apiFetchr.searchSongDTO(queryTerm)  }
     }
 
     fun plusSong(){

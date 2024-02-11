@@ -1,13 +1,22 @@
 package com.janob.tape_aos
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class SongDTO(
-    @SerializedName("title") var title :String,
-    @SerializedName("singer") var singer:String,
-    @SerializedName("album")var album : String)
+    @SerializedName("musicId") var musicId: Int)
 
+data class SongDetailResultDTO(
+    @SerializedName("success") var success: Boolean,
+    @SerializedName("message") var message: String,
+    @SerializedName("songs") var songs:List<SongDetailDTO>
+)
+data class SongDetailDTO(
+    @SerializedName("songId") var songId:Int,
+    @SerializedName("title") var title: String,
+    @SerializedName("singer") var singer:String,
+    @SerializedName("album") var album:String,
+    @SerializedName("albumCoverImg") var albumCoverImg:String
+)
 data class FollowDTO(
     @SerializedName("followerId") var followerId : Int,
     @SerializedName("followedId") var followedId : Int)
@@ -33,7 +42,10 @@ data class UserInnerDTO(
 )
 data class TapeInnerDTO(
     @SerializedName("tapeId") var tapeId:Int,
-    @SerializedName("tapeImage") var tapeImage:String
+    @SerializedName("tapeTitle") var tapeTitle:String,
+    @SerializedName("tapeArtist") var tapeArtist: String,
+    @SerializedName("tapeImage") var tapeImage:String,
+    @SerializedName("isWatched") var isWatched: Boolean
 )
 data class UserDTO(
     @SerializedName("userId") var userId:Int,
@@ -47,11 +59,22 @@ data class TapeDTO(
     @SerializedName("tapeImage") var tapeImage:String,
     @SerializedName("tapeIntroduce") var tapeIntroduce:String
 )
-data class TapeResultDTO(
+data class TodayTapeResultDTO(
     @SerializedName("success") var success:Boolean,
     @SerializedName("message") var message:String,
-    @SerializedName("data") var data: List<TapeInnerDTO>
+    @SerializedName("data") var data : List<TodayTapeDataDTO>
 )
+data class TodayTapeDataDTO(
+    @SerializedName("userName") var userName:String,
+    @SerializedName("userProfileImage") var profileImage: String,
+    @SerializedName("tapeId") var tapeId: Int,
+    @SerializedName("title") var title: String,
+    @SerializedName("artist") var artist:String,
+    @SerializedName("image") var image:String,
+    @SerializedName("isWatched") var isWatched:Boolean
+)
+
+
 data class LikedResultDTO(
     @SerializedName("success") var success:Boolean,
     @SerializedName("message") var message:String="",
@@ -111,9 +134,9 @@ data class MusicInnerDTO(
 data class TapeDetailDTO(
     @SerializedName("success") var success: Boolean,
     @SerializedName("message") var message: String,
-    @SerializedName("tapeData") var tapeData:TapeDetailInnerDTO
+    @SerializedName("tapeData") var albumData: AlbumDTO
 )
-data class TapeDetailInnerDTO(
+data class AlbumDTO(
     @SerializedName("tapeImg") var tapeImg:String,
     @SerializedName("tapeTitle") var tapeTitle: String,
     @SerializedName("tapeIntro") var tapeIntro:String,

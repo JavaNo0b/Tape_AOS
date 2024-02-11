@@ -60,10 +60,12 @@ class PostFragment : Fragment(),
                 .addToBackStack(null)
                 .commit()
         }
+
     }
 
     override fun onPostIntroductionCompleted(uri: Uri, title: String, content: String) {
 
+        //반드시 채워야 함
         postFragmentViewModel.tapeImg = uri.toString()
         postFragmentViewModel.tapeTitle = title
         postFragmentViewModel.tapeContent = content
@@ -76,8 +78,6 @@ class PostFragment : Fragment(),
 
     override fun onSongsListCompleted(songDTOList : MutableList<SongDTO>) {
 
-        //뷰모델에 저장
-       postFragmentViewModel.songDTOList = songDTOList
 
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, PostIncludedSongsFragment().newInstance(songDTOList))
@@ -105,11 +105,14 @@ class PostFragment : Fragment(),
             postFragmentViewModel.songDTOList
         )
 
+        //오늘의 테이프 서버에 전송
         val resultDTOLiveData = postFragmentViewModel.apiFetchr.postTodayTape(tape)
         Log.d("post fragment","now today tape ${resultDTOLiveData.value.toString()}")
 
+        //메인액티비티
         var intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
+
     }
 
 

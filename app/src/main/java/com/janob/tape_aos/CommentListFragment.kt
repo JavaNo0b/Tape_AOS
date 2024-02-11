@@ -59,9 +59,10 @@ class CommentListFragment: Fragment() {
 
             this.data = comment
 
-            //binding.userProfileIv
-            binding.userProfileTv.text = data.userId.toString()
+            //binding.userProfileIv = data.userProfileImg
+            //binding.userProfileTv.text = data.userName
             binding.replyTextTv.text = data.content
+            binding.createdAtTv.text = data.createdAt
             // 클릭이벤트
             itemView.setOnClickListener {
                 val popup = PopupMenu(context, binding.root)

@@ -13,10 +13,13 @@ import retrofit2.http.Query
 interface ApiInterface {
     //필요한 메서드 추가
     //////////////////////스포티파이 연동 todo
+    //테이프  페이징
+    @GET("tape/friends/")
+    fun fetchPageCursor(@Query("cursor") cursor:Int):Call<TodayTapeResultDTO>
     @GET("")
-    fun fetchSongDTO(): Call<List<SongDTO>>
+    fun fetchSongListDTO(): Call<SongDetailResultDTO>
     @GET("/")
-    fun searchSongDTO(@Query("text") query:String) :Call<List<SongDTO>>
+    fun searchSongDTO(@Query("text") query :String) :Call<SongDetailResultDTO>
     ///////////////////////////////
     //팔로우 페이지
     @POST("follow")
@@ -38,7 +41,7 @@ interface ApiInterface {
     fun deletePost(@Query("tapePostId") tapePostId:Int):Call<ResultDTO>
     //테이프 게시물 불러오기
     @GET("tape/post/all")
-    fun fetchAllTape():Call<TapeResultDTO>
+    fun fetchAllTape():Call<TodayTapeResultDTO>
     //좋아요한 곡 불러오기
     @GET("music/like")
     fun fetchLiked() :Call<LikedResultDTO>

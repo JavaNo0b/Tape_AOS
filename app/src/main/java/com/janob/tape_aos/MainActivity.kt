@@ -561,7 +561,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainBottomPostPostBtn.setOnClickListener {
             //게시물 등록 페이지로 이동
             supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, PostFragment())
+                .replace(R.id.main_fm, ProfilePostFragment())
                 .commitAllowingStateLoss()
         }
     }

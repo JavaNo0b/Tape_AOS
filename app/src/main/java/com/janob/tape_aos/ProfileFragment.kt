@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,9 @@ class ProfileFragment : Fragment() {
 
     //lateinit var userDatas : List<User>
     lateinit var my_user : User
-    lateinit var my_tape_list : ArrayList<Tape>
+    //lateinit var my_tape_list : ArrayList<Tape>
     //lateinit var my_tape_list : ArrayList<TapeInnerDTO>
+    private var my_tape_list = ArrayList<TapeInnerDTO>()
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
@@ -33,16 +35,20 @@ class ProfileFragment : Fragment() {
     // api
     private val model : ProfileViewModel by viewModels()
     private fun apiLoad(){
+        Log.d("eunseo", "apiLoad 확인")
         model.loadUserProfile()
         model.getAll().observe(viewLifecycleOwner, Observer { my_user ->
-            binding.profileNameTv.text = my_user.data.userName
-            binding.profileCommentTv.text = my_user.data.introduce
-            Glide.with(this).load(my_user.data.userImage).into(binding.profileProfileIv)
+            Log.d("eunseo", "apiLoad-Observer 확인")
+            Log.d("eunseo", "apiLoad-Observer-name = " + my_user.userName)
+            binding.profileNameTv.text = my_user.userName
+            binding.profileCommentTv.text = my_user.introduce
+            Glide.with(this).load(my_user.userImage).into(binding.profileProfileIv)
 
-            binding.profileFollowerNumTv.text = my_user.data.followers.toString()
-            binding.profileFollowingNumTv.text = my_user.data.followings.toString()
+            binding.profileTapeNumTv.text = my_user.tapeData.size.toString()
+            binding.profileFollowerNumTv.text = my_user.followers.toString()
+            binding.profileFollowingNumTv.text = my_user.followings.toString()
 
-            //my_tape_list = ArrayList(my_user.data.tapeData)
+            my_tape_list = ArrayList(my_user.tapeData)
         })
     }
 
@@ -55,9 +61,10 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         // init
-        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-        setInit(my_user)
-        my_tape_list = ArrayList(my_user.tapeList)
+//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+//        setInit(my_user)
+//        my_tape_list = ArrayList(my_user.tapeList)
+        apiLoad()
 
         // tabLayout과 viewPager2 연결
         profileVPAdapter = ProfileVPAdapter(this)
@@ -98,8 +105,9 @@ class ProfileFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
-        setInit(my_user)
+//        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+//        setInit(my_user)
+        //apiLoad()
 
         profileVPAdapter.setTapeList(my_tape_list)
     }

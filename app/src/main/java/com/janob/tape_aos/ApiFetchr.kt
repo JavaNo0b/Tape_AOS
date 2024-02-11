@@ -18,7 +18,7 @@ class ApiFetchr {
 
     init{
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://3.34.42.155:3000/")
+            .baseUrl("http://3.36.97.28:3000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //생성
@@ -37,15 +37,36 @@ class ApiFetchr {
     //todo
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
-    fun getUserProfileDTO() : LiveData<UserProResultDTO> {
-        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
-        return fetchMetaDTO(call)
+    var _userProfile = MutableLiveData<UserInnerDTO>()
+    fun loadUserProfileDTO() {
+        val call = apiInterface.getUserProfile()
+        call.enqueue(object : Callback<UserProResultDTO>{
+            override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
+                if(response.isSuccessful) {
+                    _userProfile.value = response.body()!!.data
+                } else {
+                    Log.d("log", "응답 없음")
+                }
+            }
+
+            override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
+                Log.d("log", "통신 실패")
+            }
+
+        })
     }
-    fun getLoadUserProfileDTO() {
-        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
-        fetchMetaDTO(call)
-    }
+//    fun getUserProfileDTO() : Call<UserProResultDTO> {
+//        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
+//        return call
+////        Log.d("eunseo", "ApiFetchr - getUserProfileDTO - fetchDTO(call) = " + fetchDTO(call).value.toString())
+////        return fetchDTO(call)
+//    }
+
     //프로필 수정
+    fun updateUserProfileDTO(userDTO : UserDTO) : MutableLiveData<ResultDTO> {
+        val call: Call<ResultDTO> = apiInterface.updateUserProfile(userDTO)
+        return fetchDTO(call)
+    }
     //프로필 공유
     //테이프 게시글 등록
     //게시물 삭제
@@ -114,6 +135,20 @@ class ApiFetchr {
 
         })
         return responseLiveData
+    }
+
+    fun <T> fetchDTO(call: Call<T>) : MutableLiveData<T> {
+        val mutableLiveData : MutableLiveData<T> = MutableLiveData<T>()
+        call.enqueue(object : Callback<T> {
+            override fun onResponse(call: Call<T>, response: Response<T>) {
+                mutableLiveData.value = response.body() as T
+            }
+
+            override fun onFailure(call: Call<T>, t: Throwable) {
+                Log.d("fetchDTO", "fetchDTO onFailure")
+            }
+        })
+        return mutableLiveData
     }
 
 

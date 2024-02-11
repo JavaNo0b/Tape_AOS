@@ -13,7 +13,8 @@ import com.janob.tape_aos.databinding.FragmentFeedBinding
 class FeedFragment : Fragment() {
     lateinit var binding : FragmentFeedBinding
 
-    private var tape_list = ArrayList<Tape>()
+    //private var tape_list = ArrayList<Tape>()
+    private var tape_list = ArrayList<TapeInnerDTO>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,13 +24,13 @@ class FeedFragment : Fragment() {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
 
         // Recycler Adapter : feed_content_rv
-        var feedRVAdapter = FeedRVAdapter(tape_list.toList())
+        var feedRVAdapter = FeedRVAdapter(requireContext(), tape_list.toList())
         binding.feedContentRv.adapter = feedRVAdapter
         binding.feedContentRv.layoutManager = GridLayoutManager(context, 3)
 
         // GridLayout 간격 맞추기
         binding.feedContentRv.run {
-            adapter = FeedRVAdapter(tape_list.toList())
+            adapter = FeedRVAdapter(requireContext(), tape_list.toList())
             addItemDecoration(GridSpacingItemDecoration(3, 20))
         }
 
@@ -64,7 +65,10 @@ class FeedFragment : Fragment() {
     }
 
     // ** 테이프 세팅 **
-    fun setTapeList(list : ArrayList<Tape>){
+//    fun setTapeList(list : ArrayList<Tape>){
+//        this.tape_list = list
+//    }
+    fun setTapeList(list : ArrayList<TapeInnerDTO>){
         this.tape_list = list
     }
 }

@@ -23,6 +23,7 @@ class OtherprofileFragment : Fragment() {
     lateinit var user : User // 타유저
     lateinit var my_user : User // 내유저
     lateinit var my_tape_list : ArrayList<Tape>
+    //lateinit var my_tape_list : ArrayList<TapeInnerDTO>
 
     private var follow_btn_status : Boolean = true
 

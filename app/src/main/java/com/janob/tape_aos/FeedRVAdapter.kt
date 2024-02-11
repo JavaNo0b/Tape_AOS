@@ -1,11 +1,13 @@
 package com.janob.tape_aos
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.janob.tape_aos.databinding.ItemFeedBinding
 
-class FeedRVAdapter(var tapeDatas : List<Tape>) : RecyclerView.Adapter<FeedRVAdapter.ViewHolder>() {
+class FeedRVAdapter(val context : Context, var tapeDatas : List<TapeInnerDTO>) : RecyclerView.Adapter<FeedRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener{
         fun onItemClick()
@@ -33,10 +35,11 @@ class FeedRVAdapter(var tapeDatas : List<Tape>) : RecyclerView.Adapter<FeedRVAda
     override fun getItemCount(): Int = tapeDatas.size
 
     inner class ViewHolder(val binding : ItemFeedBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(tape : Tape){
+        fun bind(tape : TapeInnerDTO){
             // 여기 설정을 다시해야 함... -> 테이프들 array를 만들어서 -> 테이프의 썸네일 이미지를 set하게 해야 함
             // 일단 임시로 프로필 사진 사용
-            binding.itemFeedAlbumcoverImgIv.setImageResource(tape.albumCover!!)
+            //binding.itemFeedAlbumcoverImgIv.setImageResource(tape.albumCover!!)
+            Glide.with(context).load(tape.tapeImage).into(binding.itemFeedAlbumcoverImgIv)
         }
     }
 

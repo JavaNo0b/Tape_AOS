@@ -8,7 +8,8 @@ class ProfileVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
     lateinit var feedFragment : FeedFragment
     lateinit var likeFeedFragment : LikeFeedFragment
 
-    private var tape_list = ArrayList<Tape>()
+    //private var tape_list = ArrayList<Tape>()
+    private var tape_list = ArrayList<TapeInnerDTO>()
 
     override fun getItemCount(): Int = 2
 
@@ -25,7 +26,10 @@ class ProfileVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
         }
     }
 
-    fun setTapeList(list : ArrayList<Tape>){
+//    fun setTapeList(list : ArrayList<Tape>){
+//        this.tape_list = list
+//    }
+    fun setTapeList(list : ArrayList<TapeInnerDTO>){
         this.tape_list = list
     }
 }

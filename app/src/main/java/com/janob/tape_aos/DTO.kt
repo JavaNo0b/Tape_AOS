@@ -21,6 +21,7 @@ data class UserProResultDTO(
     @SerializedName("data") var data:UserInnerDTO
 
 )
+
 data class UserInnerDTO(
     @SerializedName("userNickname") var userName:String,
     @SerializedName("userImage") var userImage:String,
@@ -61,6 +62,7 @@ data class MusicDTO(
     @SerializedName("musicArtist") var musicArtist:String,
     @SerializedName("musicImage") var musicImage:String
 )
+
 data class UserResultDTO(
     @SerializedName("success") var success:Boolean ,
     @SerializedName("message") var message:String ,

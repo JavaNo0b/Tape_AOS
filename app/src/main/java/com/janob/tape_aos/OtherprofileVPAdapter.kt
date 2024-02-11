@@ -7,6 +7,7 @@ class OtherprofileVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment
 
     lateinit var feedFragment : FeedFragment
 
+    //private var tape_list = ArrayList<Tape>()
     private var tape_list = ArrayList<Tape>()
     override fun getItemCount(): Int = 1
 
@@ -14,7 +15,7 @@ class OtherprofileVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment
         feedFragment = FeedFragment()
 
         // ** 테이프 세팅 **
-        feedFragment.setTapeList(tape_list)
+        //feedFragment.setTapeList(tape_list)
 
         return when(position){
             else -> feedFragment

@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import java.sql.Time
 
 data class SongDTO(
     @SerializedName("title") var title :String,
@@ -88,14 +89,16 @@ data class LikedTapeInnerDTO(
 )
 data class AlarmResultDTO(
     @SerializedName("success") var success: Boolean,
-    @SerializedName("message") var message:String="",
+    @SerializedName("message") var message:String,
     @SerializedName("data") var data:List<AlarmInnerDTO>
 )
 data class AlarmInnerDTO(
-    @SerializedName("alarmId") var alarmId:Int,
+    @SerializedName("tapeId") var tapeId:Int,
     @SerializedName("alarmType") var alarmType:String,
-    @SerializedName("alarmContent") var alarmContent:String,
-    @SerializedName("alarmTime") var alarmTime:String
+    @SerializedName("alarmTime") var alarmTime: String,
+    @SerializedName("is_checked") var is_checked:Int,
+    @SerializedName("receiverNickname") var receiverNickname:String,
+    @SerializedName("receivedNickname") var receivedNickname:String
 )
 
 data class TodayTapeDTO(

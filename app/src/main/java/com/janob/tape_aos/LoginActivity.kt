@@ -149,6 +149,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getUserInfo(userEmail:String){
+        Log.d("Login1111", "hi")
         val service = getRetrofit().create(RetrofitInterface::class.java)
         service.searchKakaoInfo(userToken, userEmail).enqueue(object: Callback<KakaoResponse>{
             override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {

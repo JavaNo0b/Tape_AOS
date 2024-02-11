@@ -69,23 +69,16 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
 */
 
-//                if(imageUri ==null){
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }else{
-//                    val intent = Intent(this, Profile3Activity::class.java)
-//                    //intent.putExtra("userid", Userid)
-//                    intent.putExtra("imageUri", imageUri.toString())
-//                    Log.d("Login1111", imageUri.toString())
-//                    startActivity(intent)
-//                    finish()
-//                }
+                val intent = Intent(this, Profile3Activity::class.java)
+                startActivity(intent)
+                finish()
+
             }
         }
 
 
     }
+
 /*
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
@@ -149,7 +142,18 @@ class Profile2Activity : AppCompatActivity() {
         return inSampleSize
     }
 
+
+
+
+    private fun bitmapToUri(bitmap: Bitmap): Uri {
+        val context = applicationContext
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path)
+    }
 */
+
     fun checkProfile(): Boolean {
         Log.d("profile2", "확인8")
         if (binding.profile2IntroEt.text.toString().length > 150) {
@@ -159,15 +163,8 @@ class Profile2Activity : AppCompatActivity() {
         Log.d("profile2", "확인9")
         return true
     }
-
 /*
-    private fun bitmapToUri(bitmap: Bitmap): Uri {
-        val context = applicationContext
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
-        return Uri.parse(path)
-    }
+
 
 
     //이것도 보류

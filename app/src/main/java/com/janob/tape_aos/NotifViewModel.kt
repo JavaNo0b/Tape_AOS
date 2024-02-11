@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,15 +19,17 @@ class NotifViewModel : ViewModel() {
 
     var NotifLiveData : MutableLiveData<AlarmResultDTO> = MutableLiveData()
 
-/*
     init{
         NotifLiveData.value = apiFetchr.fetchAlarmAll().value
+        Log.d("message11", NotifLiveData.toString())
+        //NotifLiveData.value = apiFetchr.fetchAlarmAll().value
     }
-*/
 
-    fun fetchAlarmAll() {
-        val liveData = apiFetchr.fetchAlarmAll()
-        NotifLiveData.postValue(liveData.value)
-    }
+
+//
+//    fun fetchAlarmAll() {
+//        val liveData = apiFetchr.fetchAlarmAll()
+//        NotifLiveData.postValue(liveData.value)
+//    }
 
 }

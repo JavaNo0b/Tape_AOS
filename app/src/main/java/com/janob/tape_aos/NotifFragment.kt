@@ -1,9 +1,11 @@
 package com.janob.tape_aos
 
 
+import NotifRVAdapter
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.os.Build
@@ -12,14 +14,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.FragmentNotifBinding
+import com.janob.tape_aos.databinding.ItemNotif2Binding
 
 const val CHANNEL_ID = "Channel Tape"
 private const val CHANNEL_NAME = "Tape_AOS"
@@ -30,7 +33,8 @@ class NotifFragment : Fragment(){
 
     lateinit var binding: FragmentNotifBinding
     //private lateinit var viewModel: NotifViewModel
-    private lateinit var notifAdapter: NotifRVAdapter
+    lateinit var notifAdapter: NotifRVAdapter
+    lateinit var recyclerView: RecyclerView
 
     //뷰모델
     private val viewModel: NotifViewModel by viewModels()
@@ -39,7 +43,7 @@ class NotifFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentNotifBinding.inflate(inflater, container, false)
 
         Log.d("message", "hi")
@@ -57,9 +61,6 @@ class NotifFragment : Fragment(){
         }*/
 
 
-        notifAdapter = NotifRVAdapter()
-        binding.notifRv.adapter=notifAdapter
-        binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         /*viewModel.fetchAlarmAll().observe(viewLifecycleOwner, Observer{ AlarmResultDTO ->
 
@@ -73,6 +74,18 @@ class NotifFragment : Fragment(){
             }
             Log.d("message", AlarmResultDTO.toString())
         })*/
+/*
+
+        notifAdapter = NotifRVAdapter()
+        binding.notifRv.adapter=notifAdapter
+        binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        return binding.root
+*/
+
+        notifAdapter = NotifRVAdapter(emptyList())
+        binding.notifRv.adapter=notifAdapter
+        binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         return binding.root
     }
@@ -81,13 +94,17 @@ class NotifFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchAlarmAll()
+        Log.d("message", "hi")
+        //viewModel.fetchAlarmAll()
         viewModel.NotifLiveData.observe(viewLifecycleOwner, Observer {
             alarmResultDTO ->
-            Log.d("message", alarmResultDTO.data.toString())
-            notif(alarmResultDTO.data)
-            notifAdapter.submitList(alarmResultDTO.data)
+            alarmResultDTO?.data?.let { data ->
+                Log.d("message", alarmResultDTO.data.toString())
+                notif(alarmResultDTO.data)
+                notifAdapter = NotifRVAdapter(alarmResultDTO.data)
+                Log.d("message", alarmResultDTO.data.toString())
 
+            }
         })
 
     }
@@ -111,13 +128,13 @@ class NotifFragment : Fragment(){
     fun notif(notifData: List<AlarmInnerDTO>?){  //알림표시
         notifData?.let { data ->
             data.forEach { item ->
-                createnotif(item.alarmId, item.alarmContent)
+                createnotif(item.tapeId, item.alarmType, item.receiverNickname)
                 Log.d("message", "hi")
             }
         }
     }
 
-    private fun createnotif(alarmid: Int, alarmcontent : String){
+    private fun createnotif(tapeId: Int, alarmType : String, receiverNickname: String){
         val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val builder: NotificationCompat.Builder
 
@@ -155,21 +172,88 @@ class NotifFragment : Fragment(){
             builder = NotificationCompat.Builder(requireContext())
         }
 
+        val notifcontent: String = Notifcontent(receiverNickname, alarmType)
         val intent = Intent(requireContext(), NotifFragment::class.java)
         val pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-        Log.d("message", alarmcontent)
 
         builder.run {
             setSmallIcon(R.drawable.btn_rounded_red)
             setWhen(System.currentTimeMillis())
             setContentTitle("Tape_AOS")
-            setContentText(alarmcontent)
+            setContentText(notifcontent)
             setContentIntent(pendingIntent)
         }
 
-        notificationManager.notify(alarmid, builder.build())
+        val albumid = 0
+        notificationManager.notify(0, builder.build())
+        //albumid+1
+    }
+
+
+    private fun Notifcontent(receiverNickname: String, alarmType: String) : String{
+        return when (alarmType){
+            "좋아요" -> receiverNickname+"님이 회원님의 Tape를 좋아합니다."
+            "팔로우" -> receiverNickname+"님이 회원님을 팔로우 합니다."
+            "댓글" -> receiverNickname+"님이 회원님의 테이프에 댓글을 작성했습니다."
+            else -> throw IllegalArgumentException("없는 알림 메시지")
+        }
+    }
+
+}
+/*
+class NotifAdapter(var dataList: List<AlarmInnerDTO>):RecyclerView.Adapter<NotifViewHolder>(){
+
+    interface MyItemClickListener{ fun onItemClick(item: AlarmInnerDTO) }
+
+
+    private lateinit var ItemClickListener: MyItemClickListener
+
+    fun setMyItemClickListener(Listener: MyItemClickListener){
+        ItemClickListener = Listener
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotifViewHolder {
+        val binding = ItemNotif2Binding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val context = parent.context
+        return NotifViewHolder(binding,context)
+    }
+
+
+    override fun getItemCount(): Int = dataList.size
+
+    override fun onBindViewHolder(holder: NotifViewHolder, position: Int) {
+        holder.bind(dataList[position])
+
+        holder.itemView.setOnClickListener{
+            ItemClickListener.onItemClick(dataList[position])
+        }
     }
 
 
 }
+
+
+class NotifViewHolder(val binding: ItemNotif2Binding, val context: Context):RecyclerView.ViewHolder(binding.root){
+
+    lateinit var data : AlarmInnerDTO
+
+    fun bind(Data: AlarmInnerDTO){
+
+        this.data = Data
+        binding.itemNotif2TextTv1.text = data.receiverNickname
+        binding.itemNotif2TextTv2.text = Notifcontent2(data.alarmType)
+
+    }
+
+    private fun Notifcontent2(alarmType: String) : String{
+        return when (alarmType){
+            "좋아요" -> " 님이 회원님의 Tape를 좋아합니다."
+            "팔로우" -> " 님이 회원님을 팔로우 합니다."
+            "댓글" -> " 님이 회원님의 테이프에 댓글을 작성했습니다."
+            else -> throw IllegalArgumentException("없는 알림 메시지")
+        }
+    }
+}
+*/

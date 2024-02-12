@@ -1,18 +1,14 @@
 package com.janob.tape_aos
 
 import android.animation.ObjectAnimator
-import android.graphics.Color
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import com.janob.tape_aos.databinding.ActivityMainBinding
-import com.kakao.sdk.common.util.Utility
 
 private const val TAG1 = "MAIN_ACTIVITY"
 class MainActivity : AppCompatActivity() {
@@ -130,9 +126,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.mainBottomPostPostBtn.setOnClickListener {
             //게시물 등록 페이지로 이동
-            supportFragmentManager.beginTransaction()
-                //.replace(R.id.main_fm, ProfilePostFragment())
-                //.commitAllowingStateLoss()
+            val intent = Intent(this, ProfilePostActivity::class.java)
+            startActivity(intent)
         }
     }
 }

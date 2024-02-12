@@ -29,7 +29,7 @@ class PostIntroductionFragment : Fragment() {
     private lateinit var alertTv : TextView
     private lateinit var btnContinue : ImageView
 
-    interface PostIntroductionListener { fun onPostIntroductionCompleted()}
+    interface PostIntroductionListener { fun onPostIntroductionCompleted(uri: Uri, title: String, content: String)}
     lateinit var listener : PostIntroductionListener
     override fun onAttach(context: Context) {
         super.onAttach(context)

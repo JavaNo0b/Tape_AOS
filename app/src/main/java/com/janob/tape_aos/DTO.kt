@@ -3,7 +3,6 @@ package com.janob.tape_aos
 import com.google.gson.annotations.SerializedName
 
 data class SongDTO(
-    //수정
     @SerializedName("musicId") var musicId: Int)
 
 data class SongDetailResultDTO(

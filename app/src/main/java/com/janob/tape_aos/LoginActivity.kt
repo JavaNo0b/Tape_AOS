@@ -155,7 +155,7 @@ class LoginActivity : AppCompatActivity() {
                 val resp = response.body()!!
                 Log.d("searchKakaoInfo_resp", resp?.success.toString())
                 if(resp.success) {
-                   Log.d("searchKakaoInfo[SUCCESS]", resp.toString())
+//                    Log.d("searchKakaoInfo[SUCCESS]", resp.message)
                     NextActivity(resp.data.isSignin, userEmail)
                 }else {
 //                    Log.d("searchKakaoInfo[Failure]", resp.message)

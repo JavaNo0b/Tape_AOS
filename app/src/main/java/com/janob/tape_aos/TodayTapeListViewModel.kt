@@ -19,10 +19,12 @@ class TodayTapeListViewModel:ViewModel() {
         responseDTO = apiFetchr.fetchPageCursor(cursor)
 
         cursorLiveData.value = cursor
-        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(cursor) }
-                                        .value?.data
-        todayTapeListLiveData.value = responseDTO.switchMap { response->apiFetchr.fetchPageCursor(cursor) }
-                                        .value?.data
+//        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(cursor) }
+//                                        .value!!
+//                                        .data
+//        todayTapeListLiveData.value = responseDTO.switchMap { response->apiFetchr.fetchPageCursor(cursor) }
+//                                        .value!!
+//                                        .data
 
     }
     fun nextPage(){

@@ -68,11 +68,11 @@ class TapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todayTapeListViewModel.todayTapeListLiveData?.observe(
+        todayTapeListViewModel.todayTapeListLiveData.observe(
             viewLifecycleOwner,
             Observer{
                 response -> Log.d("tape fragment" ,"now today tapes $response")
-                if(response!=null) tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())
+                tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())
 
             }
         )

@@ -43,6 +43,34 @@ class ApiFetchr {
     }
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
+    var _userProfile = MutableLiveData<UserInnerDTO>()
+    fun loadUserProfileDTO() {
+        val call = apiInterface.getUserProfile()
+        call.enqueue(object : Callback<UserProResultDTO>{
+            override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
+                Log.d("eunseo", "ApiFetchr - onResponse - isSuccess = " + response.isSuccessful.toString())
+                if(response.isSuccessful) {
+                    _userProfile.value = response.body()!!.data
+
+                } else {
+                    Log.d("eunseo", "응답 없음")
+                }
+            }
+
+            override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
+                Log.d("profileFailure", t.message.toString())
+                Log.d("eunseo", "통신 실패")
+            }
+
+        })
+    }
+//    fun getUserProfileDTO() : Call<UserProResultDTO> {
+//        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
+//        return call
+////        Log.d("eunseo", "ApiFetchr - getUserProfileDTO - fetchDTO(call) = " + fetchDTO(call).value.toString())
+////        return fetchDTO(call)
+//    }
+
     //프로필 수정
     //프로필 공유
     //테이프 게시글 등록
@@ -128,6 +156,20 @@ class ApiFetchr {
 
         })
         return responseLiveData
+    }
+
+    fun <T> fetchDTO(call: Call<T>) : LiveData<T> {
+        val liveData : MutableLiveData<T> = MutableLiveData<T>()
+        call.enqueue(object : Callback<T> {
+            override fun onResponse(call: Call<T>, response: Response<T>) {
+                liveData.value = response.body() as T
+            }
+
+            override fun onFailure(call: Call<T>, t: Throwable) {
+                Log.d("fetchDTO", "fetchDTO onFailure")
+            }
+        })
+        return liveData
     }
 
 

@@ -83,6 +83,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.google.code.gson:gson:2.9.0")
 
+    //Retrofit XMLConverter
+    implementation ("com.squareup.retrofit2:converter-simplexml:2.2.0")
+
 
     // okHttp
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")

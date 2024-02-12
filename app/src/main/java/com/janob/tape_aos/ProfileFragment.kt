@@ -35,8 +35,9 @@ class ProfileFragment : Fragment() {
     // api
     private val model : ProfileViewModel by viewModels()
     private fun apiLoad(){
-        Log.d("eunseo", "apiLoad 확인")
+        Log.d("eunseo", "apiLoad 확인1")
         model.loadUserProfile()
+        Log.d("eunseo", "apiLoad 확인2")
         model.getAll().observe(viewLifecycleOwner, Observer { my_user ->
             Log.d("eunseo", "apiLoad-Observer 확인")
             Log.d("eunseo", "apiLoad-Observer-name = " + my_user.userName)

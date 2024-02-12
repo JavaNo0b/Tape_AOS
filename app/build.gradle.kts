@@ -105,6 +105,8 @@ dependencies {
     //ViewModel
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
     //searchView
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")

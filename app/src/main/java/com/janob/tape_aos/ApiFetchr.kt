@@ -45,12 +45,12 @@ class ApiFetchr {
                 if(response.isSuccessful) {
                     _userProfile.value = response.body()!!.data
                 } else {
-                    Log.d("log", "응답 없음")
+                    Log.d("eunseo", "응답 없음")
                 }
             }
 
             override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
-                Log.d("log", "통신 실패")
+                Log.d("eunseo", "통신 실패")
             }
 
         })
@@ -63,10 +63,6 @@ class ApiFetchr {
 //    }
 
     //프로필 수정
-    fun updateUserProfileDTO(userDTO : UserDTO) : MutableLiveData<ResultDTO> {
-        val call: Call<ResultDTO> = apiInterface.updateUserProfile(userDTO)
-        return fetchDTO(call)
-    }
     //프로필 공유
     //테이프 게시글 등록
     //게시물 삭제
@@ -137,18 +133,18 @@ class ApiFetchr {
         return responseLiveData
     }
 
-    fun <T> fetchDTO(call: Call<T>) : MutableLiveData<T> {
-        val mutableLiveData : MutableLiveData<T> = MutableLiveData<T>()
+    fun <T> fetchDTO(call: Call<T>) : LiveData<T> {
+        val liveData : MutableLiveData<T> = MutableLiveData<T>()
         call.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
-                mutableLiveData.value = response.body() as T
+                liveData.value = response.body() as T
             }
 
             override fun onFailure(call: Call<T>, t: Throwable) {
                 Log.d("fetchDTO", "fetchDTO onFailure")
             }
         })
-        return mutableLiveData
+        return liveData
     }
 
 

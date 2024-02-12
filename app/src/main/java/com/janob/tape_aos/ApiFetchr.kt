@@ -42,14 +42,17 @@ class ApiFetchr {
         val call = apiInterface.getUserProfile()
         call.enqueue(object : Callback<UserProResultDTO>{
             override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
+                Log.d("eunseo", "ApiFetchr - onResponse - isSuccess = " + response.isSuccessful.toString())
                 if(response.isSuccessful) {
                     _userProfile.value = response.body()!!.data
+
                 } else {
                     Log.d("eunseo", "응답 없음")
                 }
             }
 
             override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
+                Log.d("profileFailure", t.message.toString())
                 Log.d("eunseo", "통신 실패")
             }
 

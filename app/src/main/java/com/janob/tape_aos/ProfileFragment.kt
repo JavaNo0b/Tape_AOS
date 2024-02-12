@@ -35,21 +35,23 @@ class ProfileFragment : Fragment() {
     // api
     private val model : ProfileViewModel by viewModels()
     private fun apiLoad(){
-        Log.d("eunseo", "apiLoad 확인1")
         model.loadUserProfile()
-        Log.d("eunseo", "apiLoad 확인2")
-        model.getAll().observe(viewLifecycleOwner, Observer { my_user ->
+        model.userProfile?.observe(viewLifecycleOwner, Observer { my_user ->
             Log.d("eunseo", "apiLoad-Observer 확인")
-            Log.d("eunseo", "apiLoad-Observer-name = " + my_user.userName)
-            binding.profileNameTv.text = my_user.userName
-            binding.profileCommentTv.text = my_user.introduce
-            Glide.with(this).load(my_user.userImage).into(binding.profileProfileIv)
+            Log.d("eunseo", "apiLoad-Observer-name = " + my_user?.userName)
+            binding.profileNameTv.text = my_user?.userName
+            binding.profileCommentTv.text = my_user?.introduce
+            Glide.with(this).load(my_user?.userImage).into(binding.profileProfileIv)
 
-            binding.profileTapeNumTv.text = my_user.tapeData.size.toString()
-            binding.profileFollowerNumTv.text = my_user.followers.toString()
-            binding.profileFollowingNumTv.text = my_user.followings.toString()
+            binding.profileTapeNumTv.text = my_user?.tapeData?.size.toString()
+            binding.profileFollowerNumTv.text = my_user?.followers.toString()
+            binding.profileFollowingNumTv.text = my_user?.followings.toString()
 
-            my_tape_list = ArrayList(my_user.tapeData)
+            if(my_user == null){
+                my_tape_list = ArrayList(emptyList<TapeInnerDTO>())
+            } else {
+                my_tape_list = ArrayList(my_user?.tapeData)
+            }
         })
     }
 

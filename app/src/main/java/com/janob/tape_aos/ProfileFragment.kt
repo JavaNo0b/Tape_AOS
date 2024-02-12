@@ -108,7 +108,7 @@ class ProfileFragment : Fragment() {
 
 //        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
 //        setInit(my_user)
-        //apiLoad()
+        apiLoad()
 
         profileVPAdapter.setTapeList(my_tape_list)
     }

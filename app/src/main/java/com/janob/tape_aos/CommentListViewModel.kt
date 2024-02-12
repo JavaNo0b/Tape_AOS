@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class CommentListViewModel: ViewModel() {
 
-    private val apiFetchr = ApiFetchr()
+     val apiFetchr = ApiFetchr()
 
     var commentListLiveData : MutableLiveData<List<CommentDTO>> = MutableLiveData()
     var tapeIdLiveData : MutableLiveData<Int> = MutableLiveData()

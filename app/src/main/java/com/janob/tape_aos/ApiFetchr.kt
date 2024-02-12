@@ -18,7 +18,7 @@ class ApiFetchr {
 
     init{
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://3.34.42.155:3000/")
+            .baseUrl("http://3.36.97.28:3000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //생성
@@ -38,23 +38,8 @@ class ApiFetchr {
     //오늘의 테이프 페이징
     fun fetchPageCursor(cursor:Int):LiveData<TodayTapeResultDTO>{
         val call:Call<TodayTapeResultDTO> = apiInterface.fetchPageCursor(cursor)
-        //meta
-        val responseLiveData : MutableLiveData<TodayTapeResultDTO> = MutableLiveData()
+        return fetchMetaDTO(call)
 
-        call.enqueue(object:Callback<TodayTapeResultDTO>{
-            override fun onResponse(call: Call<TodayTapeResultDTO>, response: Response<TodayTapeResultDTO>) {
-                Log.d("fetch result DTO", response.body().toString())
-                responseLiveData.value = response.body() as TodayTapeResultDTO
-            }
-
-            override fun onFailure(call: Call<TodayTapeResultDTO>, t: Throwable) {
-                Log.d("fetchResultDTO failed", t.toString())
-
-            }
-
-        })
-        return responseLiveData
-        //meta
     }
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
@@ -83,8 +68,20 @@ class ApiFetchr {
     }
     //테이프 듣기
     //댓글 작성
+    fun postComment(comment: PostCommentDTO) :LiveData<ResultDTO>{
+        val call:Call<ResultDTO> = apiInterface.postComment(comment)
+        return fetchMetaDTO(call)
+    }
     //댓글 삭제
+    fun deleteComment(tapeId: Int,commentId:Int):LiveData<ResultDTO>{
+        val call:Call<ResultDTO> = apiInterface.deleteComment(tapeId,commentId)
+        return fetchMetaDTO(call)
+    }
     //댓글 수정
+    fun updateComment(content:String) :LiveData<ResultDTO> {
+        val call:Call<ResultDTO> = apiInterface.updateComment(content)
+        return fetchMetaDTO(call)
+    }
     //테이프 삭제
     //테이프 댓글 신고
     //테이프 좋아요

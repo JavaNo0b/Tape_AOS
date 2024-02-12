@@ -3,7 +3,7 @@ package com.janob.tape_aos
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "http://3.34.42.155:3000"
+const val BASE_URL = "http://3.36.97.28:3000/"
 
 fun getRetrofit(): Retrofit {
     val retrofit = Retrofit.Builder()

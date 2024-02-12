@@ -2,6 +2,8 @@ package com.janob.tape_aos
 
 import android.content.Context
 import android.graphics.Color
+import android.net.Uri
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +14,10 @@ import com.janob.tape_aos.databinding.CustomReplyPopupMenuBinding
 import com.janob.tape_aos.databinding.ItemTapeBinding
 
 
-class TapeAlbumRVAdapter(private val tapeList : List<Tape>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
+class TapeAlbumRVAdapter(private val tapeList : List<TodayTapeDataDTO>, private val context: Context) : RecyclerView.Adapter<TapeAlbumRVAdapter.ViewHolder>(){
 
     interface MyItemClickListner{ //item clicklistner를 저장하기 위한 인터페이스
-        fun onItemClick(album: Tape)
+        fun onItemClick(album: TodayTapeDataDTO)
     }
 
     private lateinit var mItemClickListner: MyItemClickListner //아래 받은 것을 내부에서 사용하기 위해 선언
@@ -74,13 +76,16 @@ class TapeAlbumRVAdapter(private val tapeList : List<Tape>, private val context:
         }
 
 
-        fun bindTapeAlbum(tapealbum : Tape){
+        fun bindTapeAlbum(tapealbum : TodayTapeDataDTO){
 
-            binding.itemTapeTapetitleTv.text = tapealbum.tapeTitle
-            binding.itemTapeSingerTv.text = tapealbum.singer
+            binding.itemTapeTapetitleTv.text = tapealbum.title
+            binding.itemTapeSingerTv.text = tapealbum.artist
+            binding.itemTapeAlbumcoverImgIv.setImageURI(Uri.parse(tapealbum.image))
             binding.itemTapeUsernameTv.text = tapealbum.userName
-            binding.itemTapeAlbumcoverImgIv.setImageResource(tapealbum.albumCover!!)
-            binding.itemTapeUserimageIv.setImageResource(tapealbum.userImage!!)
+            binding.itemTapeUserimageIv.setImageURI(Uri.parse(tapealbum.profileImage))
+
+
+            Log.d("tape Album RVAdapter"," ${tapealbum.title}")
         }
 
 

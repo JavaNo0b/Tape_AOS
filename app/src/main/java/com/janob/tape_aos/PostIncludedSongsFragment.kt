@@ -79,7 +79,7 @@ class PostIncludedSongsFragment : Fragment() {
         includedSongViewModel.includedSongDTOLiveData.observe(
             viewLifecycleOwner,
             Observer{
-                songs ->
+                    songs ->
                 Log.d("POST_INCLUDED_SONGS_FRAGMENT","now included songs ${songs.size}")
                 updateUI(songs)
                 if(songs.isNotEmpty()){

@@ -1,5 +1,7 @@
 package com.janob.tape_aos
 
+import com.google.gson.annotations.SerializedName
+
 data class KakaoResponse(
     val success: Boolean,
     val message: String,
@@ -10,10 +12,6 @@ data class KakaoResponseSign(
     val isSignin: Boolean,
 )
 
-data class SignupResponse(
-    val success: Boolean,
-    val message: String
-)
 
 data class NicknameResponse(
     val success: Boolean,
@@ -25,14 +23,25 @@ data class NicknameData(
 )
 
 
-data class IntroduceResponse(
+data class SignResponse(
     val success: Boolean,
     val message: String,
-    val data: IntroduceData
+    val data: SignData
 )
-data class IntroduceData(
+data class SignData(
     val introduce: String,
+    @SerializedName(value = "token") var jwt: String,
 )
+
+//data class SignUpResponse(
+//    val success: Boolean,
+//    val message: String,
+//    val data: SignUpData
+//)
+//
+//data class SignUpData(
+//)
+
 data class SignUp(
     var email: String = "",
     var nickname: String = "",

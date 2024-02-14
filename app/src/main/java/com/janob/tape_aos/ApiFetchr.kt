@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,8 +45,8 @@ class ApiFetchr {
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
     var _userProfile = MutableLiveData<UserInnerDTO>()
-    fun loadUserProfileDTO() {
-        val call = apiInterface.getUserProfile()
+    fun loadUserProfileDTO(jwt:String) {
+        val call = apiInterface.getUserProfile(jwt!!)
         call.enqueue(object : Callback<UserProResultDTO>{
             override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
                 Log.d("eunseo", "ApiFetchr - onResponse - isSuccess = " + response.isSuccessful.toString())
@@ -64,6 +65,7 @@ class ApiFetchr {
 
         })
     }
+
 //    fun getUserProfileDTO() : Call<UserProResultDTO> {
 //        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
 //        return call

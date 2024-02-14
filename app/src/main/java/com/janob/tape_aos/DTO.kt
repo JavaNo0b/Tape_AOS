@@ -34,11 +34,11 @@ data class UserProResultDTO(
 
 data class UserInnerDTO(
     @SerializedName("userNickname") var userName:String,
-    @SerializedName("userImage") var userImage:String,
+    @SerializedName("userImage") var userImage:String?,
     @SerializedName("introduce") var introduce:String,
-    @SerializedName("followers") var followers:Int,
-    @SerializedName("followings") var followings:Int,
-    @SerializedName("tapeData") var tapeData: List<TapeInnerDTO>
+    @SerializedName("followers") var followers:Int?,
+    @SerializedName("followings") var followings:Int?,
+    @SerializedName("tapeData") var tapeData: List<TapeInnerDTO>?
 
 )
 data class TapeInnerDTO(

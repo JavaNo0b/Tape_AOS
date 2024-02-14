@@ -6,6 +6,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
@@ -27,7 +28,9 @@ interface ApiInterface {
 
     //사용자 프로필 불러오기 페이지
     @GET("profile")
-    fun getUserProfile(): Call<UserProResultDTO>
+    fun getUserProfile(
+        @Header("Authorization") token: String
+    ): Call<UserProResultDTO>
 
     //프로필 수정
     @PUT("profile")

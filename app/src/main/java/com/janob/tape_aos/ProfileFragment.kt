@@ -35,8 +35,9 @@ class ProfileFragment : Fragment() {
     // api
     private val model : ProfileViewModel by viewModels()
     private fun apiLoad(){
-        model.loadUserProfile()
-        model.userProfile?.observe(viewLifecycleOwner, Observer { my_user ->
+        Log.d("jwt", getJwt().toString())
+        model.loadUserProfile(getJwt().toString())
+        model.userProfile.observe(viewLifecycleOwner, Observer { my_user ->
             Log.d("eunseo", "apiLoad-Observer 확인")
             Log.d("eunseo", "apiLoad-Observer-name = " + my_user?.userName)
             binding.profileNameTv.text = my_user?.userName
@@ -50,9 +51,17 @@ class ProfileFragment : Fragment() {
             if(my_user == null){
                 my_tape_list = ArrayList(emptyList<TapeInnerDTO>())
             } else {
-                my_tape_list = ArrayList(my_user?.tapeData)
+                my_tape_list = ArrayList(my_user.tapeData!!)
             }
         })
+    }
+
+    private fun getJwt(): String?{
+
+        val spf = context?.getSharedPreferences("auth", android.content.Context.MODE_PRIVATE)!!
+        val token = spf.getString("jwt", null)
+        val bToken = "Bearer $token"
+        return bToken
     }
 
 

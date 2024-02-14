@@ -28,5 +28,5 @@ interface RetrofitInterface {
     @POST("/account/profile")
     fun signupProfile(
         @Body signUp: SignUp
-    ): Call<IntroduceResponse>
+    ): Call<SignResponse>
 }

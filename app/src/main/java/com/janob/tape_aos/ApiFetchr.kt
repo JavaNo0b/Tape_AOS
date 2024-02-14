@@ -63,6 +63,7 @@ class ApiFetchr {
         val call = apiInterface.updateUserProfile(userDTO)
         call.enqueue(object : Callback<ResultDTO>{
             override fun onResponse(call: Call<ResultDTO>, response: Response<ResultDTO>) {
+                Log.d("onResponse", "프로필 수정 / 통신 성공")
                 _userProfileEdit.value = userDTO
             }
 

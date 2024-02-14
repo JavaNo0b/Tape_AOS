@@ -29,7 +29,7 @@ class ProfileEditActivity : AppCompatActivity() {
 
     private val gson : Gson = Gson()
 
-    private val model : ProfileViewModel by viewModels()
+    private val model : ProfileEditViewModel by viewModels()
     private fun apiLoad(userDTO : UserDTO){
         model.loadUserProfileEdit(userDTO)
         model.userProfileEdit.observe(this, Observer { my_user ->
@@ -50,8 +50,10 @@ class ProfileEditActivity : AppCompatActivity() {
         // init
         user = TapeDatabase.Instance(this).userDao().getMyUser(1)
 
-        val userJson = intent.getStringExtra("user_pass")
+        val userJson = intent.getStringExtra("pass_user")
+        Log.d("eunseo", "ProfileEditActivity - init - userJson is null? = " + userJson.toString())
         my_user = gson.fromJson(userJson, UserDTO::class.java) //???
+        Log.d("eunseo", "ProfileEditActivity - init - my_user.name = " + my_user?.userNickname)
         setInit(my_user)
 
         // 갤러리 앱

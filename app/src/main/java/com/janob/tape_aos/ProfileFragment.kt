@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
                 my_tape_list = ArrayList(my_user?.tapeData)
             }
 
-            this.my_user = UserDTO(my_user.userName, my_user.introduce, my_user.userImage)
+            this.my_user = UserDTO(my_user?.userName, my_user?.introduce, my_user?.userImage)
         })
     }
 
@@ -79,26 +79,14 @@ class ProfileFragment : Fragment() {
         // 테이프 세팅
         profileVPAdapter.setTapeList(my_tape_list)
 
-        // 팔로워, 팔로잉 text 클릭 리스너
+        // 팔로워, 팔로잉 text 클릭
         followTextClick()
 
-        // 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환
-        binding.profileProfileEditBtn.setOnClickListener {
-            val intent = Intent(activity, ProfileEditActivity::class.java)
+        // 프로필 수정 버튼 클릭
+        profileEditClick()
 
-            val gson = Gson()
-            val userJson = gson.toJson(my_user)
-            intent.putExtra("pass_user", userJson)
-
-            startActivity(intent)
-        }
-
-        // 메뉴
-        binding.profileMenuBtnIv.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, settingFragment)
-                .commitAllowingStateLoss()
-        }
+        // 메뉴 클릭
+        menuClick()
 
         // 임시
         binding.profilePostTv.setOnClickListener {
@@ -171,6 +159,26 @@ class ProfileFragment : Fragment() {
                         putString("pass_user", userJson)
                     }
                 })
+                .commitAllowingStateLoss()
+        }
+    }
+    private fun profileEditClick(){
+        binding.profileProfileEditBtn.setOnClickListener {
+            val intent = Intent(activity, ProfileEditActivity::class.java)
+
+            val gson = Gson()
+            val userJson = gson.toJson(my_user)
+//            val temp_user = UserDTO("tape_nickName", "tape_introduce", "tape_img")
+//            val userJson = gson.toJson(temp_user)
+            intent.putExtra("pass_user", userJson)
+
+            startActivity(intent)
+        }
+    }
+    private fun menuClick(){
+        binding.profileMenuBtnIv.setOnClickListener {
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fm, settingFragment)
                 .commitAllowingStateLoss()
         }
     }

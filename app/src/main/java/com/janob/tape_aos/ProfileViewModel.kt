@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 class ProfileViewModel : ViewModel() {
     private val apiFetchr = ApiFetchr()
 
+    @get:JvmName("UserInnerDTO")
     val userProfile : LiveData<UserInnerDTO>
         get() = apiFetchr._userProfile
-    val userProfileEdit : LiveData<UserDTO>
-        get() = apiFetchr._userProfileEdit
+
 
     fun loadUserProfile(){
         apiFetchr.loadUserProfileDTO()
@@ -19,12 +19,5 @@ class ProfileViewModel : ViewModel() {
     }
     fun getAll() : LiveData<UserInnerDTO>{
         return userProfile
-    }
-
-    fun loadUserProfileEdit(userDTO : UserDTO){
-        apiFetchr.loadUserProfileEditDTO(userDTO)
-    }
-    fun getUserProfileEdit() : LiveData<UserDTO>{
-        return userProfileEdit
     }
 }

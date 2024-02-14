@@ -8,19 +8,36 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.ActivityProfileEditBinding
 
 class ProfileEditActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityProfileEditBinding
     lateinit var user : User
-    lateinit var tapeDatas : List<Tape>
 
     //lateinit var imageBitmap : Bitmap
 
     private lateinit var imageUri : Uri
     private lateinit var imageView : ImageView
+
+    private lateinit var my_user : UserDTO
+
+    private val gson : Gson = Gson()
+
+    private val model : ProfileViewModel by viewModels()
+    private fun apiLoad(userDTO : UserDTO){
+        model.loadUserProfileEdit(userDTO)
+        model.userProfileEdit.observe(this, Observer { my_user ->
+            my_user.userNickname = userDTO.userNickname
+            my_user.introduce = userDTO.introduce
+            my_user.profileImage = userDTO.profileImage
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +47,12 @@ class ProfileEditActivity : AppCompatActivity() {
         //
         imageView = binding.profileEditUserImgIv
 
-        // RoomDB 데이터 받기
+        // init
         user = TapeDatabase.Instance(this).userDao().getMyUser(1)
-        tapeDatas = TapeDatabase.Instance(this).tapeDao().getAll()
 
-        // 초기 설정
-        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
-        binding.profileEditUserImgIv.setImageResource(user.userImg!!)
-        binding.profileUserNameEdittextEt.setText(user.name)
-        binding.profileUserCommentEdittextEt.setText(user.comment)
+        val userJson = intent.getStringExtra("user_pass")
+        my_user = gson.fromJson(userJson, UserDTO::class.java) //???
+        setInit(my_user)
 
         // 갤러리 앱
         binding.profileEditUserImgIv.setOnClickListener {
@@ -52,14 +66,14 @@ class ProfileEditActivity : AppCompatActivity() {
             val name = binding.profileUserNameEdittextEt.text.toString()
             val comment = binding.profileUserCommentEdittextEt.text.toString()
 
-            TapeDatabase.Instance(this).userDao().updateUserNameByUserKey(name, 1)
-            TapeDatabase.Instance(this).userDao().updateUserCommentByUserKey(comment, 1)
-
-
             // uri를 user db에 저장 -> 나중에 구현
             //val setImageUri : Uri? = (imageUri.toString())?.let { Uri.parse(it) }
             //binding.profileEditUserImgIv.setImageURI(setImageUri)
             //TapeDatabase.Instance(this).userDao().updateUserImgByUserKey(imageUri.toString(), 1)
+
+            //TapeDatabase.Instance(this).userDao().updateUserNameByUserKey(name, 1)
+            //TapeDatabase.Instance(this).userDao().updateUserCommentByUserKey(comment, 1)
+            apiLoad(UserDTO(name, comment, imageUri.toString()))
 
             finish()
         }
@@ -69,6 +83,14 @@ class ProfileEditActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun setInit(user : UserDTO){
+        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
+        //binding.profileEditUserImgIv.setImageResource(user.userImg!!)
+        Glide.with(this).load(user.profileImage).into(binding.profileEditUserImgIv)
+        binding.profileUserNameEdittextEt.setText(user.userNickname)
+        binding.profileUserCommentEdittextEt.setText(user.introduce)
     }
 
     val gallery : ActivityResultLauncher<Intent> =

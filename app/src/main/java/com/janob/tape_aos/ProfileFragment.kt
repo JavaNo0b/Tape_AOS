@@ -23,13 +23,11 @@ class ProfileFragment : Fragment() {
     private val followFragment = FollowFragment()
     lateinit var profileVPAdapter : ProfileVPAdapter
 
-    //lateinit var userDatas : List<User>
-    lateinit var my_user : User
+    //lateinit var my_user : User
+    lateinit var my_user : UserDTO
     //lateinit var my_tape_list : ArrayList<Tape>
-    //lateinit var my_tape_list : ArrayList<TapeInnerDTO>
     private var my_tape_list = ArrayList<TapeInnerDTO>()
 
-    // 데이터 받기위한 변수
     private val gson : Gson = Gson()
 
     // api
@@ -52,6 +50,8 @@ class ProfileFragment : Fragment() {
             } else {
                 my_tape_list = ArrayList(my_user?.tapeData)
             }
+
+            this.my_user = UserDTO(my_user.userName, my_user.introduce, my_user.userImage)
         })
     }
 
@@ -85,6 +85,11 @@ class ProfileFragment : Fragment() {
         // 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환
         binding.profileProfileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)
+
+            val gson = Gson()
+            val userJson = gson.toJson(my_user)
+            intent.putExtra("pass_user", userJson)
+
             startActivity(intent)
         }
 

@@ -50,22 +50,28 @@ class ApiFetchr {
                     Log.d("eunseo", "응답 없음")
                 }
             }
-
             override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
-                Log.d("profileFailure", t.message.toString())
-                Log.d("eunseo", "통신 실패")
+                Log.d("onFailure", "사용자 프로필 불러오기 / 통신 실패")
             }
 
         })
     }
-//    fun getUserProfileDTO() : Call<UserProResultDTO> {
-//        val call : Call<UserProResultDTO> = apiInterface.getUserProfile()
-//        return call
-////        Log.d("eunseo", "ApiFetchr - getUserProfileDTO - fetchDTO(call) = " + fetchDTO(call).value.toString())
-////        return fetchDTO(call)
-//    }
 
     //프로필 수정
+    var _userProfileEdit = MutableLiveData<UserDTO>()
+    fun loadUserProfileEditDTO(userDTO : UserDTO) {
+        val call = apiInterface.updateUserProfile(userDTO)
+        call.enqueue(object : Callback<ResultDTO>{
+            override fun onResponse(call: Call<ResultDTO>, response: Response<ResultDTO>) {
+                _userProfileEdit.value = userDTO
+            }
+
+            override fun onFailure(call: Call<ResultDTO>, t: Throwable) {
+                Log.d("onFailure", "프로필 수정 / 통신 실패")
+            }
+
+        })
+    }
     //프로필 공유
     //테이프 게시글 등록
     //게시물 삭제

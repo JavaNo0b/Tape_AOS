@@ -36,7 +36,7 @@ data class TapeInnerDTO(
     @SerializedName("tapeImage") var tapeImage:String
 )
 data class UserDTO(
-    @SerializedName("userId") var userId:Int,
+    //@SerializedName("userId") var userId:Int,
     @SerializedName("userNickname") var userNickname:String ,
     @SerializedName("introduce") var introduce:String,
     @SerializedName("profileImage") var profileImage:String

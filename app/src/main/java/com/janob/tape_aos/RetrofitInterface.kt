@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,12 +22,22 @@ interface RetrofitInterface {
     //Tape 회원가입 닉네임 저장
     @POST("/account/nickname")
     fun signupNickname(
-        @Body signUp: SignUp
+        @Body nicknameData: NicknameData
     ): Call<NicknameResponse>
 
-    //Tape 회원가입 정보 저장
+//    //Tape 회원가입 정보 저장
+//    @POST("/account/profile")
+//    fun signupProfile(
+//        @Body signUp: SignUp
+//    ): Call<SignResponse>
+
+    @Multipart
     @POST("/account/profile")
     fun signupProfile(
-        @Body signUp: SignUp
+        //@Body signUp: SignUp
+        @Part("email") email: RequestBody,
+        @Part("nickname") nickname: RequestBody,
+        @Part("introduce") introduce: RequestBody,
+        @Part image: MultipartBody.Part,
     ): Call<SignResponse>
 }

@@ -21,12 +21,19 @@ interface RetrofitInterface {
     //Tape 회원가입 여부 판단
     @POST("/account/nickname")
     fun signupNickname(
-        @Body signUp: SignUp
+        @Body nicknameData: NicknameData
     ): Call<NicknameResponse>
 
     //Tape 회원가입 여부 판단
+
+
+    @Multipart
     @POST("/account/profile")
     fun signupProfile(
-        @Body signUp: SignUp
-    ): Call<IntroduceResponse>
+        //@Body signUp: SignUp
+        @Part("email") email: String,
+        @Part("nickname") nickname: String,
+        @Part("introduce") introduce: String,
+        @Part("file") filePart: MultipartBody.Part?
+    ): Call<UserProfileResponse>
 }

@@ -9,7 +9,6 @@ import com.janob.tape_aos.databinding.ActivityProfile1Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 class Profile1Activity : AppCompatActivity() {
     lateinit var kakaoEmail: String
@@ -47,7 +46,7 @@ class Profile1Activity : AppCompatActivity() {
         binding.profile1ButtonBtn.setOnClickListener {
             var nickname = binding.profile1NicknameEt.text.toString()
 
-            postNickname(SignUp("",nickname,""))
+            postNickname(NicknameData(nickname))
 
 //            if(checkProfile()){
 //
@@ -77,57 +76,56 @@ class Profile1Activity : AppCompatActivity() {
 //                postNickname(binding.profile1NicknameEt.text.toString())
 
         }
+    }
+/*
+    fun checkProfile(): Boolean {    //프로필조건 충족하는지 확인
 
-//
-//    fun checkProfile(): Boolean {    //프로필조건 충족하는지 확인
-//
-//        Log.d("Profile1", "첫번째 오류임")
-//        if (binding.profile1NicknameEt.text.isEmpty() || binding.profile1NicknameEt.text.toString().length > 20) {
-//            Log.d("Profile1", "첫번째 오류")
-//            binding.profile1NicknameError2Tv.visibility = View.VISIBLE
-//            binding.profile1NicknameError1Tv.visibility = View.GONE
-//            binding.profile1NicknameError3Tv.visibility = View.GONE
-//            Log.d("Profile1", "첫번째 오류")
-//            return false
-//
-//        } else if (!profile1NicknameEtCheck(binding.profile1NicknameEt.text.toString())) {
-//            binding.profile1NicknameError1Tv.visibility = View.VISIBLE
-//            binding.profile1NicknameError2Tv.visibility = View.GONE
-//            binding.profile1NicknameError3Tv.visibility = View.GONE
-//            Log.d("Profile1", "두번째 오류")
-//            return false
-//        }
-////        else if(CheckExistNickname(binding.profile1NicknameEt.text.toString())) {//다른 아이디와 같을때
-////            binding.profile1NicknameError1Tv.visibility = View.GONE
-////            binding.profile1NicknameError2Tv.visibility = View.GONE
-////            binding.profile1NicknameError3Tv.visibility = View.VISIBLE
-////            Log.d("Profile1", "세번째 오류")
-////            return false
-////        }
-//        Log.d("Profile1", "성공")
-//
-//
-//        return true
-//    }
+        Log.d("Profile1", "첫번째 오류임")
+        if (binding.profile1NicknameEt.text.isEmpty() || binding.profile1NicknameEt.text.toString().length > 20) {
+            Log.d("Profile1", "첫번째 오류")
+            binding.profile1NicknameError2Tv.visibility = View.VISIBLE
+            binding.profile1NicknameError1Tv.visibility = View.GONE
+            binding.profile1NicknameError3Tv.visibility = View.GONE
+            Log.d("Profile1", "첫번째 오류")
+            return false
+
+        } else if (!profile1NicknameEtCheck(binding.profile1NicknameEt.text.toString())) {
+            binding.profile1NicknameError1Tv.visibility = View.VISIBLE
+            binding.profile1NicknameError2Tv.visibility = View.GONE
+            binding.profile1NicknameError3Tv.visibility = View.GONE
+            Log.d("Profile1", "두번째 오류")
+            return false
+        }
+        else if(CheckExistNickname(binding.profile1NicknameEt.text.toString())) {//다른 아이디와 같을때
+            binding.profile1NicknameError1Tv.visibility = View.GONE
+            binding.profile1NicknameError2Tv.visibility = View.GONE
+            binding.profile1NicknameError3Tv.visibility = View.VISIBLE
+            Log.d("Profile1", "세번째 오류")
+            return false
+        }
+        Log.d("Profile1", "성공")
 
 
-//    private fun profile1NicknameEtCheck(string : String) :Boolean{  //영어, 숫자, 마침표, _ 외 다른 거 있는지 확인
-//        val check = "[a-zA-Z0-9._]+".toRegex()
-//        return string.matches(check)
-//    }
+        return true
+    }
 
 
-//    private fun CheckExistNickname(string : String) :Boolean {  //이미 있는 닉네임인지 확인
-//
-//        val Nicknamedb = TapeDatabase.Instance(this).loginuserDao()!!
-//        val Nickname : LoginUser? = Nicknamedb.getLoginUserNickname(string)
-//
-//        // 입력된 닉네임과 동일한 닉네임이 이미 존재하는지 확인
-//        val existNickname : Boolean = string.equals(Nickname?.nickname)
-//        return existNickname
-//    }
+    private fun profile1NicknameEtCheck(string : String) :Boolean{  //영어, 숫자, 마침표, _ 외 다른 거 있는지 확인
+        val check = "[a-zA-Z0-9._]+".toRegex()
+        return string.matches(check)
+    }
 
 
+    private fun CheckExistNickname(string : String) :Boolean {  //이미 있는 닉네임인지 확인
+        val Nicknamedb = TapeDatabase.Instance(this).loginuserDao()!!
+        val Nickname : LoginUser? = Nicknamedb.getLoginUserNickname(string)
+
+        // 입력된 닉네임과 동일한 닉네임이 이미 존재하는지 확인
+        val existNickname : Boolean = string.equals(Nickname?.nickname)
+        return existNickname
+    }
+
+*/
 //
 //    private fun getNickname(){
 //        //닉네임 get
@@ -172,18 +170,19 @@ class Profile1Activity : AppCompatActivity() {
 //    private fun ReturnNickname() : Profile1{
 //        return Profile1(binding.profile1NicknameEt.text.toString())
 //    }
-    }
-    private fun postNickname(signup: SignUp){
+
+    private fun postNickname(nicknameData: NicknameData){  //닉네임 저장
         val service = getRetrofit().create(RetrofitInterface::class.java)
-        service.signupNickname(signup).enqueue(object: Callback<NicknameResponse>{
+        service.signupNickname(nicknameData).enqueue(object: Callback<NicknameResponse>{
             override fun onResponse(call: Call<NicknameResponse>, response: Response<NicknameResponse>) {
                 val resp = response.body()
                 Log.d("postNickname_resp", resp?.success.toString())
 //                Log.d("postNickname_resp", resp?.message.toString())
                 if(resp!!.success) {
                     Log.d("postNickname_resp", resp.success.toString())
-                    NextActivity(resp.data.nickname,kakaoEmail)
-                }else {
+                    NextActivity(nicknameData.nickname, kakaoEmail)
+                }else {   //닉네임 틀렸을 때 오류메시지
+                    binding.profile1NicknameError1Tv.text = resp.message
                 }
             }
 

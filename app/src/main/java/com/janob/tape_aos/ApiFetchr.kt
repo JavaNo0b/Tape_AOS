@@ -98,6 +98,7 @@ class ApiFetchr {
         return responseLiveData
 
     }
+
     fun <T> fetchListDTO(call :Call<List<T>>):LiveData<List<T>>{
         val responseLiveData : MutableLiveData<List<T>> = MutableLiveData<List<T>>()
         //웹사이트에 응답 요청

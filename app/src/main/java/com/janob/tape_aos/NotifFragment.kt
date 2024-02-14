@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentNotifBinding
 import com.janob.tape_aos.databinding.ItemNotif2Binding
 
@@ -86,6 +87,23 @@ class NotifFragment : Fragment(){
         notifAdapter = NotifRVAdapter(emptyList())
         binding.notifRv.adapter=notifAdapter
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        notifAdapter.setMyItemClickListener(object  : NotifRVAdapter.MyItemClickListener{
+            override fun onItemClick(item: AlarmInnerDTO) {
+                if(item.alarmType=="좋아요"){    //좋아요 누른 테이프로 가기
+                    moveAlbumFragment(item.tapeId)
+                }
+                else if(item.alarmType=="댓글"){  //댓글 입력한 테이프로 가기
+                    moveAlbumFragment(item.tapeId)
+                }
+                else{
+                    moveOtherprofileFragment(item.receiverNickname)
+                }
+            }
+
+        })
+
+
 
         return binding.root
     }
@@ -200,7 +218,44 @@ class NotifFragment : Fragment(){
         }
     }
 
+    private fun moveAlbumFragment(tapeId: Int){  //tape_id 갖고 테이프로 이동
+//        (context as MainActivity).supportFragmentManager.beginTransaction()
+//            .replace(R.id.main_fm, AlbumFragment().apply {
+//                arguments = Bundle().apply {
+//                    val gson = Gson()
+//                    val notifJson = gson.toJson(tapeId)
+//                    putString("notif", notifJson)
+//                }
+//            })
+//            .commitAllowingStateLoss()
+//
+
+        val bundle = Bundle().apply {
+            putInt("tape_id", tapeId)
+        }
+        val albumFragment = AlbumFragment().apply {
+            arguments = bundle
+        }
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, albumFragment)
+            .addToBackStack(null)   //뒤로가기 버튼 클릭시 notif
+            .commit()
+    }
+
+
+    private fun moveOtherprofileFragment(receiverNickname: String){
+        /*(context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, OtherprofileFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val notifJson = gson.toJson(receiverNickname)
+                    putString("notif", notifJson)
+                }
+            })
+            .commitAllowingStateLoss()*/
+    }
 }
+
 /*
 class NotifAdapter(var dataList: List<AlarmInnerDTO>):RecyclerView.Adapter<NotifViewHolder>(){
 

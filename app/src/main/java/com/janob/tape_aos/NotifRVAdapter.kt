@@ -107,6 +107,17 @@ import com.janob.tape_aos.databinding.ItemNotif2Binding
 //}
 
 class NotifRVAdapter(var dataList: List<AlarmInnerDTO>): RecyclerView.Adapter<NotifRVAdapter.ViewHolder>(){
+
+
+    interface MyItemClickListener{ fun onItemClick(item: AlarmInnerDTO) }
+
+
+    private lateinit var ItemClickListener: MyItemClickListener
+
+    fun setMyItemClickListener(Listener: MyItemClickListener){
+        ItemClickListener = Listener
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NotifRVAdapter.ViewHolder {
         val binding: ItemNotif2Binding = ItemNotif2Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
@@ -125,7 +136,15 @@ class NotifRVAdapter(var dataList: List<AlarmInnerDTO>): RecyclerView.Adapter<No
             binding.itemNotif2TextTv1.text = content.receiverNickname
             binding.itemNotif2TextTv2.text = Notifcontent2(content.alarmType)
 
+            if(adapterPosition != RecyclerView.NO_POSITION){
+                binding.itemNotif2.setOnClickListener {
+                    ItemClickListener?.onItemClick(content)
+                }
+            }
+
         }
+
+
     }
 
     private fun Notifcontent2(alarmType: String) : String{

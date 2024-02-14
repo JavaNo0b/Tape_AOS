@@ -11,18 +11,21 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile2Binding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 import java.io.ByteArrayOutputStream
-import java.util.Collections.min
-import kotlin.math.min
+import java.io.File
 
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
     lateinit var imageBitmap : Bitmap
     private lateinit var imageUri: Uri
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +37,13 @@ class Profile2Activity : AppCompatActivity() {
         //todo : 빈공간 누르면 키보드 hide
         binding.profile2IntroEt.setOnFocusChangeListener { view, hasFocus -> }
 
-//        binding.profile2PicIv.setOnClickListener {
-//
-//            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//            intent.type = "image/*"
-//            requestGalleryLauncher.launch(intent)
-//
-//        }
+        binding.profile2PicIv.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.type = "image/*"
+            requestGalleryLauncher.launch(intent)
+
+        }
 
         binding.profile2ButtonBtn.setOnClickListener {
             if (checkProfile()) {
@@ -52,7 +55,24 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("profile2 email", userEmail.toString())
                 Log.d("profile2 nickname", nickname.toString())
 
-                postIntroduce(SignUp(userEmail!!, nickname!!, Intro))
+                if(imageUri==null){  //갤러리 선택 안했을 때
+                    //val postUserSignUp : SignUp =
+                    postUser(SignUp(userEmail!!, nickname!!, Intro, null))
+                }
+
+                intent.apply {   //갤러리 선택안했을 땐 인텐트로 보내기
+                    putExtra("userEmail",userEmail)
+                    putExtra("nickname",nickname)
+                    putExtra("imageUri", imageUri.toString())
+                    putExtra("Intro", Intro)
+                }
+                Log.d("Login1111", imageUri.toString())
+                Log.d("Login1111", Intro)
+
+                val intent = Intent(this, Profile3Activity::class.java)
+                startActivity(intent)
+                finish()
+
                 /*val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
@@ -69,17 +89,13 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
 */
 
-                val intent = Intent(this, Profile3Activity::class.java)
-                startActivity(intent)
-                finish()
-
             }
         }
 
 
     }
 
-/*
+
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult())
@@ -152,7 +168,7 @@ class Profile2Activity : AppCompatActivity() {
         val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
         return Uri.parse(path)
     }
-*/
+
 
     fun checkProfile(): Boolean {
         Log.d("profile2", "확인8")
@@ -179,24 +195,66 @@ class Profile2Activity : AppCompatActivity() {
         return imageByte
     }*/
 */
-    private fun postIntroduce(signUp: SignUp){
+    private fun postUser(signUp: SignUp){  //이미지 선택안했을 때 null로 저장
+
+        val filePart = signUp.file?.let { fileToMultipartBodyPart(it) }
         val service = getRetrofit().create(RetrofitInterface::class.java)
-        service.signupProfile(signUp).enqueue(object: Callback<IntroduceResponse>{
-            override fun onResponse(call: Call<IntroduceResponse>, response: Response<IntroduceResponse>) {
+
+        service.signupProfile(signUp.email, signUp.nickname, signUp.introduce, null).enqueue(object: Callback<UserProfileResponse>{
+            override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
                 val resp = response.body()!!
-                Log.d("postIntroduce_resp", resp?.success.toString())
+                Log.d("postUser_resp", resp?.success.toString())
                 if(resp.success) {
-                    Log.d("postIntroduce_resp", resp?.success.toString())
-                    startActivity(Intent(this@Profile2Activity,Profile3Activity::class.java))
+                    Log.d("postUser_resp", resp?.success.toString())
+                    startActivity(Intent(this@Profile2Activity,MainActivity::class.java))
                 }else {
+                    binding.profile2IntroErrorTv.text = resp.message
                 }
             }
-
-            override fun onFailure(call: Call<IntroduceResponse>, t: Throwable) {
-                Log.d("postIntroduce: onFailure", t.message.toString())
+            override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                Log.d("postUser: onFailure", t.message.toString())
             }
-
         })
+        /*if(filePart!=null){
+            service.signupProfile(signUp.email, signUp.nickname, signUp.introduce, filePart).enqueue(object: Callback<UserProfileResponse>{
+                override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                    val resp = response.body()!!
+                    Log.d("postUser_resp", resp?.success.toString())
+                    if(resp.success) {
+                        Log.d("postUser_resp", resp?.success.toString())
+                        startActivity(Intent(this@Profile2Activity,MainActivity::class.java))
+                    }else {
+                        binding.profile2IntroErrorTv.text = resp.message
+                    }
+                }
+                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                    Log.d("postUser: onFailure", t.message.toString())
+                }
+            })
+        }else{   //이미지 선택 안한 경우 null로 데이터를 넘김
+            service.signupProfile(signUp.email, signUp.nickname, signUp.introduce, null).enqueue(object: Callback<UserProfileResponse>{
+                override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                    val resp = response.body()!!
+                    Log.d("postUser_resp", resp?.success.toString())
+                    if(resp.success) {
+                        Log.d("postUser_resp", resp?.success.toString())
+                        startActivity(Intent(this@Profile2Activity,MainActivity::class.java))
+                    }else {
+                        binding.profile2IntroErrorTv.text = resp.message
+                    }
+                }
+                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                    Log.d("postUser: onFailure", t.message.toString())
+                }
+            })
+        }*/
+
+
+    }
+//파일 형식을 MultipartBody.Part로 바꾸기
+    fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("file", file.name, requestFile)
     }
 
 }

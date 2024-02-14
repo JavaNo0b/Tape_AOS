@@ -31,6 +31,12 @@ data class NicknameData(
 data class UserProfileResponse(
     val success: Boolean,
     val message: String,
+    val data : UserProfileResponseData
+)
+
+data class UserProfileResponseData(
+    val introduce : String,
+    val token :String
 )
 
 data class SignUp(
@@ -40,7 +46,7 @@ data class SignUp(
     var file: File? = null
 )
 
-data class SignUpResponse(
+private data class SignUpResponse(
     val success: Boolean,
     val message: String
 )

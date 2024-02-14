@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -31,9 +32,9 @@ interface RetrofitInterface {
     @POST("/account/profile")
     fun signupProfile(
         //@Body signUp: SignUp
-        @Part("email") email: String,
-        @Part("nickname") nickname: String,
-        @Part("introduce") introduce: String,
-        @Part("file") filePart: MultipartBody.Part?
+        @Part("email") email: RequestBody,
+        @Part("nickname") nickname: RequestBody,
+        @Part("introduce") introduce: RequestBody,
+        @Part image: MultipartBody.Part,
     ): Call<UserProfileResponse>
 }

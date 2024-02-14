@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -22,10 +23,8 @@ import java.io.File
 
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
-    lateinit var imageBitmap : Bitmap
-    private lateinit var imageUri: Uri
-
-
+    lateinit var imageBitmap: Bitmap
+    lateinit var imageUri: Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,28 +47,29 @@ class Profile2Activity : AppCompatActivity() {
         binding.profile2ButtonBtn.setOnClickListener {
             if (checkProfile()) {
 
-                val Intro : String = binding.profile2IntroEt.text.toString()
+                val Intro: String = binding.profile2IntroEt.text.toString()
                 var nickname = intent.getStringExtra("nickname")
                 var userEmail = intent.getStringExtra("userEmail")
 
                 Log.d("profile2 email", userEmail.toString())
                 Log.d("profile2 nickname", nickname.toString())
 
-                if(imageUri==null){  //갤러리 선택 안했을 때
+                /*if (imageUri == null) {  //갤러리 선택 안했을 때
                     //val postUserSignUp : SignUp =
-                    postUser(SignUp(userEmail!!, nickname!!, Intro, null))
-                }
+                    //postUser(SignUp(userEmail!!, nickname!!, Intro, null))
+                }*/
 
-                intent.apply {   //갤러리 선택안했을 땐 인텐트로 보내기
-                    putExtra("userEmail",userEmail)
-                    putExtra("nickname",nickname)
-                    putExtra("imageUri", imageUri.toString())
-                    putExtra("Intro", Intro)
-                }
                 Log.d("Login1111", imageUri.toString())
                 Log.d("Login1111", Intro)
 
                 val intent = Intent(this, Profile3Activity::class.java)
+
+                intent.apply {   //갤러리 선택안했을 땐 인텐트로 보내기
+                    putExtra("userEmail", userEmail)
+                    putExtra("nickname", nickname)
+                    putExtra("imageUri", imageUri.toString())
+                    putExtra("Intro", Intro)
+                }
                 startActivity(intent)
                 finish()
 
@@ -98,31 +98,36 @@ class Profile2Activity : AppCompatActivity() {
 
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult())
-    {
-        try {
-            val calRatio = calculateInSampleSize(
-                it.data!!.data!!,
-                resources.getDimensionPixelSize(R.dimen.imgSize),
-                resources.getDimensionPixelSize(R.dimen.imgSize)
-            )
-            val option = BitmapFactory.Options()
-            option.inSampleSize = calRatio
+        ActivityResultContracts.StartActivityForResult()
+    )
+    { result ->
+        if (result.resultCode == RESULT_OK) {
+            val uri = result.data?.data
+            uri?.let {
+                imageUri = it
+                try {
+                    val calRatio = calculateInSampleSize(
+                        uri,
+                        resources.getDimensionPixelSize(R.dimen.imgSize),
+                        resources.getDimensionPixelSize(R.dimen.imgSize)
+                    )
+                    val option = BitmapFactory.Options()
+                    option.inSampleSize = calRatio
 
-            var inputStream = contentResolver.openInputStream(it.data!!.data!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
-            inputStream!!.close()
-            inputStream = null
+                    var inputStream = contentResolver.openInputStream(uri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
+                    inputStream!!.close()
+                    inputStream = null
 
-            bitmap?.let {
-                binding.profile2PicIv.setImageBitmap(bitmap)
-                imageUri = bitmapToUri(bitmap)
-                Log.d("Login1111", imageUri.toString())
-            } ?: let{
-                Log.d("kkang", "bitmap null")
+                    bitmap?.let {
+                        binding.profile2PicIv.setImageBitmap(bitmap)
+                    } ?: let {
+                        Log.d("kkang", "bitmap null")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        }catch (e: Exception){
-            e.printStackTrace()
         }
     }
 
@@ -159,13 +164,12 @@ class Profile2Activity : AppCompatActivity() {
     }
 
 
-
-
     private fun bitmapToUri(bitmap: Bitmap): Uri {
         val context = applicationContext
         val bytes = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        val path =
+            MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
         return Uri.parse(path)
     }
 
@@ -179,6 +183,7 @@ class Profile2Activity : AppCompatActivity() {
         Log.d("profile2", "확인9")
         return true
     }
+
 /*
 
 
@@ -195,7 +200,7 @@ class Profile2Activity : AppCompatActivity() {
         return imageByte
     }*/
 */
-    private fun postUser(signUp: SignUp){  //이미지 선택안했을 때 null로 저장
+ /*   private fun postUser(signUp: SignUp){  //이미지 선택안했을 때 null로 저장
 
         val filePart = signUp.file?.let { fileToMultipartBodyPart(it) }
         val service = getRetrofit().create(RetrofitInterface::class.java)
@@ -214,7 +219,7 @@ class Profile2Activity : AppCompatActivity() {
             override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
                 Log.d("postUser: onFailure", t.message.toString())
             }
-        })
+        })*/
         /*if(filePart!=null){
             service.signupProfile(signUp.email, signUp.nickname, signUp.introduce, filePart).enqueue(object: Callback<UserProfileResponse>{
                 override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
@@ -250,7 +255,7 @@ class Profile2Activity : AppCompatActivity() {
         }*/
 
 
-    }
+
 //파일 형식을 MultipartBody.Part로 바꾸기
     fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())

@@ -12,6 +12,7 @@ import com.janob.tape_aos.databinding.ActivityProfile3Binding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +49,7 @@ class Profile3Activity : AppCompatActivity() {
         val imageUri: Uri? = imageUriString?.let { Uri.parse(it) }
         binding.profile3ImageIv.setImageURI(imageUri)
 
-        val imageFile = imageUri?.let { uriToFile(this@Profile3Activity, it) }
+        //val imageFile = imageUri?.let { uriToFile(this@Profile3Activity, it) }
 
         //val imagecrop : Bitmap = cropCenterBitmap(imageUri, 360, 422)!!
 
@@ -66,7 +67,7 @@ class Profile3Activity : AppCompatActivity() {
 //                }
                 //Log.d("profile2 nickname", nickname.toString())
 
-                postImage(SignUp(userEmail!!, nickname!!, Intro!!, imageFile))
+                postImage(userEmail!!, nickname!!, Intro, imageUri!!)
 
 
             }
@@ -79,14 +80,19 @@ class Profile3Activity : AppCompatActivity() {
         return stream.toByteArray()
     }
 
-    fun uriToFile(context: Context, uri: Uri): File? {  //이미지 uri를 file형식으로 바꾸기
-        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = context.contentResolver.query(uri, filePathColumn, null, null, null)
-        cursor?.moveToFirst()
-        val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
-        val filePath = cursor?.getString(columnIndex!!)
-        cursor?.close()
-        return if (filePath != null) File(filePath) else null
+    fun uriToFile(context: Context, uri: Uri): File? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                val filePath = it.getString(columnIndex)
+                if (!filePath.isNullOrEmpty()) {
+                    return File(filePath)
+                }
+            }
+        }
+        return null
     }
 
 
@@ -116,28 +122,55 @@ class Profile3Activity : AppCompatActivity() {
 //    }
 
 
-    private fun postImage(signUp: SignUp) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
+    private fun postImage(email : String, nickname: String, Intro : String?, imageUri: Uri) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
         val service = getRetrofit().create(RetrofitInterface::class.java)
 
-        val filePart = signUp.file?.let { fileToMultipartBodyPart(it) }
-        service.signupProfile(signUp.email, signUp.nickname, signUp.introduce, filePart)
-            .enqueue(object : Callback<UserProfileResponse> {
-                override fun onResponse(
-                    call: Call<UserProfileResponse>,
-                    response: Response<UserProfileResponse>
-                ) {
-                    val resp = response.body()!!
-                    Log.d("postUser_resp", resp?.success.toString())
-                    if (resp.success) {
-                        Log.d("postUser_resp", resp?.success.toString())
-                        startActivity(Intent(this@Profile3Activity, MainActivity::class.java))
-                    }
-                }
+        Log.d("Login1111", email)
+        Log.d("Login1111", nickname)
+        Log.d("Login1111", Intro.toString())
+        Log.d("Login1111", imageUri.toString())
+        val fileToUpload = if (imageUri != null) {
+            // URI를 파일로 변환
+            val file = uriToFile(this, Uri.parse(imageUri.toString()))
+            // 파일이 null이 아닌 경우에만 MultipartBody.Part 생성
+            file?.let {
+                val requestBody = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("image", it.name, requestBody)//MultipartBody.Part
+            }
+            } else {    null }
 
-                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
-                    Log.d("postUser: onFailure", t.message.toString())
-                }
-            })
+        Log.d("Login1111", fileToUpload.toString())
+
+        val emailBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val nicknameBody = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+        val introduceBody = Intro?.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        introduceBody?.let {
+            service.signupProfile(emailBody, nicknameBody, it, fileToUpload!!)
+                .enqueue(object : Callback<UserProfileResponse> {
+                    override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                        //Log.d("postUser_resp", signupProfile)
+                        Log.d("postUser_resp", response.body().toString())
+                        val resp = response.body()
+                        //Log.d("postUser_resp", resp?.success.toString())
+                        if (resp != null && resp.success) {
+                            Log.d("postUser_resp", resp?.success.toString())
+                            //Log.d("postUser_resp", signUp.toString())
+                            Log.d("postUser_resp", resp.data.token)
+                            startActivity(Intent(this@Profile3Activity, MainActivity::class.java))
+                        }else{
+                            Log.d("Login1111", "postUser_resp is null")
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                        Log.d("postUser: onFailure", t.message.toString())
+                    }
+                })
+        }
+    }
+}
         /*service.signupProfile(signUp).enqueue(object : Callback<UserProfileResponse> {
             override fun onResponse(
                 call: Call<UserProfileResponse>,
@@ -158,12 +191,14 @@ class Profile3Activity : AppCompatActivity() {
 
         })*/
 
-    }
 
-    fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
+
+
+/*    fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        Log.d("Login1111", requestFile.toString())
         return MultipartBody.Part.createFormData("file", file.name, requestFile)
-    }
+    }*/
 }
 
     /*
@@ -212,5 +247,4 @@ class Profile3Activity : AppCompatActivity() {
     fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("file", file.name, requestFile)
-    }*/*/
-
+    }*/

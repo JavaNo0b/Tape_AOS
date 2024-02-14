@@ -12,7 +12,7 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 
-
+//수정
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding

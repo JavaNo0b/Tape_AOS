@@ -1,20 +1,25 @@
 package com.janob.tape_aos
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.janob.tape_aos.databinding.FragmentAlbumBinding
 import java.lang.Math.abs
 
 class AlbumFragment : Fragment() {
+
+    //뷰모델
+    private val albumViewModel : AlbumViewModel by lazy {
+        ViewModelProvider(this).get(AlbumViewModel::class.java)
+    }
+
     lateinit var binding: FragmentAlbumBinding
     lateinit var includedSongsData: List<IncludedSong>
     lateinit var tapeData: Tape
@@ -72,7 +77,7 @@ class AlbumFragment : Fragment() {
 
             Toast.makeText(requireContext(),"댓글 액티비티으로 이동 ",Toast.LENGTH_SHORT).show()
 
-            var intent = Intent(activity, ReplyActivity::class.java)
+            var intent = Intent(activity, CommentActivity::class.java)
             startActivity(intent)
 
         }
@@ -80,6 +85,14 @@ class AlbumFragment : Fragment() {
         binding.albumTapeMoreBtn.setOnClickListener { showBottomDialog() }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //테이프 아이디 넣어서 서버에 요청
+        val tapeId = 1
+        albumViewModel.setAlbumId(tapeId)
+        //뷰 페이저에 앨범 데이터 넣기
     }
 
     fun setDummyIncludedSong(albumId: Int){

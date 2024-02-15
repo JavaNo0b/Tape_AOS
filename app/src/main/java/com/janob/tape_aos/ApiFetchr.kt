@@ -25,16 +25,22 @@ class ApiFetchr {
         apiInterface = retrofit.create(ApiInterface::class.java)
 
     }
-
-    fun getSongDTO() : LiveData<List<SongDTO>> {
-        val call: Call<List<SongDTO>> = apiInterface.fetchSongDTO()
-        return fetchListDTO(call)
+    //음원 차트 가져오기
+    fun fetchSongListDTO() : LiveData<SongDetailResultDTO> {
+        val call: Call<SongDetailResultDTO> = apiInterface.fetchSongListDTO()
+        return fetchMetaDTO(call)
     }
-    fun searchSongDTO(query:String) : LiveData<List<SongDTO>>{
-        val call:Call<List<SongDTO>> = apiInterface.searchSongDTO(query)
-        return fetchListDTO(call)
+    fun searchSongDTO(query:String) : LiveData<SongDetailResultDTO>{
+        val call:Call<SongDetailResultDTO> = apiInterface.searchSongDTO(query)
+        return fetchMetaDTO(call)
     }
     //todo
+    //오늘의 테이프 페이징
+    fun fetchPageCursor(cursor:Int):LiveData<TodayTapeResultDTO>{
+        val call:Call<TodayTapeResultDTO> = apiInterface.fetchPageCursor(cursor)
+        return fetchMetaDTO(call)
+
+    }
     //팔로우 페이지
     //사용자 프로필 불러오기 페이지
     //프로필 수정
@@ -42,8 +48,8 @@ class ApiFetchr {
     //테이프 게시글 등록
     //게시물 삭제
     //테이프 게시물 불러오기
-    fun fetchAllTape():LiveData<TapeResultDTO>{
-        val call:Call<TapeResultDTO> = apiInterface.fetchAllTape()
+    fun fetchAllTape():LiveData<TodayTapeResultDTO>{
+        val call:Call<TodayTapeResultDTO> = apiInterface.fetchAllTape()
         return fetchMetaDTO(call)
     }
     //좋아요한 곡 불러오기
@@ -62,14 +68,26 @@ class ApiFetchr {
         return fetchMetaDTO(call)
     }
     //테이프 상세 정보, 댓글 불러오기
-    fun fetchTapeDetailDTO(tapeId:Int): LiveData<TapeDetailDTO>{
+    fun fetchAlbumDTO(tapeId:Int): LiveData<TapeDetailDTO>{
         val call:Call<TapeDetailDTO> = apiInterface.fetchTapeDetail(tapeId)
         return fetchMetaDTO(call)
     }
     //테이프 듣기
     //댓글 작성
+    fun postComment(comment: PostCommentDTO) :LiveData<ResultDTO>{
+        val call:Call<ResultDTO> = apiInterface.postComment(comment)
+        return fetchMetaDTO(call)
+    }
     //댓글 삭제
+    fun deleteComment(tapeId: Int,commentId:Int):LiveData<ResultDTO>{
+        val call:Call<ResultDTO> = apiInterface.deleteComment(tapeId,commentId)
+        return fetchMetaDTO(call)
+    }
     //댓글 수정
+    fun updateComment(content:String) :LiveData<ResultDTO> {
+        val call:Call<ResultDTO> = apiInterface.updateComment(content)
+        return fetchMetaDTO(call)
+    }
     //테이프 삭제
     //테이프 댓글 신고
     //테이프 좋아요

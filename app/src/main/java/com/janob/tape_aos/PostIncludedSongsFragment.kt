@@ -133,9 +133,9 @@ class PostIncludedSongsFragment : Fragment() {
 
             this.song = song
             coverImg.setImageResource(R.drawable.albumcover_5)
-            songTitle.text = song.title
-            songSinger.text = song.singer
-            songAlbumTitle.text = song.album
+            songTitle.text = "song.title"
+            songSinger.text = "song.singer"
+            songAlbumTitle.text = "song.album"
 
             itemView.setOnClickListener {
                 includedSongViewModel.remove(song)

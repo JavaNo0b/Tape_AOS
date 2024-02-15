@@ -11,12 +11,12 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tape_AOS"
@@ -53,7 +53,6 @@
         <activity android:name=".Splash2Activity"
             android:exported="true"
             android:theme="@style/Splash1">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -79,6 +78,7 @@
 
         <activity android:name=".ProfileEditActivity"
             android:exported="true"/>
+
 
 
     </application>

@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -86,11 +87,11 @@ class PostSongsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //쿼리로 리스트 갱신하면 리사이클러뷰 연동
-        songListViewModel.songDTOListLiveData.observe(
+        songListViewModel.songListLiveData.observe(
             viewLifecycleOwner,
             Observer{
-                songs -> Log.d("post song list fragment","got songs ${songs.size}")
-                updateUI(songs)
+                result -> Log.d("post song list fragment","got songs ${result.songs}")
+                updateUI(result.songs)
             }
         )
 
@@ -122,14 +123,14 @@ class PostSongsListFragment : Fragment() {
 
     }
 
-    fun updateUI(songs : List<SongDTO>){
+    fun updateUI(songs : List<SongDetailDTO>){
         //통째로 리스트 교체
         val adapter = SongAdapter(songs)
         recyclerView.adapter = adapter
     }
 
 
-    inner class SongAdapter(private var songs :List<SongDTO>) :
+    inner class SongAdapter(private var songs :List<SongDetailDTO>) :
         RecyclerView.Adapter<SongItemViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongItemViewHolder {
             val view = layoutInflater.inflate(R.layout.item_song,parent,false)
@@ -157,14 +158,15 @@ class PostSongsListFragment : Fragment() {
         private val songCover = view.findViewById<ImageView>(R.id.song_cover_img)
         private val songAlbumName = view.findViewById<TextView>(R.id.song_album_title)
 
-        fun bind(songDTO : SongDTO){
-            this.songDTO = songDTO
-            songTitle.text = songDTO.title
-            songSinger.text = songDTO.singer
-            songCover.setImageResource(R.drawable.albumcover_5)
-            songAlbumName.text = songDTO.album
+        fun bind(song : SongDetailDTO){
+            this.songDTO = SongDTO(song.songId)
 
-            includedSongDTO = SongDTO(songDTO.title, songDTO.singer, songDTO.album)
+            songTitle.text = song.title
+            songSinger.text = song.singer
+            songCover.setImageURI(Uri.parse(song.albumCoverImg))
+            songAlbumName.text = song.album
+
+            includedSongDTO = SongDTO(song.songId)
 
             itemView.setOnClickListener {
 
@@ -172,7 +174,7 @@ class PostSongsListFragment : Fragment() {
                     added = true
                     //클릭 이벤트
                     songListViewModel.includedSongList.add(includedSongDTO)
-                    Log.d("post song list fragment","now add song ${songDTO.title}")
+                    Log.d("post song list fragment","now add song ${song.title}")
                     songListViewModel.plusSong()
                     itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_added_to_tape)
                     itemView.findViewById<ImageView>(R.id.btn_already_checked).visibility = View.VISIBLE
@@ -180,7 +182,7 @@ class PostSongsListFragment : Fragment() {
                 else{
                     added = false
                     songListViewModel.includedSongList.remove(includedSongDTO)
-                    Log.d("post song list fragment","now delete song ${songDTO.title}")
+                    Log.d("post song list fragment","now delete song ${song.title}")
                     songListViewModel.minusSong()
                     itemView.findViewById<ImageView>(R.id.btn_add_to_tape).setImageResource(R.drawable.btn_add_to_tape)
                     itemView.findViewById<ImageView>(R.id.btn_already_checked).visibility = View.INVISIBLE

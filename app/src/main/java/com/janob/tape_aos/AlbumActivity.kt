@@ -3,9 +3,12 @@ package com.janob.tape_aos
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.janob.tape_aos.databinding.ActivityAlbumBinding
 
 class AlbumActivity : AppCompatActivity() {
+
+
 
     lateinit var binding: ActivityAlbumBinding
     var albumId = 0

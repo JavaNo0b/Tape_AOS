@@ -54,10 +54,10 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("profile2 email", userEmail.toString())
                 Log.d("profile2 nickname", nickname.toString())
 
-                /*if (imageUri == null) {  //갤러리 선택 안했을 때
+                if (imageUri == null) {  //갤러리 선택 안했을 때
                     //val postUserSignUp : SignUp =
                     //postUser(SignUp(userEmail!!, nickname!!, Intro, null))
-                }*/
+                }
 
                 Log.d("Login1111", imageUri.toString())
                 Log.d("Login1111", Intro)

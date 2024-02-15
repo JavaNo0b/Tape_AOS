@@ -121,6 +121,8 @@ dependencies {
     //coroutine
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
 
+    //이미지 크롭
+    implementation ("com.theartofdev.edmodo:android-image-cropper:2.8.0")
 
 
 

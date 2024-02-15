@@ -80,6 +80,7 @@
         <activity android:name=".ProfileEditActivity"
             android:exported="true"/>
 
+
     </application>
 
 </manifest>

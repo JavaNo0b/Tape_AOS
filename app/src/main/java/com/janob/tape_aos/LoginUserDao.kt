@@ -3,7 +3,7 @@ package com.janob.tape_aos
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.kakao.sdk.auth.model.OAuthToken
+import androidx.room.Update
 
 @Dao
 interface LoginUserDao {
@@ -11,14 +11,8 @@ interface LoginUserDao {
     @Insert
     fun insert(user: LoginUser)
 
-/*    @Insert
-    fun insertNickname(user: LoginUser)
-
-    @Insert
-    fun insertProfileintro(user: LoginUser)
-
-    @Insert
-    fun insertProfileimage(user: LoginUser)*/
+    @Update
+    fun updateUser(user: LoginUser)
 
     @Query("SELECT * FROM LoginUser")
     fun getLoginUsers(): List<LoginUser>
@@ -26,8 +20,8 @@ interface LoginUserDao {
     @Query("SELECT * FROM LoginUser WHERE nickname = :nickname")
     fun getLoginUserNickname(nickname: String): LoginUser?
 
-    @Query("SELECT * FROM LoginUser WHERE token = :token")
-    fun getLoginUser(token: String): LoginUser?
+    @Query("SELECT * FROM LoginUser WHERE userID = :userID")
+    fun getLoginUser(userID: Long?): LoginUser?
 
 }
 

@@ -1,59 +1,86 @@
 package com.janob.tape_aos
 
-import android.app.blob.BlobStoreManager
 import android.content.Intent
-import android.content.pm.PackageInstaller
-import android.media.MediaSession2
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.text.BoringLayout
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethod
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.trusted.Token
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.janob.tape_aos.databinding.ActivityLoginBinding
-import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
 
+    inner class NextActivityHandler {
+        fun launchMainActivity() {
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        fun launchOnboardActivity(userEmail: String) {
+            val intent = Intent(this@LoginActivity, OnboardActivity::class.java)
+            Log.d("Login->prof1 userEmail",userEmail)
+            intent.putExtra("userEmail",userEmail)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private val nextActivityHandler = NextActivityHandler()
+
+    //외부에서 LoginActivity를 사용하기 위함
+//    init {
+//        instance = this
+//    }
+//
+//    companion object {
+//        private var instance: LoginActivity? = null
+//
+//        fun getInstance(): LoginActivity? 		{
+//            return instance
+//        }
+//    }
+
     lateinit var binding: ActivityLoginBinding
-    lateinit var token: String
+    var userToken: String = ""
+    var userEmail: String = ""
+
+    //카카오 로그인 정보 api 연동
+//    private val kakaoLoginViewModel :KakaoLoginViewModel by lazy {
+//        ViewModelProvider(this).get(KakaoLoginViewModel::class.java)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-
-        var keyHash = Utility.getKeyHash(this)
-        if (AuthApiClient.instance.hasToken()) {
-            UserApiClient.instance.accessTokenInfo { _, error ->
-                if (error == null) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
-            }
-        }
-
         setContentView(binding.root)
 
         binding.loginSignIn.setOnClickListener{
+            Log.d("Login1111", "카카오회원가입")
             onClick(binding.loginSignIn)
-            Log.d("test", "확인")
         }
-
     }
+
 
     protected fun onClick(view : View){
         when (view?.id) {
             view.id -> {
                 if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                     UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                        Log.d("test", "확인1")
+                        Log.d("Login1111", "확인2")
+                        Log.d("test", "확인3")
                         if (error != null) {
                             Log.d("login failure(onClick)", "카카오톡으로 로그인 실패 $error")
                             if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
@@ -64,7 +91,10 @@ class LoginActivity : AppCompatActivity() {
                         } else if (token != null) {
                             Log.d("login success(onClick)", "카카오톡으로 로그인 성공 ${token.accessToken}")
                             Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                            firstlogincheck(token)
+
+                            //사용자 액세스 토큰 추출
+                            userToken = token.accessToken
+                            firstlogincheck()
                         }
                     }
                 } else {
@@ -79,48 +109,72 @@ class LoginActivity : AppCompatActivity() {
             Log.d("login failure(mCallback)", "카카오 계정으로 로그인 실패 $error")
         } else if (token != null) {
             Log.d("login success(mCallback)", "카카오 계정으로 로그인 성공 ${token.accessToken}")
-            firstlogincheck(token)
+            Log.d("Login1111", "확인4")
+
+            //사용자 액세스 토큰 추출
+            userToken = token.accessToken
+            firstlogincheck()
+        }
+
+    }
+
+
+    private fun firstlogincheck(){
+
+        Log.d("Login1111", "확인5")
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e("Login1111", "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i("Login1111", "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+
+                //사용자 이메일 추출
+                userEmail = user.kakaoAccount?.email!!
+            }
+
+
+            Log.i("Login1111", "사용자 정보 요청 성공" +
+                    "\n사용자 액세스 토큰: ${userToken}" +
+                    "\n사용자 이메일: ${userEmail}")
+
+//            kakaoLoginViewModel.fetchUserInfo(userToken, userToken)
+            getUserInfo(userEmail)
+
         }
     }
 
+    private fun getUserInfo(userEmail:String){
+        Log.d("Login1111", "hi")
+        val service = getRetrofit().create(RetrofitInterface::class.java)
+        service.searchKakaoInfo(userToken, userEmail).enqueue(object: Callback<KakaoResponse>{
+            override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
+                val resp = response.body()!!
+                Log.d("searchKakaoInfo_resp", resp?.success.toString())
+                if(resp.success) {
+//                    Log.d("searchKakaoInfo[SUCCESS]", resp.message)
+                    NextActivity(resp.data.isSignin, userEmail)
+                }else {
+//                    Log.d("searchKakaoInfo[Failure]", resp.message)
+                }
+            }
 
-    private fun firstlogincheck(Token : OAuthToken){
-        //카카오로그인 확인
-        val loginpreferences = getSharedPreferences("user.id",MODE_PRIVATE)
-        val editor = loginpreferences.edit()
+            override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
+                Log.d("searchKakaoInfo: onFailure", t.message.toString())
+            }
 
+        })
+    }
 
-        token = Token.idToken.toString()  //사용자 token String으로 변환해서 저장
-
-        //이미 있는 계정인지 비교하기 위해 DB에서 정보 가져오기
-        val TapeDB = TapeDatabase.Instance(this)!!
-        val user = TapeDB.loginuserDao().getLoginUser(token)
-
-        val Equal : Boolean = token.equals(user.toString())
-
-
-
-        if (Equal) { // 이후 로그인 시 처리
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, TapeFragment())
-                .commit()
-        } else { // 처음 로그인 시 처리
-            startActivity(Intent(this, OnboardActivity::class.java))
-            checkProfile()
+    fun NextActivity(isSignIn: Boolean, userEmail: String) {
+        if (isSignIn) {
+            nextActivityHandler.launchMainActivity()
+        } else {
+            nextActivityHandler.launchOnboardActivity(userEmail)
         }
     }
-
-    fun checkProfile() : String {
-        return token
-    }
-
-    private fun save(jwt: Int) {
-        val spf = getSharedPreferences("auth" , MODE_PRIVATE)  //인자값으로 받은 jwt(user.id)를 저장
-        val editor = spf.edit()
-
-        editor.putInt("jwt", jwt) //키값 저장
-        editor.apply()
-    }
-
-
 }

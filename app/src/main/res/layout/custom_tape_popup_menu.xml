@@ -2,21 +2,10 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="130dp"
-    android:layout_height="61dp"
+    android:layout_height="30dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/layout_background_shape_4"
     android:elevation="20dp">
-
-
-
-    <View
-        android:id="@+id/custom_tape_popup_menu_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E7E7E7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="29dp"/>
 
 
     <TextView
@@ -30,19 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="13dp"
         android:layout_marginTop="9dp"
-        />
-
-    <TextView
-        android:id="@+id/custom_tape_popup_menu_block_user_name2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="계정 차단하기"
-        android:textSize="11sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/custom_tape_popup_menu_line"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

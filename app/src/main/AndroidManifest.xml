@@ -6,9 +6,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -27,21 +31,36 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
+
         </activity>
         <activity android:name=".AlbumActivity" />
+        <activity android:name=".FollowActivity"
+            android:exported="true"/>
         <activity android:name=".OnboardActivity"
             android:exported="true"/>
-        <activity android:name=".NextActivity"
+        <activity android:name=".Profile1Activity"
             android:exported="true"/>
+        <activity android:name=".Profile2Activity"
+            android:exported="true"/>
+        <activity android:name=".Profile3Activity"
+            android:exported="true"/>
+        <activity android:name=".CommentActivity"
+            android:exported="true"/>
+<!--        <activity android:name=".ReplyModifyActivity"-->
+<!--            android:windowSoftInputMode="adjustResize"-->
+<!--            android:exported="true"/>-->
+
         <activity android:name=".Splash2Activity"
             android:exported="true"
             android:theme="@style/Splash1">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity android:name=".LoginActivity"
             android:exported="true"/>
 
@@ -57,6 +76,9 @@
                     android:scheme="kakaoacf9ccdb9befb1509a4e53ad023da96b" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ProfileEditActivity"
+            android:exported="true"/>
 
     </application>
 

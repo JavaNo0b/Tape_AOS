@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +16,7 @@ import com.janob.tape_aos.databinding.ActivityProfile2Binding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,16 +64,7 @@ class Profile2Activity : AppCompatActivity() {
                 Log.d("Login1111", imageUri.toString())
                 Log.d("Login1111", Intro)
 
-                val intent = Intent(this, Profile3Activity::class.java)
-
-                intent.apply {   //갤러리 선택안했을 땐 인텐트로 보내기
-                    putExtra("userEmail", userEmail)
-                    putExtra("nickname", nickname)
-                    putExtra("imageUri", imageUri.toString())
-                    putExtra("Intro", Intro)
-                }
-                startActivity(intent)
-                finish()
+                postImage(userEmail!!, nickname!!, Intro, imageUri)
 
 
             }
@@ -149,14 +142,6 @@ class Profile2Activity : AppCompatActivity() {
     }
 
 
-    private fun bitmapToUri(bitmap: Bitmap): Uri {
-        val context = applicationContext
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path =
-            MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
-        return Uri.parse(path)
-    }
 
 
     fun checkProfile(): Boolean {
@@ -170,10 +155,90 @@ class Profile2Activity : AppCompatActivity() {
     }
 
 
-    //파일 형식을 MultipartBody.Part로 바꾸기
-    fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
-        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-        return MultipartBody.Part.createFormData("file", file.name, requestFile)
+    fun uriToFile(context: Context, uri: Uri): File? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                val filePath = it.getString(columnIndex)
+                if (!filePath.isNullOrEmpty()) {
+                    return File(filePath)
+                }
+            }
+        }
+        return null
+    }
+
+    private fun postImage(email : String, nickname: String, Intro : String?, imageUri: Uri) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
+        val service = getRetrofit().create(RetrofitInterface::class.java)
+
+        val source = ImageDecoder.createSource(application.contentResolver, imageUri)
+        val bit = ImageDecoder.decodeBitmap(source)
+
+        val tempUri: Uri = getImageUriFromBitmap( applicationContext , bit)
+
+        Log.d("Login1111", email)
+        Log.d("Login1111", nickname)
+        Log.d("Login1111", Intro.toString())
+        Log.d("Login1111", tempUri.toString())
+        val fileToUpload = if (tempUri != null) {
+            // URI를 파일로 변환
+            val file = uriToFile(this, tempUri)
+            // 파일이 null이 아닌 경우에만 MultipartBody.Part 생성
+            file?.let {
+                val requestBody = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("image", it.name, requestBody)//MultipartBody.Part
+            }
+        } else {    null }
+
+        Log.d("Login1111", fileToUpload.toString())
+
+        val emailBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val nicknameBody = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+        val introduceBody = Intro?.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        introduceBody?.let {
+            service.signupProfile(emailBody, nicknameBody, it, fileToUpload!!)
+                .enqueue(object : Callback<SignResponse> {
+                    override fun onResponse(call: Call<SignResponse>, response: Response<SignResponse>) {
+                        //Log.d("postUser_resp", signupProfile)
+                        Log.d("postUser_resp", response.body().toString())
+                        val resp = response.body()
+                        //Log.d("postUser_resp", resp?.success.toString())
+                        if (resp != null && resp.success) {
+                            Log.d("postUser_resp", resp?.success.toString())
+                            //Log.d("postUser_resp", signUp.toString())
+                            Log.d("postUser_resp", resp.data.jwt)
+                            saveJwt(resp.data.jwt)
+                            startActivity(Intent(this@Profile2Activity, MainActivity::class.java))
+                        }else{
+                            Log.d("Login1111", "postUser_resp is null")
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SignResponse>, t: Throwable) {
+                        Log.d("postUser: onFailure", t.message.toString())
+                    }
+                })
+        }
+    }
+    private fun saveJwt(jwt: String) {
+        val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf.edit()
+
+        // 키 값 : "jwt", 인자값 : jwt
+        editor.putString("jwt", jwt)
+        editor.apply()
+    }
+
+    private fun getImageUriFromBitmap(context: Context?, bitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG , 100,bytes)
+        val path = MediaStore.Images.Media.insertImage(context!! . contentResolver ,bitmap, "File" , null )
+        return Uri.parse(path.toString())
+
     }
 
 }

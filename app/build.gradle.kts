@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.janob.tape_aos"
-        minSdk = 32
+        minSdk = 30
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"

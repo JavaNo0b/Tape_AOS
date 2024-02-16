@@ -12,9 +12,11 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityProfile2Binding
+
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +42,7 @@ class Profile2Activity : AppCompatActivity() {
 
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
+            //intent.putExtra("crop", true)
             requestGalleryLauncher.launch(intent)
 
         }
@@ -53,16 +56,20 @@ class Profile2Activity : AppCompatActivity() {
 
                 Log.d("profile2 email", userEmail.toString())
                 Log.d("profile2 nickname", nickname.toString())
-
+/*
                 if (imageUri == null) {  //갤러리 선택 안했을 때
                     //val postUserSignUp : SignUp =
-                    //postUser(SignUp(userEmail!!, nickname!!, Intro, null))
-                }
+                    postImage(userEmail!!, nickname!!, Intro, null)
+                }*/
 
                 Log.d("Login1111", imageUri.toString())
                 Log.d("Login1111", Intro)
 
+
+
                 val intent = Intent(this, Profile3Activity::class.java)
+
+                //postImage(userEmail!!, nickname!!, Intro, imageUri!!)
 
                 intent.apply {   //갤러리 선택안했을 땐 인텐트로 보내기
                     putExtra("userEmail", userEmail)
@@ -72,6 +79,7 @@ class Profile2Activity : AppCompatActivity() {
                 }
                 startActivity(intent)
                 finish()
+
 
                 /*val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Intent = intent
@@ -94,7 +102,14 @@ class Profile2Activity : AppCompatActivity() {
 
 
     }
-
+/*
+    private fun cropImage(uri: Uri?) {
+        CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            //사각형 모양으로 자른다
+            .start(this)
+    }
+*/
 
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
@@ -105,6 +120,8 @@ class Profile2Activity : AppCompatActivity() {
             val uri = result.data?.data
             uri?.let {
                 imageUri = it
+                Log.d("kkang", "bitmap null")
+                //cropImage(uri)
                 try {
                     val calRatio = calculateInSampleSize(
                         uri,
@@ -184,22 +201,120 @@ class Profile2Activity : AppCompatActivity() {
         return true
     }
 
-/*
-
-
-
-    //이것도 보류
-    /*fun addProfile() : ByteArray {
-        val ImgNothingByteArray = imageToByteArray(this.getDrawable(R.drawable.prof2_layer))
-        val ImgNothing = imageToByteArray(this.getDrawable(R.drawable.albumcover_5))   //기본이미지 아무렇게나 설정
-
-        if (imageByte != ImgNothingByteArray) {   //갤러리에서 사진 선택한 경우
-        }else{   ////갤러리에서 사진 선택안한 경우
-            imageByte = ImgNothing
+    fun uriToFile(context: Context, uri: Uri): File? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                val filePath = it.getString(columnIndex)
+                if (!filePath.isNullOrEmpty()) {
+                    return File(filePath)
+                }
+            }
         }
-        return imageByte
-    }*/
-*/
+        return null
+    }
+
+    private fun postImage(email: String, nickname: String, Intro: String?, imageUri: Uri?) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
+        val service = getRetrofit().create(RetrofitInterface::class.java)
+
+        Log.d("Login1111", email)
+        Log.d("Login1111", nickname)
+        Log.d("Login1111", Intro.toString())
+        Log.d("Login1111", imageUri.toString())
+        val fileToUpload = if (imageUri != null) {
+            // URI를 파일로 변환
+            val file = uriToFile(this, Uri.parse(imageUri.toString()))
+            // 파일이 null이 아닌 경우에만 MultipartBody.Part 생성
+            file?.let {
+                val requestBody = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("image", it.name, requestBody)//MultipartBody.Part
+            }
+        } else {
+            null
+        }
+
+        Log.d("Login1111", fileToUpload.toString())
+
+        val emailBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val nicknameBody = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+        val introduceBody = Intro?.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        if(fileToUpload!=null){
+            introduceBody?.let {
+                service.signupProfile(emailBody, nicknameBody, it, fileToUpload!!)
+                    .enqueue(object : Callback<UserProfileResponse> {
+                        override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                            //Log.d("postUser_resp", signupProfile)
+                            Log.d("postUser_resp", response.body().toString())
+                            val resp = response.body()
+                            //Log.d("postUser_resp", resp?.success.toString())
+                            if (resp != null && resp.success) {
+                                Log.d("postUser_resp", resp?.success.toString())
+                                //Log.d("postUser_resp", signUp.toString())
+                                Log.d("postUser_resp", resp.data.token)
+                                // SharedPreference 에 accessToken 저장
+                                KaKaoApplication.prefs.setString("accessToken", resp.data.token)
+                                Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                                startActivity(Intent(this@Profile2Activity, MainActivity::class.java))
+                            } else {
+                                Log.d("Login1111", "postUser_resp is null")
+
+                            }
+                        }
+
+                        override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                            Log.d("postUser: onFailure", t.message.toString())
+                        }
+                    })
+            }
+        }else{
+            introduceBody?.let {
+                service.signupProfile(emailBody, nicknameBody, it, null)
+                    .enqueue(object : Callback<UserProfileResponse> {
+                        override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                            //Log.d("postUser_resp", signupProfile)
+                            Log.d("postUser_resp", response.body().toString())
+                            val resp = response.body()
+                            //Log.d("postUser_resp", resp?.success.toString())
+                            if (resp != null && resp.success) {
+                                Log.d("postUser_resp", resp?.success.toString())
+                                //Log.d("postUser_resp", signUp.toString())
+                                Log.d("postUser_resp", resp.data.token)
+                                KaKaoApplication.prefs.setString("accessToken", resp.data.token)
+                                Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                                startActivity(Intent(this@Profile2Activity, MainActivity::class.java))
+                            } else {
+                                Log.d("Login1111", "postUser_resp is null")
+
+                            }
+                        }
+
+                        override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                            Log.d("postUser: onFailure", t.message.toString())
+                        }
+                    })
+            }
+        }
+    }
+}
+    /*
+
+
+
+        //이것도 보류
+        /*fun addProfile() : ByteArray {
+            val ImgNothingByteArray = imageToByteArray(this.getDrawable(R.drawable.prof2_layer))
+            val ImgNothing = imageToByteArray(this.getDrawable(R.drawable.albumcover_5))   //기본이미지 아무렇게나 설정
+
+            if (imageByte != ImgNothingByteArray) {   //갤러리에서 사진 선택한 경우
+            }else{   ////갤러리에서 사진 선택안한 경우
+                imageByte = ImgNothing
+            }
+            return imageByte
+        }*/
+    */
  /*   private fun postUser(signUp: SignUp){  //이미지 선택안했을 때 null로 저장
 
         val filePart = signUp.file?.let { fileToMultipartBodyPart(it) }
@@ -255,12 +370,12 @@ class Profile2Activity : AppCompatActivity() {
         }*/
 
 
-
+/*
 //파일 형식을 MultipartBody.Part로 바꾸기
     fun fileToMultipartBodyPart(file: File): MultipartBody.Part {
         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("file", file.name, requestFile)
     }
 
-}
-
+}*/
+*/

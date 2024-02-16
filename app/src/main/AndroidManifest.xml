@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
+
         android:enableOnBackInvokedCallback="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,11 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tape_AOS"
         android:name=".KaKaoApplication"
+
         tools:targetApi="31">
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="acf9ccdb9befb1509a4e53ad023da96b"/>
+
 
         <activity
             android:name=".MainActivity"
@@ -80,7 +83,7 @@
             android:exported="true"/>
 
 
-
     </application>
+
 
 </manifest>

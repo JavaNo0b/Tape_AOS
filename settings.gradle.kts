@@ -2,6 +2,7 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        //jcenter ()
         gradlePluginPortal()
     }
 }
@@ -10,7 +11,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-
+        //jcenter ()
         maven { url=uri("https://jitpack.io") }
         maven { url=uri("https://devrepo.kakao.com/nexus/content/groups/public/")} // 카카오 로그인
     }

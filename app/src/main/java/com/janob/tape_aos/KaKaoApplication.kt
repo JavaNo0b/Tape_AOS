@@ -1,14 +1,22 @@
 package com.janob.tape_aos
 
 import android.app.Application
+import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
 
 class KaKaoApplication : Application() {
 
+    companion object {
+        lateinit var prefs: PreferenceUtil
+    }
     override fun onCreate() {
         super.onCreate()
 
         // Kakao Sdk 초기화
         KakaoSdk.init(this, "acf9ccdb9befb1509a4e53ad023da96b")
+        prefs = PreferenceUtil(applicationContext)
+        Log.d("Login1111", prefs.toString())
     }
+
+
 }

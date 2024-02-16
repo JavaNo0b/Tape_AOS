@@ -3,11 +3,15 @@ package com.janob.tape_aos
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 //Repository
 class ApiFetchr {
@@ -19,12 +23,31 @@ class ApiFetchr {
     init{
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://3.36.97.28:3000/")
+            .client(NetworkModule.provideOkHttpClient(NetworkModule.AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //생성
         apiInterface = retrofit.create(ApiInterface::class.java)
 
     }
+/*    fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }).build()
+    }
+
+    class AppInterceptor : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain) : okhttp3.Response = with(chain) {
+            val newRequest = request().newBuilder()
+                .addHeader("(header Key)", "(header Value)")
+                .build()
+            proceed(newRequest)
+        }
+    }*/
+
     //음원 차트 가져오기
     fun fetchSongListDTO() : LiveData<SongDetailResultDTO> {
         val call: Call<SongDetailResultDTO> = apiInterface.fetchSongListDTO()
@@ -57,8 +80,8 @@ class ApiFetchr {
     //좋아요순 테이프 불러오기
 
     //알림정보 불러오기
-    fun fetchAlarmAll():LiveData<AlarmResultDTO>{
-        val call:Call<AlarmResultDTO> = apiInterface.fetchAlarmAll()
+    fun fetchAlarmAll(jwt : String):LiveData<AlarmResultDTO>{
+        val call:Call<AlarmResultDTO> = apiInterface.fetchAlarmAll(jwt)
         return fetchMetaDTO(call)
     }
 

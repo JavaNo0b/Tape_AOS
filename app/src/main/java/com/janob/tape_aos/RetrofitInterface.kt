@@ -35,6 +35,6 @@ interface RetrofitInterface {
         @Part("email") email: RequestBody,
         @Part("nickname") nickname: RequestBody,
         @Part("introduce") introduce: RequestBody,
-        @Part image: MultipartBody.Part,
+        @Part image: MultipartBody.Part?,
     ): Call<UserProfileResponse>
 }

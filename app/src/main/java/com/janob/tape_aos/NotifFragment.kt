@@ -5,7 +5,6 @@ import NotifRVAdapter
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.os.Build
@@ -14,16 +13,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.janob.tape_aos.databinding.FragmentNotifBinding
-import com.janob.tape_aos.databinding.ItemNotif2Binding
 
 const val CHANNEL_ID = "Channel Tape"
 private const val CHANNEL_NAME = "Tape_AOS"
@@ -48,6 +44,8 @@ class NotifFragment : Fragment(){
         binding = FragmentNotifBinding.inflate(inflater, container, false)
 
         Log.d("message", "hi")
+        viewModel.viewmodel(getJwt().toString())
+
         /*val Notiflist = mutableListOf<Alarm>().apply{
             add(Alarm(Alarm.notif_1, "", "", false,true))
             add(Alarm(Alarm.notif_3, "music_play", "님이 회원님의 테이프에 댓글을 작성했습니다.", false, false))
@@ -106,6 +104,14 @@ class NotifFragment : Fragment(){
 
 
         return binding.root
+    }
+
+    private fun getJwt(): String?{
+
+        val spf = context?.getSharedPreferences("auth", android.content.Context.MODE_PRIVATE)!!
+        val token = spf.getString("jwt", null)
+        val bToken = "Bearer $token"
+        return bToken
     }
 
 

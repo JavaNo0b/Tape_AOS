@@ -31,6 +31,8 @@ class Profile3Activity : AppCompatActivity() {
         binding = ActivityProfile3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
 
         // URI를 이미지 뷰에 설정
@@ -122,6 +124,16 @@ class Profile3Activity : AppCompatActivity() {
 //    }
 
 
+    private fun saveJwt(jwt: String) {
+        val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf.edit()
+
+        // 키 값 : "jwt", 인자값 : jwt
+        editor.putString("jwt", jwt)
+        editor.apply()
+    }
+
+
     private fun postImage(email : String, nickname: String, Intro : String?, imageUri: Uri) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
         val service = getRetrofit().create(RetrofitInterface::class.java)
 
@@ -157,6 +169,9 @@ class Profile3Activity : AppCompatActivity() {
                             Log.d("postUser_resp", resp?.success.toString())
                             //Log.d("postUser_resp", signUp.toString())
                             Log.d("postUser_resp", resp.data.token)
+                            //KaKaoApplication.prefs.setString("accessToken", resp.data.token)
+                            Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                            saveJwt(resp.data.token)
                             startActivity(Intent(this@Profile3Activity, MainActivity::class.java))
                         }else{
                             Log.d("Login1111", "postUser_resp is null")

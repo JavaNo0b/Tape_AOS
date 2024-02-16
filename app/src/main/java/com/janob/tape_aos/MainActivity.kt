@@ -20,11 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private var isFabOpen = false
 
-    //lateinit var tapeData : List<Tape>
-    lateinit var tapeReplyData : List<Reply>
-    lateinit var songData : List<Song>
-    lateinit var includedSongData : List<IncludedSong>
-    lateinit var userData : List<User>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

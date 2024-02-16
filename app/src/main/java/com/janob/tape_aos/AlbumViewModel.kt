@@ -14,9 +14,9 @@ class AlbumViewModel : ViewModel() {
 
     init {
         tapeIdLiveData.value = tapeId
-        albumDTOLiveData.value = apiFetchr.fetchAlbumDTO(tapeId).value!!.albumData
+        albumDTOLiveData.value = apiFetchr.fetchAlbumDTO(tapeId).value?.albumData
 
-        albumDTOLiveData.value = tapeIdLiveData.switchMap { id -> apiFetchr.fetchAlbumDTO(id) }.value!!.albumData
+        albumDTOLiveData.value = tapeIdLiveData.switchMap { id -> apiFetchr.fetchAlbumDTO(id) }.value?.albumData
 
 
 

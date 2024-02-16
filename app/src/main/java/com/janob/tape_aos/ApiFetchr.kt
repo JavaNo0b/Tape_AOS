@@ -4,11 +4,15 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 //Repository
 class ApiFetchr {
@@ -26,6 +30,24 @@ class ApiFetchr {
         apiInterface = retrofit.create(ApiInterface::class.java)
 
     }
+/*    fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }).build()
+    }
+
+    class AppInterceptor : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain) : okhttp3.Response = with(chain) {
+            val newRequest = request().newBuilder()
+                .addHeader("(header Key)", "(header Value)")
+                .build()
+            proceed(newRequest)
+        }
+    }*/
+
     //음원 차트 가져오기
     fun fetchSongListDTO() : LiveData<SongDetailResultDTO> {
         val call: Call<SongDetailResultDTO> = apiInterface.fetchSongListDTO()
@@ -118,7 +140,13 @@ class ApiFetchr {
     }
 
     //좋아요순 테이프 불러오기
+
     //알림정보 불러오기
+    fun fetchAlarmAll(jwt : String):LiveData<AlarmResultDTO>{
+        val call:Call<AlarmResultDTO> = apiInterface.fetchAlarmAll(jwt)
+        return fetchMetaDTO(call)
+    }
+
     //오늘의 테이프 등록
     fun postTodayTape(todayTapeDTO: TodayTapeDTO) : LiveData<ResultDTO>{
         val call:Call<ResultDTO> = apiInterface.postTodayTape(todayTapeDTO)
@@ -173,6 +201,7 @@ class ApiFetchr {
         return responseLiveData
 
     }
+
     fun <T> fetchListDTO(call :Call<List<T>>):LiveData<List<T>>{
         val responseLiveData : MutableLiveData<List<T>> = MutableLiveData<List<T>>()
         //웹사이트에 응답 요청

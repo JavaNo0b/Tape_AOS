@@ -2,7 +2,9 @@ package com.janob.tape_aos
 
 
 
+import android.annotation.SuppressLint
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -21,6 +23,7 @@ abstract class TapeDatabase : RoomDatabase(){
     abstract fun songDao() : SongDao
     abstract fun IncludedSongDao() : IncludedSongDao
     abstract fun loginuserDao() : LoginUserDao
+
 
 
     abstract fun userDao() : UserDao

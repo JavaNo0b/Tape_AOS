@@ -20,13 +20,4 @@ data class User(
     @PrimaryKey(autoGenerate = true) var id : Long? = null,
 
 
-//    @PrimaryKey var id : Int? = null,
-//    var profile_id : Int? = null,
-//    var name : String? = "",
-//    @SerializedName(value = "userNickname") var nick_name : String? = "",
-//    @SerializedName(value = "userImage") var image : String? = "",
-//    @SerializedName(value = "introduce") var introduce : String? = "",
-//    var create_date : String? = "",
-//    var update_date : String? = "",
-//    var is_deactived : Boolean? = null
 )

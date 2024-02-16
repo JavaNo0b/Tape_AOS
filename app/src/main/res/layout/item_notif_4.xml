@@ -11,14 +11,14 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/item_notif_2"
+        android:id="@+id/item_notif_4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="11dp"
         app:cardElevation="0dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/item_notif_2_image_iv"
+            android:id="@+id/item_notif_4_image_iv"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:src="@drawable/albumcover_5"
@@ -33,10 +33,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/item_notif_2_text_tv_1"
+                android:id="@+id/item_notif_4_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="music_play"
+                android:text="K_pop_lover 님이 회원님의 Tape를 좋아합니다."
                 android:textColor="@color/black"
                 android:textSize="9sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,22 +46,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="14dp"/>
 
-            <TextView
-                android:id="@+id/item_notif_2_text_tv_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" 님이 회원님을 팔로우 합니다."
-                android:textColor="@color/black"
-                android:textSize="9sp"
-                app:layout_constraintStart_toEndOf="@+id/item_notif_2_text_tv_1"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="14dp"/>
-
 
             <ImageView
-                android:id="@+id/item_notif_2_dot_iv"
+                android:id="@+id/item_notif_4_dot_iv"
                 android:src="@drawable/item_notif_dot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

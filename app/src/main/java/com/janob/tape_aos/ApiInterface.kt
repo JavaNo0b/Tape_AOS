@@ -6,6 +6,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
@@ -53,7 +54,7 @@ interface ApiInterface {
     fun fetchTapeOrderbyLike():Call<OrderbyLikedTapeDTO>
     //알림정보 불러오기
     @GET("alarm/all")
-    fun fetchAlarmAll() :Call<AlarmResultDTO>
+    fun fetchAlarmAll(@Header("Authorization") token: String) :Call<AlarmResultDTO>
     //오늘의 테이프 등록
     @POST("tape/today")
     fun postTodayTape(@Body tapeDTO: TodayTapeDTO):Call<ResultDTO>

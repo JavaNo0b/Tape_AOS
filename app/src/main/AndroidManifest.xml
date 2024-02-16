@@ -8,8 +8,10 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
+
         android:enableOnBackInvokedCallback="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,11 +22,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tape_AOS"
         android:name=".KaKaoApplication"
+
         tools:targetApi="31">
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="acf9ccdb9befb1509a4e53ad023da96b"/>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -77,15 +82,8 @@
         <activity android:name=".ProfileEditActivity"
             android:exported="true"/>
 
-        <service android:name=".FirebaseMessagingService"
-            android:exported="true">
-            <intent-filter>
-
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-
-        </service>
 
     </application>
+
 
 </manifest>

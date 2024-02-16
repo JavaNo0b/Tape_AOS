@@ -7,7 +7,6 @@ class FollowVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment){
 
     lateinit var followerFragment : FollowerFragment
     lateinit var followingFragment : FollowingFragment
-    var my_status : String = ""
 
     // 팔로워, 팔로잉 리스트 대로 userDatas 재설정 변수
     var follower_list = ArrayList<String>()
@@ -19,22 +18,16 @@ class FollowVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment){
         followerFragment = FollowerFragment()
         followingFragment = FollowingFragment()
 
-        // 팔로워 리사이클러뷰에 추가 : -> FollowerFragment로 status 전달
-        followerFragment.setMyUserItemStatus(my_status)
-        // 팔로워 리스트 대로 userDatas 재설정 : -> FollowerFragment로 status와 follower_list 전달
-        followerFragment.setFollowerListStatus("set_follower_list", follower_list)
+        // 팔로워 리스트 대로 userDatas 재설정 : -> FollowerFragment로 follower_list 전달
+        followerFragment.setFollowerListStatus(follower_list)
 
-        // 팔로잉 리스트 대로 userDatas 재설정 : -> FollowingFragment로 status와 following_list 전달
-        followingFragment.setFollowingListStatus("set_following_list", following_list)
+        // 팔로잉 리스트 대로 userDatas 재설정 : -> FollowingFragment로 following_list 전달
+        followingFragment.setFollowingListStatus(following_list)
 
         return when(position){
             0 -> followerFragment
             else -> followingFragment
         }
-    }
-
-    fun setMyUserItemStatus(my_status : String){
-        this.my_status = my_status
     }
 
     // 팔로워, 팔로잉 리스트 대로 userDatas 재설정 함수

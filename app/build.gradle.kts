@@ -4,7 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -13,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.janob.tape_aos"
-        minSdk = 32
+        minSdk = 30
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -83,6 +82,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.google.code.gson:gson:2.9.0")
 
+    //Retrofit XMLConverter
+    implementation ("com.squareup.retrofit2:converter-simplexml:2.2.0")
+
 
     // okHttp
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
@@ -105,7 +107,10 @@ dependencies {
 
     //ViewModel
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
     //searchView
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")

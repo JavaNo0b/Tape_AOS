@@ -105,14 +105,18 @@ class MainActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 45f, 0f).apply { start() }
+            binding.mainBottomPostBtn.backgroundTintList = getColorStateList(R.color.navi_unselected)
+
         } else { // 플로팅 액션 버튼 열기 - 닫혀있는 플로팅 버튼 꺼내는 애니메이션
 
             ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", -360f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", -180f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 0f, 45f).apply { start() }
+            binding.mainBottomPostBtn.backgroundTintList = getColorStateList(R.color.navi_selected)
         }
 
         fabOnClick()
+
         isFabOpen = !isFabOpen
 
     }

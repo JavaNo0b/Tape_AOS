@@ -31,13 +31,14 @@ data class UserProResultDTO(
     @SerializedName("data") var data:UserInnerDTO
 
 )
+
 data class UserInnerDTO(
     @SerializedName("userNickname") var userName:String,
-    @SerializedName("userImage") var userImage:String,
+    @SerializedName("userImage") var userImage:String?,
     @SerializedName("introduce") var introduce:String,
-    @SerializedName("followers") var followers:Int,
-    @SerializedName("followings") var followings:Int,
-    @SerializedName("tapeData") var tapeData: List<TapeInnerDTO>
+    @SerializedName("followers") var followers:Int?,
+    @SerializedName("followings") var followings:Int?,
+    @SerializedName("tapeData") var tapeData: List<TapeInnerDTO>?
 
 )
 data class TapeInnerDTO(
@@ -48,10 +49,10 @@ data class TapeInnerDTO(
     @SerializedName("isWatched") var isWatched: Boolean
 )
 data class UserDTO(
-    @SerializedName("userId") var userId:Int,
-    @SerializedName("userNickname") var userNickname:String ,
-    @SerializedName("introduce") var introduce:String,
-    @SerializedName("profileImage") var profileImage:String
+    //@SerializedName("userId") var userId:Int,
+    @SerializedName("userNickname") var userNickname:String?,
+    @SerializedName("introduce") var introduce:String?,
+    @SerializedName("profileImage") var profileImage:String?
 )
 data class TapeDTO(
     @SerializedName("userId") var userId:Int,
@@ -85,6 +86,7 @@ data class MusicDTO(
     @SerializedName("musicArtist") var musicArtist:String,
     @SerializedName("musicImage") var musicImage:String
 )
+
 data class UserResultDTO(
     @SerializedName("success") var success:Boolean ,
     @SerializedName("message") var message:String ,

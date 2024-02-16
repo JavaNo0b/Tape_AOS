@@ -1,0 +1,750 @@
+[33mcommit fa1e33148668867171d54cc7b319bb5832e1a40f[m[33m ([m[1;36mHEAD -> [m[1;32mprofile_api_livedata[m[33m, [m[1;31morigin/profile_api_livedata2[m[33m)[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Feb 12 22:54:22 2024 +0900
+
+    240212 profile api 완료
+
+[33mcommit 91167c44d038876249acaa1ab883e5762a57f41a[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Feb 12 21:54:22 2024 +0900
+
+    240212 mutable 변수 따로 지정
+
+[33mcommit 6972fecd1cbe1b63b6f3d2c531c67655a488d989[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Feb 12 14:54:19 2024 +0900
+
+    240212 profile api 테스트ver2-Mutable 변수 따로 지정
+
+[33mcommit ce52c8ce39770281362fcb94ee5855e81235ae34[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Feb 12 01:39:08 2024 +0900
+
+    240212 profile api 테스트ver1
+
+[33mcommit f006997d68bdea57450413f06bd9754e41a2639b[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Feb 10 20:27:25 2024 +0900
+
+    240210 profile api 인터페이스만
+
+[33mcommit 380d94d9b35f48f9e11392c32fc5eaf86eecaacd[m[33m ([m[1;31morigin/profile_search[m[33m, [m[1;31morigin/profile_api_test_ver[m[33m)[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Feb 10 20:21:53 2024 +0900
+
+    240210 profile api 인터페이스만
+
+[33mcommit d3ff0e1a00eed3d8181d9353b85a7a5bb1d60b32[m
+Merge: 78c20d8 f38916d
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Feb 7 00:30:33 2024 +0900
+
+    Merge branch '49-kakaologin' of https://github.com/JavaNo0b/Tape_AOS into profile_search
+    
+    # Conflicts:
+    #       app/src/main/java/com/janob/tape_aos/ApiFetchr.kt
+    #       app/src/main/java/com/janob/tape_aos/ApiInterface.kt
+
+[33mcommit f38916d5c7748289f54f20249f55ddc90361fc6b[m[33m ([m[1;31morigin/49-kakaologin[m[33m)[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Tue Feb 6 23:34:54 2024 +0900
+
+    노션에 있는 모든 api 메서드 정의 완료함
+
+[33mcommit 78c20d8e3181851cab7fcecad95be7e36bf71a5d[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/54-tapetopost[m[33m)[m
+Merge: e41211f b9cb4ce
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Tue Feb 6 23:29:17 2024 +0900
+
+    Merge pull request #51 from JavaNo0b/profile_search
+    
+    Profile search
+
+[33mcommit b9cb4ce388658b0dc68d2e51567e43f019509b9b[m[33m ([m[1;31morigin/search_and_profile_before_api[m[33m, [m[1;31morigin/api_profile_test[m[33m)[m
+Merge: ff76a0d 6fff822
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Feb 6 22:59:12 2024 +0900
+
+    240206 api 연동 전
+
+[33mcommit 11f8113d8715cfe44fb50975caaf3510578f73c0[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Tue Feb 6 22:42:40 2024 +0900
+
+    노션에 있는 모든 api 메서드 정의 완료함
+
+[33mcommit b527a696ebe5542d042f3aac7ae848054dab55c7[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Tue Feb 6 22:41:51 2024 +0900
+
+    노션에 있는 모든 api 메서드 정의 완료함
+
+[33mcommit ff76a0dad8b198d6e4fed61d026456eb9193adf3[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Feb 6 20:40:32 2024 +0900
+
+    240206 #4 프로필-편집모드 수정
+
+[33mcommit 57797b0eeeee47704f3e0ab96f15bf9209b74d8d[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Feb 6 16:41:18 2024 +0900
+
+    240206 #4 프로필-편집모드
+
+[33mcommit 4ae7fcd4d853be316c2270407f4a9da945711307[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Feb 6 15:27:01 2024 +0900
+
+    240206 #4 프로필-좋아요 한 곡 완료
+
+[33mcommit 6fff822de92df330cbfb3668a57c8b917d957386[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Feb 5 21:49:44 2024 +0900
+
+    노션에 있는 모든 api 메서드 정의 완료함
+
+[33mcommit d8b262299335c304abb2565ede41b9a8f4914d20[m
+Merge: 5a6107e a618c8e
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Feb 5 15:53:20 2024 +0900
+
+    49-jkako Merge branch '49-kakaologin' of https://github.com/JavaNo0b/Tape_AOS into 49-kakaologin
+
+[33mcommit 5a6107e12017c46f3a44a1bf4e25c1d603f2fa57[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Feb 5 15:41:11 2024 +0900
+
+    0205 희연 충돌 수정
+
+[33mcommit c7288219e66df14324f6aa25e52e6eb02164c6b3[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Feb 5 01:08:08 2024 +0900
+
+    240205 #4 프로필-게시하기 완료
+
+[33mcommit 546f41dfc4b39ff60dc862bd8b8973c3ef8933a3[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sun Feb 4 17:08:03 2024 +0900
+
+    240204 프로필 수정 name, comment
+
+[33mcommit a618c8ec1adbd6e3f70d4c3d29bb785ca80f7235[m[33m ([m[1;32m49-kakaologin[m[33m)[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Sun Feb 4 02:55:24 2024 +0900
+
+    카카오 로그인, 회원가입, 회원가입 유저는 메인으로 모두 구현
+
+[33mcommit def923002b2daa4789894e257001582215aa70ac[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Sat Feb 3 22:11:13 2024 +0900
+
+    카카오 로그인 api 구현
+
+[33mcommit bf6254b5a92d6c5d9e7f3065ef0ea0dbd39738df[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Fri Feb 2 15:17:12 2024 +0900
+
+    이전코드
+
+[33mcommit d0c248e32dd70d931c9c799dcccb480d8979ccd5[m
+Merge: 4f7a9b5 e41211f
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Fri Feb 2 02:50:28 2024 +0900
+
+    0202 수정
+
+[33mcommit 4f7a9b50bd79576ae61c2ed3c0deffe19240150e[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Fri Feb 2 00:30:24 2024 +0900
+
+    오늘의 테이프 + 댓글 정보 api 연동ver
+
+[33mcommit a66b41174c35ff11506330a022216e7d197f2126[m
+Merge: 546bc3e 653954e
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Fri Feb 2 00:30:15 2024 +0900
+
+    Merge remote-tracking branch 'origin/41-release0129' into 41-release0129
+    
+    # Conflicts:
+    #       app/src/main/java/com/janob/tape_aos/PostIncludedSongsFragment.kt
+    #       app/src/main/java/com/janob/tape_aos/PostIntroductionFragment.kt
+    #       app/src/main/java/com/janob/tape_aos/TapeListViewModel.kt
+
+[33mcommit 546bc3ea3525734d446659167ac1422b5cf07e7b[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 31 14:32:16 2024 +0900
+
+    오늘의 테이프 + 댓글 정보 api 연동ver
+
+[33mcommit e41211f7085cb8a5d07fe56820befa41b5815646[m[33m ([m[1;31morigin/46-maintapeapi[m[33m, [m[1;32m46-maintapeapi[m[33m)[m
+Merge: cea47a6 3f2253f
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:59:45 2024 +0900
+
+    Merge pull request #45 from JavaNo0b/42-bottomnavianimation
+    
+    42 bottomnavianimation
+
+[33mcommit 3f2253f0cec76f93ca336dccddf8b49de72104d3[m[33m ([m[1;31morigin/42-bottomnavianimation[m[33m, [m[1;32m42-bottomnavianimation[m[33m)[m
+Merge: aa41f6b cea47a6
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:57:07 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 42-bottomnavianimation
+
+[33mcommit aa41f6bbe16288d53e38c813e6a19b92c06b1e67[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 31 14:56:29 2024 +0900
+
+    바텀네비게이션 플로팅메뉴(POST)
+
+[33mcommit 8a64a2427e2f06e14338a753ad0d02fc8e31d5dc[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 31 14:42:41 2024 +0900
+
+    /kakao
+
+[33mcommit cea47a6b1b1c322838b1aea9b8736a8f932438e7[m
+Merge: 0409fb0 653954e
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 31 14:33:12 2024 +0900
+
+    Merge pull request #43 from JavaNo0b/41-release0129
+    
+    41 release0129
+
+[33mcommit 653954e4079cca386b097ba55ced5e5b03156065[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 31 14:32:16 2024 +0900
+
+    tape 게시물 올리기 자잘한 버그 수정
+
+[33mcommit 58a548d23fb9eadc8b875c6d0cc9ecb68c0acbcf[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 31 03:34:18 2024 +0900
+
+    240131 타인프로필, 내프로필 테이프 연결
+
+[33mcommit 7ef1f841ace883f21af46e73e8c20e52baf55c62[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 31 02:24:12 2024 +0900
+
+    240131 타인프로필, 내프로필 팔로워, 팔로우 기능 완료!
+
+[33mcommit 0471d15dd2292c548f0e46baf425143b612338a2[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 31 01:52:56 2024 +0900
+
+    240131 팔로잉 기능 완료!
+
+[33mcommit 99447087da1d4c300cb9e9b2b4fb44f36a8e8dd1[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 31 01:51:53 2024 +0900
+
+    240131 팔로잉 기능 완료!
+
+[33mcommit 97f182126ea0e69cefc598e4f4bee7f479e9c2d9[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 31 01:50:12 2024 +0900
+
+    240131 팔로잉 기능 완료!
+
+[33mcommit 00d90cc7b6e00672c3632bbf839ef19149ed6735[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Jan 30 16:25:18 2024 +0900
+
+    240130 onStart 전 commit
+
+[33mcommit 5bc4bc9dd9d437d09498b7a5453bff427e6943a8[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 23:23:58 2024 +0900
+
+    api 연동
+
+[33mcommit 0409fb05627e22056fb357da1d2f94b2db7ba37f[m
+Merge: 790f3f5 6d553cd
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 16:13:09 2024 +0900
+
+    Merge pull request #40 from JavaNo0b/sumin
+    
+    1/29 -수정-2 profile3 동그라미
+
+[33mcommit 6d553cda21723e1b1cfd60502bd85523f4bbf1aa[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 16:11:54 2024 +0900
+
+    1/29 -수정
+
+[33mcommit 790f3f5ec5321d8ae08037bed3613285583e9c32[m
+Merge: 1638af9 c7a9e2d
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 16:02:27 2024 +0900
+
+    Merge pull request #39 from JavaNo0b/sumin
+    
+    1/29 -수정
+
+[33mcommit c7a9e2dddbec6bc9abb30f82a1630d8ef684943b[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 16:01:05 2024 +0900
+
+    1/29 -수정
+
+[33mcommit 1638af9de687259b45cac667f08d8c4d004d3da0[m
+Merge: 6f320b6 2433f49
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 15:47:16 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 6f320b68e8d54ffde0ac2eb8f8270597e1a05a18[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 15:47:06 2024 +0900
+
+    api 연동
+
+[33mcommit 2433f498cba48c417af8fc05bdfdaef556a7266b[m
+Merge: b2ee476 f4c93f4
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Mon Jan 29 15:42:21 2024 +0900
+
+    Merge pull request #38 from JavaNo0b/sumin
+    
+    Sumin
+
+[33mcommit f4c93f41d3d7483deeeb98a22bb08d12f900d25c[m
+Merge: c4ba3f1 941db10
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 15:39:37 2024 +0900
+
+    1/29
+
+[33mcommit b2ee476b699ad270ed7409519dfb5648180253dc[m
+Merge: c246020 b50fc63
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:36:22 2024 +0900
+
+    Merge pull request #37 from JavaNo0b/33-custombottomnavi
+    
+    33 custombottomnavi
+
+[33mcommit b50fc63f1b4c8c43abef2df4acf23c114c8ef4f9[m[33m ([m[1;31morigin/33-custombottomnavi[m[33m, [m[1;32m33-custombottomnavi[m[33m)[m
+Merge: 5839511 c246020
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:33:43 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 33-custombottomnavi
+    
+    # Conflicts:
+    #       app/src/main/java/com/janob/tape_aos/MainActivity.kt
+
+[33mcommit c246020033552bb33194f42b5732523e9097eb88[m
+Merge: 941db10 5d19121
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Mon Jan 29 15:23:04 2024 +0900
+
+    Merge pull request #36 from JavaNo0b/profile_search
+    
+    Profile search
+
+[33mcommit 5d1912166548d2c79ac6902b6190f8c9d3d2223f[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 15:21:41 2024 +0900
+
+    240129 develop pull -> push
+
+[33mcommit b702d19786f54f9b7de6f8fcd3241463d21ee7fb[m
+Merge: 5d7f9a0 941db10
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 15:18:01 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into profile_search
+
+[33mcommit 5839511874b79581293bb08cdbb928f178ef1eef[m
+Merge: 8cab372 941db10
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:08:00 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 33-custombottomnavi
+
+[33mcommit 8cab3729e3ce9a09ba2e1ed8cea577b3f9e2404d[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 29 15:07:12 2024 +0900
+
+    바텀네비게이션 구현
+
+[33mcommit 5d7f9a01352e2af0c49e6f0639eda8d09b4b7148[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Mon Jan 29 14:39:42 2024 +0900
+
+    240129 팔로잉 클릭 정보 업데이트
+
+[33mcommit 941db104c1862900a581f8a048efc56e73134d32[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Mon Jan 29 14:37:21 2024 +0900
+
+    api 연동
+
+[33mcommit c4ba3f14f8f79efaa804acc1a9fbc5323433e22c[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Mon Jan 29 07:27:11 2024 +0900
+
+    .
+
+[33mcommit f551af4607c653bccf3e1dbea77c9a81c4e790c0[m
+Merge: 30baccd 101c8af
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 27 15:41:46 2024 +0900
+
+    240127 develop pull -> push
+
+[33mcommit 30baccd4a4ba0bcfffc60ed0f80bf64de03e2d06[m
+Merge: f12701a 2378689
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 27 15:03:32 2024 +0900
+
+    240127
+
+[33mcommit c49be6270d29fad6579beecc4f5764613b3585d2[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Fri Jan 26 13:32:43 2024 +0900
+
+    bottomNavigation 구현 완료(post 버튼 수정해야함)
+
+[33mcommit 101c8af42a93d87c23be7cacc048ccd1af94ecf8[m[33m ([m[1;32m14-tapesetting[m[33m)[m
+Merge: 6367ad1 4929248
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 24 04:03:06 2024 +0900
+
+    Merge pull request #32 from JavaNo0b/30-api
+    
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit 49292482b16044644b6fa971523f084878be1cbf[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 24 04:02:38 2024 +0900
+
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit 6367ad17cf929e45faf413983480b2d33b0afde0[m
+Merge: c5a3db8 83c71a9
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 24 02:46:46 2024 +0900
+
+    Merge pull request #31 from JavaNo0b/30-api
+    
+    #2-4 기능 구현 + api 연동 기초 틀
+
+[33mcommit 83c71a993d07f8129a58d71358ced5583f744d0e[m
+Merge: c5a3db8 5e2442c
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 24 02:45:27 2024 +0900
+
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit c5a3db8f3ef72d4ff84ede5284bb2da7fc6f6b03[m[33m ([m[1;31morigin/30-api[m[33m)[m
+Merge: c749af4 2ddde73
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 23 21:31:54 2024 +0900
+
+    Merge pull request #28 from JavaNo0b/14-tapesetting
+    
+    14 tapesetting
+
+[33mcommit 2ddde73bac5632f7448d14383ce681d5af750673[m[33m ([m[1;31morigin/14-tapesetting[m[33m)[m
+Merge: 7cca6a0 c749af4
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 23 21:30:49 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 14-tapesetting
+    
+    # Conflicts:
+    #       app/build.gradle.kts
+    #       app/src/main/res/values/themes.xml
+
+[33mcommit c749af4847f2ebb5a709b23062b0e6199f415903[m
+Merge: 2378689 dc25472
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Tue Jan 23 21:19:12 2024 +0900
+
+    Merge pull request #27 from JavaNo0b/profile_search
+    
+    Profile search
+
+[33mcommit dc2547265f0137b7458c98f66a68abdef1ddfb53[m
+Merge: f12701a 2378689
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Tue Jan 23 21:19:02 2024 +0900
+
+    Merge branch 'develop' into profile_search
+
+[33mcommit f12701a4aea751ee6fb7dbe33b4c43806137314c[m
+Merge: 55557bd 567c0b8
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Jan 23 21:04:11 2024 +0900
+
+    240123
+
+[33mcommit 23786897f6f30fd6b0cbd43623faf36769375f79[m
+Merge: 695f086 2461d9f
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Tue Jan 23 21:03:27 2024 +0900
+
+    Merge pull request #25 from JavaNo0b/sumin
+    
+    Sumin
+
+[33mcommit 2461d9f6a65055a9fd2140de7f620f6d39e77b49[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Tue Jan 23 20:57:39 2024 +0900
+
+    01/23 로그인&알림
+
+[33mcommit 5e2442c7feb527de19a4e3b78a99edc476f0da11[m[33m ([m[1;31morigin/apiFetch[m[33m)[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Tue Jan 23 20:02:59 2024 +0900
+
+    #2-4 + retrofit2 이용한 api 연동
+
+[33mcommit 7cca6a0bc495dad3d5ced740c32fdbe63f4b8d81[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Mon Jan 22 20:30:55 2024 +0900
+
+    indicator 수정
+
+[33mcommit 9672ea78176166a0b610ba672d6b101fbd86011d[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Sun Jan 21 01:13:00 2024 +0900
+
+    둥근 모서리 BottomSheet 구현, 댓글 모든 기능 구현 완료(수정, 추가, 삭제)
+
+[33mcommit 55557bdac2a81d8fa120e1b60861b0e3dece89a4[m
+Merge: fdc7e7a 695f086
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sun Jan 21 00:05:28 2024 +0900
+
+    240120-develop
+
+[33mcommit 567c0b8211037a82f520b917981122b32dab983f[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Sun Jan 21 00:00:46 2024 +0900
+
+    01/21
+
+[33mcommit 537e3c5dc883a2258fbea95520f98704cbadc878[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Sat Jan 20 23:45:19 2024 +0900
+
+    albumFragment bottomSheet 구현
+
+[33mcommit fdc7e7ae8be9798981d02abe86b92befaa57cc0b[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 20 23:38:00 2024 +0900
+
+    240120
+
+[33mcommit 52d564df3b195852b7f8830b36f7474a51f91718[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Sat Jan 20 20:09:59 2024 +0900
+
+    임의indicator 구현
+
+[33mcommit 329837892d076e826ff3619e8ad9d40d6ea9d358[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Sat Jan 20 16:33:22 2024 +0900
+
+    .
+
+[33mcommit ec47324f2562333626b556b44c6a8c3348b08bbc[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Fri Jan 19 20:20:44 2024 +0900
+
+    수록곡 좋아요 기능 : O
+    댓글: 수정하기 가능, 추가는 가능하지만 추가한 아이템에 대한 수정이 불가능, 삭제는 한번만 가능 그 이후로는 에러
+
+[33mcommit 9f8c37af90cc986722a7a18f08c3f6d7a6c19953[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 23:29:28 2024 +0900
+
+    .
+
+[33mcommit 116e81a51c95557bb0a9dcd3a4e9a08d43bca662[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 21:03:23 2024 +0900
+
+    더미데이터 roomDB 설정(Tape, User)
+
+[33mcommit 695f08668f9ff78379df06e85e0926bf1f565080[m[33m ([m[1;31morigin/release0117[m[33m)[m
+Merge: 313b610 190319f
+Author: sumin1012 <146986518+sumin1012@users.noreply.github.com>
+Date:   Wed Jan 17 12:08:09 2024 +0900
+
+    Merge pull request #23 from JavaNo0b/sumin
+    
+    Sumin
+
+[33mcommit 190319f5d21529fc84b6e1e21bc8a56e22dafc8a[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 17 12:07:23 2024 +0900
+
+    01/17-4
+
+[33mcommit 4ddc358775f3f2bebec47ded1571579511727978[m
+Merge: dee5c40 313b610
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 17 12:04:58 2024 +0900
+
+    01/17-3
+
+[33mcommit dee5c407366c8e9948e1fa2b7d37f6a0957c543e[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 17 11:28:55 2024 +0900
+
+    01/17-2
+
+[33mcommit 84a823b4ad700ffe2d4ba811867c03103b7fe28d[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 17 11:26:09 2024 +0900
+
+    01/17
+
+[33mcommit 313b6107b9af9345a3695a970215098283997c12[m
+Merge: d874656 3a43cb0
+Author: Eunseo27 <149929700+Eunseo27@users.noreply.github.com>
+Date:   Wed Jan 17 11:20:12 2024 +0900
+
+    Merge pull request #22 from JavaNo0b/profile_search
+    
+    Profile search
+
+[33mcommit 3a43cb014905df545776ee433d73bfa25b23c247[m
+Merge: 95567b9 d874656
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 11:19:11 2024 +0900
+
+    commit
+
+[33mcommit d874656bc42eada0d4c42359d45bf077a8a8643e[m
+Merge: 0545efb 3618e44
+Author: conner_Park <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 17 11:04:08 2024 +0900
+
+    Merge pull request #21 from JavaNo0b/14-tapesetting
+    
+    14 tapesetting/성현
+
+[33mcommit 3618e44e3415c0fc4239a8011e28380d908e6d09[m
+Merge: c473cec 0545efb
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 17 11:03:07 2024 +0900
+
+    Merge branch 'develop' of https://github.com/JavaNo0b/Tape_AOS into 14-tapesetting
+    
+    # Conflicts:
+    #       app/src/main/AndroidManifest.xml
+    #       app/src/main/java/com/janob/tape_aos/AlbumActivity.kt
+    #       app/src/main/java/com/janob/tape_aos/AlbumDao.kt
+    #       app/src/main/java/com/janob/tape_aos/MainActivity.kt
+    #       app/src/main/java/com/janob/tape_aos/Reply.kt
+    #       app/src/main/java/com/janob/tape_aos/ReplyActivity.kt
+    #       app/src/main/java/com/janob/tape_aos/ReplyAdapter.kt
+    #       app/src/main/java/com/janob/tape_aos/ReplyModifyActivity.kt
+    #       app/src/main/java/com/janob/tape_aos/SongDao.kt
+    #       app/src/main/java/com/janob/tape_aos/TapeAlbumRVAdapter.kt
+    #       app/src/main/java/com/janob/tape_aos/TapeDatabase.kt
+    #       app/src/main/java/com/janob/tape_aos/TapeFragment.kt
+    #       app/src/main/res/layout/activity_reply.xml
+    #       app/src/main/res/layout/activity_reply_modify.xml
+    #       app/src/main/res/layout/item_reply.xml
+
+[33mcommit 0545efb36af17970157668f5dba02dbce7bc8de2[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 10:14:46 2024 +0900
+
+    develop pull
+
+[33mcommit c60dc1689a802c4280a8cf22db8700d13aa05b2f[m
+Merge: e98afd5 330d777
+Author: huiyeony <132253950+huiyeony@users.noreply.github.com>
+Date:   Wed Jan 17 10:09:32 2024 +0900
+
+    Merge pull request #20 from JavaNo0b/PostTapeFragment
+    
+    #2-4 테이프 포스팅 기능
+
+[33mcommit c473cec75f597eb9cb1707aeaa747e6d662f30f1[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 17 10:04:02 2024 +0900
+
+    AlbumFragment more
+
+[33mcommit 95567b9be6fa5d460123bdb630862e832cecf934[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 10:00:13 2024 +0900
+
+    팔로워, 팔로잉 activity
+
+[33mcommit 330d777d42b37faa8b660aa3c5ab84a8080f0feb[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 17 04:48:05 2024 +0900
+
+    #2-4
+
+[33mcommit f2234138dee8ee3a7522cc5a8ea6af88e8e435be[m
+Author: sumin1012 <ksm2521101@naver.con>
+Date:   Wed Jan 17 04:37:21 2024 +0900
+
+    카카오 로그인
+
+[33mcommit 556264e1ffa2106333a2bf1ee79935ea97eb2a8b[m
+Author: 양희연 <huiyeony888@gmail.com>
+Date:   Wed Jan 17 04:11:26 2024 +0900
+
+    #2-4
+
+[33mcommit 3ad1bc96e1d8c10c4e7c62055e9b7a18a33eca3f[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 00:17:34 2024 +0900
+
+    데이터 클래스 이름 변경(TapeRealtime -> Tape)
+
+[33mcommit ef147b10b42e532f6507b3ff99ab0a7ae8acab7b[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Wed Jan 17 00:15:24 2024 +0900
+
+    데이터 넘기기(검색 -> 타인 프로필)
+
+[33mcommit 69ecdcd394579083a08bd3ac780caaa1012ed4c9[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Wed Jan 17 00:07:21 2024 +0900
+
+    수정 구현 but 한칸씩 올라가는 오류
+
+[33mcommit 87ec04e18883006887dc4b5b4a927e1e611cadbf[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 16 22:30:22 2024 +0900
+
+    replyModifyActivity 화면구현 완료
+
+[33mcommit 819d70f223880b664a0f99bce556dc2b3f1a6c4f[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Jan 16 20:36:43 2024 +0900
+
+    검색 실시간 인기 테이프 텍스트 추가
+
+[33mcommit 264e8975439f923bcad0cd5c9e055aa563e4088c[m
+Author: JavaNo0b <98101954+JavaNo0b@users.noreply.github.com>
+Date:   Tue Jan 16 19:42:32 2024 +0900
+
+    메뉴바 구현(위치조정 실패)
+
+[33mcommit a4454a5dfa7f68af937a0a216c4c938aa260af05[m
+Author: Eunseo27 <qkddmstj27@naver.com>
+Date:   Tue Jan 16 19:36:32 2024 +0900
+
+    인기 테이프 + 검색기능 + 타인프로필 레이아웃
+
+[33mcommit c3cb4503e92157b5a611e9606e7bf9a1489d795d[m
+Author: JavaNo0b <98101954+JavaNo0b@use

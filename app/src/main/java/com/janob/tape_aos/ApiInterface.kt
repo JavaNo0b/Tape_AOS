@@ -41,6 +41,8 @@ interface ApiInterface {
     fun shareUserProfile(): Call<UserProResultDTO>
 
     // 사용자 검색
+    @GET("search")
+    fun userSearch(@Query("keyWord") keyWord: String): Call<UserResultDTO>
 
     //테이프 게시글 등록
     @POST("tape")

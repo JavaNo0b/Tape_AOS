@@ -49,10 +49,10 @@ data class TapeInnerDTO(
     @SerializedName("isWatched") var isWatched: Boolean
 )
 data class UserDTO(
-    @SerializedName("userId") var userId:Int,
-    @SerializedName("userNickname") var userNickname:String ,
-    @SerializedName("introduce") var introduce:String,
-    @SerializedName("profileImage") var profileImage:String
+    //@SerializedName("userId") var userId:Int,
+    @SerializedName("userNickname") var userNickname:String?,
+    @SerializedName("introduce") var introduce:String?,
+    @SerializedName("profileImage") var profileImage:String?
 )
 data class TapeDTO(
     @SerializedName("userId") var userId:Int,

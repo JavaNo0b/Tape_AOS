@@ -51,16 +51,15 @@ class ApiFetchr {
             override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
                 Log.d("eunseo", "ApiFetchr - onResponse - isSuccess = " + response.isSuccessful.toString())
                 if(response.isSuccessful) {
+                    Log.d("onResponse", "사용자 프로필 불러오기 / 통신 성공")
                     _userProfile.value = response.body()!!.data
 
                 } else {
                     Log.d("eunseo", "응답 없음")
                 }
             }
-
             override fun onFailure(call: Call<UserProResultDTO>, t: Throwable) {
-                Log.d("profileFailure", t.message.toString())
-                Log.d("eunseo", "통신 실패")
+                Log.d("onFailure", "사용자 프로필 불러오기 / 통신 실패")
             }
 
         })
@@ -74,6 +73,21 @@ class ApiFetchr {
 //    }
 
     //프로필 수정
+    var _userProfileEdit = MutableLiveData<UserDTO>()
+    fun loadUserProfileEditDTO(userDTO : UserDTO?) {
+        val call = apiInterface.updateUserProfile(userDTO!!)
+        call.enqueue(object : Callback<ResultDTO>{
+            override fun onResponse(call: Call<ResultDTO>, response: Response<ResultDTO>) {
+                Log.d("onResponse", "프로필 수정 / 통신 성공")
+                _userProfileEdit.value = userDTO!!
+            }
+
+            override fun onFailure(call: Call<ResultDTO>, t: Throwable) {
+                Log.d("onFailure", "프로필 수정 / 통신 실패")
+            }
+
+        })
+    }
     //프로필 공유
     //테이프 게시글 등록
     //게시물 삭제
@@ -83,7 +97,26 @@ class ApiFetchr {
         return fetchMetaDTO(call)
     }
     //좋아요한 곡 불러오기
+
     //검색페이지
+    var _userSearch = MutableLiveData<List<UserResultInnerDTO>>()
+    fun loadUserSearchDTO(keyWord : String) {
+        val call = apiInterface.userSearch(keyWord)
+        call.enqueue(object : Callback<UserResultDTO>{
+            override fun onResponse(call: Call<UserResultDTO>, response: Response<UserResultDTO>) {
+                Log.d("onResponse", "검색 페이지 / 통신 성공")
+                Log.d("onResponse", "keyWord = " + keyWord)
+                Log.d("onResponse", "오류메세지 = " + response.message())
+                _userSearch.value = response.body()!!.data
+            }
+
+            override fun onFailure(call: Call<UserResultDTO>, t: Throwable) {
+                Log.d("onFailure", "검색 페이지 / 통신 실패")
+            }
+
+        })
+    }
+
     //좋아요순 테이프 불러오기
     //알림정보 불러오기
     //오늘의 테이프 등록

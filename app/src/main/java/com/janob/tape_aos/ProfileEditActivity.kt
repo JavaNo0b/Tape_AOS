@@ -22,20 +22,35 @@ class ProfileEditActivity : AppCompatActivity() {
 
     //lateinit var imageBitmap : Bitmap
 
-    private lateinit var imageUri : Uri
+    private var imageUri : Uri? = null
     private lateinit var imageView : ImageView
 
     private lateinit var my_user : UserDTO
 
     private val gson : Gson = Gson()
 
+    val gallery : ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK){
+                val intent = it.data
+                intent?.data?.let{
+                    imageUri = it
+                    imageView.setImageURI(imageUri)
+                    Log.d("eunseo", "uri1 = " + imageUri.toString())
+
+                }
+            } else {
+                imageUri = null
+            }
+        }
+
     private val model : ProfileEditViewModel by viewModels()
-    private fun apiLoad(userDTO : UserDTO){
-        model.loadUserProfileEdit(userDTO)
+    private fun apiLoad(userDTO : UserDTO?){
+        model.loadUserProfileEdit(userDTO!!)
         model.userProfileEdit.observe(this, Observer { my_user ->
-            my_user.userNickname = userDTO.userNickname
-            my_user.introduce = userDTO.introduce
-            my_user.profileImage = userDTO.profileImage
+            my_user?.userNickname = userDTO?.userNickname
+            my_user?.introduce = userDTO?.introduce
+            my_user?.profileImage = userDTO?.profileImage
         })
     }
 
@@ -75,7 +90,12 @@ class ProfileEditActivity : AppCompatActivity() {
 
             //TapeDatabase.Instance(this).userDao().updateUserNameByUserKey(name, 1)
             //TapeDatabase.Instance(this).userDao().updateUserCommentByUserKey(comment, 1)
-            apiLoad(UserDTO(name, comment, imageUri.toString()))
+            if(imageUri == null){
+                apiLoad(UserDTO(name, comment, null))
+            } else{
+                apiLoad(UserDTO(name, comment, imageUri.toString()))
+            }
+
 
             finish()
         }
@@ -95,18 +115,7 @@ class ProfileEditActivity : AppCompatActivity() {
         binding.profileUserCommentEdittextEt.setText(user.introduce)
     }
 
-    val gallery : ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == RESULT_OK){
-                val intent = it.data
-                intent?.data?.let{
-                    imageUri = it
-                    imageView.setImageURI(imageUri)
-                    Log.d("eunseo", "uri1 = " + imageUri.toString())
 
-                }
-            }
-        }
 
     // 갤러리 변수
     /*

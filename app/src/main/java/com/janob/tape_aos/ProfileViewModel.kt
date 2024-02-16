@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ProfileViewModel : ViewModel() {
     private val apiFetchr = ApiFetchr()
 
-    @get:JvmName("UserInnerDTO")
+    @get:JvmName("userProfile_UserInnerDTO")
     val userProfile : LiveData<UserInnerDTO>
         get() = apiFetchr._userProfile
 

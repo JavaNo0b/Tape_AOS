@@ -7,12 +7,12 @@ class ProfileEditViewModel(userDTO : UserDTO) : ViewModel() {
     private val apiFetchr = ApiFetchr()
     //private var userDTO = userDTO
 
-    @get:JvmName("UserDTO")
+    @get:JvmName("userProfileEdit_UserDTO")
     val userProfileEdit : LiveData<UserDTO>
         get() = apiFetchr._userProfileEdit
 
-    fun loadUserProfileEdit(userDTO : UserDTO){
-        apiFetchr.loadUserProfileEditDTO(userDTO)
+    fun loadUserProfileEdit(userDTO : UserDTO?){
+        apiFetchr.loadUserProfileEditDTO(userDTO!!)
     }
     fun getUserProfileEdit() : LiveData<UserDTO>{
         return userProfileEdit

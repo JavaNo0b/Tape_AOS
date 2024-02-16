@@ -1,8 +1,6 @@
 package com.janob.tape_aos
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.janob.tape_aos.databinding.ActivityFollowBinding
 
@@ -12,6 +10,8 @@ class FollowActivity : AppCompatActivity() {
     private val information = arrayListOf("팔로워", "팔로잉")
 
     lateinit var userDatas : List<User>
+
+    lateinit var searchRVAdapter : SearchRVAdapter
 
     private var search_list = ArrayList<User>()
     private var original_list = ArrayList<User>()
@@ -51,40 +51,40 @@ class FollowActivity : AppCompatActivity() {
         //
         //
         // adapter 변수 선언
-        val searchRVAapter = SearchRVAdapter(userDatas)
-
-        original_list = ArrayList(userDatas)
-
-        // editText 리스너 작성
-        val editText = binding.followerEdittextEt
-
-        //
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // X
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // X
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                var searchText : String = editText.text.toString()
-                search_list.clear()
-
-                if(searchText == ""){
-                    searchRVAapter.setItems(original_list)
-                }
-                else{
-                    for(i in 0..original_list.size - 1){
-                        if(original_list[i].name!!.toLowerCase().contains(searchText.toLowerCase())){
-                            search_list.add(original_list[i])
-                        }
-                        searchRVAapter.setItems(search_list)
-                    }
-                }
-            }
-
-        })
+//        val searchRVAapter = SearchRVAdapter(userDatas)
+//
+//        original_list = ArrayList(userDatas)
+//
+//        // editText 리스너 작성
+//        val editText = binding.followerEdittextEt
+//
+//        //
+//        editText.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                // X
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                // X
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                var searchText : String = editText.text.toString()
+//                search_list.clear()
+//
+//                if(searchText == ""){
+//                    searchRVAapter.setItems(original_list)
+//                }
+//                else{
+//                    for(i in 0..original_list.size - 1){
+//                        if(original_list[i].name!!.toLowerCase().contains(searchText.toLowerCase())){
+//                            search_list.add(original_list[i])
+//                        }
+//                        searchRVAapter.setItems(search_list)
+//                    }
+//                }
+//            }
+//
+//        })
     }
 }

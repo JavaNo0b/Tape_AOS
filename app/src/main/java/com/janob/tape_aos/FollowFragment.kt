@@ -1,8 +1,6 @@
 package com.janob.tape_aos
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,41 +78,41 @@ class FollowFragment() : Fragment() {
         //
         //
         // adapter 변수 선언
-        val searchRVAapter = SearchRVAdapter(userDatas)
-
-        original_list = ArrayList(userDatas)
-
-        // editText 리스너 작성
-        val editText = binding.followEdittextEt
-
-        //
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // X
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // X
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                var searchText : String = editText.text.toString()
-                search_list.clear()
-
-                if(searchText == ""){
-                    searchRVAapter.setItems(original_list)
-                }
-                else{
-                    for(i in 0..original_list.size - 1){
-                        if(original_list[i].name!!.toLowerCase().contains(searchText.toLowerCase())){
-                            search_list.add(original_list[i])
-                        }
-                        searchRVAapter.setItems(search_list)
-                    }
-                }
-            }
-
-        })
+//        val searchRVAapter = SearchRVAdapter(userDatas)
+//
+//        original_list = ArrayList(userDatas)
+//
+//        // editText 리스너 작성
+//        val editText = binding.followEdittextEt
+//
+//        //
+//        editText.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                // X
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                // X
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                var searchText : String = editText.text.toString()
+//                search_list.clear()
+//
+//                if(searchText == ""){
+//                    searchRVAapter.setItems(original_list)
+//                }
+//                else{
+//                    for(i in 0..original_list.size - 1){
+//                        if(original_list[i].name!!.toLowerCase().contains(searchText.toLowerCase())){
+//                            search_list.add(original_list[i])
+//                        }
+//                        searchRVAapter.setItems(search_list)
+//                    }
+//                }
+//            }
+//
+//        })
 
         return binding.root
     }

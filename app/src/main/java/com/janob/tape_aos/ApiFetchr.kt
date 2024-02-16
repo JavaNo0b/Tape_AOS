@@ -42,8 +42,8 @@ class ApiFetchr {
         val call = apiInterface.getUserProfile()
         call.enqueue(object : Callback<UserProResultDTO>{
             override fun onResponse(call: Call<UserProResultDTO>, response: Response<UserProResultDTO>) {
-                Log.d("eunseo", "ApiFetchr - onResponse - isSuccess = " + response.isSuccessful.toString())
                 if(response.isSuccessful) {
+                    Log.d("onResponse", "사용자 프로필 불러오기 / 통신 성공")
                     _userProfile.value = response.body()!!.data
 
                 } else {
@@ -59,12 +59,12 @@ class ApiFetchr {
 
     //프로필 수정
     var _userProfileEdit = MutableLiveData<UserDTO>()
-    fun loadUserProfileEditDTO(userDTO : UserDTO) {
-        val call = apiInterface.updateUserProfile(userDTO)
+    fun loadUserProfileEditDTO(userDTO : UserDTO?) {
+        val call = apiInterface.updateUserProfile(userDTO!!)
         call.enqueue(object : Callback<ResultDTO>{
             override fun onResponse(call: Call<ResultDTO>, response: Response<ResultDTO>) {
                 Log.d("onResponse", "프로필 수정 / 통신 성공")
-                _userProfileEdit.value = userDTO
+                _userProfileEdit.value = userDTO!!
             }
 
             override fun onFailure(call: Call<ResultDTO>, t: Throwable) {
@@ -78,7 +78,26 @@ class ApiFetchr {
     //게시물 삭제
     //테이프 게시물 불러오기
     //좋아요한 곡 불러오기
+
     //검색페이지
+    var _userSearch = MutableLiveData<List<UserResultInnerDTO>>()
+    fun loadUserSearchDTO(keyWord : String) {
+        val call = apiInterface.userSearch(keyWord)
+        call.enqueue(object : Callback<UserResultDTO>{
+            override fun onResponse(call: Call<UserResultDTO>, response: Response<UserResultDTO>) {
+                Log.d("onResponse", "검색 페이지 / 통신 성공")
+                Log.d("onResponse", "keyWord = " + keyWord)
+                Log.d("onResponse", "오류메세지 = " + response.message())
+                _userSearch.value = response.body()!!.data
+            }
+
+            override fun onFailure(call: Call<UserResultDTO>, t: Throwable) {
+                Log.d("onFailure", "검색 페이지 / 통신 실패")
+            }
+
+        })
+    }
+
     //좋아요순 테이프 불러오기
     //알림정보 불러오기
     //오늘의 테이프 등록

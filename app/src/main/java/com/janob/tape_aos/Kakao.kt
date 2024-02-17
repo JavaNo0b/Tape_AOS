@@ -10,6 +10,7 @@ data class KakaoResponse(
 
 data class KakaoResponseSign(
     val isSignin: Boolean,
+    @SerializedName(value = "token") var jwt: String?,
 )
 
 

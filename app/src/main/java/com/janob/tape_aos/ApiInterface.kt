@@ -69,7 +69,7 @@ interface ApiInterface {
 
     //알림정보 불러오기
     @GET("alarm/all")
-    fun fetchAlarmAll(jwt:String): Call<AlarmResultDTO>
+    fun fetchAlarmAll(@Header("Authorization") token: String): Call<AlarmResultDTO>
 
     //오늘의 테이프 등록
     @POST("tape/today")

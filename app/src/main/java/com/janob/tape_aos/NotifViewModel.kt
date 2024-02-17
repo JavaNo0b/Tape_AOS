@@ -19,16 +19,21 @@ class NotifViewModel : ViewModel() {
 
     var NotifLiveData : MutableLiveData<AlarmResultDTO> = MutableLiveData()
 
-    init{
+/*    init{
+        NotifLiveData.value = apiFetchr.fetchAlarmAll(jwtView).value
+        Log.d("message11", NotifLiveData.toString())
+        //NotifLiveData.value = apiFetchr.fetchAlarmAll().value
+    }*/
+
+    fun checklivedata(jwt: String){
+        jwtView = jwt
         NotifLiveData.value = apiFetchr.fetchAlarmAll(jwtView).value
         Log.d("message11", NotifLiveData.toString())
         //NotifLiveData.value = apiFetchr.fetchAlarmAll().value
     }
-
-
-    fun viewmodel(jwt: String){
+/*    fun viewmodel(jwt: String){
         jwtView = jwt
-    }
+    }*/
 
 //
 //    fun fetchAlarmAll() {

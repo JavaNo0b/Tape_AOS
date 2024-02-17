@@ -42,7 +42,7 @@ class NotifFragment : Fragment(){
         binding = FragmentNotifBinding.inflate(inflater, container, false)
 
         Log.d("message", "hi")
-        viewModel.viewmodel(getJwt().toString())
+        viewModel.checklivedata(getJwt()!!)
 
         /*val Notiflist = mutableListOf<Alarm>().apply{
             add(Alarm(Alarm.notif_1, "", "", false,true))

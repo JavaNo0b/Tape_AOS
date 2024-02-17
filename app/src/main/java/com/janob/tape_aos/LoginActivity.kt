@@ -23,8 +23,9 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     inner class NextActivityHandler {
-        fun launchMainActivity() {
+        fun launchMainActivity(token : String) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("jwt", token)
             startActivity(intent)
             finish()
         }
@@ -157,7 +158,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("searchKakaoInfo_resp", resp?.success.toString())
                 if(resp.success) {
 //                    Log.d("searchKakaoInfo[SUCCESS]", resp.message)
-                    NextActivity(resp.data.isSignin, userEmail)
+                    NextActivity(resp.data.isSignin, userEmail, resp.data.jwt)
                 }else {
 //                    Log.d("searchKakaoInfo[Failure]", resp.message)
                 }
@@ -170,11 +171,18 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    fun NextActivity(isSignIn: Boolean, userEmail: String) {
+    fun NextActivity(isSignIn: Boolean, userEmail: String, jwt : String?) {
         if (isSignIn) {
-            nextActivityHandler.launchMainActivity()
+            val token = getJwt()
+            Log.d("Login1111", token!!)
+            nextActivityHandler.launchMainActivity(token!!)
         } else {
             nextActivityHandler.launchOnboardActivity(userEmail)
         }
+    }
+
+    private fun getJwt(): String? {
+        val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        return spf.getString("jwt", null)
     }
 }

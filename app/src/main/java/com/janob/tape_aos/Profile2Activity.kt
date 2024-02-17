@@ -227,7 +227,7 @@ class Profile2Activity : AppCompatActivity() {
     private fun saveJwt(jwt: String) {
         val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         val editor = spf.edit()
-
+        Log.d("Login1111", jwt)
         // 키 값 : "jwt", 인자값 : jwt
         editor.putString("jwt", jwt)
         editor.apply()

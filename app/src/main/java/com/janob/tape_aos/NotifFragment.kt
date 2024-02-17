@@ -1,7 +1,5 @@
 package com.janob.tape_aos
 
-
-import NotifRVAdapter
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -73,14 +71,14 @@ class NotifFragment : Fragment(){
             }
             Log.d("message", AlarmResultDTO.toString())
         })*/
-/*
+        /*
 
-        notifAdapter = NotifRVAdapter()
-        binding.notifRv.adapter=notifAdapter
-        binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                notifAdapter = NotifRVAdapter()
+                binding.notifRv.adapter=notifAdapter
+                binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        return binding.root
-*/
+                return binding.root
+        */
 
         notifAdapter = NotifRVAdapter(emptyList())
         binding.notifRv.adapter=notifAdapter
@@ -121,7 +119,7 @@ class NotifFragment : Fragment(){
         Log.d("message", "hi")
         //viewModel.fetchAlarmAll()
         viewModel.NotifLiveData.observe(viewLifecycleOwner, Observer {
-            alarmResultDTO ->
+                alarmResultDTO ->
             alarmResultDTO?.data?.let { data ->
                 Log.d("message", alarmResultDTO.data.toString())
                 notif(alarmResultDTO.data)

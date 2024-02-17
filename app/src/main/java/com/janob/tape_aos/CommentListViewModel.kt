@@ -16,6 +16,6 @@ class CommentListViewModel: ViewModel() {
     }
     init{
         tapeIdLiveData.value = tapeId
-        commentListLiveData.value = apiFetchr.fetchAlbumDTO(tapeId).value!!.albumData.comment
+        commentListLiveData.value = apiFetchr.fetchAlbumDTO(tapeId).value?.albumData?.comment
     }
 }

@@ -224,30 +224,31 @@
 <!--        app:layout_constraintEnd_toEndOf="@id/otherprofile_following_num_tv"-->
 <!--        app:layout_constraintTop_toBottomOf="@id/otherprofile_following_num_tv"/>-->
 
-    <ToggleButton
-        android:id="@+id/otherprofile_follow_toggle_btn"
+<!--    <ToggleButton-->
+<!--        android:id="@+id/otherprofile_follow_toggle_btn"-->
+<!--        android:layout_width="169dp"-->
+<!--        android:layout_height="33dp"-->
+<!--        android:background="@drawable/follow_unclicked_btn"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textOff="팔로우"-->
+<!--        android:textOn="팔로잉"-->
+<!--        android:layout_marginTop="17dp"-->
+<!--        app:layout_constraintStart_toStartOf="@id/otherprofile_profile_iv"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/oherprofile_profile_share_btn"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/otherprofile_follower_ll"/>-->
+
+    <Button
+        android:id="@+id/otherprofile_follow_btn"
         android:layout_width="169dp"
         android:layout_height="33dp"
-        android:background="@drawable/follow_unclicked_btn"
+        android:text="팔로우"
         android:textColor="@color/white"
-        android:textOff="팔로우"
-        android:textOn="팔로잉"
+        android:background="@drawable/follow_unclicked_btn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_marginTop="17dp"
         app:layout_constraintStart_toStartOf="@id/otherprofile_profile_iv"
         app:layout_constraintEnd_toStartOf="@id/oherprofile_profile_share_btn"
         app:layout_constraintTop_toBottomOf="@id/otherprofile_follower_ll"/>
-
-<!--    <Button-->
-<!--        android:id="@+id/otherprofile_follow_btn"-->
-<!--        android:layout_width="169dp"-->
-<!--        android:layout_height="33dp"-->
-<!--        android:text="팔로우"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:background="@drawable/follow_unclicked_btn"-->
-<!--        android:layout_marginTop="17dp"-->
-<!--        app:layout_constraintStart_toStartOf="@id/otherprofile_profile_iv"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/oherprofile_profile_share_btn"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/otherprofile_follower_text_tv"/>-->
 
     <Button
         android:id="@+id/oherprofile_profile_share_btn"
@@ -256,11 +257,12 @@
         android:text="프로필 공유"
         android:textColor="#4A4A4A"
         android:background="@drawable/follow_clicked_btn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_marginStart="9dp"
-        app:layout_constraintStart_toEndOf="@id/otherprofile_follow_toggle_btn"
+        app:layout_constraintStart_toEndOf="@id/otherprofile_follow_btn"
         app:layout_constraintEnd_toEndOf="@id/otherprofile_profile_iv"
-        app:layout_constraintTop_toTopOf="@id/otherprofile_follow_toggle_btn"
-        app:layout_constraintBottom_toBottomOf="@id/otherprofile_follow_toggle_btn"/>
+        app:layout_constraintTop_toTopOf="@id/otherprofile_follow_btn"
+        app:layout_constraintBottom_toBottomOf="@id/otherprofile_follow_btn"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/otherprofile_content_tb"
@@ -272,7 +274,7 @@
         app:tabRippleColor="#00ff0000"
         app:layout_constraintStart_toStartOf="@id/otherprofile_profile_iv"
         app:layout_constraintEnd_toEndOf="@id/otherprofile_profile_iv"
-        app:layout_constraintTop_toBottomOf="@id/otherprofile_follow_toggle_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/otherprofile_follow_btn"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/otherprofile_content_vp"

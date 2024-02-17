@@ -1,57 +1,103 @@
 package com.janob.tape_aos
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.ImageView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.janob.tape_aos.databinding.ActivityProfileEditBinding
 
 class ProfileEditActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityProfileEditBinding
     lateinit var user : User
-    lateinit var tapeDatas : List<Tape>
 
-    lateinit var imageBitmap : Bitmap
+    //lateinit var imageBitmap : Bitmap
+
+    private var imageUri : Uri? = null
+    private lateinit var imageView : ImageView
+
+    private lateinit var my_user : UserDTO
+
+    private val gson : Gson = Gson()
+
+    val gallery : ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK){
+                val intent = it.data
+                intent?.data?.let{
+                    imageUri = it
+                    imageView.setImageURI(imageUri)
+                    Log.d("eunseo", "uri1 = " + imageUri.toString())
+
+                }
+            } else {
+                imageUri = null
+            }
+        }
+
+    private val model : ProfileEditViewModel by viewModels()
+    private fun apiLoad(userDTO : UserDTO?){
+        model.loadUserProfileEdit(userDTO!!)
+        model.userProfileEdit.observe(this, Observer { my_user ->
+            my_user?.userNickname = userDTO?.userNickname
+            my_user?.introduce = userDTO?.introduce
+            my_user?.profileImage = userDTO?.profileImage
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // RoomDB 데이터 받기
-        user = TapeDatabase.Instance(this).userDao().getMyUser(1)
-        tapeDatas = TapeDatabase.Instance(this).tapeDao().getAll()
+        //
+        imageView = binding.profileEditUserImgIv
 
-        // 초기 설정
-        binding.profileEditUserImgIv.setImageResource(user.userImg!!)
-        binding.profileUserNameEdittextEt.setText(user.name)
-        binding.profileUserCommentEdittextEt.setText(user.comment)
+        // init
+        user = TapeDatabase.Instance(this).userDao().getMyUser(1)
+
+        val userJson = intent.getStringExtra("pass_user")
+        Log.d("eunseo", "ProfileEditActivity - init - userJson is null? = " + userJson.toString())
+        my_user = gson.fromJson(userJson, UserDTO::class.java) //???
+        Log.d("eunseo", "ProfileEditActivity - init - my_user.name = " + my_user?.userNickname)
+        setInit(my_user)
 
         // 갤러리 앱
         binding.profileEditUserImgIv.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
-            requestGalleryLaucher.launch(intent)
+            gallery.launch(intent)
         }
 
         // 수정 완료 버튼
         binding.profileEditCompleteBtn.setOnClickListener {
             val name = binding.profileUserNameEdittextEt.text.toString()
             val comment = binding.profileUserCommentEdittextEt.text.toString()
-            binding.profileUserNameEdittextEt.setText(name)
-            binding.profileUserCommentEdittextEt.setText(comment)
 
-            var followerList : List<String> = arrayListOf("follower1", "follower2", "follower3", "follower4", "follower5", "follower6", "follower7", "follower8", "follower9")
-            var followingList : List<String> = arrayListOf("following1", "following2", "following3", "following4", "following5", "following6", "following7", "following8", "following9")
-            val user = User(1, R.drawable.user_profile_img, name, comment, followerList, followingList, tapeDatas, user.id)
-            TapeDatabase.Instance(this).userDao().update(user)
+            // uri를 user db에 저장 -> 나중에 구현
+            //val setImageUri : Uri? = (imageUri.toString())?.let { Uri.parse(it) }
+            //binding.profileEditUserImgIv.setImageURI(setImageUri)
+            //TapeDatabase.Instance(this).userDao().updateUserImgByUserKey(imageUri.toString(), 1)
 
+            //TapeDatabase.Instance(this).userDao().updateUserNameByUserKey(name, 1)
+            //TapeDatabase.Instance(this).userDao().updateUserCommentByUserKey(comment, 1)
+            if(imageUri == null){
+                apiLoad(UserDTO(name, comment, null))
+            } else{
+                apiLoad(UserDTO(name, comment, imageUri.toString()))
+            }
+
+
+            finish()
         }
 
         // 취소 버튼
@@ -61,7 +107,18 @@ class ProfileEditActivity : AppCompatActivity() {
 
     }
 
+    private fun setInit(user : UserDTO){
+        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
+        //binding.profileEditUserImgIv.setImageResource(user.userImg!!)
+        Glide.with(this).load(user.profileImage).into(binding.profileEditUserImgIv)
+        binding.profileUserNameEdittextEt.setText(user.userNickname)
+        binding.profileUserCommentEdittextEt.setText(user.introduce)
+    }
+
+
+
     // 갤러리 변수
+    /*
     val requestGalleryLaucher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult())
     {
@@ -81,7 +138,8 @@ class ProfileEditActivity : AppCompatActivity() {
 
             bitmap?.let {
                 binding.profileEditUserImgIv.setImageBitmap(bitmap)
-                imageBitmap = bitmap
+                //imageBitmap = bitmap
+                imageUri = bitmapToUri(bitmap)
             } ?: let {
                 Log.d("kkang", "bitmap null")
             }
@@ -89,6 +147,7 @@ class ProfileEditActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
 
     // 갤러리 함수
     fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int{
@@ -120,4 +179,13 @@ class ProfileEditActivity : AppCompatActivity() {
         }
         return inSampleSize
     }
+
+    private fun bitmapToUri(bitmap : Bitmap) : Uri {
+        val context = applicationContext
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path)
+    }
+    */
 }

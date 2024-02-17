@@ -13,12 +13,10 @@ class FollowingFragment : Fragment() {
 
     lateinit var binding : FragmentFollowingBinding
     lateinit var userDatas : List<User>
-    lateinit var tapeDatas : List<Tape>
 
     lateinit var followRVAdapter : FollowRVAdapter
 
     // 팔로잉 리스트 대로 userDatas 재설정 변수
-    private var following_list_status : String = ""
     private var following_list = ArrayList<String>()
 
     override fun onCreateView(
@@ -28,21 +26,15 @@ class FollowingFragment : Fragment() {
     ): View? {
         binding = FragmentFollowingBinding.inflate(inflater, container, false)
 
-        // RoomDB 데이터 받기(activity = FollowActivity, frag = MainAcitivity)
-        tapeDatas = TapeDatabase.Instance(context as MainActivity).tapeDao().getAll()
-        userDatas = TapeDatabase.Instance(context as MainActivity).userDao().getAll()
-
-        // 팔로잉 리스트 대로 userDatas 재설정
-        if(following_list_status != null && following_list_status == "set_following_list"){
-            var change_userDatas = ArrayList<User>()
-            for(i in 0..following_list.size - 1){
-                var user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(following_list[i])
-                change_userDatas.add(user)
-            }
-            userDatas = change_userDatas
+        // ** userDatas 초기화 **
+        var change_following_list = ArrayList<User>()
+        for(i in 0 until following_list.size){
+            var change_user = TapeDatabase.Instance(context as MainActivity).userDao().getUserByName(following_list[i])
+            change_following_list.add(change_user)
         }
+        userDatas = change_following_list.toList()
 
-        // adapter 변수 선언
+        // ** adapter 변수 선언 **
         followRVAdapter = FollowRVAdapter(userDatas)
 
         // ** Recycler Adapter : search_user_rv **
@@ -70,8 +62,7 @@ class FollowingFragment : Fragment() {
     }
 
     // 팔로잉 리스트 대로 userDatas 재설정 함수
-    fun setFollowingListStatus(s : String, list: ArrayList<String>){
-        following_list_status = s
+    fun setFollowingListStatus(list: ArrayList<String>){
         this.following_list = list
     }
 }

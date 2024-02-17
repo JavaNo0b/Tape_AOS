@@ -43,19 +43,19 @@ class PostIntroductionFragment : Fragment() {
         }
     }
     val callBack : ActivityResultLauncher<Intent> =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == RESULT_OK){
-            val intent = it.data
-            intent?.data?.let{
-                imageUri = it
-                imageView.setImageURI(imageUri)
-                //뷰모델에 저장
-                imageUri = imageUri
-                imageIcView.visibility = View.INVISIBLE
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK){
+                val intent = it.data
+                intent?.data?.let{
+                    imageUri = it
+                    imageView.setImageURI(imageUri)
+                    //뷰모델에 저장
+                    imageUri = imageUri
+                    imageIcView.visibility = View.INVISIBLE
 
+                }
             }
         }
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

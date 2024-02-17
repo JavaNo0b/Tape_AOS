@@ -170,7 +170,7 @@ class Profile3Activity : AppCompatActivity() {
                             //Log.d("postUser_resp", signUp.toString())
                             Log.d("postUser_resp", resp.data.token)
                             //KaKaoApplication.prefs.setString("accessToken", resp.data.token)
-                            Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                            //Log.d("postUser_resp", KaKaoApplication.prefs.toString())
                             saveJwt(resp.data.token)
                             startActivity(Intent(this@Profile3Activity, MainActivity::class.java))
                         }else{
@@ -185,6 +185,8 @@ class Profile3Activity : AppCompatActivity() {
                 })
         }
     }
+
+
 }
         /*service.signupProfile(signUp).enqueue(object : Callback<UserProfileResponse> {
             override fun onResponse(

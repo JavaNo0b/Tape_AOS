@@ -255,8 +255,8 @@ class Profile2Activity : AppCompatActivity() {
                                 //Log.d("postUser_resp", signUp.toString())
                                 Log.d("postUser_resp", resp.data.token)
                                 // SharedPreference 에 accessToken 저장
-                                KaKaoApplication.prefs.setString("accessToken", resp.data.token)
-                                Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                                //KaKaoApplication.prefs.setString("accessToken", resp.data.token)
+                                //.d("postUser_resp", KaKaoApplication.prefs.toString())
                                 startActivity(Intent(this@Profile2Activity, MainActivity::class.java))
                             } else {
                                 Log.d("Login1111", "postUser_resp is null")
@@ -282,8 +282,8 @@ class Profile2Activity : AppCompatActivity() {
                                 Log.d("postUser_resp", resp?.success.toString())
                                 //Log.d("postUser_resp", signUp.toString())
                                 Log.d("postUser_resp", resp.data.token)
-                                KaKaoApplication.prefs.setString("accessToken", resp.data.token)
-                                Log.d("postUser_resp", KaKaoApplication.prefs.toString())
+                                //KaKaoApplication.prefs.setString("accessToken", resp.data.token)
+                                //.d("postUser_resp", KaKaoApplication.prefs.toString())
                                 startActivity(Intent(this@Profile2Activity, MainActivity::class.java))
                             } else {
                                 Log.d("Login1111", "postUser_resp is null")

@@ -23,7 +23,7 @@ class ApiFetchr {
     init{
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://3.36.97.28:3000/")
-            .client(NetworkModule.provideOkHttpClient(NetworkModule.AppInterceptor()))
+            //.client(NetworkModule.provideOkHttpClient(NetworkModule.AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //생성

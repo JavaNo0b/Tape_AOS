@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     inner class NextActivityHandler {
         fun launchMainActivity(token : String) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.putExtra("jwt", token)
             startActivity(intent)
             finish()
         }
@@ -40,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val nextActivityHandler = NextActivityHandler()
+
 
     //외부에서 LoginActivity를 사용하기 위함
 //    init {
@@ -173,16 +173,21 @@ class LoginActivity : AppCompatActivity() {
 
     fun NextActivity(isSignIn: Boolean, userEmail: String, jwt : String?) {
         if (isSignIn) {
-            val token = getJwt()
-            Log.d("Login1111", token!!)
-            nextActivityHandler.launchMainActivity(token!!)
+            saveJwt(jwt!!)
+            Log.d("Login1111", jwt!!)
+            nextActivityHandler.launchMainActivity(jwt!!)
         } else {
             nextActivityHandler.launchOnboardActivity(userEmail)
         }
     }
 
-    private fun getJwt(): String? {
+    //jwt토큰 저장
+    private fun saveJwt(jwt: String) {
         val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        return spf.getString("jwt", null)
+        val editor = spf.edit()
+        Log.d("Login1111", jwt)
+        // 키 값 : "jwt", 인자값 : jwt
+        editor.putString("jwt", jwt)
+        editor.apply()
     }
 }

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainBottomTapeLayout.setOnClickListener{
             supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fm, PostFragment())
+                .replace(R.id.main_fm, TapeFragment())
                 .commitAllowingStateLoss()
 
             setNavigationColorNone()

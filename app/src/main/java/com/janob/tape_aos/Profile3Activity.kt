@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import com.janob.tape_aos.databinding.ActivityProfile3Binding
 import java.io.ByteArrayOutputStream
-
+/*
 class Profile3Activity : AppCompatActivity() {
 
     lateinit var binding : ActivityProfile3Binding
@@ -64,6 +64,6 @@ class Profile3Activity : AppCompatActivity() {
         return stream.toByteArray()
     }
 }
-
+*/
 
 

@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +31,44 @@ class NotifFragment : Fragment() {
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
 
+        notifRVAdapter.setMyItemClickListener(object  : NotifRVAdapter.MyItemClickListener{
+            override fun onItemClick(item : Alarm) {
+
+                if(item.id==1){
+                    moveProfileFragment()
+                }else{
+                    moveTapeFragment()
+                }
+
+            }
+        })
+
         return binding.root
     }
 
+
+    private fun moveProfileFragment(){
+
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, ProfileFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun moveTapeFragment(){
+
+        val albumFragment = AlbumFragment()
+        val bundle = Bundle()
+
+        bundle.putInt("albumId", 1)
+        albumFragment.arguments = bundle
+
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, albumFragment)
+            .addToBackStack(null)
+            .commit()
+
+    }
 
 
 }

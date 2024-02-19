@@ -1,8 +1,10 @@
 package com.janob.tape_aos
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -32,12 +34,18 @@ class MainActivity : AppCompatActivity() {
         //바텀 네비게이션
         initBottomNavigation()
 
+        findViewById<View>(android.R.id.content).setOnClickListener {
+            if (isFabOpen) {
+                toggleFab()
+            }
+        }
+
     }
 
 
     private fun initBottomNavigation() {
         val selectedColor = ContextCompat.getColor(this, R.color.navi_selected)
-        val unSelectedColor = ContextCompat.getColor(this, R.color.navi_unselected)
+
 
 
         supportFragmentManager.beginTransaction()
@@ -101,39 +109,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toggleFab() {
-        // 플로팅 액션 버튼 닫기 - 열려있는 플로팅 버튼 집어넣는 애니메이션
         if (isFabOpen) {
+            // 플로팅 액션 버튼이 열려 있는 경우 닫기 애니메이션
+            Handler().postDelayed({
+                binding.mainBottomPostTapeBtn.visibility = View.GONE
+                binding.mainBottomPostPostBtn.visibility = View.GONE
+            }, 500)
             ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 45f, 0f).apply { start() }
             binding.mainBottomPostBtn.backgroundTintList = getColorStateList(R.color.navi_unselected)
-
-        } else { // 플로팅 액션 버튼 열기 - 닫혀있는 플로팅 버튼 꺼내는 애니메이션
-
-            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", -360f).apply { start() }
-            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", -180f).apply { start() }
+        } else {
+            // 플로팅 액션 버튼이 닫혀 있는 경우 열기 애니메이션
+            binding.mainBottomPostTapeBtn.visibility = View.VISIBLE
+            binding.mainBottomPostPostBtn.visibility = View.VISIBLE
+            ObjectAnimator.ofFloat(binding.mainBottomPostTapeBtn, "translationY", -200f).apply { start() }
+            ObjectAnimator.ofFloat(binding.mainBottomPostPostBtn, "translationY", -400f).apply { start() }
             ObjectAnimator.ofFloat(binding.mainBottomPostBtn, View.ROTATION, 0f, 45f).apply { start() }
             binding.mainBottomPostBtn.backgroundTintList = getColorStateList(R.color.navi_selected)
+
         }
 
-        fabOnClick()
 
         isFabOpen = !isFabOpen
 
+        fabOnClick()
     }
 
     private fun fabOnClick(){
         //테이프 등록 페이지로 이동
         binding.mainBottomPostTapeBtn.setOnClickListener {
+            setNavigationColorNone()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, PostFragment())
                 .commitAllowingStateLoss()
         }
         binding.mainBottomPostPostBtn.setOnClickListener {
-            //게시물 등록 페이지로 이동
-            supportFragmentManager.beginTransaction()
-                //.replace(R.id.main_fm, ProfilePostFragment())
-                //.commitAllowingStateLoss()
+            setNavigationColorNone()
+            startActivity(Intent(this, ProfilePostActivity::class.java))
         }
     }
 }

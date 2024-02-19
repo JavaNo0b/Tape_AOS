@@ -156,20 +156,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/main_bottom_post_btn"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:src="@drawable/post_btn"
-        app:rippleColor="@color/navi_selected"
-        app:fabCustomSize="34dp"
-        android:backgroundTint="@color/navi_unselected"
-        app:borderWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/main_bottom_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="11dp"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_bottom_post_tape_btn"
@@ -184,7 +171,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/main_bottom_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="10.5dp"/>
+        app:elevation="11dp"
+        android:visibility="gone"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_bottom_post_post_btn"
         android:layout_width="34dp"
@@ -198,7 +186,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/main_bottom_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="10.5dp"/>
-
+        app:elevation="11dp"
+        android:visibility="gone"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_bottom_post_btn"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@drawable/post_btn"
+        app:rippleColor="@color/navi_selected"
+        app:fabCustomSize="34dp"
+        android:backgroundTint="@color/navi_unselected"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/main_bottom_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="11dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

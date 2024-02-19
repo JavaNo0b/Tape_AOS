@@ -75,13 +75,12 @@ class TapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // onViewCreated에서 ViewModel을 초기화
-        todayTapeListViewModel = ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
-
-        // onViewCreated에서 JWT 토큰을 가져와서 ViewModel에 설정
+        // JWT 토큰 가져오기
         val jwtToken = getJwt()
         if (jwtToken != null) {
-            todayTapeListViewModel.setJwtToken(jwtToken)
+            // ViewModel을 초기화할 때 JWT 토큰 전달
+            val factory = TodayTapeListViewModelFactory(jwtToken)
+            todayTapeListViewModel = ViewModelProvider(this, factory).get(TodayTapeListViewModel::class.java)
         } else {
             Log.e("TapeFragment", "JWT token is null")
         }

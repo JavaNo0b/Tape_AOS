@@ -19,15 +19,12 @@ class TapeFragment : Fragment() {
 
     lateinit var tapeAlbumRVAdapter:TapeAlbumRVAdapter
     lateinit var tapeAlbumRV :RecyclerView
+    lateinit var todayTapeListViewModel: TodayTapeListViewModel
 
-    //오늘의 테이프 api 연동
-    private lateinit var todayTapeListViewModel: TodayTapeListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ViewModelProvider를 사용하여 ViewModel을 초기화
-        todayTapeListViewModel = ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
     }
 
 //    private val todayTapeListViewModel : TodayTapeListViewModel by lazy {
@@ -78,7 +75,10 @@ class TapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // onViewCreated에서 ViewModel에 토큰을 설정
+        // onViewCreated에서 ViewModel을 초기화
+        todayTapeListViewModel = ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
+
+        // onViewCreated에서 JWT 토큰을 가져와서 ViewModel에 설정
         val jwtToken = getJwt()
         if (jwtToken != null) {
             todayTapeListViewModel.setJwtToken(jwtToken)
@@ -89,6 +89,7 @@ class TapeFragment : Fragment() {
         todayTapeListViewModel.todayTapeListLiveData?.observe(
             viewLifecycleOwner,
             Observer{
+
                 response -> Log.d("tape fragment" ,"now today tapes $response")
                 if(response!=null)
                     tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())

@@ -6,29 +6,51 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 
-class TodayTapeListViewModel:ViewModel() {
+//class TodayTapeListViewModel:ViewModel() {
+//    private val apiFetchr = ApiFetchr()
+//    var todayTapeListLiveData : MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()
+//
+//    private var cursor :Int = 0
+//    var cursorLiveData :MutableLiveData<Int> = MutableLiveData()
+//    var jwt : String = ""
+//
+//    init{
+//
+//        //테이프 페이징
+//        cursorLiveData.value = cursor
+//        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwt, cursor) }
+//                                        .value?.data
+//    }
+//    fun nextPage(){
+//        cursor++
+//    }
+//
+//    // ViewModel 내에서 JWT 토큰 사용하기
+//    fun setJwtToken(jwtToken: String) {
+//        jwt = jwtToken
+//    }
+//
+//
+//}
+class TodayTapeListViewModel : ViewModel() {
     private val apiFetchr = ApiFetchr()
-    var todayTapeListLiveData : MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()
+    var todayTapeListLiveData: MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()
 
-    private var cursor :Int = 0
-    var cursorLiveData :MutableLiveData<Int> = MutableLiveData()
-    var jwt : String = ""
+    private var cursor: Int = 0
+    var cursorLiveData: MutableLiveData<Int> = MutableLiveData()
+    var jwt: String = ""
 
-    init{
-
-        //테이프 페이징
-        cursorLiveData.value = cursor
-        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwt, cursor) }
-                                        .value?.data
-    }
-    fun nextPage(){
+    fun nextPage() {
         cursor++
     }
 
     // ViewModel 내에서 JWT 토큰 사용하기
     fun setJwtToken(jwtToken: String) {
         jwt = jwtToken
+        // 토큰 설정 후 API 호출
+        cursorLiveData.value = cursor
+        todayTapeListLiveData.value =
+            cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwt, cursor) }
+                .value?.data
     }
-
-
 }

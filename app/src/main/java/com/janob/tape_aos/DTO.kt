@@ -115,7 +115,7 @@ data class LikedTapeInnerDTO(
 data class AlarmResultDTO(
     @SerializedName("success") var success: Boolean,
     @SerializedName("message") var message:String,
-    @SerializedName("data") var data:List<AlarmInnerDTO>
+    @SerializedName("data") var data:List<List<AlarmInnerDTO>>
 )
 data class AlarmInnerDTO(
     @SerializedName("tapeId") var tapeId:Int,

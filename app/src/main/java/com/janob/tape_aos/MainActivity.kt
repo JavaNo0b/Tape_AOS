@@ -1,24 +1,33 @@
 package com.janob.tape_aos
 
 import android.animation.ObjectAnimator
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.janob.tape_aos.databinding.ActivityMainBinding
 import com.kakao.sdk.common.util.Utility
 
 private const val TAG1 = "MAIN_ACTIVITY"
+
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private var isFabOpen = false
-
 
 
 
@@ -33,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
 
     }
+
 
 
     private fun initBottomNavigation() {

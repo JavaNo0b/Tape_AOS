@@ -156,6 +156,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
                 val resp = response.body()!!
                 Log.d("searchKakaoInfo_resp", resp?.success.toString())
+                Log.d("searchKakaoInfo_resp", resp?.message.toString())
                 if(resp.success) {
 //                    Log.d("searchKakaoInfo[SUCCESS]", resp.message)
                     NextActivity(resp.data.isSignin, userEmail, resp.data.jwt)

@@ -1,5 +1,7 @@
 package com.janob.tape_aos
 
+
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -40,7 +42,7 @@ class Profile2Activity : AppCompatActivity() {
 
         binding.profile2PicIv.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             requestGalleryLauncher.launch(intent)
 
@@ -156,41 +158,56 @@ class Profile2Activity : AppCompatActivity() {
 
 
     fun uriToFile(context: Context, uri: Uri): File? {
+        Log.d("mess", context.toString())
+        Log.d("mess", uri.toString())
         val projection = arrayOf(MediaStore.Images.Media.DATA)
+        Log.d("mess", MediaStore.Images.Media.DATA)
         val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        Log.d("mess", cursor.toString())
+        Log.d("mess", "틀렷다5")
         cursor?.use {
+            Log.d("mess", "틀렷다55")
             if (it.moveToFirst()) {
                 val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                 val filePath = it.getString(columnIndex)
                 if (!filePath.isNullOrEmpty()) {
+                    Log.d("mess", "틀렷다6")
                     return File(filePath)
                 }
             }
         }
+        Log.d("mess", "틀렷다7")
         return null
+
+
     }
 
     private fun postImage(email : String, nickname: String, Intro : String?, imageUri: Uri) {  //회원 정보 서버 저장(일단 이미지 자르기빼고 인텐트로 받아온 이미지 저장)
         val service = getRetrofit().create(RetrofitInterface::class.java)
 
-        val source = ImageDecoder.createSource(application.contentResolver, imageUri)
-        val bit = ImageDecoder.decodeBitmap(source)
+        //val source = ImageDecoder.createSource(application.contentResolver, imageUri)
+        //val bit = ImageDecoder.decodeBitmap(source)
 
-        val tempUri: Uri = getImageUriFromBitmap( applicationContext , bit)
+        //val tempUri: Uri = getImageUriFromBitmap( applicationContext , bit)
 
         Log.d("Login1111", email)
         Log.d("Login1111", nickname)
         Log.d("Login1111", Intro.toString())
-        Log.d("Login1111", tempUri.toString())
-        val fileToUpload = if (tempUri != null) {
+        Log.d("Login1111", imageUri.toString())
+        //Log.d("Login1111", tempUri.toString())
+        val fileToUpload = if (imageUri != null) {
+            Log.d("mess", "틀렷다1")
             // URI를 파일로 변환
-            val file = uriToFile(this, tempUri)
+            val file = uriToFile(this, imageUri)
             // 파일이 null이 아닌 경우에만 MultipartBody.Part 생성
             file?.let {
+                Log.d("mess", "틀렷다2")
                 val requestBody = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 MultipartBody.Part.createFormData("image", it.name, requestBody)//MultipartBody.Part
+
             }
-        } else {    null }
+        } else {Log.d("mess", "틀렷다3")
+            null }
 
         Log.d("Login1111", fileToUpload.toString())
 
@@ -227,7 +244,7 @@ class Profile2Activity : AppCompatActivity() {
     private fun saveJwt(jwt: String) {
         val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         val editor = spf.edit()
-        Log.d("Login1111", jwt)
+
         // 키 값 : "jwt", 인자값 : jwt
         editor.putString("jwt", jwt)
         editor.apply()

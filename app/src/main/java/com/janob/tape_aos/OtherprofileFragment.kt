@@ -46,7 +46,7 @@ class OtherprofileFragment : Fragment() {
         otherprofileVPAdapter = OtherprofileVPAdapter(this)
         binding.otherprofileContentVp.adapter = otherprofileVPAdapter
         TabLayoutMediator(binding.otherprofileContentTb, binding.otherprofileContentVp){
-            tab, position -> tab.text = info[position]
+                tab, position -> tab.text = info[position]
         }.attach()
 
         // ** 테이프 세팅 **
@@ -120,8 +120,8 @@ class OtherprofileFragment : Fragment() {
                 binding.otherprofileFollowBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                 // 타유저 팔로워, 내유저 팔로잉 리스트 변경
-                change_other_user_follower_list.remove(my_user.name)
-                change_my_user_following_list.remove(user.name)
+                change_other_user_follower_list = followBtnClickSetRemoveList(change_other_user_follower_list, my_user.name)
+                change_my_user_following_list = followBtnClickSetRemoveList(change_my_user_following_list, user.name)
 
                 // follow_btn_status 상태 설정
                 follow_btn_status = false
@@ -149,6 +149,15 @@ class OtherprofileFragment : Fragment() {
             // 팔로워 text re세팅
             binding.otherprofileFollowerNumTv.text = user.followerList.size.toString()
         }
+    }
+    private fun followBtnClickSetRemoveList(list : ArrayList<String>, name : String) : ArrayList<String> {
+        var temp_list = ArrayList<String>()
+        for(i in 0 until list.size){
+            if(list[i] != name){
+                temp_list.add(list[i])
+            }
+        }
+        return temp_list
     }
 
     private fun followTextClick(){

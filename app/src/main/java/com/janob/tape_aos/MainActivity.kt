@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var includedSongData : List<IncludedSong>
     lateinit var userData : List<User>
 
+    lateinit var myUserData : MyUser
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -428,16 +430,16 @@ class MainActivity : AppCompatActivity() {
         var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
         var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
         var my_user_followingList : List<String> = arrayListOf("myuser_1", "myuser_2", "myuser_3", "myuser_4", "myuser_5", "myuser_6", "myuser_7", "myuser_8", "myuser_9", "myuser_10")
-        tapeDB.userDao().insert(
-            User(1,
-                userImg,
-                "Min_SEO",
-                "잡다한 음악 다 좋아해요♥",
-                followerList,
-                my_user_followingList.toList(),
-                my_user_tapeList.toList(),
-                songData)
-        )
+//        tapeDB.userDao().insert(
+//            User(1,
+//                userImg,
+//                "Min_SEO",
+//                "잡다한 음악 다 좋아해요♥",
+//                followerList,
+//                my_user_followingList.toList(),
+//                my_user_tapeList.toList(),
+//                songData)
+//        )
         tapeDB.userDao().insert(
             User(0,
                 userImg,
@@ -648,6 +650,29 @@ class MainActivity : AppCompatActivity() {
                 tapeData,
                 songData)
         )
+    }
+    private fun inputDummyMyUser(){
+        val tapeDB = TapeDatabase.Instance(this)
+        myUserData = tapeDB.myUserDao().getAll()
+
+        tapeData = tapeDB.tapeDao().getAll()
+        val my_user_tapeList = ArrayList<Tape>()
+        songData = tapeDB.songDao().getAllList()
+
+        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var my_user_followingList : List<String> = arrayListOf("myuser_1", "myuser_2", "myuser_3", "myuser_4", "myuser_5", "myuser_6", "myuser_7", "myuser_8", "myuser_9", "myuser_10")
+
+        tapeDB.myUserDao().insert(
+            MyUser("",
+                "Min_SEO",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                my_user_followingList.toList(),
+                my_user_tapeList.toList(),
+                songData)
+        )
+
     }
     private fun initBottomNavigation() {
 

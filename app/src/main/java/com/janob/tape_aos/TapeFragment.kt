@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 
 import android.content.Intent
@@ -20,9 +21,18 @@ class TapeFragment : Fragment() {
     lateinit var tapeAlbumRV :RecyclerView
 
     //오늘의 테이프 api 연동
-    private val todayTapeListViewModel : TodayTapeListViewModel by lazy {
-        ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
+    private lateinit var todayTapeListViewModel: TodayTapeListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // ViewModelProvider를 사용하여 ViewModel을 초기화
+        todayTapeListViewModel = ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
     }
+
+//    private val todayTapeListViewModel : TodayTapeListViewModel by lazy {
+//        ViewModelProvider(this).get(TodayTapeListViewModel::class.java)
+//    }
 
     lateinit var binding: FragmentTapeBinding
     override fun onCreateView(
@@ -68,6 +78,14 @@ class TapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // onViewCreated에서 ViewModel에 토큰을 설정
+        val jwtToken = getJwt()
+        if (jwtToken != null) {
+            todayTapeListViewModel.setJwtToken(jwtToken)
+        } else {
+            Log.e("TapeFragment", "JWT token is null")
+        }
+
         todayTapeListViewModel.todayTapeListLiveData?.observe(
             viewLifecycleOwner,
             Observer{
@@ -79,6 +97,13 @@ class TapeFragment : Fragment() {
         )
     }
 
+    private fun getJwt(): String?{
+
+        val spf = context?.getSharedPreferences("auth", android.content.Context.MODE_PRIVATE)!!
+        val token = spf.getString("jwt", null)
+        val bToken = "Bearer $token"
+        return bToken
+    }
 
     private fun changeAlbumActivity(album: TodayTapeDataDTO){
         val intent = Intent(activity,AlbumActivity::class.java)

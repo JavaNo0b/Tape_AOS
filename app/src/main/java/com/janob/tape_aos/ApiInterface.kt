@@ -16,7 +16,9 @@ interface ApiInterface {
     //////////////////////스포티파이 연동 todo
     //테이프  페이징
     @GET("tape/friends/")
-    fun fetchPageCursor(@Query("cursor") cursor:Int):Call<TodayTapeResultDTO>
+    fun fetchPageCursor(
+        @Header("Authorization") token: String,
+        @Query("cursor") cursor:Int):Call<TodayTapeResultDTO>
     @GET("")
     fun fetchSongListDTO(): Call<SongDetailResultDTO>
     @GET("/")

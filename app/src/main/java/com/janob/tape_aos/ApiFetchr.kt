@@ -59,8 +59,8 @@ class ApiFetchr {
     }
     //todo
     //오늘의 테이프 페이징
-    fun fetchPageCursor(cursor:Int):LiveData<TodayTapeResultDTO>{
-        val call:Call<TodayTapeResultDTO> = apiInterface.fetchPageCursor(cursor)
+    fun fetchPageCursor(jwt:String, cursor:Int):LiveData<TodayTapeResultDTO>{
+        val call:Call<TodayTapeResultDTO> = apiInterface.fetchPageCursor(jwt, cursor)
         return fetchMetaDTO(call)
 
     }

@@ -26,6 +26,7 @@ class ReplyActivity : AppCompatActivity()
         binding = ActivityReplyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.replyBackIv.setOnClickListener { finish() }
 
     }
 

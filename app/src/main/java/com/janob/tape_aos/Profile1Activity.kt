@@ -27,25 +27,26 @@ class Profile1Activity : AppCompatActivity() {
         binding.profile1ButtonBtn.setOnClickListener{
             if(checkProfile()){
 
-                val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
+                //val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Nickname = binding.profile1NicknameEt.text.toString()
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
 
                 Log.d("Login1111", Nickname)
                 Log.d("Login1111", Userid.toString())
-                val User : LoginUser? = loginuserDB.getLoginUser(Userid)
+                //val User : LoginUser? = loginuserDB.getLoginUser(Userid)
 
-                User?.let {
+                /*User?.let {
                     User.nickname = Nickname
                     Log.d("Login1111", User.nickname!!)
                     loginuserDB.updateUser(User)
                 }
-
-                Log.d("Login1111", loginuserDB.getLoginUsers().toString())
+*/
+                //Log.d("Login1111", loginuserDB.getLoginUsers().toString())
 
                 val intent = Intent(this, Profile2Activity::class.java)
                 intent.putExtra("userid", Userid)
+                intent.putExtra("usernickname", Nickname)
                 startActivity(intent)
                 finish()
 

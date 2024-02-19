@@ -48,21 +48,26 @@ class Profile2Activity : AppCompatActivity() {
                 val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
                 val Intent = intent
                 val Userid = Intent.getLongExtra("userid", 0)
+                val Usernickname = Intent.getStringExtra("usernickname")
 
 
                 Log.d("Login1111", Userid.toString())
-                val User : LoginUser? = loginuserDB.getLoginUser(Userid)
-                User?.let {
+                //val User : LoginUser? = loginuserDB.getLoginUser(Userid)
+                /*User?.let {
                     User.profileintro = Intro
                     Log.d("Login1111", User.profileintro.toString())
                     loginuserDB.updateUser(User)
-                }
+                }*/
 
+                val User = LoginUser(Userid, Usernickname, imageUri.toString(), Intro)
+                loginuserDB.insert(User)
+                saveJwt(Userid.toString())
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
+                Log.d("Login1111", Userid.toString())
 
-                val intent = Intent(this, Profile3Activity::class.java)
-                intent.putExtra("userid", Userid)
-                intent.putExtra("imageUri", imageUri.toString())
+                val intent = Intent(this, MainActivity::class.java)
+                //intent.putExtra("userid", Userid)
+                //intent.putExtra("imageUri", imageUri.toString())
                 Log.d("Login1111", imageUri.toString())
                 startActivity(intent)
                 finish()
@@ -73,35 +78,52 @@ class Profile2Activity : AppCompatActivity() {
 
     }
 
+    private fun saveJwt(jwt: String) {
+        val spf = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf.edit()
+
+        // 키 값 : "jwt", 인자값 : jwt
+        editor.putString("jwt", jwt)
+        editor.apply()
+    }
+
+
+
     //갤러리에서 이미지 가져오기
     val requestGalleryLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult())
-    {
-        try {
-            val calRatio = calculateInSampleSize(
-                it.data!!.data!!,
-                resources.getDimensionPixelSize(R.dimen.imgSize),
-                resources.getDimensionPixelSize(R.dimen.imgSize)
-            )
-            val option = BitmapFactory.Options()
-            option.inSampleSize = calRatio
+        ActivityResultContracts.StartActivityForResult()
+    )
+    { result ->
+        if (result.resultCode == RESULT_OK) {
+            val uri = result.data?.data
+            uri?.let {
+                imageUri = it
+                try {
+                    val calRatio = calculateInSampleSize(
+                        uri,
+                        resources.getDimensionPixelSize(R.dimen.imgSize),
+                        resources.getDimensionPixelSize(R.dimen.imgSize)
+                    )
+                    val option = BitmapFactory.Options()
+                    option.inSampleSize = calRatio
 
-            var inputStream = contentResolver.openInputStream(it.data!!.data!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
-            inputStream!!.close()
-            inputStream = null
+                    var inputStream = contentResolver.openInputStream(uri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
+                    inputStream!!.close()
+                    inputStream = null
 
-            bitmap?.let {
-                binding.profile2PicIv.setImageBitmap(bitmap)
-                imageUri = bitmapToUri(bitmap)
-                Log.d("Login1111", imageUri.toString())
-            } ?: let{
-                Log.d("kkang", "bitmap null")
+                    bitmap?.let {
+                        binding.profile2PicIv.setImageBitmap(bitmap)
+                    } ?: let {
+                        Log.d("kkang", "bitmap null")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        }catch (e: Exception){
-            e.printStackTrace()
         }
     }
+
 
 
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {

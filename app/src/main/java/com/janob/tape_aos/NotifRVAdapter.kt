@@ -12,6 +12,16 @@ import com.janob.tape_aos.databinding.ItemNotif3Binding
 
 class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
+    interface MyItemClickListener{ fun onItemClick() }
+
+
+    private lateinit var ItemClickListener: MyItemClickListener
+
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        ItemClickListener = itemClickListener
+    }
+
     private var Notiflist = list.size
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view : View?
@@ -35,11 +45,16 @@ class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapt
             Alarm.notif_1 -> {
             }
             Alarm.notif_2 -> {
-                (holder as ViewHolder2).title = position.reciver_id
+                //(holder as ViewHolder2).title = position.reciver_id
+                val viewHolder2 = holder as ViewHolder2
+                viewHolder2.title = position.reciver_id
+                viewHolder2.itemView.setOnClickListener { ItemClickListener.onItemClick() }
             }
             Alarm.notif_3 -> {
-                (holder as ViewHolder3).user = position.reciver_id
-                holder.title = position.alarm_id
+                val viewHolder3 = holder as ViewHolder3
+                viewHolder3.user = position.reciver_id
+                viewHolder3.title = position.alarm_id
+                viewHolder3.itemView.setOnClickListener { ItemClickListener.onItemClick() }
             }
         }
     }

@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +31,22 @@ class NotifFragment : Fragment() {
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
 
+        notifRVAdapter.setMyItemClickListener(object  : NotifRVAdapter.MyItemClickListener{
+            override fun onItemClick() {
+                moveFragment()
+            }
+        })
+
         return binding.root
     }
 
+
+    private fun moveFragment(){
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, ProfileFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 
 
 }

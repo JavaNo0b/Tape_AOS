@@ -17,7 +17,7 @@ class NotifViewModel : ViewModel() {
 
     private val apiFetchr = ApiFetchr()
 
-    var NotifLiveData : MutableLiveData<AlarmResultDTO> = MutableLiveData()
+    var NotifLiveData : MutableLiveData<List<AlarmInnerDTO>> = MutableLiveData()
 
 /*    init{
         NotifLiveData.value = apiFetchr.fetchAlarmAll(jwtView).value
@@ -27,8 +27,16 @@ class NotifViewModel : ViewModel() {
 
     fun checklivedata(jwt: String){
         jwtView = jwt
-        NotifLiveData.value = apiFetchr.fetchAlarmAll(jwtView).value
+
+        apiFetchr.fetchAlarmAll(jwtView).observeForever { alarmResultDTO ->
+            alarmResultDTO?.let { alarmResultDTO ->
+                NotifLiveData.value = alarmResultDTO.data.flatten()
+        }
+        //NotifLiveData.value = apiFetchr.fetchAlarmAll(jwt).value
+        //val Data = apiFetchr.fetchAlarmAll(jwtView).value
+        //NotifLiveData.postValue()
         Log.d("message11", NotifLiveData.toString())
+        Log.d("message11", "안녕!!")
         //NotifLiveData.value = apiFetchr.fetchAlarmAll().value
     }
 /*    fun viewmodel(jwt: String){
@@ -41,4 +49,4 @@ class NotifViewModel : ViewModel() {
 //        NotifLiveData.postValue(liveData.value)
 //    }
 
-}
+}}

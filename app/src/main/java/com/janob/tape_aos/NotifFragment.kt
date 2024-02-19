@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.janob.tape_aos.databinding.FragmentNotifBinding
@@ -41,9 +40,10 @@ class NotifFragment : Fragment(){
     ): View? {
         binding = FragmentNotifBinding.inflate(inflater, container, false)
 
-        Log.d("message", "hi")
-        viewModel.checklivedata(getJwt()!!)
+        //Log.d("message", "hi")
 
+
+        //viewModel.fetchAlarmAll(getJwt()!!)
         /*val Notiflist = mutableListOf<Alarm>().apply{
             add(Alarm(Alarm.notif_1, "", "", false,true))
             add(Alarm(Alarm.notif_3, "music_play", "님이 회원님의 테이프에 댓글을 작성했습니다.", false, false))
@@ -84,6 +84,17 @@ class NotifFragment : Fragment(){
         binding.notifRv.adapter=notifAdapter
         binding.notifRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+
+        viewModel.NotifLiveData.observe(viewLifecycleOwner){
+            notifData -> notifAdapter.updateData(notifData)
+            notif(notifData)
+            Log.d("message", "안녕")
+            Log.d("message", notifData.toString())
+        }
+
+
+        viewModel.checklivedata(getJwt()!!)
+
         notifAdapter.setMyItemClickListener(object  : NotifRVAdapter.MyItemClickListener{
             override fun onItemClick(item: AlarmInnerDTO) {
                 if(item.alarmType=="좋아요"){    //좋아요 누른 테이프로 가기
@@ -93,7 +104,8 @@ class NotifFragment : Fragment(){
                     moveAlbumFragment(item.tapeId)
                 }
                 else{
-                    moveOtherprofileFragment(item.receiverNickname)
+                    //moveOtherprofileFragment(item.receiverNickname)
+                    moveAlbumFragment(item.tapeId)
                 }
             }
 
@@ -102,6 +114,31 @@ class NotifFragment : Fragment(){
 
 
         return binding.root
+    }
+
+
+    private fun moveAlbumFragment(tapeId: Int){  //tape_id 갖고 테이프로 이동
+////        (context as MainActivity).supportFragmentManager.beginTransaction()
+////            .replace(R.id.main_fm, AlbumFragment().apply {
+////                arguments = Bundle().apply {
+////                    val gson = Gson()
+////                    val notifJson = gson.toJson(tapeId)
+////                    putString("notif", notifJson)
+////                }
+////            })
+////            .commitAllowingStateLoss()
+////
+//
+//        val bundle = Bundle().apply {
+//            putInt("tape_id", tapeId)
+//        }
+//        val albumFragment = AlbumFragment().apply {
+//            arguments = bundle
+//        }
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, ProfileFragment())
+            .addToBackStack(null)   //뒤로가기 버튼 클릭시 notif
+            .commit()
     }
 
     private fun getJwt(): String?{
@@ -113,23 +150,24 @@ class NotifFragment : Fragment(){
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        Log.d("message", "hi")
-        //viewModel.fetchAlarmAll()
-        viewModel.NotifLiveData.observe(viewLifecycleOwner, Observer {
-                alarmResultDTO ->
-            alarmResultDTO?.data?.let { data ->
-                Log.d("message", alarmResultDTO.data.toString())
-                notif(alarmResultDTO.data)
-                notifAdapter = NotifRVAdapter(alarmResultDTO.data)
-                Log.d("message", alarmResultDTO.data.toString())
-
-            }
-        })
-
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        Log.d("message", "hi111")
+//        //viewModel.fetchAlarmAll()
+//        viewModel.NotifLiveData.observe(viewLifecycleOwner, Observer {
+//                alarmresult ->
+//            alarmresult?.data?.let { data ->
+//                Log.d("message", "호호호")
+//                notif(alarmresult.data[0])
+//                Log.d("message", alarmresult.data[0].toString())
+//                notifAdapter = NotifRVAdapter(alarmresult.data[0])
+//                Log.d("message", "안녕")
+//
+//            }
+//        })
+//
+//    }
 
     /*
         fun getNotifSuccess(){
@@ -148,19 +186,20 @@ class NotifFragment : Fragment(){
 */
 
     fun notif(notifData: List<AlarmInnerDTO>?){  //알림표시
+        Log.d("message", "hi1222")
         notifData?.let { data ->
             data.forEach { item ->
-                createnotif(item.tapeId, item.alarmType, item.receiverNickname)
+                createnotif(item)
                 Log.d("message", "hi")
             }
         }
     }
 
-    private fun createnotif(tapeId: Int, alarmType : String, receiverNickname: String){
+    private fun createnotif(item: AlarmInnerDTO){
         val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val builder: NotificationCompat.Builder
 
-
+        Log.d("message", "hi!!!")
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             // 26 버전 이상
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -194,8 +233,8 @@ class NotifFragment : Fragment(){
             builder = NotificationCompat.Builder(requireContext())
         }
 
-        val notifcontent: String = Notifcontent(receiverNickname, alarmType)
-        val intent = Intent(requireContext(), NotifFragment::class.java)
+        val notifcontent: String = Notifcontent(item.receiverNickname, item.alarmType)
+        val intent = Intent(requireContext(), MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
 
@@ -207,9 +246,10 @@ class NotifFragment : Fragment(){
             setContentIntent(pendingIntent)
         }
 
+
         val albumid = 0
         notificationManager.notify(0, builder.build())
-        //albumid+1
+        albumid+1
     }
 
 
@@ -222,29 +262,7 @@ class NotifFragment : Fragment(){
         }
     }
 
-    private fun moveAlbumFragment(tapeId: Int){  //tape_id 갖고 테이프로 이동
-//        (context as MainActivity).supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_fm, AlbumFragment().apply {
-//                arguments = Bundle().apply {
-//                    val gson = Gson()
-//                    val notifJson = gson.toJson(tapeId)
-//                    putString("notif", notifJson)
-//                }
-//            })
-//            .commitAllowingStateLoss()
-//
 
-        val bundle = Bundle().apply {
-            putInt("tape_id", tapeId)
-        }
-        val albumFragment = AlbumFragment().apply {
-            arguments = bundle
-        }
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fm, albumFragment)
-            .addToBackStack(null)   //뒤로가기 버튼 클릭시 notif
-            .commit()
-    }
 
 
     private fun moveOtherprofileFragment(receiverNickname: String){

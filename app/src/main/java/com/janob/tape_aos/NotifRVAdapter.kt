@@ -14,6 +14,11 @@ class NotifRVAdapter(var dataList: List<AlarmInnerDTO>): RecyclerView.Adapter<No
 
     private lateinit var ItemClickListener: MyItemClickListener
 
+    fun updateData(newDataList: List<AlarmInnerDTO>) {
+        dataList = newDataList
+        notifyDataSetChanged() // 데이터가 변경되었음을 알립니다.
+    }
+
     fun setMyItemClickListener(Listener: MyItemClickListener){
         ItemClickListener = Listener
     }

@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 
-                 NextActivity(user.id)
+                NextActivity(user.id)
             }
         }
     }

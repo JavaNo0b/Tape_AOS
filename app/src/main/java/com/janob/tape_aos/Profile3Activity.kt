@@ -1,4 +1,4 @@
-package com.janob.tape_aos
+//package com.janob.tape_aos
 
 import android.content.Intent
 import android.graphics.Bitmap

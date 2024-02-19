@@ -52,12 +52,12 @@ class Profile2Activity : AppCompatActivity() {
 
 
                 Log.d("Login1111", Userid.toString())
-                //val User : LoginUser? = loginuserDB.getLoginUser(Userid)
-                /*User?.let {
+                val User : LoginUser? = loginuserDB.getLoginUser(Userid)
+                User?.let {
                     User.profileintro = Intro
                     Log.d("Login1111", User.profileintro.toString())
                     loginuserDB.updateUser(User)
-                }*/
+                }
 
                 //Log.d("Login1111", imageUri.toString())
 
@@ -132,7 +132,6 @@ class Profile2Activity : AppCompatActivity() {
             }
         }
     }
-
 
 
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {

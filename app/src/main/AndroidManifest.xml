@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+
 
     <application
         android:enableOnBackInvokedCallback="true"
@@ -37,8 +40,6 @@
         <activity android:name=".Profile1Activity"
             android:exported="true"/>
         <activity android:name=".Profile2Activity"
-            android:exported="true"/>
-        <activity android:name=".Profile3Activity"
             android:exported="true"/>
         <activity android:name=".ReplyActivity"
             android:exported="true"/>

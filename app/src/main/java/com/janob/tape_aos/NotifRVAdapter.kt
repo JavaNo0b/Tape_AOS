@@ -1,25 +1,67 @@
 package com.janob.tape_aos
 
+
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.janob.tape_aos.databinding.ItemNotifBinding
+import com.janob.tape_aos.databinding.ItemNotif1Binding
+import com.janob.tape_aos.databinding.ItemNotif2Binding
+import com.janob.tape_aos.databinding.ItemNotif3Binding
 
-class NotifRVAdapter : RecyclerView.Adapter<NotifRVAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NotifRVAdapter.ViewHolder {
-        val binding: ItemNotifBinding = ItemNotifBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+class NotifRVAdapter(private val list : MutableList<Alarm>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        return ViewHolder(binding)
+    private var Notiflist = list.size
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view : View?
+        return when(viewType){
+            Alarm.notif_1 -> {
+                ViewHolder1(ItemNotif1Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
+            }
+            Alarm.notif_2 -> {
+                ViewHolder2(ItemNotif2Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
+            }
+            else -> {
+                ViewHolder3(ItemNotif3Binding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false))
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: NotifRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
+        val position = list[position]
+        when (position.id) {
+            Alarm.notif_1 -> {
+            }
+            Alarm.notif_2 -> {
+                (holder as ViewHolder2).title = position.reciver_id
+            }
+            Alarm.notif_3 -> {
+                (holder as ViewHolder3).user = position.reciver_id
+                holder.title = position.alarm_id
+            }
+        }
     }
 
-    override fun getItemCount() : Int =4
+    override fun getItemCount() : Int = Notiflist
 
-    inner class ViewHolder(val binding : ItemNotifBinding) : RecyclerView.ViewHolder(binding.root){
+    override fun getItemViewType(position: Int): Int {
+        return list[position].id
+    }
+
+    inner class ViewHolder1(view : ItemNotif1Binding) : RecyclerView.ViewHolder(view.root){
 
     }
+    inner class ViewHolder2(view : ItemNotif2Binding) : RecyclerView.ViewHolder(view.root){
+        var title = view.itemNotif2TextTv.text
+    }
+    inner class ViewHolder3(view : ItemNotif3Binding) : RecyclerView.ViewHolder(view.root){
+        var user = view.itemNotif3TextTv1.text
+        var title = view.itemNotif3TextTv2.text
+    }
+
+
+
+
 }

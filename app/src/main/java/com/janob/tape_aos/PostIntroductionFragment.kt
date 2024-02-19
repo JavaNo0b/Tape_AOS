@@ -1,5 +1,4 @@
 package com.janob.tape_aos
-
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -17,8 +16,9 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.janob.tape_aos.databinding.FragmentPostIntroductionBinding
-import org.w3c.dom.Text
+
 
 class PostIntroductionFragment : Fragment() {
     private lateinit var imageUri : Uri
@@ -29,7 +29,11 @@ class PostIntroductionFragment : Fragment() {
     private lateinit var alertTv : TextView
     private lateinit var btnContinue : ImageView
 
-    interface PostIntroductionListener { fun onPostIntroductionCompleted()}
+    //뷰모델
+    private val introViewModel: IntroductionViewModel by lazy {
+        ViewModelProvider(this).get(IntroductionViewModel::class.java)
+    }
+    interface PostIntroductionListener { fun onPostIntroductionCompleted( uri:Uri,title:String,content:String)}
     lateinit var listener : PostIntroductionListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,24 +45,25 @@ class PostIntroductionFragment : Fragment() {
         }
     }
     val callBack : ActivityResultLauncher<Intent> =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == RESULT_OK){
-            val intent = it.data
-            intent?.data?.let{
-                imageUri = it
-                imageView.setImageURI(imageUri)
-                imageIcView.visibility = View.INVISIBLE
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK){
+                val intent = it.data
+                intent?.data?.let{
+                    imageUri = it
+                    imageView.setImageURI(imageUri)
+                    //뷰모델에 저장
+                    introViewModel.imageUri?.value = imageUri
+                    imageIcView.visibility = View.INVISIBLE
 
+                }
             }
         }
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentPostIntroductionBinding.inflate(inflater)
-
         //이미지뷰 참조
         imageView = binding.backgroundPhoto
         imageIcView = binding.icPhoto
@@ -66,8 +71,6 @@ class PostIntroductionFragment : Fragment() {
         contentTv = binding.contentTapeEt
         alertTv = binding.alertTv
         btnContinue = binding.btnPostContinue
-
-
         binding.backgroundPhoto.setOnClickListener {
             //사진앱 데이터 베이스 접근 요청
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
@@ -75,18 +78,19 @@ class PostIntroductionFragment : Fragment() {
         }
         titleTv.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+                //뷰모델에 저장
+                introViewModel.setIntroTitle(s.toString())
+                //초기화
                 btnContinue.setOnClickListener{
                     //empty
                 }
                 if(titleTv.text.toString().isNullOrBlank()){
                     btnContinue.setImageResource(R.drawable.btn_continue_inactive)
                     alertTv.visibility = View.VISIBLE
-
                 }
                 else if(titleTv.text.length >= 60)
                 {
@@ -102,17 +106,30 @@ class PostIntroductionFragment : Fragment() {
                     alertTv.visibility = View.INVISIBLE
 
                     btnContinue.setOnClickListener{
-                        listener.onPostIntroductionCompleted()
+                        listener.onPostIntroductionCompleted(imageUri,"title","content")
                     }
                 }
 
             }
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        contentTv.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                introViewModel.setIntroContent(s.toString())
+            }
 
             override fun afterTextChanged(s: Editable?) {
+
             }
 
         })
         return binding.root
     }
-
 }

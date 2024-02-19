@@ -10,7 +10,7 @@ import androidx.room.TypeConverters
 
 
 @Database(entities=[Reply::class, Tape::class, Song::class, IncludedSong::class, LoginUser::class, User::class], version = 1)
-@TypeConverters(StringListConverters::class, TapeListConverters::class, SongListConverters::class)
+@TypeConverters(StringListConverters::class, TapeListConverters::class, SongListConverters::class, BitmapConverters::class)
 
 
 abstract class TapeDatabase : RoomDatabase(){

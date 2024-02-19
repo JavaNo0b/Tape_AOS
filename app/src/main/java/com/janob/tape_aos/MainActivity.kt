@@ -40,8 +40,7 @@ class MainActivity : AppCompatActivity() {
         //바텀 네비게이션
         initBottomNavigation()
 
-        var userImage = TapeDatabase.Instance(this).loginuserDao().getLoginUser(getJwt()!!.toLong())!!.profileimg
-        binding.mainBottomPrifileIv.setImageURI(Uri.parse(userImage))
+
 
         binding.root.setOnClickListener {
             if (isFabOpen) {
@@ -62,6 +61,12 @@ class MainActivity : AppCompatActivity() {
         IncludedSongRepository.initialize(this)
         TapeRepository.initialize(this)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var userImage = TapeDatabase.Instance(this).loginuserDao().getLoginUser(getJwt()!!.toLong())!!.profileimg
+        binding.mainBottomPrifileIv.setImageBitmap(userImage)
     }
 
     private fun getJwt(): String?{

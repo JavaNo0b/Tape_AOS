@@ -21,10 +21,11 @@
         android:layout_height="wrap_content"
         android:text="테이프"
         style="@style/TextHeader"
-        app:layout_constraintBottom_toBottomOf="@id/album_back_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="180dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/album_back_btn" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
@@ -62,7 +63,9 @@
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
         app:tabMinWidth="0dp"
-        app:tabMode="scrollable"/>
+        app:tabMode="scrollable">
+
+    </com.google.android.material.tabs.TabLayout>
 
     <TextView
         android:id="@+id/album_tape_title_tv"

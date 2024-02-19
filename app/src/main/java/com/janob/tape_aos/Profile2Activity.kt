@@ -19,8 +19,8 @@ import kotlin.math.min
 
 class Profile2Activity : AppCompatActivity() {
     lateinit var binding: ActivityProfile2Binding
-    lateinit var imageBitmap : Bitmap
-    private lateinit var imageUri: Uri
+    private var imageBitmap : Bitmap? = null
+    private var imageUri: Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +59,16 @@ class Profile2Activity : AppCompatActivity() {
                     loginuserDB.updateUser(User)
                 }*/
 
-                val User = LoginUser(Userid, Usernickname, imageUri.toString(), Intro)
-                loginuserDB.insert(User)
+                //Log.d("Login1111", imageUri.toString())
+
+                if(imageBitmap==null){
+                    val User = LoginUser(Userid, Usernickname, null, Intro)
+                    loginuserDB.insert(User)
+                }else{
+                    val User = LoginUser(Userid, Usernickname, imageBitmap, Intro)
+                    loginuserDB.insert(User)
+                }
+
                 saveJwt(Userid.toString())
                 Log.d("Login1111", loginuserDB.getLoginUsers().toString())
                 Log.d("Login1111", Userid.toString())
@@ -68,7 +76,7 @@ class Profile2Activity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 //intent.putExtra("userid", Userid)
                 //intent.putExtra("imageUri", imageUri.toString())
-                Log.d("Login1111", imageUri.toString())
+                //Log.d("Login1111", imageUri.toString())
                 startActivity(intent)
                 finish()
 
@@ -114,6 +122,7 @@ class Profile2Activity : AppCompatActivity() {
 
                     bitmap?.let {
                         binding.profile2PicIv.setImageBitmap(bitmap)
+                        imageBitmap = bitmap
                     } ?: let {
                         Log.d("kkang", "bitmap null")
                     }

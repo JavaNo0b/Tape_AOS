@@ -32,8 +32,14 @@ class NotifFragment : Fragment() {
 
 
         notifRVAdapter.setMyItemClickListener(object  : NotifRVAdapter.MyItemClickListener{
-            override fun onItemClick() {
-                moveFragment()
+            override fun onItemClick(item : Alarm) {
+
+                if(item.id==1){
+                    moveProfileFragment()
+                }else{
+                    moveTapeFragment()
+                }
+
             }
         })
 
@@ -41,11 +47,27 @@ class NotifFragment : Fragment() {
     }
 
 
-    private fun moveFragment(){
+    private fun moveProfileFragment(){
+
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.main_fm, ProfileFragment())
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun moveTapeFragment(){
+
+        val albumFragment = AlbumFragment()
+        val bundle = Bundle()
+
+        bundle.putInt("albumId", 1)
+        albumFragment.arguments = bundle
+
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fm, albumFragment)
+            .addToBackStack(null)
+            .commit()
+
     }
 
 

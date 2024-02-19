@@ -1,7 +1,6 @@
 package com.janob.tape_aos
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -113,8 +112,9 @@ class ProfileFragment : Fragment() {
     private fun setInit2(user : MyUser){
         //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
         //Glide.with(requireContext()).load(user.userImg!!.toUri()).into(binding.profileProfileIv)
-        val imageUri: Uri? = user.userImg?.let { Uri.parse(it) }
-        binding.profileProfileIv.setImageURI(imageUri)
+        //val imageUri: Uri? = user.userImg?.let { Uri.parse(it) }
+        //binding.profileProfileIv.setImageURI(imageUri)
+        binding.profileProfileIv.setImageBitmap(user.userImg)
         binding.profileNameTv.text = user.name
         binding.profileCommentTv.text = user.comment
 

@@ -1,11 +1,12 @@
 package com.janob.tape_aos
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "MyUserTable")
 data class MyUser(
-    var userImg : String? ="",
+    var userImg : Bitmap? = null,
     var name : String = "",
     var comment : String = "",
     // 팔로워, 팔로잉 목록

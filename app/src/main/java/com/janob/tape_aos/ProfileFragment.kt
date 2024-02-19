@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        // ** RoomDB 데이터 받기 **
+        // init
         my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
         setInit(my_user)
         my_tape_list = ArrayList(my_user.tapeList)
@@ -102,13 +102,6 @@ class ProfileFragment : Fragment() {
     private fun followTextClick(){
         binding.profileFollowerLl.setOnClickListener {
             val status : String = "follower"
-
-            // activity ver
-            /*
-            val intent = Intent(activity, FollowActivity::class.java)
-            intent.putExtra("status", status)
-            startActivity(intent)
-            */
 
             // 뒤로가기x
             (context as MainActivity).supportFragmentManager.beginTransaction()

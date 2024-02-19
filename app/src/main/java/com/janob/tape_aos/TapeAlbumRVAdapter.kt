@@ -37,15 +37,7 @@ class TapeAlbumRVAdapter(private val tapeList : List<TodayTapeDataDTO>, private 
         holder.binding.itemTape.setOnClickListener {
             mItemClickListner.onItemClick(tapeList[position])
         }
-        //확인한 아이템에 흐릿해짐 효과를 임의로 주기 위한 버튼
-        holder.binding.button.setOnClickListener {
 
-            if(holder.binding.itemTape.alpha == 0.5F){
-                holder.binding.itemTape.alpha = 1F
-            }else{
-                holder.binding.itemTape.alpha = 0.5F
-            }
-        }
     }
 
 
@@ -80,10 +72,15 @@ class TapeAlbumRVAdapter(private val tapeList : List<TodayTapeDataDTO>, private 
 
             binding.itemTapeTapetitleTv.text = tapealbum.title
             binding.itemTapeSingerTv.text = tapealbum.artist
-            binding.itemTapeAlbumcoverImgIv.setImageURI(Uri.parse(tapealbum.image))
+//            binding.itemTapeAlbumcoverImgIv.setImageURI(Uri.parse(tapealbum.image))
             binding.itemTapeUsernameTv.text = tapealbum.userName
-            binding.itemTapeUserimageIv.setImageURI(Uri.parse(tapealbum.profileImage))
+//            binding.itemTapeUserimageIv.setImageURI(Uri.parse(tapealbum.profileImage))
 
+            if(tapealbum.isWatched){
+                binding.itemTape.alpha = 0.5F
+            }else{
+                binding.itemTape.alpha = 1F
+            }
 
             Log.d("tape Album RVAdapter"," ${tapealbum.title}")
         }

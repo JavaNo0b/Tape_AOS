@@ -9,25 +9,47 @@ import androidx.lifecycle.switchMap
 
 class TodayTapeListViewModel(private val jwtToken: String):ViewModel() {
     private val apiFetchr = ApiFetchr()
-    var todayTapeListLiveData : MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()
+    var todayTapeListLiveData: MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()
 
-    private var cursor :Int = 0
-    var cursorLiveData :MutableLiveData<Int> = MutableLiveData()
+    private var cursor: Int = 0
+    var cursorLiveData: MutableLiveData<Int> = MutableLiveData()
 
-    init{
-
-        //테이프 페이징
+    init {
         cursorLiveData.value = cursor
-        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwtToken, cursor) }
-                                        .value?.data
+        fetchTapeData()
     }
-    fun nextPage(){
+
+    fun nextPage() {
         cursor++
+        cursorLiveData.value = cursor
+        fetchTapeData()
     }
 
-
-
+    private fun fetchTapeData() {
+        val liveData = apiFetchr.fetchPageCursor(jwtToken, cursorLiveData.value ?: 0)
+        liveData.observeForever {
+            todayTapeListLiveData.value = it?.data
+        }
+    }
 }
+
+
+//    init{
+//
+//        //테이프 페이징
+//        cursorLiveData.value = cursor
+//        todayTapeListLiveData.value = apiFetchr.fetchPageCursor(jwtToken, cursor).value?.data
+//        todayTapeListLiveData.value = cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwtToken, cursor) }
+//                                        .value?.data
+//        Log.d("TodayTapeListViewModel: cursorLiveData", cursorLiveData.switchMap { cursor -> apiFetchr.fetchPageCursor(jwtToken, cursor) }
+//            .value?.data.toString())
+//        Log.d("TodayTapeListViewModel: todayTapeListLiveData", todayTapeListLiveData.value.toString())
+//    }
+//    fun nextPage(){
+//        cursor++
+//    }
+
+
 //class TodayTapeListViewModel : ViewModel() {
 //    private val apiFetchr = ApiFetchr()
 //    var todayTapeListLiveData: MutableLiveData<List<TodayTapeDataDTO>> = MutableLiveData()

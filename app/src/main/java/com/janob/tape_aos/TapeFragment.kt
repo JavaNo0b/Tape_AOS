@@ -65,7 +65,6 @@ class TapeFragment : Fragment() {
             }
         })
 
-        binding.button.setOnClickListener { buttonClick() }
 
 
         return binding.root
@@ -75,6 +74,26 @@ class TapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        // JWT 토큰 가져오기
+//        val jwtToken = getJwt()
+//        if (jwtToken != null) {
+//            // ViewModel을 초기화할 때 JWT 토큰 전달
+//            val factory = TodayTapeListViewModelFactory(jwtToken)
+//            todayTapeListViewModel = ViewModelProvider(this, factory).get(TodayTapeListViewModel::class.java)
+//        } else {
+//            Log.e("TapeFragment", "JWT token is null")
+//        }
+//
+//        todayTapeListViewModel.todayTapeListLiveData?.observe(
+//            viewLifecycleOwner,
+//            Observer{
+//
+//                response -> Log.d("tape fragment" ,"now today tapes $response")
+//                if(response!=null)
+//                    tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())
+//
+//            }
+//        )
         // JWT 토큰 가져오기
         val jwtToken = getJwt()
         if (jwtToken != null) {
@@ -83,18 +102,22 @@ class TapeFragment : Fragment() {
             todayTapeListViewModel = ViewModelProvider(this, factory).get(TodayTapeListViewModel::class.java)
         } else {
             Log.e("TapeFragment", "JWT token is null")
+            return
         }
 
-        todayTapeListViewModel.todayTapeListLiveData?.observe(
-            viewLifecycleOwner,
-            Observer{
-
-                response -> Log.d("tape fragment" ,"now today tapes $response")
-                if(response!=null)
-                    tapeAlbumRV.adapter = TapeAlbumRVAdapter(response,requireContext())
-
+        // LiveData를 관찰하여 RecyclerView에 데이터 설정
+        todayTapeListViewModel.todayTapeListLiveData.observe(viewLifecycleOwner, Observer { tapes ->
+            Log.d("TapeFragment", "Now today tapes $tapes")
+            tapes?.let {
+                tapeAlbumRV.adapter = TapeAlbumRVAdapter(it, requireContext())
             }
-        )
+//            if(tapes != null){
+//                tapeAlbumRV.adapter = TapeAlbumRVAdapter(tapes, requireContext())
+//                friendsTape(false)
+//            }else{
+//                friendsTape(true)
+//            }
+        })
     }
 
     private fun getJwt(): String?{
@@ -116,19 +139,19 @@ class TapeFragment : Fragment() {
 
 
     //게시물이 있을 때, 없을 때를 임의로 확인하기 위한 버튼
-    private fun buttonClick(){
-        if(binding.tapeTapeLayout.visibility == View.VISIBLE){
+    private fun friendsTape(tapeNull: Boolean){
+        if(!tapeNull){
             binding.tapeTapeLayout.visibility = View.GONE
             binding.tapeTapelistRv.visibility = View.GONE
 
-            binding.tapeMaketapePlusLayout.visibility = View.VISIBLE
-            binding.tapeTapelistZero.visibility = View.VISIBLE
+//            binding.tapeMaketapePlusLayout.visibility = View.VISIBLE
+//            binding.tapeTapelistZero.visibility = View.VISIBLE
         }else{
             binding.tapeTapeLayout.visibility = View.VISIBLE
             binding.tapeTapelistRv.visibility = View.VISIBLE
 
-            binding.tapeMaketapePlusLayout.visibility = View.GONE
-            binding.tapeTapelistZero.visibility = View.GONE
+//            binding.tapeMaketapePlusLayout.visibility = View.GONE
+//            binding.tapeTapelistZero.visibility = View.GONE
         }
     }
 }

@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         //바텀 네비게이션
         initBottomNavigation()
 
-        findViewById<View>(android.R.id.content).setOnClickListener {
+        binding.root.setOnClickListener {
             if (isFabOpen) {
                 toggleFab()
             }
@@ -139,12 +139,18 @@ class MainActivity : AppCompatActivity() {
     private fun fabOnClick(){
         //테이프 등록 페이지로 이동
         binding.mainBottomPostTapeBtn.setOnClickListener {
+            if (isFabOpen) {
+                toggleFab()
+            }
             setNavigationColorNone()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, PostFragment())
                 .commitAllowingStateLoss()
         }
         binding.mainBottomPostPostBtn.setOnClickListener {
+            if (isFabOpen) {
+                toggleFab()
+            }
             setNavigationColorNone()
             startActivity(Intent(this, ProfilePostActivity::class.java))
         }

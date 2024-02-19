@@ -63,16 +63,16 @@ data class TapeDTO(
 )
 data class TodayTapeResultDTO(
     @SerializedName("success") var success:Boolean,
-    @SerializedName("message") var message:String,
+    @SerializedName("message") var message:String?,
     @SerializedName("data") var data : List<TodayTapeDataDTO>
 )
 data class TodayTapeDataDTO(
     @SerializedName("userName") var userName:String,
-    @SerializedName("userProfileImage") var profileImage: String,
+    @SerializedName("userProfileImage") var profileImage: String?,
     @SerializedName("tapeId") var tapeId: Int,
     @SerializedName("title") var title: String,
     @SerializedName("artist") var artist:String,
-    @SerializedName("image") var image:String,
+    @SerializedName("image") var image:String?,
     @SerializedName("isWatched") var isWatched:Boolean
 )
 

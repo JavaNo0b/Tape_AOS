@@ -83,7 +83,10 @@ class OtherprofileFragment : Fragment() {
     private fun setInit(user : User){
         // search에서 넘어온 데이터 재설정
         //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
-        binding.otherprofileProfileIv.setImageResource(user.userImg!!)
+        //binding.otherprofileProfileIv.setImageResource(user.userImg!!)
+        if(user.userImg != null){
+            binding.otherprofileProfileIv.setImageBitmap(user.userImg!!)
+        }
         binding.otherprofileNameTv.text = user.name
         binding.otherprofileCommentTv.text = user.comment
 
@@ -163,13 +166,6 @@ class OtherprofileFragment : Fragment() {
     private fun followTextClick(){
         binding.otherprofileFollowerLl.setOnClickListener {
             val status : String = "follower"
-
-            // activity ver
-            /*
-            val intent = Intent(activity, FollowActivity::class.java)
-            intent.putExtra("status", status)
-            startActivity(intent)
-            */
 
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, followFragment.apply {

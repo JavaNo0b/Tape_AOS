@@ -1,5 +1,6 @@
 package com.janob.tape_aos
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,7 +8,8 @@ import androidx.room.PrimaryKey
 data class User(
     // userKey=1 -> 사용자, userKey=0 -> 타유저
     var userKey : Int? = null,
-    var userImg : Int? = null,
+    //var userImg : Int? = null,
+    var userImg : Bitmap? = null,
     //var userImg : String? = null,
     var name : String = "",
     var comment : String = "",

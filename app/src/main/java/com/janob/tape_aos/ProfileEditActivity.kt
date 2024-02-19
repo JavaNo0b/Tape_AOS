@@ -35,8 +35,7 @@ class ProfileEditActivity : AppCompatActivity() {
         tapeDatas = TapeDatabase.Instance(this).tapeDao().getAll()
 
         // 초기 설정
-        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
-        binding.profileEditUserImgIv.setImageResource(user.userImg!!)
+        binding.profileEditUserImgIv.setImageBitmap(user.userImg!!)
         binding.profileUserNameEdittextEt.setText(user.name)
         binding.profileUserCommentEdittextEt.setText(user.comment)
 
@@ -56,7 +55,7 @@ class ProfileEditActivity : AppCompatActivity() {
             TapeDatabase.Instance(this).userDao().updateUserCommentByUserKey(comment, 1)
 
 
-            // uri를 user db에 저장 -> 나중에 구현
+            // TODO: uri를 user db에 저장
             //val setImageUri : Uri? = (imageUri.toString())?.let { Uri.parse(it) }
             //binding.profileEditUserImgIv.setImageURI(setImageUri)
             //TapeDatabase.Instance(this).userDao().updateUserImgByUserKey(imageUri.toString(), 1)

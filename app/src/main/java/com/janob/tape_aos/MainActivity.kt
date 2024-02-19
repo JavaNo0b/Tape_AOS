@@ -419,10 +419,7 @@ class MainActivity : AppCompatActivity() {
         val my_user_tapeList = ArrayList<Tape>()
         songData = tapeDB.songDao().getAllList()
 
-        //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
-        //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
         val userImg = R.drawable.albumcover_5
-
 
         if(userData.isNotEmpty())
             return
@@ -430,19 +427,19 @@ class MainActivity : AppCompatActivity() {
         var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
         var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
         var my_user_followingList : List<String> = arrayListOf("myuser_1", "myuser_2", "myuser_3", "myuser_4", "myuser_5", "myuser_6", "myuser_7", "myuser_8", "myuser_9", "myuser_10")
-//        tapeDB.userDao().insert(
-//            User(1,
-//                userImg,
-//                "Min_SEO",
-//                "잡다한 음악 다 좋아해요♥",
-//                followerList,
-//                my_user_followingList.toList(),
-//                my_user_tapeList.toList(),
-//                songData)
-//        )
+        tapeDB.userDao().insert(
+            User(1,
+                null,
+                "Min_SEO",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                my_user_followingList.toList(),
+                my_user_tapeList.toList(),
+                songData)
+        )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "music_play",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -452,7 +449,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "k_pop_lover",
                 "케이팝 좋아해요",
                 followerList,
@@ -462,7 +459,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "tape_123",
                 "노래 좋아요",
                 followerList,
@@ -472,7 +469,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "like_song",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -482,7 +479,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "_sing__",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -492,7 +489,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "dance_music__",
                 "케이팝 좋아해요",
                 followerList,
@@ -502,7 +499,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "music_best",
                 "노래 좋아요",
                 followerList,
@@ -512,7 +509,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "listen_music_",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -522,7 +519,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "_k_pop__",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -532,7 +529,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "pop_song_",
                 "user comment",
                 followerList,
@@ -542,7 +539,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "user123",
                 "user123 comment",
                 followerList,
@@ -552,7 +549,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_1",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -562,7 +559,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_2",
                 "케이팝 좋아해요",
                 followerList,
@@ -572,7 +569,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_3",
                 "노래 좋아요",
                 followerList,
@@ -582,7 +579,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_4",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -592,7 +589,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_5",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -602,7 +599,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_6",
                 "케이팝 좋아해요",
                 followerList,
@@ -612,7 +609,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_7",
                 "노래 좋아요",
                 followerList,
@@ -622,7 +619,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_8",
                 "작사, 작곡 공부 중",
                 followerList,
@@ -632,7 +629,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_9",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -642,7 +639,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "myuser_10",
                 "user comment",
                 followerList,

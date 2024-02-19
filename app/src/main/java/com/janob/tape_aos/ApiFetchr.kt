@@ -1,18 +1,13 @@
 package com.janob.tape_aos
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 
 //Repository
 class ApiFetchr {
@@ -23,7 +18,7 @@ class ApiFetchr {
 
     init{
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://3.36.97.28:3000/")
+            .baseUrl("http://3.37.82.7:3000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //생성

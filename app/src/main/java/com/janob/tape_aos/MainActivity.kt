@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -40,8 +41,12 @@ class MainActivity : AppCompatActivity() {
         //바텀 네비게이션
         initBottomNavigation()
 
-        var userImage = TapeDatabase.Instance(this).loginuserDao().getLoginUser(getJwt()!!.toLong())!!.profileimg
-        binding.mainBottomPrifileIv.setImageURI(Uri.parse(userImage))
+        //var userImage = TapeDatabase.Instance(this).loginuserDao().getLoginUser(getJwt()!!.toLong())!!.profileimg
+        //binding.mainBottomPrifileIv.setImageBitmap(userImage)
+        val loginuserDB = TapeDatabase.Instance(this).loginuserDao()!!
+        val image : Bitmap? = loginuserDB.getLoginUser(getJwt()!!.toLong())?.profileimg
+        binding.mainBottomPrifileIv.setImageBitmap(image)
+
 
         binding.root.setOnClickListener {
             if (isFabOpen) {

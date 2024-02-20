@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

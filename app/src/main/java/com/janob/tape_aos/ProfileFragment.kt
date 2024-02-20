@@ -2,6 +2,7 @@ package com.janob.tape_aos
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,13 +21,14 @@ class ProfileFragment : Fragment() {
     private val followFragment = FollowFragment()
     lateinit var profileVPAdapter : ProfileVPAdapter
 
-    //lateinit var userDatas : List<User>
     lateinit var my_user : User
-    //lateinit var my_user : MyUser
     lateinit var my_tape_list : ArrayList<Tape>
+
+    var jwtStatus : Boolean = true
 
     // 데이터 받기위한 변수
     private val gson : Gson = Gson()
+
 
 
     override fun onCreateView(
@@ -35,9 +37,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
-
-        //
-        getJwt()
 
         // init
         getJwt()
@@ -52,13 +51,13 @@ class ProfileFragment : Fragment() {
                 tab, position -> tab.text = info[position]
         }.attach()
 
-        // ** 테이프 세팅 **
+        // 테이프 세팅
         profileVPAdapter.setTapeList(my_tape_list)
 
-        // ** 팔로워, 팔로잉 text 클릭 리스너 **
+        // 팔로워, 팔로잉 text 클릭 리스너
         followTextClick()
 
-        // ** 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환 **
+        // 프로필 수정 버튼 클릭 -> 프로필 수정 activity로 전환
         binding.profileProfileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)
             startActivity(intent)
@@ -82,11 +81,17 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        my_user = TapeDatabase.Instance(context as MainActivity).userDao().getMyUser(1)
+        Log.d("eunseo", "프로필 이름 = " + my_user.name)
+        setInit(my_user)
+    }
+
 
     // 처음 회원가입/로그인하고 내 프로필 정보 설정
     private fun setInit(user : User){
-        //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
-        //binding.profileProfileIv.setImageResource(user.userImg!!)
         binding.profileProfileIv.setImageBitmap(user.userImg!!)
         binding.profileNameTv.text = user.name
         binding.profileCommentTv.text = user.comment

@@ -46,7 +46,7 @@ class OtherprofileFragment : Fragment() {
         otherprofileVPAdapter = OtherprofileVPAdapter(this)
         binding.otherprofileContentVp.adapter = otherprofileVPAdapter
         TabLayoutMediator(binding.otherprofileContentTb, binding.otherprofileContentVp){
-            tab, position -> tab.text = info[position]
+                tab, position -> tab.text = info[position]
         }.attach()
 
         // ** 테이프 세팅 **
@@ -83,7 +83,10 @@ class OtherprofileFragment : Fragment() {
     private fun setInit(user : User){
         // search에서 넘어온 데이터 재설정
         //val setImageUri : Uri? = (user.userImg)?.let { Uri.parse(it) }
-        binding.otherprofileProfileIv.setImageResource(user.userImg!!)
+        //binding.otherprofileProfileIv.setImageResource(user.userImg!!)
+        if(user.userImg != null){
+            binding.otherprofileProfileIv.setImageBitmap(user.userImg!!)
+        }
         binding.otherprofileNameTv.text = user.name
         binding.otherprofileCommentTv.text = user.comment
 
@@ -120,8 +123,8 @@ class OtherprofileFragment : Fragment() {
                 binding.otherprofileFollowBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                 // 타유저 팔로워, 내유저 팔로잉 리스트 변경
-                change_other_user_follower_list.remove(my_user.name)
-                change_my_user_following_list.remove(user.name)
+                change_other_user_follower_list = followBtnClickSetRemoveList(change_other_user_follower_list, my_user.name)
+                change_my_user_following_list = followBtnClickSetRemoveList(change_my_user_following_list, user.name)
 
                 // follow_btn_status 상태 설정
                 follow_btn_status = false
@@ -150,17 +153,19 @@ class OtherprofileFragment : Fragment() {
             binding.otherprofileFollowerNumTv.text = user.followerList.size.toString()
         }
     }
+    private fun followBtnClickSetRemoveList(list : ArrayList<String>, name : String) : ArrayList<String> {
+        var temp_list = ArrayList<String>()
+        for(i in 0 until list.size){
+            if(list[i] != name){
+                temp_list.add(list[i])
+            }
+        }
+        return temp_list
+    }
 
     private fun followTextClick(){
         binding.otherprofileFollowerLl.setOnClickListener {
             val status : String = "follower"
-
-            // activity ver
-            /*
-            val intent = Intent(activity, FollowActivity::class.java)
-            intent.putExtra("status", status)
-            startActivity(intent)
-            */
 
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fm, followFragment.apply {

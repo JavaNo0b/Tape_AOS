@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="17dp"/>
 
     <ImageView
         android:id="@+id/tape_title"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"/>
+        android:layout_marginTop="17dp"/>
 
     <TextView
         android:id="@+id/tape_todaytape"

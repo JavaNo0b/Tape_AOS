@@ -42,6 +42,7 @@ class AlbumFragment : Fragment() {
 
 
 
+        binding.albumBackBtn.setOnClickListener { startActivity(Intent(requireActivity(), MainActivity::class.java)) }
 //        binding.albumIncludedsongsVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         // 관리하는 페이지 수. default = 1
         binding.albumIncludedsongsVp.offscreenPageLimit = 10

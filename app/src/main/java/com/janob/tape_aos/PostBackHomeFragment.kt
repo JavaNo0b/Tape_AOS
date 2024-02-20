@@ -1,6 +1,7 @@
 package com.janob.tape_aos
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,7 @@ class PostBackHomeFragment : Fragment() {
         var binding = FragmentPostBackHomeBinding.inflate(inflater,container,false)
 
         binding.btnToHome.setOnClickListener {
-            listener.onPostAllCompleted()
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
         }
         return binding.root
     }

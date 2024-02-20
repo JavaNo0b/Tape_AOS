@@ -2,7 +2,7 @@ package com.janob.tape_aos
 
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var songData : List<Song>
     lateinit var includedSongData : List<IncludedSong>
     lateinit var userData : List<User>
+
+    lateinit var myUserData : MyUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -563,29 +565,27 @@ class MainActivity : AppCompatActivity() {
         val my_user_tapeList = ArrayList<Tape>()
         songData = tapeDB.songDao().getAllList()
 
-        //val imageUriString : String = "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F1000000033/ORIGINAL/NONE/image%2Fjpeg/789589731"
-        //val setImageUri : Uri? = imageUriString?.let { Uri.parse(it) }
-        val userImg = R.drawable.albumcover_5
-
+        //val userImg = R.drawable.albumcover_5
 
         if(userData.isNotEmpty())
             return
 
-        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
-        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user", "user123")
+        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var my_user_followingList : List<String> = arrayListOf("myuser_1", "myuser_2", "myuser_3", "myuser_4", "myuser_5", "myuser_6", "myuser_7", "myuser_8", "myuser_9", "myuser_10")
         tapeDB.userDao().insert(
             User(1,
-                userImg,
+                null,
                 "Min_SEO",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
-                followingList,
+                my_user_followingList.toList(),
                 my_user_tapeList.toList(),
                 songData)
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "music_play",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
@@ -595,7 +595,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "k_pop_lover",
                 "케이팝 좋아해요",
                 followerList,
@@ -605,8 +605,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user1",
+                null,
+                "tape_123",
                 "노래 좋아요",
                 followerList,
                 followingList,
@@ -615,8 +615,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user2",
+                null,
+                "like_song",
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
@@ -625,8 +625,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user3",
+                null,
+                "_sing__",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
@@ -635,8 +635,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user4",
+                null,
+                "dance_music__",
                 "케이팝 좋아해요",
                 followerList,
                 followingList,
@@ -645,8 +645,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user5",
+                null,
+                "music_best",
                 "노래 좋아요",
                 followerList,
                 followingList,
@@ -655,8 +655,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user6",
+                null,
+                "listen_music_",
                 "작사, 작곡 공부 중",
                 followerList,
                 followingList,
@@ -665,8 +665,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user7",
+                null,
+                "_k_pop__",
                 "잡다한 음악 다 좋아해요♥",
                 followerList,
                 followingList,
@@ -675,8 +675,8 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
-                "user",
+                null,
+                "pop_song_",
                 "user comment",
                 followerList,
                 followingList,
@@ -685,7 +685,7 @@ class MainActivity : AppCompatActivity() {
         )
         tapeDB.userDao().insert(
             User(0,
-                userImg,
+                null,
                 "user123",
                 "user123 comment",
                 followerList,
@@ -693,5 +693,128 @@ class MainActivity : AppCompatActivity() {
                 tapeData,
                 songData)
         )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_1",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_2",
+                "케이팝 좋아해요",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_3",
+                "노래 좋아요",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_4",
+                "작사, 작곡 공부 중",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_5",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_6",
+                "케이팝 좋아해요",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_7",
+                "노래 좋아요",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_8",
+                "작사, 작곡 공부 중",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_9",
+                "잡다한 음악 다 좋아해요♥",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+        tapeDB.userDao().insert(
+            User(0,
+                null,
+                "myuser_10",
+                "user comment",
+                followerList,
+                followingList,
+                tapeData,
+                songData)
+        )
+    }
+    private fun inputDummyMyUser(){
+        val tapeDB = TapeDatabase.Instance(this)
+        myUserData = tapeDB.myUserDao().getAll()
+
+        tapeData = tapeDB.tapeDao().getAll()
+        val my_user_tapeList = ArrayList<Tape>()
+        songData = tapeDB.songDao().getAllList()
+
+        var followerList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var followingList : List<String> = arrayListOf("music_play", "k_pop_lover", "tape_123", "like_song", "_sing__", "dance_music__", "music_best", "listen_music_", "_k_pop__", "pop_song_", "user123")
+        var my_user_followingList : List<String> = arrayListOf("myuser_1", "myuser_2", "myuser_3", "myuser_4", "myuser_5", "myuser_6", "myuser_7", "myuser_8", "myuser_9", "myuser_10")
+
+//        tapeDB.myUserDao().insert(
+//            MyUser("",
+//                "Min_SEO",
+//                "잡다한 음악 다 좋아해요♥",
+//                followerList,
+//                my_user_followingList.toList(),
+//                my_user_tapeList.toList(),
+//                songData)
+//        )
+
     }
 }

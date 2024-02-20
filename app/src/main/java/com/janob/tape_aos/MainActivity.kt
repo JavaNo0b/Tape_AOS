@@ -3,17 +3,14 @@ package com.janob.tape_aos
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.janob.tape_aos.databinding.ActivityMainBinding
-import com.kakao.sdk.common.util.Utility
 
 private const val TAG1 = "MAIN_ACTIVITY"
 class MainActivity : AppCompatActivity() {
@@ -565,7 +562,7 @@ class MainActivity : AppCompatActivity() {
         val my_user_tapeList = ArrayList<Tape>()
         songData = tapeDB.songDao().getAllList()
 
-        val userImg = R.drawable.albumcover_5
+        //val userImg = R.drawable.albumcover_5
 
         if(userData.isNotEmpty())
             return
